@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handkerchief — mathematical notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F1;
+    --bg-alt: #EEEBE2;
+    --ink: #201E1A;
+    --ink-soft: #5B564B;
+    --ink-faint: #8B8574;
+    --accent: #7A2E2A;
+    --rule: #D9D3C4;
+    --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15130F; --bg-alt: #1D1A14; --ink: #EDE9DE;
+      --ink-soft: #A69D89; --ink-faint: #6F6857; --accent: #DE8F72; --rule: #332F26;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15130F; --bg-alt: #1D1A14; --ink: #EDE9DE;
+    --ink-soft: #A69D89; --ink-faint: #6F6857; --accent: #DE8F72; --rule: #332F26;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--serif); font-size: 17px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
+
+  .back { font-size: 0.85rem; color: var(--ink-faint); margin-bottom: 2.4rem; display: inline-block; }
+
+  header h1 {
+    font-size: 2.6rem; font-weight: 600; margin: 0 0 0.5rem; letter-spacing: -0.01em;
+  }
+  header .sub { color: var(--ink-soft); font-style: italic; margin: 0 0 1.5rem; }
+  header p.intro { color: var(--ink-soft); max-width: 58ch; margin: 0; }
+
+  .meta-row {
+    display: flex; gap: 1.6rem; flex-wrap: wrap;
+    margin: 1.6rem 0 3rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint);
+  }
+
+  h2.section {
+    font-size: 1.05rem; font-weight: 600; margin: 0 0 1.4rem;
+    display: flex; align-items: baseline; gap: 0.8rem;
+  }
+  h2.section::after { content: ""; flex: 1; height: 1px; background: var(--rule); transform: translateY(-0.25em); }
+
+  .chapter {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: 1.05rem 0; border-top: 1px solid var(--rule); flex-wrap: wrap;
+  }
+  .chapter:first-of-type { border-top: none; padding-top: 0; }
+
+  .chapter .name { font-weight: 500; }
+  .chapter .name a { border-bottom: 1px solid var(--rule); }
+  .chapter.pending .name { color: var(--ink-faint); font-weight: 400; }
+
+  .chapter .tag {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap;
+  }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+    font-size: 0.88rem; color: var(--ink-faint);
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding-top: 3rem; }
+    header h1 { font-size: 2.1rem; }
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="#">← Deneauve</a>
+
+  <header>
+    <h1>Handkerchief</h1>
+    <p class="sub">Notes on real analysis, algebra, number theory, and combinatorics</p>
+    <p class="intro">
+      A set of mathematical notes written as I work through the material, structured
+      after Evan Chen's <em>Napkin</em> — self-contained chapters, built up one at a
+      time rather than released all at once.
+    </p>
+  </header>
+
+  <div class="meta-row">
+    <span>LaTeX</span>
+    <span>Started 2026</span>
+    <span>1 chapter so far</span>
+  </div>
+
+  <section>
+    <h2 class="section">Chapters</h2>
+
+    <div class="chapter">
+      <span class="name"><a href="number-theory.pdf">Number theory</a></span>
+      <span class="tag">pdf</span>
+    </div>
+
+    <div class="chapter pending">
+      <span class="name">Real analysis</span>
+      <span class="tag">coming soon</span>
+    </div>
+
+    <div class="chapter pending">
+      <span class="name">Abstract algebra</span>
+      <span class="tag">coming soon</span>
+    </div>
+
+    <div class="chapter pending">
+      <span class="name">Combinatorial probability</span>
+      <span class="tag">coming soon</span>
+    </div>
+  </section>
+
+  <footer>
+    Source on <a href="https://github.com/nonsens1kal/Handkerchief">GitHub</a>.
+  </footer>
+
+</div>
+</body>
+</html>
