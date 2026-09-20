@@ -11,23 +11,23 @@
   :root {
     --bg: #F7F6F1;
     --bg-alt: #EEEBE2;
-    --ink: #201E1A;
-    --ink-soft: #5B564B;
-    --ink-faint: #8B8574;
+    --ink: #34302A;
+    --ink-soft: #6B6558;
+    --ink-faint: #9A9384;
     --accent: #7A2E2A;
-    --rule: #D9D3C4;
+    --rule: #DEDACD;
     --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #15130F; --bg-alt: #1D1A14; --ink: #EDE9DE;
-      --ink-soft: #A69D89; --ink-faint: #6F6857; --accent: #DE8F72; --rule: #332F26;
+      --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
+      --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #15130F; --bg-alt: #1D1A14; --ink: #EDE9DE;
-    --ink-soft: #A69D89; --ink-faint: #6F6857; --accent: #DE8F72; --rule: #332F26;
+    --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
+    --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
@@ -38,103 +38,269 @@
   }
   a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: 3px; }
   a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
+ 
   .wrap { max-width: 680px; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
-
-  .back { font-size: 0.85rem; color: var(--ink-faint); margin-bottom: 2.4rem; display: inline-block; }
-
+ 
   header h1 {
     font-size: 2.6rem; font-weight: 600; margin: 0 0 0.5rem; letter-spacing: -0.01em;
+    color: var(--ink);
   }
   header .sub { color: var(--ink-soft); font-style: italic; margin: 0 0 1.5rem; }
   header p.intro { color: var(--ink-soft); max-width: 58ch; margin: 0; }
-
+  header p.intro strong { color: var(--ink); font-weight: 500; }
+ 
   .meta-row {
     display: flex; gap: 1.6rem; flex-wrap: wrap;
     margin: 1.6rem 0 3rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
     font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint);
   }
-
+ 
   h2.section {
-    font-size: 1.05rem; font-weight: 600; margin: 0 0 1.4rem;
+    font-size: 1.05rem; font-weight: 600; margin: 0 0 1.4rem; color: var(--ink);
     display: flex; align-items: baseline; gap: 0.8rem;
   }
   h2.section::after { content: ""; flex: 1; height: 1px; background: var(--rule); transform: translateY(-0.25em); }
-
-  .chapter {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-    padding: 1.05rem 0; border-top: 1px solid var(--rule); flex-wrap: wrap;
+ 
+  .topic-group {
+    padding: 1.15rem 0; border-top: 1px solid var(--rule);
   }
-  .chapter:first-of-type { border-top: none; padding-top: 0; }
-
-  .chapter .name { font-weight: 500; }
-  .chapter .name a { border-bottom: 1px solid var(--rule); }
-  .chapter.pending .name { color: var(--ink-faint); font-weight: 400; }
-
-  .chapter .tag {
+  .topic-group:first-of-type { border-top: none; padding-top: 0; }
+ 
+  .topic-group .topic-row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+ 
+  .topic-group h3.topic {
+    font-size: 1.08rem; font-weight: 600; margin: 0; color: var(--ink);
+  }
+  .topic-group.pending h3.topic { color: var(--ink-faint); font-weight: 500; }
+ 
+  .tag {
     font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap;
   }
-
+ 
+  .subtopics {
+    margin-top: 0.75rem; padding-left: 1.3rem; border-left: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .subtopic {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .subtopic .name { font-size: 0.95rem; color: var(--ink); }
+  .subtopic .name a { border-bottom: 1px solid var(--rule); }
+  .subtopic.pending .name { color: var(--ink-faint); }
+ 
   footer {
     margin-top: 3.5rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
     font-size: 0.88rem; color: var(--ink-faint);
   }
-
+  footer p { margin: 0 0 0.4rem; }
+  footer p:last-child { margin-bottom: 0; }
+ 
   @media (max-width: 560px) {
     .wrap { padding-top: 3rem; }
     header h1 { font-size: 2.1rem; }
   }
-
+ 
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
-
+ 
   <header>
     <h1>Handkerchief</h1>
     <p class="sub">Notes on every topic in mathematics</p>
     <p class="intro">
-      A set of mathematical notes written as I work through the material, structured
-      after Evan Chen's <em>Napkin</em> — self-contained chapters, built up one at a
-      time rather than released all at once.
+      A long-form set of mathematical notes aiming to cover essentially everything —
+      undergraduate through graduate material, and further afield into areas like type
+      theory — written by <strong>Pratyay Sen</strong> and <strong>Anubhab Santra</strong>,
+      structured in the spirit of Evan Chen's <em>Napkin</em>, one self-contained chapter
+      at a time.
     </p>
   </header>
-
+ 
   <div class="meta-row">
     <span>LaTeX</span>
     <span>Started 2026</span>
-    <span>1 chapter so far</span>
+    <span>Undergrad → grad → beyond</span>
   </div>
-
+ 
   <section>
     <h2 class="section">Chapters</h2>
-
-    <div class="chapter">
-      <span class="name">Number theory</a></span>
-      <span class="tag">pdf</span>
+ 
+    <div class="topic-group">
+      <div class="topic-row">
+        <h3 class="topic">Number theory</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic">
+          <span class="name"><a href="chapters/number-theory.pdf">Elementary number theory</a></span>
+          <span class="tag">pdf</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Algebraic number theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Analytic number theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+      </div>
     </div>
-
-    <div class="chapter pending">
-      <span class="name">Real analysis</span>
-      <span class="tag">coming soon</span>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Linear algebra</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Vector spaces</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Linear transformations</span>
+          <span class="tag">coming soon</span>
+        </div>
+      </div>
     </div>
-
-    <div class="chapter pending">
-      <span class="name">Abstract algebra</span>
-      <span class="tag">coming soon</span>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Abstract algebra</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Group theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Rings and modules</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Field theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Galois theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+      </div>
     </div>
-
-    <div class="chapter pending">
-      <span class="name">Combinatorial probability</span>
-      <span class="tag">coming soon</span>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Analysis</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Real analysis</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Complex analysis</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Measure theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Topology</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Homotopy</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Homology</span>
+          <span class="tag">coming soon</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Set theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Model theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Logic</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Type theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Probability</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Ramsey theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Graph theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Game theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Category theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
+    </div>
+ 
+    <div class="topic-group pending">
+      <div class="topic-row">
+        <h3 class="topic">Representation theory</h3>
+        <span class="tag">coming soon</span>
+      </div>
     </div>
   </section>
-
+ 
   <footer>
-    Source on <a href="https://github.com/nonsens1kal/Handkerchief">GitHub</a>.
+    <p>A project by Pratyay Sen and Anubhab Santra, inspired by Evan Chen's <em>Napkin</em>.</p>
+    <p>Source on <a href="https://github.com/nonsens1kal/Handkerchief">GitHub</a>.</p>
   </footer>
-
+ 
 </div>
 </body>
 </html>
