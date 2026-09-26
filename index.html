@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Handkerchief — mathematical notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,11 @@
     --rule: #DEDACD;
     --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
@@ -38,9 +42,9 @@
   }
   a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: 3px; }
   a:hover { color: var(--accent); text-decoration-color: var(--accent); }
- 
+
   .wrap { max-width: 680px; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
- 
+
   header h1 {
     font-size: 2.6rem; font-weight: 600; margin: 0 0 0.5rem; letter-spacing: -0.01em;
     color: var(--ink);
@@ -48,37 +52,37 @@
   header .sub { color: var(--ink-soft); font-style: italic; margin: 0 0 1.5rem; }
   header p.intro { color: var(--ink-soft); max-width: 58ch; margin: 0; }
   header p.intro strong { color: var(--ink); font-weight: 500; }
- 
+
   .meta-row {
     display: flex; gap: 1.6rem; flex-wrap: wrap;
     margin: 1.6rem 0 3rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
     font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint);
   }
- 
+
   h2.section {
     font-size: 1.05rem; font-weight: 600; margin: 0 0 1.4rem; color: var(--ink);
     display: flex; align-items: baseline; gap: 0.8rem;
   }
   h2.section::after { content: ""; flex: 1; height: 1px; background: var(--rule); transform: translateY(-0.25em); }
- 
+
   .topic-group {
     padding: 1.15rem 0; border-top: 1px solid var(--rule);
   }
   .topic-group:first-of-type { border-top: none; padding-top: 0; }
- 
+
   .topic-group .topic-row {
     display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
   }
- 
+
   .topic-group h3.topic {
     font-size: 1.08rem; font-weight: 600; margin: 0; color: var(--ink);
   }
   .topic-group.pending h3.topic { color: var(--ink-faint); font-weight: 500; }
- 
+
   .tag {
     font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap;
   }
- 
+
   .subtopics {
     margin-top: 0.75rem; padding-left: 1.3rem; border-left: 1px solid var(--rule);
     display: flex; flex-direction: column; gap: 0.55rem;
@@ -89,25 +93,25 @@
   .subtopic .name { font-size: 0.95rem; color: var(--ink); }
   .subtopic .name a { border-bottom: 1px solid var(--rule); }
   .subtopic.pending .name { color: var(--ink-faint); }
- 
+
   footer {
     margin-top: 3.5rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
     font-size: 0.88rem; color: var(--ink-faint);
   }
   footer p { margin: 0 0 0.4rem; }
   footer p:last-child { margin-bottom: 0; }
- 
+
   @media (max-width: 560px) {
     .wrap { padding-top: 3rem; }
     header h1 { font-size: 2.1rem; }
   }
- 
+
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
- 
+
   <header>
     <h1>Handkerchief</h1>
     <p class="sub">Notes on every topic in mathematics</p>
@@ -119,16 +123,16 @@
       at a time.
     </p>
   </header>
- 
+
   <div class="meta-row">
     <span>LaTeX</span>
     <span>Started 2026</span>
     <span>Undergrad → grad → beyond</span>
   </div>
- 
+
   <section>
     <h2 class="section">Chapters</h2>
- 
+
     <div class="topic-group">
       <div class="topic-row">
         <h3 class="topic">Number theory</h3>
@@ -148,7 +152,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Linear algebra</h3>
@@ -164,7 +168,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Abstract algebra</h3>
@@ -188,7 +192,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Analysis</h3>
@@ -212,7 +216,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Topology</h3>
@@ -228,89 +232,86 @@
         </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
-        <h3 class="topic">Set theory</h3>
-        <span class="tag">coming soon</span>
+        <h3 class="topic">Foundations &amp; logic</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Set theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Model theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Logic</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Type theory</span>
+          <span class="tag">coming soon</span>
+        </div>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
-        <h3 class="topic">Model theory</h3>
-        <span class="tag">coming soon</span>
+        <h3 class="topic">Combinatorics &amp; probability</h3>
+      </div>
+      <div class="subtopics">
+        <div class="subtopic pending">
+          <span class="name">Probability</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Ramsey theory</span>
+          <span class="tag">coming soon</span>
+        </div>
+        <div class="subtopic pending">
+          <span class="name">Graph theory</span>
+          <span class="tag">coming soon</span>
+        </div>
       </div>
     </div>
- 
-    <div class="topic-group pending">
-      <div class="topic-row">
-        <h3 class="topic">Logic</h3>
-        <span class="tag">coming soon</span>
-      </div>
-    </div>
- 
-    <div class="topic-group pending">
-      <div class="topic-row">
-        <h3 class="topic">Type theory</h3>
-        <span class="tag">coming soon</span>
-      </div>
-    </div>
- 
-    <div class="topic-group pending">
-      <div class="topic-row">
-        <h3 class="topic">Probability</h3>
-        <span class="tag">coming soon</span>
-      </div>
-    </div>
- 
-    <div class="topic-group pending">
-      <div class="topic-row">
-        <h3 class="topic">Ramsey theory</h3>
-        <span class="tag">coming soon</span>
-      </div>
-    </div>
- 
-    <div class="topic-group pending">
-      <div class="topic-row">
-        <h3 class="topic">Graph theory</h3>
-        <span class="tag">coming soon</span>
-      </div>
-    </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Game theory</h3>
         <span class="tag">coming soon</span>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Category theory</h3>
         <span class="tag">coming soon</span>
       </div>
     </div>
- 
+
     <div class="topic-group pending">
       <div class="topic-row">
         <h3 class="topic">Representation theory</h3>
         <span class="tag">coming soon</span>
       </div>
-      
-      <div class="topic-group pending">
+    </div>
+
+    <div class="topic-group pending">
       <div class="topic-row">
-        <h3 class="topic">Differential Equations</h3>
+        <h3 class="topic">Differential equations</h3>
         <span class="tag">coming soon</span>
       </div>
     </div>
+
   </section>
- 
+
   <footer>
     <p>A project by Pratyay Sen, inspired by Evan Chen's <em>Napkin</em>.</p>
     <p>Source on <a href="https://github.com/nonsens1kal/Handkerchief">GitHub</a>.</p>
   </footer>
- 
+
 </div>
 </body>
 </html>
