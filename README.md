@@ -1,6 +1,6 @@
 # Handkerchief
  
-An attempt at making an introduction to all undergraduate mathematical topics.
+An attempt at making an introduction to all mathematical topics that can be explained at an undergrad level.
  
 Handkerchief is a set of expository notes that aims to give a broad, readable first pass through the undergraduate mathematics curriculum. It is structured in the spirit of Evan Chen's [*The Napkin Project*](https://github.com/vEnhance/napkin): favour intuition and the big picture first, then make the definitions and proofs precise.
  
