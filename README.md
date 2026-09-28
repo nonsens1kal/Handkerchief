@@ -1,49 +1,26 @@
-# Handkerchief
- 
-An attempt at making an introduction to all mathematical topics that can be explained at an undergrad level.
- 
-Handkerchief is a set of expository notes that aims to give a broad, readable first pass through the undergraduate mathematics curriculum. It is structured in the spirit of Evan Chen's [*The Napkin Project*](https://github.com/vEnhance/napkin): favour intuition and the big picture first, then make the definitions and proofs precise.
- 
-## Repository layout
- 
-```
-Handkerchief/
-├── chapters/     # the individual chapters of the notes
-├── index.html    # entry point / landing page
-└── README.md
-```
- 
-## Reading
- 
-Open `index.html` in a browser to start reading, or browse the files in [`chapters/`](chapters/) directly.
- 
-To read locally:
- 
-```bash
-git clone https://github.com/nonsens1kal/Handkerchief.git
-cd Handkerchief
-# open index.html in your browser
-```
- 
-## Goals
- 
-- **Breadth.** Cover the standard undergraduate topics, from foundations through the core analysis and algebra sequences and beyond, rather than going deep on any single one.
-- **Complete proofs.** Where a result is proved, the proof is written in full and clearly labelled, not left as a sketch.
-- **Self-contained chapters.** Each chapter should be readable on its own, with clear pointers to prerequisites.
-## Contributing
- 
-Corrections, typo fixes, and suggestions are welcome.
- 
-1. Open an [issue](https://github.com/nonsens1kal/Handkerchief/issues) describing the problem (chapter, section, and what is wrong or unclear).
-2. For direct fixes, fork the repository and open a pull request against `main`.
-## Status
- 
-Work in progress. Chapters are added and revised regularly, so expect gaps and rough edges.
- 
-## Acknowledgements
- 
-- Evan Chen's *Napkin*, for the overall structure and philosophy.
-## License
- 
-No license has been specified yet. Until one is added, all rights are reserved by the author.
- 
+# Handkerchief v0.1
+
+These are the source files for Handkerchief, a set of large-scale LaTeX notes on
+mathematics, structured after Evan Chen's
+[An Infinitely Large Napkin](https://github.com/vEnhance/napkin).
+
+## About
+
+Handkerchief is a collection of mathematical notes covering real analysis,
+abstract algebra, number theory, and combinatorics, with more to
+come. Definitions and theorem statements are complete and precise, and proofs
+are written out in full with explicit labeling and a clean logical flow.
+
+## Download
+
+You can download the most recent PDF from the releases page (link to be added).
+
+## Code
+
+The project can be compiled on a system supporting `latexmk` and `biber`, with a
+sufficiently recent version of TeX Live. Simply run `latexmk`.
+
+For continuous preview while writing, run `latexmk -pvc`. To compile a single
+chapter, use `\includeonly` in `main.tex`.
+
+Pull requests are welcome! You can also send corrections directly to me.
