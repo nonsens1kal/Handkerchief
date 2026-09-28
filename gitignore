@@ -1,0 +1,108 @@
+# ---------- LaTeX build artifacts ----------
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.ps
+
+# Bibliography (biblatex + biber)
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*-blx.bib
+*.bib.bak
+
+# Index (makeidx)
+*.idx
+*.ilg
+*.ind
+*.ldf
+
+# Cross-reference / package auxiliaries
+*.lol
+*.thm
+*.mtc*
+*.maf
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.acn
+*.acr
+*.alg
+*.ist
+*.loe
+*.brf
+*.tdo
+*.bak
+*.sav
+*-converted-to.*
+*.pytxcode
+_minted*/
+auto/
+*.figlist
+*.makefile
+*.auxlock
+
+# TikZ externalization
+*.md5
+*.dpth
+*-figure*.pdf
+*-figure*.log
+*-figure*.dep
+*-figure*.dpth
+*-figure*.md5
+tikz-cache/
+
+# latexdiff output
+*-diff.tex
+*-diff.pdf
+diff/
+
+# Build output directories
+build/
+out/
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+.\#*
+\#*\#
+.texpadtmp/
+*.tmproj
+*.tmproject
+tmtags
+.LSOverride
+
+# ---------- OS junk ----------
+.DS_Store
+._*
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------- Python / misc tooling ----------
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
