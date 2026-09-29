@@ -53,11 +53,17 @@ jobs:
 
       - name: Assemble site
         run: |
-          mkdir site
+          echo "--- PDFs found ---"
+          find . -name '*.pdf' -not -path './.git/*'
+          mkdir -p site
           cp index.html site/
-          find . -name '*.pdf' -not -path './site/*' -exec cp {} site/ \;
-          echo "Site contents:"
+          find . -name '*.pdf' -not -path './site/*' -not -path './.git/*' -exec cp -v {} site/ \;
+          echo "--- Site contents ---"
           ls -l site
+          if ! ls site/*.pdf >/dev/null 2>&1; then
+            echo "ERROR: no PDFs were copied into site/"
+            exit 1
+          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
