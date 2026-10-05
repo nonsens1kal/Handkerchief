@@ -1,0 +1,4128 @@
+%-----------------------------------------------------------------------------------
+%   PACKAGES
+%-----------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt,abstract=true]{scrartcl}
+
+\usepackage[margin=.9in]{geometry}
+
+
+\usepackage{mlmodern}
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools,mathrsfs}
+\usepackage{centernot}
+\usepackage{wrapfig}
+
+\usepackage[dvipsnames]{xcolor} % moved up: must be loaded before tikz and tcolorbox
+
+\usepackage{tikz,tikz-cd,asymptote}
+\usetikzlibrary{positioning, fit, calc}
+
+\usepackage[most]{tcolorbox}
+\usepackage{enumerate}
+\usepackage[a]{esvect}
+\usepackage{hyperref} % loaded last among the packages to avoid clashes
+
+
+\makeatletter
+\def\@seccntformat#1{\textcolor{Red}{\hspace*{0.2em}$\textbf{\S}$\hspace{-0.3em} \csname the#1\endcsname}\hspace{0.5em}}
+\makeatother
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles{}
+\ihead{Vector Spaces}
+\ohead{\pagemark}
+\setkomafont{pageheadfoot}{\normalfont}
+\setkomafont{pagenumber}{\normalfont}
+\pagestyle{scrheadings}
+
+\setlength{\parindent}{0cm}
+
+%-----------------------------------------------------------------------------------
+%   COMMANDS
+%-----------------------------------------------------------------------------------
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\newcommand{\nonadj}{\,\neg\textsf{adj}\,}
+\newcommand{\adj}{\,\textsf{adj}\,}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\sgn}{\text{sgn\hspace{0.5mm}}}
+\newcommand{\osc}{\text{osc\hspace{0.5mm}}}
+\newcommand{\foralls}{\hspace{2mm}\forall}
+\newcommand{\rimply}{\Rightarrow}
+\newcommand{\limply}{\Leftarrow}
+\newcommand{\underdash}{\rule{0.25cm}{0.1mm}\hspace{0.5mm}}
+\newcommand{\undersmalldash}{\rule{0.18cm}{0.1mm}\hspace{0.3mm}}
+\newcommand{\s}{\square}
+\newcommand{\xr}{\xrightarrow}
+
+\newcommand{\genstirlingI}[3]{%
+  \genfrac{\lbrack}{\rbrack}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genstirlingII}[3]{%
+  \genfrac{\{}{\}}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genlah}[3]{%
+  \genfrac{\lfloor}{\rfloor}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\stirlingI}[2]{\genstirlingI{}{#1}{#2}}
+\newcommand{\stirlingII}[2]{\genstirlingII{}{#1}{#2}}
+\newcommand{\lah}[2]{\genlah{}{#1}{#2}}
+
+%-----------------------------------------------------------------------------------
+%   ENVIRONMENTS
+%-----------------------------------------------------------------------------------
+
+\newtheoremstyle{dotlessP}{}{}{}{}{\color{RedViolet}\bfseries}{.}{ }{}
+\theoremstyle{dotlessP}
+\newtheorem{problem}{Problem}
+\newtheoremstyle{dotlessS}{}{}{}{}{\color{ForestGreen}\bfseries}{.}{ }{}
+\theoremstyle{dotlessS}
+\newtheorem*{solution}{Solution}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+
+\tcbset{
+  base/.style={
+    arc=0mm,
+    bottomtitle=0.5mm,
+    boxrule=0mm,
+    colbacktitle=black!10!white,
+    coltitle=black,
+    fonttitle=\bfseries,
+    left=2.5mm,
+    leftrule=1mm,
+    right=3.5mm,
+    title={#1},
+    toptitle=0.75mm,
+  }
+}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+
+% Key theorems (titled, blue).
+\newtcolorbox{mainbox}[1]{
+  enhanced jigsaw,
+  breakable,
+  colframe=brandblue,
+  base={#1}
+}
+
+\newtcolorbox{subbox}[1]{
+  colframe=black!30!white,
+  base={#1}
+}
+
+% Key definitions and notation.
+\newtcolorbox{definition_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=RedViolet!45!black,
+colbacktitle=Gray!38!white,
+before={\vspace{4mm}},
+after={\vspace{2mm}},
+sharp corners
+}
+
+% Exercises and open-ended problems.
+\newtcolorbox{problem_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white!5!white,
+colframe=gray!75!black,
+colbacktitle=white!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_1}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=SeaGreen!5!white,
+colframe=SeaGreen!75!black,
+colbacktitle=Black!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_title}[1]{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}},
+title={#1},
+fonttitle=\bfseries
+}
+
+% Propositions, lemmas, proofs, and general text (unframed).
+\newtcolorbox{claim_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white,
+colframe=white,
+borderline west={2pt}{0pt}{white},
+sharp corners,
+before={\vspace{1mm}},
+after={\vspace{0.8mm}}
+}
+
+% Examples.
+\newtcolorbox{example_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=lightgray!15!white,
+borderline west={2pt}{0pt}{black},
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+% Cautions and remarks.
+\newtcolorbox{remark_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+
+\begin{document}
+
+%-----------------------------------------------------------------------------------
+%   TOP MATTERS
+%-----------------------------------------------------------------------------------
+
+
+\title{Linear Algebra}
+\author{Pratyay Sen}
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+\clearpage
+
+
+%-----------------------------------------------------------------------------------
+%   MAIN BODY
+
+\section{Vector Spaces}
+
+\subsection{Fields}
+
+\textbf{Definition} A \emph{field} is a set $\mathbb{F}$ equipped with two operations,
+$+$ and $*$
+\[
++:\mathbb{F}\times \mathbb{F}\longrightarrow \mathbb{F}
+\]
+\[
+*:\mathbb{F}\times \mathbb{F}\longrightarrow \mathbb{F}
+\]
+such that $0\neq1$ and, for all $a,b,c\in \mathbb{F}$, the following axioms hold:
+\begin{enumerate}
+    \item (Closure under $+$) $a+b\in \mathbb{F}$;
+    \item (Closure under $*$) $a*b\in \mathbb{F}$;
+    \item (Associativity of $+$) $(a+b)+c=a+(b+c)$;
+    \item (Associativity of $*$) $(a*b)*c=a*(b*c)$;
+    \item (Commutativity of $+$) $a+b=b+a$;
+    \item (Commutativity of $*$) $a*b=b*a$;
+    \item (Additive identity) there exists $0\in \mathbb{F}$ such that
+    $a+0=a$;
+    \item (Multiplicative identity) there exists $1\in \mathbb{F}$ such that
+    $a*1=a$;
+    \item (Additive inverses) for every $a\in \mathbb{F}$, there exists $-a\in \mathbb{F}$
+    such that $a+(-a)=0$;
+    \item (Multiplicative inverses) for every $a\in \mathbb{F}$ with $a\neq0$,
+    there exists $a^{-1}\in \mathbb{F}$ such that $a*a^{-1}=1$;
+    \item (Distributivity) $a*(b+c)=a*b+a*c$.
+\end{enumerate}
+
+\begin{remark_box}
+\textbf{A field is a substructure of a ring:} A field is a commutative
+ring with identity in which every nonzero element has an inverse over the operation $*$.
+For example, over addition and multiplication, $\mathbb{Z}$ is a ring but not a field, since $2$ has no
+multiplicative inverse in $\mathbb{Z}$, whereas $\mathbb{Q}$, $\mathbb{R}$,
+and $\mathbb{C}$ are fields.
+\end{remark_box}
+
+\textbf{Definition} If $\mathbb{F}$ is a field and $n$ is a positive integer, then
+\[
+\mathbb{F}^n=\underbrace{\mathbb{F}\times \mathbb{F}\times\cdots\times \mathbb{F}}_{n\text{ times}}
+=\{(x_1,x_2,\ldots,x_n):x_i\in \mathbb{F}\}.
+\]
+Thus, $\mathbb{F}^n$ is the set of all ordered $n$-tuples of elements of $\mathbb{F}$. $+$
+and $*$ are defined componentwise:
+\[
+(x_1,\ldots,x_n)+(y_1,\ldots,y_n)
+=(x_1+y_1,\ldots,x_n+y_n),
+\]
+\[
+a*(x_1,\ldots,x_n)=(a*x_1,\ldots,a*x_n), \qquad a\in \mathbb{F}.
+\]
+With these operations, $\mathbb{F}^n$ is a vector space over $\mathbb{F}$.
+
+\begin{definition_box}
+\textbf{Definition ($\mathbb{F}$-linear subspace of $\mathbb{F}^n$)} A subset
+$W\subseteq \mathbb{F}^n$ is an \emph{$\mathbb{F}$-linear subspace of $\mathbb{F}^n$} if it contains the
+zero vector and is closed under vector addition and multiplication by scalars
+from $\mathbb{F}$. Explicitly:
+\begin{enumerate}
+    \item $(0,\ldots,0)\in W$;
+    \item if $u,v\in W$, then $u+v\in W$;
+    \item if $a\in \mathbb{F}$ and $u\in W$, then $a*u\in W$.
+\end{enumerate}
+Equivalently, a nonempty subset $W\subseteq \mathbb{F}^n$ is an $\mathbb{F}$-linear subspace if
+\[
+a*u+b*v\in W
+\]
+for every $u,v\in W$ and $a,b\in \mathbb{F}$. Thus, $W$ is closed under all linear
+combinations of its elements. This is the special case $V=\mathbb{F}^n$ of the general
+definition of a subspace of a vector space $V$.
+\end{definition_box}
+
+\textbf{Definition} The notation $\mathbb{F}^\infty$ denotes the set of all infinite
+sequences of elements of $\mathbb{F}$:
+\[
+\mathbb{F}^\infty=\{(x_1,x_2,x_3,\ldots):x_i\in \mathbb{F}\text{ for every }i\in\mathbb{N}\}.
+\]
+$+$ and $*$ are defined componentwise:
+\[
+(x_1,x_2,\ldots)+(y_1,y_2,\ldots)
+=(x_1+y_1,x_2+y_2,\ldots),
+\]
+\[
+a*(x_1,x_2,\ldots)=(a*x_1,a*x_2,\ldots), \qquad a\in \mathbb{F}.
+\]
+With these operations, $\mathbb{F}^\infty$ is a vector space over $\mathbb{F}$. Here, sequences
+may have infinitely many nonzero entries.
+
+\subsection{Vector Spaces}
+
+\textbf{Definition} Let $\mathbb{F}$ be a field. A \emph{vector space over $\mathbb{F}$} is a
+set $V$ equipped with two binary operations $+$ and $*$
+\[
++:V\times V\longrightarrow V
+\]
+\[
+*:\mathbb{F}\times V\longrightarrow V
+\]
+such that, for all $u,v,w\in V$ and $a,b\in \mathbb{F}$:
+\begin{enumerate}
+    \item (Commutativity of $+$) $u+v=v+u$;
+    \item (Associativity of $+$) $(u+v)+w=u+(v+w)$;
+    \item (Identity over $+$) there exists $0_V\in V$ such that $v+0_V=v$;
+    \item (Inverse over $+$) for each $v\in V$, there exists $-v\in V$ such that $v+(-v)=0_V$;
+    \item (Distributivity of scalar $*$ over vector $+$) $a*(u+v)=a*u+a*v$;
+    \item (Distributivity of scalar $+$ over scalar $*$ on vectors) $(a+b)*v=a*v+b*v$;
+    \item (Associativity of $*$) $a*(b*v)=(a*b)*v$;
+    \item (Identity over $*$) $1*v=v$, where $1$ is the identity of $\mathbb{F}$ over $*$.
+\end{enumerate}
+
+\textbf{Note:} As one might have noticed by now, I am deliberately avoiding using the term ``addition'' for $+$ and ``multiplication'' for $*$, because there are other functions that satisfy the field axioms and vector space axioms, that are not addition and multiplication. One such example is given below:
+
+\begin{example_box}
+\textbf{Example of nonstandard operations:} On the set $\mathbb{R}$, define
+\[
+x\oplus y=x+y+1
+\qquad\text{and}\qquad
+x\odot y=xy+x+y,
+\]
+where the operations on the right-hand sides are ordinary addition and
+multiplication. These new operations are not the ordinary ones; for example,
+$1\oplus1=3$ and $1\odot1=3$.
+
+The set $\mathbb{R}$ is a field under $\oplus$ and $\odot$. Its identity over $\oplus$ is $-1$, its  identity over $\odot$ is $0$, the inverse over $\oplus$ of
+$x$ is $-x-2$, and the inverse over $\odot$ of $x\neq-1$ is
+\[
+-\frac{x}{x+1}.
+\]
+To see why all the field axioms hold, consider the bijection
+\[
+T:\mathbb{R}\longrightarrow\mathbb{R},\qquad T(x)=x+1.
+\]
+It satisfies
+\[
+T(x\oplus y)=T(x)+T(y)
+\qquad\text{and}\qquad
+T(x\odot y)=T(x)T(y).
+\]
+Thus, $T$ converts the new operations into the ordinary field operations on
+$\mathbb{R}$, so the usual field axioms are inherited.
+
+This field is also a vector space over itself: take $V=\mathbb{R}$, use
+$\oplus$ for vector addition, and define scalar multiplication by
+\[
+a*v=a\odot v=av+a+v.
+\]
+The vector-space axioms then follow from the field axioms. This example shows
+that the symbols used for vector addition and scalar multiplication represent
+abstract operations and need not be the usual arithmetic operations. However, now that the reader has understood that the ``addition'' and ``multiplication'' being talked about here need not necessarily be the conventional addition and multiplication, I shall use those terms from now on.
+\end{example_box}
+
+\subsubsection{Subspaces and affine spaces}
+\textbf{Definition (subspace or linear subspace)} Let $V$ be a vector space over a field $\mathbb{F}$.
+A subset $U\subseteq V$ is a \emph{subspace of $V$} if $U$ is itself a vector
+space over $\mathbb{F}$ under the addition and scalar multiplication inherited from
+$V$. Equivalently, $U$ is a subspace if:
+\begin{enumerate}
+    \item $0_V\in U$;
+    \item $u+v\in U$ for every $u,v\in U$;
+    \item $a*u\in U$ for every $a\in \mathbb{F}$ and $u\in U$.
+\end{enumerate}
+Equivalently, a nonempty subset $U\subseteq V$ is a subspace if
+\[
+a*u+b*v\in U
+\]
+for every $u,v\in U$ and $a,b\in \mathbb{F}$.
+
+\begin{example_box}
+\textbf{Trivial subspace:} The set containing only the zero
+vector,
+\[
+\{0_V\},
+\]
+is a subspace of every vector space $V$ and is called the \emph{trivial
+subspace} or \emph{zero subspace}. It is closed under vector addition and
+scalar multiplication because
+\[
+0_V+0_V=0_V
+\qquad\text{and}\qquad
+a*0_V=0_V
+\]
+for every $a\in \mathbb{F}$. The subspaces $\{0_V\}$ and $V$ itself are sometimes
+collectively called the trivial subspaces of $V$; all other subspaces are
+called nontrivial proper subspaces.
+\end{example_box}
+
+\begin{definition_box}
+\textbf{Definition (translate of a subspace)} Let $U$ be a subspace of $V$
+and let $v\in V$. The \emph{translate} of $U$ by $v$ is
+\[
+v+U=\{v+u:u\in U\}.
+\]
+\end{definition_box}
+
+\textbf{Definition (direction subspace and affine subspace)} A nonempty subset $A\subseteq V$ is an
+\emph{affine subspace} of $V$ if there exist a linear subspace $U\subseteq V$
+and a vector $v\in V$ such that
+\[
+A=v+U.
+\]
+The subspace $U$ is called the \emph{direction subspace} of $A$. Although the
+vector $v$ is not unique, the direction subspace $U$ is unique. An affine
+subspace looks like a shifted copy of $U$, but it need not contain $0_V$ and
+therefore need not be a linear subspace. In fact,
+\[
+v+U\text{ is a subspace of }V
+\quad\Longleftrightarrow\quad
+v\in U,
+\]
+in which case $v+U=U$. Basically, 
+every translate $A=v+U$ is an affine subspace with direction subspace $U$.  It is a linear
+subspace exactly when $v\in U$, in which case $A=U$.
+
+\textbf{Definition (coset)} Let $U$ be a subspace of $V$ and $v\in V$. The
+set
+\[
+v+U=\{v+u:u\in U\}
+\]
+is called the \emph{coset of $U$ represented by $v$}. Thus, in a vector
+space, cosets of linear subspaces are precisely affine subspaces. Two vectors
+may represent the same coset; specifically,
+\[
+v+U=w+U
+\quad\Longleftrightarrow\quad
+v-w\in U.
+\]
+Consequently, any two cosets of the same subspace are either equal or
+disjoint (prove it yourself!).
+
+\textbf{Definition (quotient space)} Let $U$ be a subspace of a vector
+space $V$ over $\mathbb{F}$. The \emph{quotient space of $V$ by $U$} is
+\[
+V/U=\{v+U:v\in V\},
+\]
+the set of all cosets of $U$ in $V$, equipped with the operations
+\[
+(v+U)+(w+U)=(v+w)+U,
+\qquad
+a*(v+U)=(a*v)+U,\quad a\in\mathbb{F}.
+\]
+Thus the elements of $V/U$ are entire cosets, not individual vectors of $V$.
+Two vectors represent the same element of $V/U$ exactly when their
+difference belongs to $U$.
+
+These operations are \emph{well-defined}: their results do not depend on
+which representatives we choose. Indeed, suppose $v+U=v'+U$ and
+$w+U=w'+U$. Then $v-v'\in U$ and $w-w'\in U$. Since $U$ is a subspace,
+\[
+(v+w)-(v'+w')=(v-v')+(w-w')\in U,
+\]
+and, for every $a\in\mathbb{F}$,
+\[
+a*v-a*v'=a*(v-v')\in U.
+\]
+Hence replacing representatives leaves the resulting cosets unchanged.
+The vector-space axioms follow from those of $V$. In particular, the zero
+vector of $V/U$ is the coset $0_V+U=U$, and the additive inverse of $v+U$
+is $(-v)+U$.
+
+\begin{example_box}
+\textbf{Example (quotient by the horizontal axis)} Take
+\[
+V=\mathbb{R}^2,
+\qquad U=\{(t,0):t\in\mathbb{R}\}.
+\]
+For any $(a,b)\in V$,
+\[
+(a,b)+U=\{(t,b):t\in\mathbb{R}\}.
+\]
+Thus each element of $V/U$ is a horizontal line, determined entirely by its
+height $b$. Adding two cosets adds their heights, and multiplying a coset by
+a scalar multiplies its height. For example,
+\[
+\bigl((0,2)+U\bigr)+\bigl((0,3)+U\bigr)=(0,5)+U.
+\]
+The zero element of the quotient is the entire horizontal axis $U$.
+\end{example_box}
+
+\textbf{Note:} Please don't get discouraged upon seeing the number of definitions and propositions and theorems, the definitions are mostly just different ways of naming different stuff, and the propositions are just the immediate observable results. I am not saying that all propositions are trivial, but most of them are. 
+
+\textbf{Examples.}
+\begin{enumerate}
+    \item Let $\mathbb{F}=\mathbb{R}$, $V=\mathbb{R}^3$, and
+    \[
+    U=\{(x,y,z)\in\mathbb{R}^3:x+y+z=0\}.
+    \]
+    Then $V$ is a vector space over $\mathbb{R}$, and $U$ is a subspace of
+    $V$.
+
+    \item Let $\mathbb{F}=\mathbb{C}$, $V=\mathbb{C}^2$, and
+    \[
+    U=\{(z,iz):z\in\mathbb{C}\}.
+    \]
+    Then $V$ is a vector space over $\mathbb{C}$, and $U$ is a subspace of
+    $V$. Indeed, sums of vectors of the form $(z,iz)$ and complex scalar
+    multiples of such vectors have the same form.
+
+    \item Let $\mathbb{F}=\mathbb{R}$, let $V=\mathcal{P}_3(\mathbb{R})$ be the vector
+    space of real polynomials of degree at most $3$, and let
+    \[
+    U=\{p\in\mathcal{P}_3(\mathbb{R}):p(0)=0\}.
+    \]
+    Then $U$ is a subspace of $V$, since the zero polynomial belongs to $U$
+    and, whenever $p(0)=q(0)=0$, we have
+    $(p+q)(0)=0$ and $(a*p)(0)=0$ for every $a\in\mathbb{R}$.
+\end{enumerate}
+
+\subsubsection{Sums and intersections}
+\begin{definition_box}
+\textbf{Sum of Subspaces} Let $U_1,\ldots,U_m$ be subspaces of
+a vector space $V$ over $\mathbb{F}$. Their \emph{sum} is
+\[
+U_1+\cdots+U_m
+=\{u_1+\cdots+u_m:u_i\in U_i\text{ for }i=1,\ldots,m\}.
+\]
+Thus, the sum consists of all vectors that can be written as a sum of one
+vector from each subspace. In particular,
+\[
+U+W=\{u+w:u\in U,\ w\in W\}.
+\]
+\end{definition_box}
+
+\textbf{Proposition:} The sum $U_1+\cdots+U_m$ is a subspace of $V$.
+
+\textit{Proof:} Because each $U_i$ is a subspace, $0_V\in U_i$; hence
+\[
+0_V=0_V+\cdots+0_V\in U_1+\cdots+U_m.
+\]
+Now let
+\[
+x=u_1+\cdots+u_m
+\quad\text{and}\quad
+y=v_1+\cdots+v_m
+\]
+belong to $U_1+\cdots+U_m$, where $u_i,v_i\in U_i$. Then
+\[
+x+y=(u_1+v_1)+\cdots+(u_m+v_m).
+\]
+Since each $U_i$ is closed under addition, $u_i+v_i\in U_i$, and therefore
+$x+y\in U_1+\cdots+U_m$. Finally, for any $a\in \mathbb{F}$,
+\[
+a*x=(a*u_1)+\cdots+(a*u_m).
+\]
+Since each $U_i$ is closed under scalar multiplication, $a*u_i\in U_i$, so
+$a*x\in U_1+\cdots+U_m$. Thus the sum contains $0_V$ and is closed under
+addition and scalar multiplication; hence it is a subspace of $V$.
+\hfill$\square$
+
+\textbf{Proposition:} The sum $U_1+\cdots+U_m$ is the smallest subspace of
+$V$ containing $U_1,\ldots,U_m$.
+
+\textit{Proof:} First, the sum contains each $U_j$. Indeed, if $u\in U_j$,
+then
+\[
+u=0_V+\cdots+0_V+u+0_V+\cdots+0_V\in U_1+\cdots+U_m,
+\]
+where $u$ occupies the $j$th position and every other term is the zero vector
+of the corresponding subspace. Hence
+\[
+U_j\subseteq U_1+\cdots+U_m
+\qquad\text{for every }j=1,\ldots,m.
+\]
+
+Now let $W$ be any subspace of $V$ containing every $U_j$. If
+$x\in U_1+\cdots+U_m$, then
+\[
+x=u_1+\cdots+u_m
+\]
+for some $u_j\in U_j$. Since $U_j\subseteq W$, every $u_j$ belongs to $W$.
+Because $W$ is closed under addition, $x\in W$. Therefore
+\[
+U_1+\cdots+U_m\subseteq W.
+\]
+Thus, $U_1+\cdots+U_m$ contains all the subspaces $U_j$ and is contained in
+every subspace that contains them. It is therefore the smallest such subspace.
+\hfill$\square$
+
+\textbf{Proposition (intersection of two subspaces):} If $U$ and $W$ are
+subspaces of $V$, then $U\cap W$ is a subspace of $V$.
+\textit{Proof:} Because $U$ and $W$ are subspaces, both contain the zero
+vector. Hence
+\[
+0_V\in U\cap W.
+\]
+Now let $u,v\in U\cap W$. Then $u,v\in U$ and $u,v\in W$. Since both
+subspaces are closed under addition,
+\[
+u+v\in U
+\qquad\text{and}\qquad
+u+v\in W,
+\]
+so $u+v\in U\cap W$. Finally, if $a\in \mathbb{F}$, then closure of $U$ and $W$ under
+scalar multiplication gives
+\[
+a*u\in U
+\qquad\text{and}\qquad
+a*u\in W.
+\]
+Therefore $a*u\in U\cap W$. Thus $U\cap W$ contains $0_V$ and is closed
+under addition and scalar multiplication, so it is a subspace of $V$.
+\hfill$\square$
+
+\textbf{Proposition (union of two subspaces):} If $U$ and $W$ are subspaces
+of $V$, then $U\cup W$ is a subspace of $V$ if and only if
+\[
+U\subseteq W
+\qquad\text{or}\qquad
+W\subseteq U.
+\]
+
+\textit{Proof:} If $U\subseteq W$, then $U\cup W=W$, which is a subspace.
+Similarly, if $W\subseteq U$, then $U\cup W=U$, which is a subspace.
+
+Conversely, suppose that $U\cup W$ is a subspace. Assume neither subspace is
+contained in the other. Then there exist
+\[
+u\in U\setminus W
+\qquad\text{and}\qquad
+w\in W\setminus U.
+\]
+Because $U\cup W$ is assumed to be a subspace and $u,w\in U\cup W$, it must
+contain $u+w$. Thus $u+w$ belongs to either $U$ or $W$. If $u+w\in U$, then
+\[
+w=(u+w)-u\in U,
+\]
+contradicting $w\notin U$. If $u+w\in W$, then
+\[
+u=(u+w)-w\in W,
+\]
+contradicting $u\notin W$. Hence one of $U$ and $W$ must be contained in the
+other. \hfill$\square$
+
+\subsubsection{Spanning and linear independence}
+\begin{definition_box}
+\textbf{Definition (span)} Let $v_1,\ldots,v_m\in V$. The \emph{span} of
+$v_1,\ldots,v_m$ is the set of all their linear combinations:
+\[
+\operatorname{span}(v_1,\ldots,v_m)
+=\{a_1*v_1+\cdots+a_m*v_m:a_1,\ldots,a_m\in \mathbb{F}\}.
+\]
+More generally, if $S\subseteq V$, then
+\[
+\operatorname{span}(S)
+=\left\{a_1*v_1+\cdots+a_m*v_m:
+m\in\mathbb{N},\ v_i\in S,\ a_i\in \mathbb{F}\right\}.
+\]
+\end{definition_box}
+
+Thus, $\operatorname{span}(S)$ is the smallest subspace of $V$ containing
+$S$. By convention, $\operatorname{span}(\varnothing)=\{0_V\}$.
+
+\begin{definition_box}
+\textbf{Definition (linear independence)} A list of vectors
+$v_1,\ldots,v_m\in V$ is \emph{linearly independent} over $\mathbb{F}$ if no vector
+in the list belongs to the span of the others; that is,
+\[
+v_j\notin\operatorname{span}(v_1,\ldots,v_{j-1},v_{j+1},\ldots,v_m)
+\]
+for every $j=1,\ldots,m$. Equivalently, the list is linearly independent if
+\[
+a_1*v_1+\cdots+a_m*v_m=0_V
+\]
+implies
+\[
+a_1=\cdots=a_m=0.
+\]
+In other words, the zero vector can be written as a linear combination of
+$v_1,\ldots,v_m$ only by taking every coefficient to be zero. Another
+equivalent span criterion is
+\[
+v_j\notin\operatorname{span}(v_1,\ldots,v_{j-1})
+\qquad\text{for every }j=1,\ldots,m,
+\]
+where $\operatorname{span}(\varnothing)=\{0_V\}$.
+\end{definition_box}
+
+\begin{definition_box}
+\textbf{Definition (linear dependence)} A list of vectors
+$v_1,\ldots,v_m\in V$ is \emph{linearly dependent} over $\mathbb{F}$ if it is not
+linearly independent; that is, if there exist scalars
+$a_1,\ldots,a_m\in \mathbb{F}$, not all zero, such that
+\[
+a_1*v_1+\cdots+a_m*v_m=0_V.
+\]
+Such an equation is called a \emph{nontrivial linear relation}. Equivalently,
+a finite list is linearly dependent if one of its vectors lies in the span of
+the others.
+\end{definition_box}
+
+
+\textbf{Definition (generating set)} A subset $S\subseteq V$ is called a
+\emph{generating set} or \emph{spanning set} for $V$ if
+\[
+\operatorname{span}(S)=V.
+\]
+In this case, we say that $S$ \emph{generates} or \emph{spans} $V$. This
+means that every vector $v\in V$ can be written as a finite linear
+combination of elements of $S$.
+
+More generally, if $S\subseteq V$, then $S$ generates the subspace
+$\operatorname{span}(S)$, even when it does not generate all of $V$. A
+generating set need not be linearly independent; a basis is precisely a
+linearly independent generating set.
+
+
+
+\textbf{Definition (finitely generated vector space)} A vector space $V$
+over $\mathbb{F}$ is \emph{finitely generated} if it has a finite generating set. In
+other words, there exist vectors $v_1,\ldots,v_n\in V$ such that
+\[
+V=\operatorname{span}(v_1,\ldots,v_n).
+\]
+For vector spaces, being finitely generated is equivalent to being
+finite-dimensional: from any finite generating set, redundant vectors can be
+removed until a finite basis remains. Conversely, every finite basis is a
+finite generating set.
+
+
+\subsubsection{Bases and dimension}
+\begin{definition_box}
+\textbf{Definition (basis)} A list of vectors
+$v_1,\ldots,v_m\in V$ is a \emph{basis} of $V$ if:
+\begin{enumerate}
+    \item $v_1,\ldots,v_m$ are linearly independent; and
+    \item $\operatorname{span}(v_1,\ldots,v_m)=V$.
+\end{enumerate}
+Equivalently, $v_1,\ldots,v_m$ form a basis of $V$ if every vector $v\in V$
+can be written uniquely as
+\[
+v=a_1*v_1+\cdots+a_m*v_m
+\]
+for scalars $a_1,\ldots,a_m\in \mathbb{F}$. The scalars $a_1,\ldots,a_m$ are called
+the \emph{coordinates} of $v$ with respect to this basis.
+\end{definition_box}
+
+\textbf{Theorem} If a vector space $V$ over $\mathbb{F}$ is generated by $n$
+vectors, then $V$ has a basis containing at most $n$ vectors.
+
+\textit{Proof:} Suppose
+\[
+V=\operatorname{span}(v_1,\ldots,v_n).
+\]
+If $(v_1,\ldots,v_n)$ is linearly independent, then it is already a basis of
+$V$, and the result follows.
+
+If the list is linearly dependent, then one of its vectors belongs to the
+span of the others. After relabeling if necessary, suppose
+\[
+v_n\in\operatorname{span}(v_1,\ldots,v_{n-1}).
+\]
+Removing $v_n$ does not change the span, so
+\[
+V=\operatorname{span}(v_1,\ldots,v_{n-1}).
+\]
+If this shorter list is still linearly dependent, remove another vector that
+lies in the span of the remaining vectors. Each removal preserves the span
+and decreases the length of the list by one.
+
+Because the original list is finite, the process eventually stops with a
+linearly independent list $(u_1,\ldots,u_m)$ that still spans $V$. Hence this
+list is a basis of $V$, and because it was obtained by deleting vectors from
+the original list,
+\[
+m\leq n.
+\]
+Thus $V$ has a basis of at most $n$ vectors. \hfill$\square$
+
+\textbf{Definition (basis expansion)} Let
+$B=(v_1,\ldots,v_n)$ be a basis of $V$. For each $v\in V$, the unique
+expression
+\[
+v=a_1*v_1+\cdots+a_n*v_n,
+\qquad a_1,\ldots,a_n\in \mathbb{F},
+\]
+is called the \emph{basis expansion of $v$ with respect to $B$}. The scalars
+$a_1,\ldots,a_n$ are the coordinates of $v$, and the tuple
+\[
+{[v]}_B=(a_1,\ldots,a_n)\in \mathbb{F}^n
+\]
+is called the \emph{coordinate vector of $v$ relative to $B$}.
+
+If $B={(v_i)}_{i\in I}$ is an infinite basis, then the basis expansion of $v$
+has the form
+\[
+v=\sum_{i\in I}a_i*v_i,
+\]
+where only finitely many coefficients $a_i$ are nonzero. Thus every basis
+expansion is a finite linear combination, even when the basis is infinite.
+
+\textbf{Definition (dimension)} The \emph{dimension} of a vector space $V$
+over $\mathbb{F}$, denoted by $\dim_{\mathbb{F}} V$ or simply $\dim V$, is the number of vectors
+in any basis of $V$. All bases of a vector space have the same number of
+elements, so the dimension is well-defined. If
+\[
+(v_1,\ldots,v_n)
+\]
+is a basis of $V$, then $\dim_{\mathbb{F}} V=n$. If no finite basis exists, then $V$ is
+called \emph{infinite-dimensional}. The zero vector space has the empty basis,
+and hence
+\[
+\dim_{\mathbb{F}}\{0_V\}=0.
+\]
+
+\begin{mainbox}{All Finite Bases have the Same Length}
+If
+$(v_1,\ldots,v_n)$ and $(w_1,\ldots,w_m)$ are two finite bases of $V$, then
+$m=n$.
+\end{mainbox}
+
+\textit{Proof:} We first show that $m\leq n$. Because
+$(v_1,\ldots,v_n)$ spans $V$, we can write
+\[
+w_1=a_1*v_1+\cdots+a_n*v_n.
+\]
+At least one coefficient is nonzero. After relabeling the $v_i$ if necessary,
+suppose $a_1\neq0$. We can then solve for $v_1$:
+\[
+v_1=a_1^{-1}*w_1-a_1^{-1}*a_2*v_2-\cdots-a_1^{-1}*a_n*v_n.
+\]
+Therefore
+\[
+(w_1,v_2,\ldots,v_n)
+\]
+still spans $V$.
+
+Now write $w_2$ as a linear combination of this new spanning list. The
+coefficient of at least one of $v_2,\ldots,v_n$ must be nonzero; otherwise
+$w_2$ would belong to $\operatorname{span}(w_1)$, contradicting the linear
+independence of $(w_1,w_2)$. Relabeling the remaining $v_i$ if necessary, we
+can solve for $v_2$ and replace it by $w_2$. Hence
+\[
+(w_1,w_2,v_3,\ldots,v_n)
+\]
+still spans $V$.
+
+Continuing in this way, after $k$ steps we obtain a spanning list
+\[
+(w_1,\ldots,w_k,v_{k+1},\ldots,v_n).
+\]
+This process cannot continue beyond $k=n$. If $m>n$, then after replacing all
+the $v_i$, the list $(w_1,\ldots,w_n)$ would span $V$. Consequently,
+$w_{n+1}$ would lie in $\operatorname{span}(w_1,\ldots,w_n)$, contradicting
+the linear independence of $(w_1,\ldots,w_m)$. Thus $m\leq n$.
+
+Interchanging the roles of the two bases gives $n\leq m$. Therefore
+$m=n$. \hfill$\square$
+
+\begin{mainbox}{Size and Extension of Linearly Independent Sets} Let $V$
+be a vector space over $\mathbb{F}$ with $\dim_{\mathbb{F}} V=n$. If $L\subseteq V$ is linearly
+independent, then
+\[
+|L|\leq n.
+\]
+Equality holds if and only if $L$ is a basis of $V$. If $|L|<n$, then $L$
+can be extended to a basis of $V$.
+\end{mainbox}
+
+\textit{Proof:} Fix a basis $B=(b_1,\ldots,b_n)$ of $V$. The replacement
+argument used above shows that an independent list cannot contain more
+vectors than a spanning list. Since $B$ spans $V$, a linearly independent set
+$L$ cannot contain $n+1$ elements. Hence $L$ is finite and $|L|\leq n$.
+
+Write $L=\{u_1,\ldots,u_m\}$, where $m\leq n$. Beginning with the spanning
+list $(b_1,\ldots,b_n)$, write $u_1$ as a linear combination of its vectors.
+At least one coefficient is nonzero, so we can solve for the corresponding
+$b_i$ and replace it by $u_1$ without changing the span.
+
+Suppose that $u_1,\ldots,u_{k-1}$ have already replaced $k-1$ vectors of
+$B$. Express $u_k$ as a linear combination of the resulting spanning list.
+The coefficient of at least one remaining vector from $B$ must be nonzero;
+otherwise $u_k$ would lie in
+$\operatorname{span}(u_1,\ldots,u_{k-1})$, contradicting the linear
+independence of $L$. We may therefore solve for that basis vector and replace
+it by $u_k$ while preserving the span. Continuing in this way gives a
+spanning list of the form
+\[
+(u_1,\ldots,u_m,c_{m+1},\ldots,c_n),
+\]
+where the vectors $c_{m+1},\ldots,c_n$ were chosen from $B$. This list has
+$n$ elements. It must be linearly independent: otherwise one of its vectors
+could be removed while preserving the span, producing a spanning list of
+$n-1$ vectors. This is impossible because the replacement argument shows
+that the independent list $B$, which has $n$ vectors, cannot be longer than
+a spanning list. Thus the displayed list is a basis extending $L$.
+
+If $m=n$, there are no additional vectors $c_i$, so $L$ itself is a basis.
+Conversely, if $L$ is a basis, then the theorem that all finite bases have the
+same length gives $|L|=n$. If $m<n$, the vectors
+$c_{m+1},\ldots,c_n$ extend $L$ to a basis. \hfill$\square$
+
+\begin{mainbox}{Bases of Subspaces} 
+Every subspace of a
+finite-dimensional vector space has a finite basis.
+\end{mainbox}
+
+\textit{Proof:} Let $U$ be a subspace of a finite-dimensional vector space
+$V$, and write $\dim_{\mathbb{F}} V=n$. Every linearly independent subset of $U$ is also
+a linearly independent subset of $V$, so the preceding theorem shows that it
+has at most $n$ elements. Therefore, among all linearly independent subsets
+of $U$, choose one, say $L$, having the greatest possible number of elements.
+
+We claim that $L$ spans $U$. If it did not, there would exist
+\[
+u\in U\setminus\operatorname{span}(L).
+\]
+Then $L\cup\{u\}$ would be linearly independent: in any relation involving
+$u$, a nonzero coefficient of $u$ would imply
+$u\in\operatorname{span}(L)$, while a zero coefficient would reduce the
+relation to one among the elements of $L$. Thus all coefficients must be
+zero. But $L\cup\{u\}$ has more elements than $L$, contradicting the maximal
+choice of $L$. Hence $L$ spans $U$. Since $L$ is both linearly independent
+and spanning, it is a basis of $U$. \hfill$\square$
+
+\begin{mainbox}{Size and Reduction of Spanning Sets} 
+Let $V$ be a vector
+space over $\mathbb{F}$ with $\dim_{\mathbb{F}} V=n$. If $S\subseteq V$ spans $V$, then
+\[
+|S|\geq n.
+\]
+Equality holds if and only if $S$ is a basis of $V$. If $|S|>n$, then $S$
+contains a subset that is a basis of $V$.
+\end{mainbox}
+
+\textit{Proof:} Let $B=(b_1,\ldots,b_n)$ be a basis of $V$. Because $S$
+spans $V$, each $b_i$ is a finite linear combination of elements of $S$.
+For each $i$, choose a finite subset $S_i\subseteq S$ such that
+\[
+b_i\in\operatorname{span}(S_i),
+\]
+and set
+\[
+S_0=S_1\cup\cdots\cup S_n.
+\]
+The set $S_0$ is finite and spans every element of $B$; hence it spans $V$.
+By repeatedly deleting any element of $S_0$ that lies in the span of the
+others, we obtain a linearly independent spanning subset $B'\subseteq S_0$.
+Thus $B'$ is a basis of $V$, and
+\[
+B'\subseteq S_0\subseteq S.
+\]
+Because every basis of $V$ has $n$ elements, $|B'|=n$, and therefore
+$|S|\geq n$.
+
+If $|S|=n$, then the inclusion $B'\subseteq S$ and the equality
+$|B'|=|S|=n$ imply $B'=S$, so $S$ is a basis. Conversely, every basis spans
+$V$ and has exactly $n$ elements. Finally, if $|S|>n$, the subset
+$B'\subseteq S$ constructed above is a basis of $V$. \hfill$\square$
+
+\begin{definition_box}
+\textbf{Definition (standard basis of $\mathbb{F}^n$).} For $j=1,\ldots,n$, let
+\[
+e_j=(0,\ldots,0,1,0,\ldots,0),
+\]
+where the $1$ occurs in the $j$th position. The list
+\[
+(e_1,\ldots,e_n)
+\]
+is called the \emph{standard basis} of $\mathbb{F}^n$. Every
+$x=(x_1,\ldots,x_n)\in \mathbb{F}^n$ has the unique representation
+\[
+x=x_1*e_1+\cdots+x_n*e_n,
+\]
+and therefore $\dim_{\mathbb{F}} \mathbb{F}^n=n$.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Other standard bases.}
+\begin{enumerate}
+    \item The standard basis of the polynomial space
+    $\mathcal{P}_n(\mathbb{F})$ is
+    \[
+    (1,x,x^2,\ldots,x^n),
+    \]
+    so $\dim_{\mathbb{F}}\mathcal{P}_n(\mathbb{F})=n+1$.
+
+    \item For the matrix space $\mathbb{F}^{m\times n}$, let $E_{ij}$ be the matrix
+    whose $(i,j)$ entry is $1$ and whose other entries are $0$. The matrices
+    \[
+    E_{11},E_{12},\ldots,E_{mn}
+    \]
+    form its standard basis, so $\dim_{\mathbb{F}} \mathbb{F}^{m\times n}=mn$.
+\end{enumerate}
+\end{example_box}
+
+\textbf{Proposition:} Any three polynomials in $\mathcal{P}_1(\mathbb{F})$ are
+linearly dependent.
+
+\textit{Proof:} The list $(1,x)$ is a basis of $\mathcal{P}_1(\mathbb{F})$, so
+\[
+\dim_{\mathbb{F}}\mathcal{P}_1(\mathbb{F})=2.
+\]
+Suppose $p_1,p_2,p_3\in\mathcal{P}_1(\mathbb{F})$. If $p_1$ and $p_2$ are linearly
+dependent, then $(p_1,p_2,p_3)$ is also linearly dependent. Otherwise,
+$(p_1,p_2)$ is a linearly independent list of two vectors in a
+two-dimensional space and therefore forms a basis. Hence
+\[
+p_3=a*p_1+b*p_2
+\]
+for some $a,b\in \mathbb{F}$. Rearranging gives
+\[
+a*p_1+b*p_2-1*p_3=0.
+\]
+Because the coefficient of $p_3$ is $-1\neq0$, this is a nontrivial linear
+relation. Thus $(p_1,p_2,p_3)$ is linearly dependent. \hfill$\square$
+
+\textbf{Proposition (dependence of polynomials):} Let $n\geq0$ be an
+integer. Any set of $n+2$ polynomials in $\mathcal{P}_n(\mathbb{F})$, the
+space of polynomials in $x$ of degree at most $n$ together with the zero
+polynomial, is linearly dependent over $\mathbb{F}$.
+
+\textit{Proof:} The monomials
+\[
+1,x,x^2,\ldots,x^n
+\]
+form a basis of $\mathcal{P}_n(\mathbb{F})$, so this space has dimension
+$n+1$. By the theorem on the size of linearly independent sets, every
+linearly independent subset of this space has at most $n+1$ elements.
+Since $n+2>n+1$, a set $\{p_1,\ldots,p_{n+2}\}$ of $n+2$ polynomials
+cannot be linearly independent. Thus there exist scalars
+$a_1,\ldots,a_{n+2}\in\mathbb{F}$, not all zero, such that
+\[
+a_1*p_1+\cdots+a_{n+2}*p_{n+2}=0,
+\]
+where $0$ denotes the zero polynomial. Hence the set is linearly dependent.
+\hfill$\square$
+
+\begin{mainbox}{Dimension of a Quotient Space}
+Let $V$ be a
+finite-dimensional vector space over $\mathbb{F}$ and let $U$ be a subspace
+of $V$. Then
+\[
+\dim(V/U)+\dim U=\dim V.
+\]
+\end{mainbox}
+
+\textit{Proof:} Write $\dim U=k$ and $\dim V=n$. Choose a basis
+$u_1,\ldots,u_k$ of $U$. By the basis-extension theorem,
+extend it to a basis
+\[
+u_1,\ldots,u_k,v_1,\ldots,v_{n-k}
+\]
+of $V$. We claim that the cosets
+\[
+v_1+U,\ldots,v_{n-k}+U
+\]
+form a basis of $V/U$.
+
+First, they span $V/U$. Every $v\in V$ has an expression
+\[
+v=\sum_{i=1}^{k}a_i u_i+\sum_{j=1}^{n-k}b_j v_j,
+\qquad a_i,b_j\in\mathbb{F}.
+\]
+The first sum belongs to $U$, so in the quotient it contributes the zero
+coset. Hence
+\[
+v+U=\sum_{j=1}^{n-k}b_j*(v_j+U).
+\]
+
+Next, suppose a linear combination of these cosets is zero in $V/U$:
+\[
+\sum_{j=1}^{n-k}c_j*(v_j+U)=U.
+\]
+This means $\sum_{j=1}^{n-k}c_j v_j\in U$, so there are scalars
+$d_1,\ldots,d_k\in\mathbb{F}$ such that
+\[
+\sum_{j=1}^{n-k}c_j v_j-\sum_{i=1}^{k}d_i u_i=0_V.
+\]
+Since the extended basis of $V$ is linearly independent, all coefficients
+are zero. In particular, every $c_j=0$, proving independence in $V/U$.
+
+Thus $\dim(V/U)=n-k$, and therefore
+\[
+\dim(V/U)+\dim U=(n-k)+k=n=\dim V.
+\]
+Empty lists and empty sums are allowed here, so the proof also covers
+$U=\{0_V\}$ and $U=V$. \hfill$\square$
+
+\subsubsection{Row and column spaces}
+\textbf{Row Space} Let $A\in \mathbb{F}^{m\times n}$ be a matrix whose
+rows are $r_1,\ldots,r_m\in \mathbb{F}^n$. The \emph{row space} of $A$ is the subspace
+of $\mathbb{F}^n$ spanned by its rows:
+\[
+\operatorname{Row}(A)
+=\operatorname{span}(r_1,\ldots,r_m)
+=\{a_1*r_1+\cdots+a_m*r_m:a_1,\ldots,a_m\in \mathbb{F}\}.
+\]
+
+\textbf{Column Space} Let the columns of
+$A\in \mathbb{F}^{m\times n}$ be $c_1,\ldots,c_n\in \mathbb{F}^m$. The \emph{column space} of
+$A$ is the subspace of $\mathbb{F}^m$ spanned by its columns:
+\[
+\operatorname{Col}(A)
+=\operatorname{span}(c_1,\ldots,c_n)
+=\{a_1*c_1+\cdots+a_n*c_n:a_1,\ldots,a_n\in \mathbb{F}\}.
+\]
+Thus, for an $m\times n$ matrix, the row space is contained in $\mathbb{F}^n$, whereas
+the column space is contained in $\mathbb{F}^m$.
+
+\subsubsection{Direct sums and complements}
+\textbf{Internal Direct Sum} Let $U_1,\ldots,U_m$ be subspaces
+of $V$. Their sum is called an \emph{internal direct sum} if every vector in
+$U_1+\cdots+U_m$ has a unique representation of the form
+\[
+u_1+\cdots+u_m,
+\qquad u_i\in U_i.
+\]
+In this case, we write
+\[
+U_1\oplus\cdots\oplus U_m
+\]
+instead of $U_1+\cdots+U_m$. Thus,
+\[
+V=U_1\oplus\cdots\oplus U_m
+\]
+means that every $v\in V$ can be written uniquely as
+$v=u_1+\cdots+u_m$ with $u_i\in U_i$.
+
+Equivalently, the sum is direct if
+\[
+u_1+\cdots+u_m=0_V,
+\qquad u_i\in U_i,
+\]
+implies $u_1=\cdots=u_m=0_V$. Another equivalent condition is
+\[
+U_j\cap\sum_{i\neq j}U_i=\{0_V\}
+\qquad\text{for every }j.
+\]
+For two subspaces, this simplifies to
+\[
+U+W=U\oplus W
+\quad\Longleftrightarrow\quad
+U\cap W=\{0_V\}.
+\]
+
+\textbf{Complementary Subspace} Let $U$ be a subspace of $V$.
+A subspace $W\subseteq V$ is called a \emph{complementary subspace} or
+\emph{complement} of $U$ in $V$ if
+\[
+V=U\oplus W.
+\]
+Equivalently, $W$ is a complement of $U$ if
+\[
+U+W=V
+\qquad\text{and}\qquad
+U\cap W=\{0_V\}.
+\]
+Thus every $v\in V$ has a unique decomposition
+\[
+v=u+w,
+\qquad u\in U,\quad w\in W.
+\]
+A complementary subspace need not be unique. If $V$ is finite-dimensional,
+then every subspace has a complement, and any complement $W$ satisfies
+\[
+\dim V=\dim U+\dim W.
+\]
+
+\textbf{Theorem (existence of complementary subspaces)} Let $V$ be
+finite-dimensional and let $U$ be a subspace of $V$. Then there exists a
+subspace $W\subseteq V$ such that
+\[
+V=U\oplus W.
+\]
+
+\textit{Proof:} Choose a basis $B_U$ of $U$. By the basis-extension theorem,
+$B_U$ can be extended to a basis of $V$. Thus there is a set $C\subseteq V$
+such that
+\[
+B_U\cup C
+\]
+is a basis of $V$. Define
+\[
+W=\operatorname{span}(C).
+\]
+
+Because $B_U\cup C$ spans $V$, every $v\in V$ can be written as a finite
+linear combination of elements of $B_U\cup C$. Grouping the terms from
+$B_U$ and the terms from $C$ gives
+\[
+v=u+w
+\]
+for some $u\in U$ and $w\in W$. Hence $U+W=V$.
+
+It remains to show that $U\cap W=\{0_V\}$. Let $x\in U\cap W$. Because
+$x\in U$, it is a linear combination of elements of $B_U$; because
+$x\in W$, it is a linear combination of elements of $C$. Subtracting these
+two expressions gives a linear combination of elements of $B_U\cup C$ equal
+to $0_V$. Since $B_U\cup C$ is linearly independent, every coefficient must
+be zero. Therefore $x=0_V$, and thus
+\[
+U\cap W=\{0_V\}.
+\]
+Consequently, $V=U\oplus W$, so $W$ is a complementary subspace of $U$.
+\hfill$\square$
+
+\begin{remark_box}
+\textbf{Is every sum a direct sum?} Nope, this statement is not always true. Every direct sum is a sum, but a sum
+is direct only when the decomposition of each vector is unique. For two
+subspaces, the sum is direct precisely when $U\cap W=\{0_V\}$.
+\end{remark_box}
+
+\begin{example_box}
+\textbf{Example.} In $V=\mathbb{R}^2$, let
+\[
+U=\operatorname{span}((1,0))
+\qquad\text{and}\qquad
+W=\mathbb{R}^2.
+\]
+Then
+\[
+U+W=\mathbb{R}^2,
+\]
+but the sum is not direct because $U\cap W=U\neq\{(0,0)\}$. Equivalently,
+the vector $(1,0)$ has two different decompositions:
+\[
+(1,0)=(1,0)+(0,0)=(0,0)+(1,0),
+\]
+where the first term in each sum belongs to $U$ and the second belongs to
+$W$.
+\end{example_box}
+
+\textbf{External Direct Sum} Let ${(V_i)}_{i\in I}$ be a family
+of vector spaces over the same field $\mathbb{F}$. Their \emph{external direct sum} is
+the vector space
+\[
+\bigoplus_{i\in I}V_i
+=\left\{{(v_i)}_{i\in I}:v_i\in V_i
+\text{ and }v_i=0\text{ for all but finitely many }i\right\},
+\]
+with componentwise addition and scalar multiplication. Its elements are
+tuples, not sums taken inside a common ambient vector space.
+
+\textbf{Internal versus External Direct Sum} Let
+\[
+U=\operatorname{span}((1,0))
+\qquad\text{and}\qquad
+W=\operatorname{span}((0,1))
+\]
+be the coordinate axes in $V=\mathbb{R}^2$.
+
+As an internal direct sum,
+\[
+\mathbb{R}^2=U\oplus W.
+\]
+Indeed, $U+W=\mathbb{R}^2$ and $U\cap W=\{(0,0)\}$. An element of this
+internal direct sum is an ordinary vector $(a,b)\in\mathbb{R}^2$, and its
+unique decomposition is
+\[
+(a,b)=(a,0)+(0,b),
+\qquad (a,0)\in U,\quad (0,b)\in W.
+\]
+Thus, the summands are subspaces of the same ambient vector space, and their
+vectors are added inside that space.
+
+As an external direct sum, however, we construct the new vector space
+\[
+U\oplus_{\mathrm{ext}}W
+=\{((a,0),(0,b)):a,b\in\mathbb{R}\}.
+\]
+Its elements are ordered pairs of vectors. For example,
+\[
+((2,0),(0,3))\in U\oplus_{\mathrm{ext}}W,
+\]
+whereas the corresponding element of the internal direct sum is the single
+vector
+\[
+(2,0)+(0,3)=(2,3)\in\mathbb{R}^2.
+\]
+
+\textbf{Direct Product} Let ${(V_i)}_{i\in I}$ be a family of
+vector spaces over the same field $\mathbb{F}$. Their \emph{direct product} is
+\[
+\prod_{i\in I}V_i
+=\{{(v_i)}_{i\in I}:v_i\in V_i\text{ for every }i\in I\}.
+\]
+Addition and scalar multiplication are defined componentwise:
+\[
+{(v_i)}_{i\in I}+{(w_i)}_{i\in I}={(v_i+w_i)}_{i\in I},
+\qquad
+a*{(v_i)}_{i\in I}={(a*v_i)}_{i\in I}.
+\]
+With these operations, $\prod_{i\in I}V_i$ is a vector space over $\mathbb{F}$.
+
+If $I=\{1,\ldots,m\}$ is finite, this is written
+\[
+V_1\times\cdots\times V_m,
+\]
+and the direct product and external direct sum contain the same tuples. If
+$I$ is infinite, the direct product permits infinitely many nonzero
+components, whereas the direct sum
+\[
+\bigoplus_{i\in I}V_i
+\]
+contains only tuples with finitely many nonzero components. Thus,
+\[
+\bigoplus_{i\in I}V_i\subseteq\prod_{i\in I}V_i.
+\]
+
+
+\subsection{Bonus: Linear Algebra and Set Theory}
+\textit{Read only if you have read the Set Theory portions involved.}
+
+\textbf{Theorem (all infinite bases have the same cardinality)} Let $B$ and
+$C$ be two bases of an infinite-dimensional vector space $V$. Assuming the
+usual axiom of choice, we have
+\[
+|B|=|C|.
+\]
+
+\textit{Proof:} For each $b\in B$, write $b$ in its unique basis expansion
+with respect to $C$. Because a basis expansion is a finite linear combination,
+there is a finite subset $C_b\subseteq C$ such that
+\[
+b\in\operatorname{span}(C_b).
+\]
+Let
+\[
+C_0=\bigcup_{b\in B}C_b.
+\]
+Every element of $B$ lies in $\operatorname{span}(C_0)$. Since $B$ spans
+$V$, it follows that $C_0$ also spans $V$.
+
+We claim that $C_0=C$. Certainly $C_0\subseteq C$. If there were some
+$c\in C\setminus C_0$, then, because $C_0$ spans $V$, the vector $c$ would
+belong to $\operatorname{span}(C_0)$. Thus $c$ would be a linear combination
+of other elements of the basis $C$, contradicting the linear independence of
+$C$. Hence $C_0=C$.
+
+Therefore $C$ is a union of $|B|$ finite sets. Since $B$ is infinite,
+cardinal arithmetic gives
+\[
+|C|\leq |B|\cdot\aleph_0=|B|.
+\]
+Interchanging the roles of $B$ and $C$ gives
+\[
+|B|\leq |C|.
+\]
+By the Cantor-Schr\"oder-Bernstein theorem, these two inequalities imply
+\[
+|B|=|C|.
+\]
+Thus every basis of $V$ has the same cardinality. \hfill$\square$
+
+\begin{example_box}
+\textbf{Example (a nonconstructively obtained basis).} Regard $\mathbb{R}$ as
+a vector space over $\mathbb{Q}$. A basis of this vector space is called a
+\emph{Hamel basis of $\mathbb{R}$ over $\mathbb{Q}$}. Thus a Hamel basis is a
+subset $B\subseteq\mathbb{R}$, a set of real numbers $\{u_\alpha\}$ such that every real number $\beta$ has a unique representation of the form
+\[
+\beta = r_1 u_{\alpha_1} + r_2 u_{\alpha_2} + \cdots + r_n u_{\alpha_n},
+\]
+where all $u_{\alpha_i}$ are unique and $r_i\in\mathbb{Q}\setminus\{0\}$ and $n$ depends on $\beta$.
+The existence of such a basis follows from Zorn's lemma, and hence from the
+axiom of choice, but the proof does not produce a concrete list or formula
+for all its elements. Moreover, every Hamel basis of $\mathbb{R}$ over
+$\mathbb{Q}$ is uncountable: if $B$ were countable, then the set of all finite
+rational linear combinations of elements of $B$ would be countable, whereas
+$\mathbb{R}$ is uncountable. 
+\end{example_box}
+
+\textbf{Theorem (every vector space has a basis)} Assuming the axiom of
+choice, every vector space $U$ has a basis.
+
+\textit{Proof:} Let
+\[
+\mathcal{I}=\{L\subseteq U:L\text{ is linearly independent}\},
+\]
+ordered by inclusion. The collection $\mathcal{I}$ is nonempty because the
+empty set is linearly independent.
+
+Let $\mathcal{C}$ be a chain in $\mathcal{I}$ and define
+\[
+L_{\mathcal{C}}=\bigcup_{L\in\mathcal{C}}L.
+\]
+We claim that $L_{\mathcal{C}}$ is linearly independent. Any linear relation
+uses only finitely many vectors from $L_{\mathcal{C}}$. Because
+$\mathcal{C}$ is totally ordered by inclusion, all these finitely many
+vectors lie together in some member $L\in\mathcal{C}$. Since $L$ is linearly
+independent, all coefficients in the relation must be zero. Therefore
+$L_{\mathcal{C}}\in\mathcal{I}$, and it is an upper bound for the chain.
+
+Every chain in $\mathcal{I}$ thus has an upper bound. By Zorn's lemma,
+$\mathcal{I}$ has a maximal element; call it $B_U$. It remains to show that
+$B_U$ spans $U$. If some $u\in U$ did not belong to
+$\operatorname{span}(B_U)$, then
+\[
+B_U\cup\{u\}
+\]
+would still be linearly independent, contradicting the maximality of $B_U$.
+Hence $\operatorname{span}(B_U)=U$. Thus $B_U$ is both linearly independent
+and spanning, so it is a basis of $U$. \hfill$\square$
+
+\textbf{Theorem (complements in infinite-dimensional vector spaces)} Let
+$V$ be an infinite-dimensional vector space over $\mathbb{F}$, and let $U$ be any
+subspace of $V$. Assuming the axiom of choice, there exists a subspace
+$W\subseteq V$ such that
+\[
+V=U\oplus W.
+\]
+
+\textit{Proof:} By Zorn's lemma, $U$ has a basis $B_U$. Consider the
+collection
+\[
+\mathcal{L}
+=\{L\subseteq V:B_U\subseteq L\text{ and }L\text{ is linearly independent}\},
+\]
+ordered by inclusion. This collection is nonempty because $B_U\in\mathcal{L}$.
+
+Let $\mathcal{C}$ be a chain in $\mathcal{L}$ and set
+\[
+L_{\mathcal{C}}=\bigcup_{L\in\mathcal{C}}L.
+\]
+Every finite subset of $L_{\mathcal{C}}$ is contained in one member of the
+chain $\mathcal{C}$ and is therefore linearly independent. Hence
+$L_{\mathcal{C}}$ is linearly independent, contains $B_U$, and is an upper
+bound for $\mathcal{C}$ in $\mathcal{L}$. By Zorn's lemma, $\mathcal{L}$ has
+a maximal element $B$.
+
+The set $B$ spans $V$. Indeed, if some $v\in V$ did not belong to
+$\operatorname{span}(B)$, then $B\cup\{v\}$ would be linearly independent,
+contradicting the maximality of $B$. Thus $B$ is a basis of $V$ extending
+$B_U$.
+
+Let
+\[
+C=B\setminus B_U
+\qquad\text{and}\qquad
+W=\operatorname{span}(C).
+\]
+Because $B=B_U\cup C$ spans $V$, every vector in $V$ is a sum of a vector in
+$U=\operatorname{span}(B_U)$ and a vector in $W$. Therefore $U+W=V$.
+
+Now suppose $x\in U\cap W$. Then $x$ has one basis expansion using elements
+of $B_U$ and another using elements of $C$. Subtracting these expansions
+gives a finite linear combination of elements of the linearly independent set
+$B_U\cup C=B$ equal to $0_V$. All coefficients must therefore be zero, so
+$x=0_V$. Hence
+\[
+U\cap W=\{0_V\}.
+\]
+Consequently, $V=U\oplus W$, and $W$ is a complementary subspace of $U$.
+\hfill$\square$
+
+
+\section{Linear Transformations}
+
+\begin{definition_box}
+\textbf{Definition:} Let $V$ and $W$ be vector spaces over the same
+field $\mathbb{F}$. A map $T:V\longrightarrow W$ is a \emph{linear map},
+or \emph{linear transformation}, if for all $u,v\in V$ and
+$a\in\mathbb{F}$:
+\begin{enumerate}
+    \item (Additivity) $T(u+v)=T(u)+T(v)$;
+    \item (Homogeneity) $T(av)=aT(v)$.
+\end{enumerate}
+Equivalently, for all $u,v\in V$ and $a,b\in\mathbb{F}$,
+\[
+T(au+bv)=aT(u)+bT(v).
+\]
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition (linear maps send zero to zero):} If
+$T:V\longrightarrow W$ is a linear map, then
+\[
+T(0_V)=0_W.
+\]
+
+\textit{Proof:} By additivity and $0_V+0_V=0_V$,
+\[
+T(0_V)=T(0_V+0_V)=T(0_V)+T(0_V).
+\]
+Adding the additive inverse of $T(0_V)$ to both sides in $W$ gives
+$0_W=T(0_V)$, as required. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (linear maps on a one-dimensional space):} Let
+$V$ be a one-dimensional vector space over $\mathbb{F}$ and let
+$T:V\longrightarrow V$ be linear. There exists a unique scalar
+$\lambda\in\mathbb{F}$ such that
+\[
+T(v)=\lambda v\qquad\text{for every }v\in V.
+\]
+
+\textit{Proof:} Choose a basis $\{e\}$ of $V$. Since $T(e)\in V$ and
+$e$ spans $V$, there is a scalar $\lambda\in\mathbb{F}$ such that
+\[
+T(e)=\lambda e.
+\]
+Every $v\in V$ has the form $v=ae$ for some $a\in\mathbb{F}$.
+By linearity and commutativity of scalar multiplication in the field,
+\[
+T(v)=T(ae)=aT(e)=a(\lambda e)=\lambda(ae)=\lambda v.
+\]
+Thus the same scalar $\lambda$ works for every vector in $V$.
+
+For uniqueness, suppose also that $T(v)=\mu v$ for every $v\in V$.
+Evaluating at $e$ gives $(\lambda-\mu)e=0_V$. Since $e\neq0_V$,
+this implies $\lambda-\mu=0$, so $\lambda=\mu$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Note:} Conversely, multiplication by any fixed scalar is
+a linear map. Hence these are exactly the linear maps from a
+one-dimensional vector space to itself, including the zero map when
+$\lambda=0$.
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Notation:} The set of all linear maps from $V$ to $W$ over
+$\mathbb{F}$ is denoted by $\mathcal{L}(V,W)$:
+\[
+\mathcal{L}(V,W)=\{T:V\longrightarrow W:T\text{ is linear}\}.
+\]
+Thus, to say that $T$ is a linear map from $V$ to $W$, we write
+$T\in\mathcal{L}(V,W)$. The symbol $\mathcal{L}(V,W)$ denotes the whole set
+of such maps, not a single map. When $W=V$, we abbreviate
+$\mathcal{L}(V,V)$ to $\mathcal{L}(V)$; its elements are called
+\emph{linear operators on $V$}.
+\end{definition_box}
+
+\begin{mainbox}{Vector space of linear maps}
+Let $V$ and $W$
+be vector spaces over the same field $\mathbb{F}$. Then
+$\mathcal{L}(V,W)$ is a vector space over $\mathbb{F}$ under pointwise
+addition and scalar multiplication, defined by
+\[
+(S+T)(v)=S(v)+T(v),
+\qquad (aT)(v)=aT(v)
+\]
+for $S,T\in\mathcal{L}(V,W)$, $a\in\mathbb{F}$, and $v\in V$.
+Here the operations on the right take place in $W$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} First we check closure. Let $S,T\in\mathcal{L}(V,W)$,
+$u,v\in V$, and $a,b,c\in\mathbb{F}$. By linearity of $S$ and $T$,
+\[
+\begin{aligned}
+(S+T)(au+bv)
+&=S(au+bv)+T(au+bv)\\
+&=aS(u)+bS(v)+aT(u)+bT(v)\\
+&=a(S+T)(u)+b(S+T)(v).
+\end{aligned}
+\]
+Thus $S+T$ is linear. Similarly,
+\[
+\begin{aligned}
+(cT)(au+bv)
+&=c\bigl(aT(u)+bT(v)\bigr)\\
+&=a(cT)(u)+b(cT)(v),
+\end{aligned}
+\]
+so $cT$ is linear as well.
+
+The zero map $0_{\mathcal{L}}:V\longrightarrow W$, defined by
+$0_{\mathcal{L}}(v)=0_W$ for every $v\in V$, is linear and satisfies
+$T+0_{\mathcal{L}}=T$. For each $T$, the map $-T=(-1)T$ is linear and
+\[
+(T+(-T))(v)=T(v)-T(v)=0_W,
+\]
+so it is the additive inverse of $T$.
+
+The remaining axioms hold pointwise because they hold in $W$. Explicitly,
+for $R,S,T\in\mathcal{L}(V,W)$, $a,b\in\mathbb{F}$, and every $v\in V$,
+\[
+\begin{aligned}
+(S+T)(v)&=S(v)+T(v)=T(v)+S(v)=(T+S)(v),\\
+((R+S)+T)(v)&=(R(v)+S(v))+T(v)\\
+&=R(v)+(S(v)+T(v))=(R+(S+T))(v),\\
+(a(S+T))(v)&=a(S(v)+T(v))=(aS+aT)(v),\\
+((a+b)T)(v)&=(a+b)T(v)=(aT+bT)(v),\\
+(a(bT))(v)&=a(bT(v))=(ab)T(v)=((ab)T)(v),\\
+(1T)(v)&=T(v).
+\end{aligned}
+\]
+Two maps are equal when they agree on every vector in their domain.
+Consequently, these pointwise identities establish all the corresponding
+vector-space axioms for the maps themselves. Hence $\mathcal{L}(V,W)$ is
+a vector space over $\mathbb{F}$. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Note:} The vectors of this space are linear maps.
+Scalar multiplication here means multiplying the output of a map by a
+scalar; it is not composition of maps. No finite-dimensional assumption
+on $V$ or $W$ is needed.
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Definition (product of linear maps):} Let $U,V,W$ be vector
+spaces over the same field $\mathbb{F}$. If $T\in\mathcal{L}(U,V)$ and
+$S\in\mathcal{L}(V,W)$, their \emph{product} $ST$ is the composition
+\[
+ST=S\circ T:U\longrightarrow W,
+\qquad (ST)(u)=S(T(u)).
+\]
+The map on the right acts first: apply $T$, then $S$. The intermediate
+spaces must match so that the output of $T$ can be used as input to $S$.
+This product is not pointwise multiplication of the outputs.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition:} The product of two composable linear maps is
+linear. In the notation above, $ST\in\mathcal{L}(U,W)$.
+
+\textit{Proof:} For $u,v\in U$ and $a,b\in\mathbb{F}$,
+\[
+\begin{aligned}
+(ST)(au+bv)&=S(T(au+bv))\\
+&=S(aT(u)+bT(v))\\
+&=aS(T(u))+bS(T(v))\\
+&=a(ST)(u)+b(ST)(v).
+\end{aligned}
+\]
+Thus $ST$ is linear. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Properties:} Whenever the domains and codomains match,
+composition is associative and distributes over addition:
+\[
+(RS)T=R(ST),\qquad
+S(T_1+T_2)=ST_1+ST_2,\qquad
+(S_1+S_2)T=S_1T+S_2T.
+\]
+Also, $a(ST)=(aS)T=S(aT)$ for $a\in\mathbb{F}$.
+The identity map $I_V:V\longrightarrow V$, defined by $I_V(v)=v$, is
+linear. For $T\in\mathcal{L}(U,V)$, it satisfies
+\[
+I_V T=T=T I_U.
+\]
+In particular, two operators in $\mathcal{L}(V)$ can always be multiplied,
+but their product need not commute.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} Define operators on $\mathbb{R}^2$ by
+\[
+T(x,y)=(x,0),\qquad S(x,y)=(y,x).
+\]
+Then
+\[
+(ST)(x,y)=(0,x),\qquad (TS)(x,y)=(y,0).
+\]
+For instance, $(ST)(1,0)=(0,1)$ but $(TS)(1,0)=(0,0)$, so $ST\neq TS$.
+For maps between different spaces, the reverse product may not even be
+defined.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Proposition (images of lines):} Let
+$L:\mathbb{R}^n\longrightarrow\mathbb{R}^m$ be a linear map. The image of
+every line in $\mathbb{R}^n$ is either a line or a single point in
+$\mathbb{R}^m$.
+
+\textit{Proof:} Any line $\ell$ in $\mathbb{R}^n$ can be written as
+\[
+\ell=\{p+tv:t\in\mathbb{R}\},
+\]
+where $p\in\mathbb{R}^n$ is a point on the line and
+$v\in\mathbb{R}^n\setminus\{0\}$ is its direction vector. By linearity,
+\[
+L(p+tv)=L(p)+tL(v)
+\qquad\text{for every }t\in\mathbb{R}.
+\]
+Therefore the image of the entire line is
+\[
+L(\ell)=\{L(p)+tL(v):t\in\mathbb{R}\}.
+\]
+There are two cases:
+\begin{enumerate}
+    \item If $L(v)\neq0$, this set is the line through $L(p)$ with
+    direction vector $L(v)$.
+    \item If $L(v)=0$, then $L(p+tv)=L(p)$ for every $t$, so
+    $L(\ell)=\{L(p)\}$ is a single point.
+\end{enumerate}
+Thus a linear map sends every line to a line or a point. The original line
+need not pass through the origin, and the image point need not be the
+origin. \hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Open-ended problem (a converse for maps of the plane):} Let
+$f:\mathbb{R}^2\longrightarrow\mathbb{R}^2$ be a map satisfying:
+\begin{enumerate}
+    \item $f$ is injective;
+    \item $f(0)=0$;
+    \item for every line $\ell\subseteq\mathbb{R}^2$, its image
+    $f(\ell)=\{f(x):x\in\ell\}$ is a line in $\mathbb{R}^2$.
+\end{enumerate}
+Prove that $f$ is a linear map over $\mathbb{R}$; that is, prove that
+\[
+f(au+bv)=af(u)+bf(v)
+\]
+for all $u,v\in\mathbb{R}^2$ and $a,b\in\mathbb{R}$.
+Here the third assumption says that the image is an entire line, not merely
+a subset of a line. No continuity assumption is given.
+\end{problem_box}
+
+\begin{claim_box}
+\textbf{Differentiation:} Let $\mathcal{P}_n(\mathbb{F})$
+denote the polynomials of degree at most $n$ over $\mathbb{F}$, including
+the zero polynomial. For $n\geq1$, formal differentiation defines a map
+\[
+D:\mathcal{P}_n(\mathbb{F})\longrightarrow\mathcal{P}_{n-1}(\mathbb{F}),
+\qquad D(p)=p'.
+\]
+Explicitly,
+\[
+D(a_0+a_1x+\cdots+a_n x^n)
+=a_1+2a_2x+\cdots+na_n x^{n-1}.
+\]
+For any $p,q\in\mathcal{P}_n(\mathbb{F})$ and $a,b\in\mathbb{F}$,
+\[
+D(ap+bq)=aD(p)+bD(q),
+\]
+so $D$ is linear. Over $\mathbb{R}$, for example,
+$D(3x^2+2x+5)=6x+2$. A nonzero constant polynomial is sent to zero,
+showing that a linear map need not be injective.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Integration:} Let $C([0,1],\mathbb{R})$ denote
+the vector space of continuous real-valued functions on $[0,1]$, with
+pointwise addition and scalar multiplication. Define
+\[
+J:C([0,1],\mathbb{R})\longrightarrow C([0,1],\mathbb{R}),
+\qquad (Jf)(x)=\int_0^x f(t)\,dt.
+\]
+The function $Jf$ is continuous, so the map has the stated codomain.
+For any $f,g\in C([0,1],\mathbb{R})$ and $a,b\in\mathbb{R}$,
+\[
+\begin{aligned}
+(J(af+bg))(x)
+&=\int_0^x \bigl(af(t)+bg(t)\bigr)\,dt\\
+&=a\int_0^x f(t)\,dt+b\int_0^x g(t)\,dt\\
+&=a(Jf)(x)+b(Jg)(x).
+\end{aligned}
+\]
+Thus $J$ is linear. For example, if $f(t)=t^2$, then $(Jf)(x)=x^3/3$.
+The fixed lower limit specifies a unique antiderivative with value zero
+at $0$; an indefinite integral with an unspecified constant does not
+specify a single function-valued map.
+
+Integration over a fixed interval also gives a linear map with scalar
+values:
+\[
+I:C([0,1],\mathbb{R})\longrightarrow\mathbb{R},
+\qquad I(f)=\int_0^1 f(t)\,dt.
+\]
+Indeed, $I(af+bg)=aI(f)+bI(g)$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Matrix maps:} Fix an $m\times n$ matrix
+$A=(a_{ij})$ with entries in $\mathbb{F}$. Regarding vectors as column
+vectors, define
+\[
+T_A:\mathbb{F}^n\longrightarrow\mathbb{F}^m,
+\qquad T_A(x)=Ax.
+\]
+The $i$th coordinate of $T_A(x)$ is $\sum_{j=1}^n a_{ij}x_j$.
+For $u,v\in\mathbb{F}^n$ and $a,b\in\mathbb{F}$,
+\[
+T_A(au+bv)=A(au+bv)=aAu+bAv=aT_A(u)+bT_A(v),
+\]
+so $T_A$ is linear. For example,
+\[
+A=\begin{pmatrix}1&2&0\\0&-1&1\end{pmatrix}
+\quad\text{gives}\quad
+T_A:\mathbb{F}^3\longrightarrow\mathbb{F}^2,
+\qquad T_A(x,y,z)=(x+2y,-y+z).
+\]
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} The map
+\[
+T:\mathbb{R}^2\longrightarrow\mathbb{R}^2,
+\qquad T(x,y)=(2x,3y),
+\]
+is linear: it preserves both vector addition and scalar multiplication.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Counterexample (homogeneity without additivity):} Regard
+$\mathbb{R}^2$ and $\mathbb{R}$ as vector spaces over $\mathbb{R}$. Define
+\[
+H:\mathbb{R}^2\longrightarrow\mathbb{R},
+\qquad
+H(x,y)=
+\begin{cases}
+\dfrac{x^3}{x^2+y^2}, & (x,y)\neq(0,0),\\[4pt]
+0, & (x,y)=(0,0).
+\end{cases}
+\]
+For every nonzero $a\in\mathbb{R}$ and $(x,y)\neq(0,0)$,
+\[
+H(ax,ay)=\frac{a^3x^3}{a^2(x^2+y^2)}=aH(x,y).
+\]
+The same identity holds when $a=0$ or $(x,y)=(0,0)$, since both sides
+are zero. Thus $H$ is homogeneous for every real scalar, including
+negative scalars. However,
+\[
+H((1,0)+(0,1))=H(1,1)=\frac12,
+\qquad H(1,0)+H(0,1)=1+0=1.
+\]
+So $H$ is not additive and therefore is not linear.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Counterexample (additivity without homogeneity):} Regard
+$\mathbb{C}$ as a vector space over $\mathbb{C}$ and define complex
+conjugation by
+\[
+K:\mathbb{C}\longrightarrow\mathbb{C},
+\qquad K(z)=\overline{z}.
+\]
+It is additive because, for all $z,w\in\mathbb{C}$,
+\[
+K(z+w)=\overline{z+w}=\overline{z}+\overline{w}=K(z)+K(w).
+\]
+But homogeneity fails for the complex scalar $i$ and the vector $1$:
+\[
+K(i\cdot1)=\overline{i}=-i,
+\qquad iK(1)=i.
+\]
+Hence $K$ is not linear over $\mathbb{C}$.
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Note (the scalar field matters):} Conjugation does satisfy
+$K(az)=aK(z)$ for every real scalar $a$. Thus it is linear when
+$\mathbb{C}$ is regarded as a vector space over $\mathbb{R}$, but not when
+the scalar field is $\mathbb{C}$. These counterexamples show why both
+additivity and homogeneity are required in the definition of a linear map.
+\end{remark_box}
+
+\begin{claim_box}
+\textbf{Definition (graph of a linear map):} Let
+$T:V\longrightarrow W$ be linear over $\mathbb{F}$. The \emph{graph}
+of $T$ is
+\[
+\Gamma(T)=\{(v,T(v)):v\in V\}\subseteq V\times W.
+\]
+Here $V\times W$ is a vector space with componentwise operations:
+\[
+(v,w)+(v',w')=(v+v',w+w'),\qquad a(v,w)=(av,aw).
+\]
+Unlike the range, the graph records both the input and its output.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (graphs and linearity):} A map
+$f:V\longrightarrow W$ is linear if and only if its graph
+$\Gamma(f)$ is a vector subspace of $V\times W$.
+
+\textit{Proof:} If $f$ is linear, then $(0_V,0_W)$ belongs to its
+graph. For $u,v\in V$ and $a,b\in\mathbb{F}$,
+\[
+a(u,f(u))+b(v,f(v))=(au+bv,af(u)+bf(v))
+=(au+bv,f(au+bv)),
+\]
+which also belongs to the graph. Thus the graph is a subspace.
+
+Conversely, suppose $\Gamma(f)$ is a subspace. The same linear
+combination $(au+bv,af(u)+bf(v))$ belongs to $\Gamma(f)$.
+The unique pair in the graph with first component $au+bv$ has second
+component $f(au+bv)$. Hence
+$f(au+bv)=af(u)+bf(v)$, proving linearity. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (the graph is isomorphic to the domain):}
+For a linear map $T:V\longrightarrow W$, the map
+\[
+G:V\longrightarrow\Gamma(T),\qquad G(v)=(v,T(v)),
+\]
+is an isomorphism. In particular, if $V$ is finite-dimensional, then
+$\dim\Gamma(T)=\dim V$.
+
+\textit{Proof:} Linearity follows from the componentwise operations
+and the linearity of $T$. Equality $G(u)=G(v)$ forces $u=v$ by
+comparing first components, so $G$ is injective. Every element of
+$\Gamma(T)$ has the form $G(v)$, so $G$ is surjective. Its inverse
+is the first-coordinate projection $(v,T(v))\mapsto v$.
+The dimension statement follows because isomorphisms preserve
+dimension. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (recovering the kernel and range):} The
+second-coordinate projection restricted to the graph is the linear map
+\[
+Q:\Gamma(T)\longrightarrow W,\qquad Q(v,T(v))=T(v).
+\]
+It satisfies
+\[
+\ker Q=\{(v,0_W):v\in\ker T\},\qquad
+\operatorname{range}Q=\operatorname{range}T.
+\]
+Equivalently,
+\[
+\Gamma(T)\cap(V\times\{0_W\})=(\ker T)\times\{0_W\}.
+\]
+Thus $T$ is injective exactly when this intersection is
+$\{(0_V,0_W)\}$, and $T$ is surjective exactly when $Q$ is surjective.
+
+\textit{Proof:} Projection onto the second component is linear.
+A pair $(v,T(v))$ is in its kernel precisely when $T(v)=0_W$,
+and its possible outputs are precisely the values attained by $T$.
+These observations prove both identities and the intersection formula.
+The final assertions follow from the kernel criterion for injectivity
+and the definition of surjectivity. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (the graph as a direct complement):} We have
+\[
+V\times W=\Gamma(T)\oplus(\{0_V\}\times W).
+\]
+Here the direct sum means that each pair is uniquely the sum of one
+vector in each of these two subspaces.
+
+\textit{Proof:} Every $(v,w)\in V\times W$ can be written as
+\[
+(v,w)=(v,T(v))+(0_V,w-T(v)).
+\]
+The first summand belongs to the graph and the second to
+$\{0_V\}\times W$. If a graph element $(v,T(v))$ also lies in
+$\{0_V\}\times W$, then $v=0_V$ and $T(v)=0_W$. The intersection
+is therefore the zero subspace, making the decomposition unique.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} For $T:\mathbb{R}^2\longrightarrow\mathbb{R}$,
+$T(x,y)=x+2y$, identify $\mathbb{R}^2\times\mathbb{R}$ with
+$\mathbb{R}^3$. Then
+\[
+\Gamma(T)=\{(x,y,x+2y):x,y\in\mathbb{R}\}
+=\operatorname{span}\{(1,0,1),(0,1,2)\}.
+\]
+The graph is the plane $z=x+2y$, of dimension $2$, while the range is
+$\mathbb{R}$, of dimension $1$. Its intersection with $z=0$ is the
+line $\{(-2t,t,0):t\in\mathbb{R}\}$, corresponding to
+$\ker T=\operatorname{span}\{(-2,1)\}$.
+\end{example_box}
+
+\subsection{Isomorphisms}
+
+\begin{definition_box}
+\textbf{Definition (isomorphism):} Let $V$ and $W$ be vector spaces
+over the same field $\mathbb{F}$. A map $T:V\longrightarrow W$ is a
+\emph{vector-space isomorphism} if it is linear and bijective. Thus every
+$w\in W$ has exactly one preimage $v\in V$ under $T$.
+If an isomorphism exists, we call $V$ and $W$ \emph{isomorphic} and write
+\[
+V\cong W.
+\]
+This means that the spaces have the same vector-space structure, even if
+their elements are different kinds of objects.
+\end{definition_box}
+
+\begin{definition_box}
+\textbf{Definition (invertibility):} A linear map
+$T:V\longrightarrow W$ is \emph{invertible} if there is a map
+$R:W\longrightarrow V$ such that
+\[
+RT=I_V,\qquad TR=I_W.
+\]
+Here $I_V$ and $I_W$ are the identity maps. These equations say that
+$R(T(v))=v$ for every $v\in V$ and $T(R(w))=w$ for every $w\in W$:
+$R$ undoes $T$ in both directions. The map $R$ is called the
+\emph{inverse} of $T$ and is denoted by $T^{-1}$.
+\end{definition_box}
+
+\begin{claim_box}
+The inverse is unique. Indeed, if $R$ and $Q$ are both inverses of $T$,
+then associativity of composition gives
+\[
+R=R I_W=R(TQ)=(RT)Q=I_V Q=Q.
+\]
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Lemma (the inverse of an isomorphism is linear).} If
+$T:V\longrightarrow W$ is an isomorphism, then its inverse
+$T^{-1}:W\longrightarrow V$ is also an isomorphism.
+
+\textit{Proof:} Since $T$ is bijective, its inverse exists and is bijective.
+It remains to prove that $T^{-1}$ is linear. Let $w_1,w_2\in W$ and
+$a,b\in\mathbb{F}$. Set
+\[
+v_1=T^{-1}(w_1),\qquad v_2=T^{-1}(w_2).
+\]
+Then $T(v_1)=w_1$ and $T(v_2)=w_2$. By linearity of $T$,
+\[
+T(av_1+bv_2)=aT(v_1)+bT(v_2)=aw_1+bw_2.
+\]
+Applying $T^{-1}$ to both sides gives
+\[
+\begin{aligned}
+T^{-1}(aw_1+bw_2)
+&=av_1+bv_2\\
+&=aT^{-1}(w_1)+bT^{-1}(w_2).
+\end{aligned}
+\]
+Thus $T^{-1}$ is linear and bijective, hence an isomorphism.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (invertibility and isomorphisms):} A linear
+map $T:V\longrightarrow W$ is invertible if and only if it is an
+isomorphism. In that case $T^{-1}$ is automatically linear.
+
+\textit{Proof:} Suppose $R$ is an inverse of $T$. If $T(u)=T(v)$,
+applying $R$ gives $u=v$, so $T$ is injective. For every $w\in W$,
+the identity $T(R(w))=w$ shows that $T$ is surjective. Thus $T$ is
+linear and bijective, hence an isomorphism.
+Conversely, an isomorphism is bijective, so each $w\in W$ has a unique
+preimage. Assigning that preimage to $w$ defines a map $T^{-1}$
+satisfying both inverse identities. The preceding lemma proves that
+this inverse is linear. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Interpretation (solving equations):} Invertibility means
+that for every $w\in W$, the equation $T(v)=w$ has exactly one solution,
+namely $v=T^{-1}(w)$. Existence for every right-hand side is surjectivity;
+uniqueness is injectivity. Both are required.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (scalar multiplication):} On a nonzero vector
+space $V$, the map $T(v)=\lambda v$ is invertible exactly when
+$\lambda\neq0$. In that case $T^{-1}(v)=\lambda^{-1}v$, since composing
+the two maps in either order gives $v$. If $\lambda=0$, all vectors
+have the same image, so the map is not injective. In particular,
+$T(x,y)=(2x,3y)$ on $\mathbb{R}^2$ is invertible with
+$T^{-1}(x,y)=(x/2,y/3)$.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (a coefficient isomorphism):} Let
+$\mathcal{P}_2(\mathbb{F})$ be the space of polynomials of degree at most
+$2$, including zero. The map
+\[
+T:\mathcal{P}_2(\mathbb{F})\longrightarrow\mathbb{F}^3,
+\qquad T(a+bx+cx^2)=(a,b,c),
+\]
+is linear and bijective. Its inverse sends $(a,b,c)$ to $a+bx+cx^2$.
+Consequently, $\mathcal{P}_2(\mathbb{F})\cong\mathbb{F}^3$.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Intuition (a reversible change of description):} An
+isomorphism lets us describe every vector in another space without losing
+information or changing how linear combinations work:
+\[
+T(a_1v_1+\cdots+a_k v_k)=a_1T(v_1)+\cdots+a_k T(v_k).
+\]
+Injectivity means that different vectors remain distinguishable, and
+surjectivity means that every vector in the target is represented.
+The inverse lets us recover the original vector. This does not mean the
+spaces are literally equal, nor does it require preservation of lengths
+or angles.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (stretching and shearing):} The map
+\[
+S:\mathbb{R}^2\longrightarrow\mathbb{R}^2,
+\qquad S(x,y)=(2x+y,y)
+\]
+is linear. Given $(u,v)\in\mathbb{R}^2$, its unique preimage is
+$((u-v)/2,v)$, so
+\[
+S^{-1}(u,v)=\left(\frac{u-v}{2},v\right).
+\]
+Thus $S$ is an isomorphism. It sends $(1,0)$ to $(2,0)$, showing that an
+isomorphism need not preserve Euclidean length. An isomorphism from a
+vector space to itself is called an \emph{automorphism}.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (complex numbers as real vectors):} Regard
+$\mathbb{C}$ as a vector space over $\mathbb{R}$. Then
+\[
+\Phi:\mathbb{C}\longrightarrow\mathbb{R}^2,
+\qquad \Phi(a+bi)=(a,b)
+\]
+is a real-linear isomorphism, with inverse $(a,b)\mapsto a+bi$.
+The scalar field is essential: $\mathbb{C}$ has dimension $2$ over
+$\mathbb{R}$ but dimension $1$ over $\mathbb{C}$.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Nonexamples (why all conditions matter):}
+\begin{enumerate}
+    \item The projection $P:\mathbb{R}^2\longrightarrow\mathbb{R}$,
+    $P(x,y)=x$, is linear and surjective, but not injective:
+    $P(0,0)=P(0,1)$. Hence it is not an isomorphism.
+    \item The inclusion $J:\mathbb{R}\longrightarrow\mathbb{R}^2$,
+    $J(t)=(t,0)$, is linear and injective, but not surjective: $(0,1)$
+    is not in its image. With the horizontal axis as its codomain instead,
+    $J$ would be an isomorphism.
+    \item The map $f:\mathbb{R}\longrightarrow\mathbb{R}$,
+    $f(x)=x^3$, is bijective but not linear, since
+    $f(1+1)=8\neq2=f(1)+f(1)$. A bijection alone is not enough.
+\end{enumerate}
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Proposition (isomorphisms carry bases to bases):} If
+$T:V\longrightarrow W$ is an isomorphism and $B$ is a basis of $V$,
+then $T(B)=\{T(v):v\in B\}$ is a basis of $W$.
+
+\textit{Proof:} Every $w\in W$ equals $T(v)$ for some $v\in V$.
+Expressing $v$ as a finite linear combination of elements of $B$ and
+applying $T$ shows that $T(B)$ spans $W$.
+For independence, suppose $v_1,\ldots,v_k$ are distinct elements of $B$ and
+\[
+a_1T(v_1)+\cdots+a_k T(v_k)=0_W.
+\]
+By linearity, $T(a_1v_1+\cdots+a_k v_k)=T(0_V)$. Injectivity implies
+$a_1v_1+\cdots+a_k v_k=0_V$. Independence of $B$ then gives
+$a_1=\cdots=a_k=0$. Thus $T(B)$ is a basis of $W$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (coordinates):} If $v_1,\ldots,v_n$ is an ordered
+basis of $V$, the coordinate map
+\[
+\sum_{i=1}^n a_i v_i\longmapsto(a_1,\ldots,a_n)
+\]
+is an isomorphism $V\cong\mathbb{F}^n$. Different choices of basis
+generally give different coordinate maps. In particular,
+$\mathcal{P}_n(\mathbb{F})\cong\mathbb{F}^{n+1}$ using the basis
+$1,x,\ldots,x^n$.
+\end{example_box}
+
+\begin{remark_box}
+\textbf{Caution (one-sided inverses):} A map $R:W\longrightarrow V$
+with $RT=I_V$ is a \emph{left inverse} of $T$, and this identity alone
+implies injectivity. A map with $TR=I_W$ is a \emph{right inverse},
+and this identity alone implies surjectivity. In general, one identity
+does not imply the other. For example, let
+\[
+J:\mathbb{R}\longrightarrow\mathbb{R}^2,\quad J(t)=(t,0),
+\qquad P:\mathbb{R}^2\longrightarrow\mathbb{R},\quad P(x,y)=x.
+\]
+Then $PJ=I_{\mathbb{R}}$, but $JP(x,y)=(x,0)$ is not
+$I_{\mathbb{R}^2}(x,y)$. Neither $J$ nor $P$ is invertible.
+When the domain and codomain have the same finite dimension, however,
+the \hyperref[thm:dimension-criteria]{dimension theorem above} shows that
+either inverse identity guarantees
+invertibility, and the one-sided inverse is then the unique inverse.
+\end{remark_box}
+
+\begin{claim_box}
+\textbf{Proposition (composition and isomorphism):} If
+$T:U\longrightarrow V$ and $S:V\longrightarrow W$ are isomorphisms, then
+$ST:U\longrightarrow W$ is an isomorphism, and
+\[
+{(ST)}^{-1}=T^{-1}S^{-1}.
+\]
+
+\textit{Proof:} Composition preserves linearity. Moreover,
+\[
+(T^{-1}S^{-1})(ST)=I_U,
+\qquad (ST)(T^{-1}S^{-1})=I_W,
+\]
+so $ST$ is bijective with the stated inverse. \hfill$\square$
+
+Together with the identity map and the inverse lemma, this shows that
+being isomorphic is reflexive, symmetric, and transitive: $V\cong V$;
+if $V\cong W$, then $W\cong V$; and if $U\cong V$ and $V\cong W$,
+then $U\cong W$.
+\end{claim_box}
+
+\begin{mainbox}{Theorem (dimension of the space of linear maps)}
+Let
+$V$ and $W$ be finite-dimensional vector spaces over the same field
+$\mathbb{F}$. Then
+\[
+\dim\mathcal{L}(V,W)=(\dim V)(\dim W).
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Put $n=\dim V$ and $m=\dim W$. If either space is
+the zero space, the only linear map from $V$ to $W$ is the zero map.
+Thus $\dim\mathcal{L}(V,W)=0=mn$ in this case.
+
+Otherwise, fix ordered bases $\mathcal{B}=(v_1,\ldots,v_n)$ of $V$
+and $\mathcal{C}=(w_1,\ldots,w_m)$ of $W$. We use the matrix
+representation and its linearity, developed in the later subsection
+\emph{Matrices}. The matrix representation map
+\[
+M:\mathcal{L}(V,W)\longrightarrow M_{m\times n}(\mathbb{F})
+\]
+is linear. It is also bijective: a matrix $A=(a_{ij})$ specifies
+exactly one linear map, namely
+\[
+T_A\left(\sum_{j=1}^n x_j v_j\right)
+=\sum_{i=1}^m\left(\sum_{j=1}^n a_{ij}x_j\right)w_i.
+\]
+Unique coordinates in $\mathcal{B}$ make this well-defined, and the
+formula is linear in the $x_j$. Its representing matrix is $A$.
+Conversely, any linear map with matrix $A$ must have this formula,
+because its values on the basis vectors determine its values on every
+vector. Hence $M$ is an isomorphism.
+
+For $1\leq i\leq m$ and $1\leq j\leq n$, let $E_{ij}$ be the
+$m\times n$ matrix with a $1$ in row $i$, column $j$, and zeros
+elsewhere. Every matrix has the unique expansion
+\[
+A=\sum_{i=1}^m\sum_{j=1}^n a_{ij}E_{ij}.
+\]
+Indeed, the entry in row $i$, column $j$ of this sum is $a_{ij}$.
+Thus the $mn$ matrices $E_{ij}$ span the matrix space and are linearly
+independent, so they form a basis. Since an isomorphism carries a basis
+to a basis, their inverse images under $M$ form a basis of
+$\mathcal{L}(V,W)$. Consequently,
+\[
+\dim\mathcal{L}(V,W)=mn=(\dim V)(\dim W).
+\]
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Null spaces and ranges}
+
+\begin{definition_box}
+\textbf{Definition (null space or kernel):} Let
+$T:V\longrightarrow W$ be a linear map over $\mathbb{F}$. The
+\emph{null space} or \emph{kernel} of $T$ is
+\[
+\operatorname{null}T=\ker T=\{v\in V:T(v)=0_W\}.
+\]
+It consists of all input vectors that $T$ sends to zero. In particular,
+the null space is a subset of the \emph{domain} $V$, not the codomain $W$.
+It always contains $0_V$, but may also contain nonzero vectors.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition:} The null space of $T$ is a subspace of $V$.
+
+\textit{Proof:} Since $T(0_V)=0_W$, we have $0_V\in\ker T$.
+If $u,v\in\ker T$ and $a,b\in\mathbb{F}$, linearity gives
+\[
+T(au+bv)=aT(u)+bT(v)=a0_W+b0_W=0_W.
+\]
+Thus $au+bv\in\ker T$, proving that $\ker T$ is a subspace.
+\hfill$\square$
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Definition (range or image):} The \emph{range} or
+\emph{image} of a linear map $T:V\longrightarrow W$ is
+\[
+\operatorname{range}T=\operatorname{im}T=T(V)
+=\{T(v):v\in V\}\subseteq W.
+\]
+It consists of all output vectors that $T$ actually attains. It need not
+equal the whole codomain $W$; equality holds exactly when $T$ is surjective.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition:} The range of $T$ is a subspace of $W$.
+
+\textit{Proof:} Since $T(0_V)=0_W$, the range contains $0_W$.
+Let $w_1,w_2\in\operatorname{range}T$ and $a,b\in\mathbb{F}$.
+By the definition of the range, there exist $v_1,v_2\in V$ such that
+$w_1=T(v_1)$ and $w_2=T(v_2)$. By linearity,
+\[
+aw_1+bw_2=aT(v_1)+bT(v_2)=T(av_1+bv_2).
+\]
+Because $av_1+bv_2\in V$, this output belongs to
+$\operatorname{range}T$. Hence the range contains zero and is closed under
+linear combinations, so it is a subspace of $W$. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Summary:} The two subspaces live in different spaces:
+\[
+\ker T\text{ is a subspace of }V,
+\qquad
+\operatorname{range}T\text{ is a subspace of }W.
+\]
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Definition (rank):} The \emph{rank} of a linear map
+$T:V\longrightarrow W$ is the dimension of its range:
+\[
+\operatorname{rank}T=\dim(\operatorname{range}T).
+\]
+Thus rank measures the number of linearly independent output directions
+attained by $T$. If $V$ and $W$ are finite-dimensional, then
+\[
+0\leq\operatorname{rank}T\leq\min\{\dim V,\dim W\}.
+\]
+
+For a matrix $A\in\mathbb{F}^{m\times n}$, its \emph{rank} is the rank
+of the map $T_A(x)=Ax$. Since the range of $T_A$ is the span of the
+columns $A_1,\ldots,A_n$,
+\[
+\operatorname{rank}A
+=\dim\operatorname{span}\{A_1,\ldots,A_n\}.
+\]
+Equivalently, it is the largest number of linearly independent columns
+of $A$.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Example (rank):} The projection
+$P:\mathbb{R}^2\longrightarrow\mathbb{R}$, $P(x,y)=x$, has range
+$\mathbb{R}$, so $\operatorname{rank}P=1$. The zero map has rank $0$,
+and the identity map on $\mathbb{F}^n$ has rank $n$.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (projection):} For
+\[
+P:\mathbb{R}^2\longrightarrow\mathbb{R},\qquad P(x,y)=x,
+\]
+the equation $P(x,y)=0$ is equivalent to $x=0$. Hence
+\[
+\ker P=\{(0,y):y\in\mathbb{R}\}
+=\operatorname{span}\{(0,1)\}.
+\]
+The null space is the vertical axis: the projection discards the entire
+vertical component.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (differentiation):} Over $\mathbb{R}$, consider
+\[
+D:\mathcal{P}_n(\mathbb{R})\longrightarrow\mathcal{P}_{n-1}(\mathbb{R}),
+\qquad D(p)=p',\quad n\geq1.
+\]
+A polynomial has zero derivative exactly when it is constant. Therefore
+\[
+\ker D=\{p:p(x)=c,\ c\in\mathbb{R}\}
+=\operatorname{span}\{1\}.
+\]
+Here $1$ denotes the constant polynomial, and the zero polynomial is
+included by taking $c=0$.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (matrix null space):} For the matrix map
+\[
+T_A:\mathbb{R}^3\longrightarrow\mathbb{R}^2,
+\qquad T_A(x,y,z)=(x+2y,-y+z),
+\]
+finding the null space means solving the homogeneous system $Av=0$:
+\[
+x+2y=0,\qquad -y+z=0.
+\]
+Taking $y=t$ gives $x=-2t$ and $z=t$, so
+\[
+\ker T_A=\{(-2t,t,t):t\in\mathbb{R}\}
+=\operatorname{span}\{(-2,1,1)\}.
+\]
+\end{example_box}
+
+\begin{example_box}
+\textbf{Examples (the two extremes):} The identity map $I_V$ has
+$\ker I_V=\{0_V\}$, whereas the zero map $Z:V\longrightarrow W$,
+defined by $Z(v)=0_W$, has $\ker Z=V$.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Proposition (null space and injectivity):} A linear map
+$T:V\longrightarrow W$ is injective if and only if $\ker T=\{0_V\}$.
+
+\textit{Proof:} If $T$ is injective and $v\in\ker T$, then
+$T(v)=0_W=T(0_V)$ implies $v=0_V$. Conversely, suppose
+$\ker T=\{0_V\}$. If $T(u)=T(v)$, then
+\[
+T(u-v)=T(u)-T(v)=0_W,
+\]
+so $u-v\in\ker T$, giving $u=v$. Thus $T$ is injective.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Rank-Nullity Theorem}
+Let $V$ be a
+finite-dimensional vector space over $\mathbb{F}$, let $W$ be a vector
+space over the same field, and let $T\in\mathcal{L}(V,W)$. Then
+$\operatorname{range}T$ is finite-dimensional and
+\[
+\dim V=\dim(\ker T)+\dim(\operatorname{range}T).
+\]
+Note that $W$ need not be
+finite-dimensional.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Since $\ker T$ is a subspace of the finite-dimensional
+space $V$, it has a basis $u_1,\ldots,u_k$. Extend this to a basis
+\[
+u_1,\ldots,u_k,v_1,\ldots,v_r
+\]
+of $V$, so $\dim V=k+r$. We will show that
+\[
+T(v_1),\ldots,T(v_r)
+\]
+is a basis of $\operatorname{range}T$.
+
+\emph{Spanning:} Let $w\in\operatorname{range}T$. There is some $v\in V$
+with $T(v)=w$. Expanding $v$ in the chosen basis gives
+\[
+v=\sum_{i=1}^k a_i u_i+\sum_{j=1}^r b_j v_j.
+\]
+Because each $u_i$ belongs to $\ker T$, applying $T$ yields
+\[
+w=T(v)=\sum_{i=1}^k a_i T(u_i)+\sum_{j=1}^r b_j T(v_j)
+=\sum_{j=1}^r b_j T(v_j).
+\]
+Thus $T(v_1),\ldots,T(v_r)$ spans the range.
+
+\emph{Linear independence:} Suppose
+\[
+\sum_{j=1}^r c_j T(v_j)=0_W.
+\]
+By linearity, $T(\sum_{j=1}^r c_j v_j)=0_W$, so
+$\sum_{j=1}^r c_j v_j\in\ker T$. Since the $u_i$ form a basis of the
+kernel, there are scalars $d_1,\ldots,d_k$ such that
+\[
+\sum_{j=1}^r c_j v_j=\sum_{i=1}^k d_i u_i.
+\]
+Subtracting the right-hand side gives a linear relation among the basis
+vectors of $V$. Hence all its coefficients vanish, and in particular
+$c_1=\cdots=c_r=0$. This proves independence.
+
+Consequently, the range has a finite basis of length $r$. Therefore
+\[
+\dim(\ker T)+\dim(\operatorname{range}T)=k+r=\dim V.
+\]
+Empty basis lists and empty sums are allowed, so the proof also covers
+the zero map and the case $V=\{0_V\}$. \hfill$\square$
+\end{claim_box}
+
+\phantomsection%
+\label{thm:dimension-criteria}%
+\begin{mainbox}{Theorem (dimension criteria for linear maps)}
+Let $V$ and
+$W$ be finite-dimensional vector spaces over the same field $\mathbb{F}$.
+Write $n=\dim V$ and $m=\dim W$. Then:
+\begin{enumerate}
+    \item If $n>m$, no linear map $T:V\longrightarrow W$ is injective.
+    \item If $n<m$, no linear map $T:V\longrightarrow W$ is surjective.
+    \item If $n=m$, a linear map $T:V\longrightarrow W$ is injective
+    if and only if it is surjective, and either condition is equivalent
+    to invertibility.
+    \item $V$ and $W$ are isomorphic if and only if $n=m$.
+\end{enumerate}
+\end{mainbox}
+
+\begin{claim_box}
+
+\textit{Proof:} For any $T\in\mathcal{L}(V,W)$, put
+$r=\dim(\operatorname{range}T)$ and $k=\dim(\ker T)$.
+Rank-nullity and the fact that the range is a subspace of $W$ give
+\[
+n=k+r,\qquad k\geq0,\qquad r\leq m.
+\]
+Consequently, $r\leq\min\{n,m\}$. Moreover, the kernel criterion for
+injectivity and the dimension criterion for equality of subspaces give
+\[
+\begin{aligned}
+T\text{ is injective}&\ \Longleftrightarrow\ k=0
+\ \Longleftrightarrow\ r=n,\\
+T\text{ is surjective}&\ \Longleftrightarrow\
+\operatorname{range}T=W\ \Longleftrightarrow\ r=m.
+\end{aligned}
+\]
+These two equivalences prove the first three claims at once: if $n>m$,
+then $r<n$, so injectivity is impossible; if $n<m$, then $r<m$, so
+surjectivity is impossible; and if $n=m$, the two conditions coincide.
+In the last case, either condition makes $T$ bijective and hence
+invertible. They also show that an isomorphism must have $r=n=m$.
+
+It remains to show that equal dimensions guarantee the existence of
+an isomorphism. If $n=m$, choose bases $v_1,\ldots,v_n$ of $V$ and
+$w_1,\ldots,w_n$ of $W$, and define
+\[
+T\left(\sum_{i=1}^n a_i v_i\right)=\sum_{i=1}^n a_i w_i.
+\]
+Unique basis expansions make $T$ well-defined, and coordinate addition
+and scalar multiplication show that it is linear. Every vector of $W$
+has the displayed form on the right, so $T$ is surjective. By the
+equal-dimension case already proved, $T$ is invertible, hence an
+isomorphism. Empty bases cover $n=m=0$. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Definition (the induced map on the quotient):} Let
+$T:V\longrightarrow W$ be linear and put $U=\operatorname{null}T=\ker T$.
+Recall that $V/U$ consists of cosets $v+U$, with operations
+\[
+(v+U)+(w+U)=(v+w)+U,\qquad a(v+U)=av+U.
+\]
+The \emph{map induced by $T$ on $V/\operatorname{null}T$} is
+\[
+\widetilde{T}:V/\operatorname{null}T\longrightarrow W,
+\qquad \widetilde{T}(v+U)=T(v).
+\]
+Its input is a coset, and its output is the image under $T$ of any
+representative of that coset. No finite-dimensional assumption is needed.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition:} The induced map $\widetilde{T}$ is
+well-defined, linear, and injective, and its range equals the range of $T$.
+
+\textit{Proof:} \emph{Well-definedness.} If $v+U=w+U$, then $v-w\in U=\ker T$.
+Hence
+\[
+T(v)-T(w)=T(v-w)=0_W,
+\]
+so $T(v)=T(w)$. Thus the value of $\widetilde{T}$ does not depend on
+the representative of the coset.
+
+\emph{Linearity:} For $v,w\in V$ and $a,b\in\mathbb{F}$,
+\[
+\begin{aligned}
+\widetilde{T}\bigl(a(v+U)+b(w+U)\bigr)
+&=\widetilde{T}\bigl((av+bw)+U\bigr)\\
+&=T(av+bw)\\
+&=a\widetilde{T}(v+U)+b\widetilde{T}(w+U).
+\end{aligned}
+\]
+
+\emph{Injectivity:} If $\widetilde{T}(v+U)=\widetilde{T}(w+U)$,
+then $T(v)=T(w)$. Therefore $T(v-w)=0_W$, so $v-w\in U$ and
+$v+U=w+U$.
+
+\emph{Range:} Every value $\widetilde{T}(v+U)=T(v)$ belongs to
+$\operatorname{range}T$. Conversely, every $y\in\operatorname{range}T$
+equals $T(v)=\widetilde{T}(v+U)$ for some $v\in V$. Hence
+$\operatorname{range}\widetilde{T}=\operatorname{range}T$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Factorization:} The quotient map
+$\pi:V\longrightarrow V/U$, $\pi(v)=v+U$, satisfies
+\[
+T=\widetilde{T}\circ\pi.
+\]
+Moreover, $\widetilde{T}$ is the unique map $F:V/U\longrightarrow W$
+with $T=F\circ\pi$: for every coset, this identity forces
+$F(v+U)=F(\pi(v))=T(v)$.
+\end{claim_box}
+
+\begin{mainbox}{Corollary:}
+Restricting the
+\emph{codomain} of $\widetilde{T}$ to $\operatorname{range}T$ gives an
+isomorphism
+\[
+V/\ker T\cong\operatorname{range}T.
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Indeed, the induced map is linear and injective by the
+proposition,
+and is surjective onto this codomain by the equality of ranges.
+With its original codomain $W$, $\widetilde{T}$ is surjective (and hence
+an isomorphism) if and only if $T$ is surjective. Passing to the quotient
+removes the failure of injectivity, but does not enlarge the range.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Alternative proof of rank-nullity (using quotient spaces):}
+Suppose now that $V$ is finite-dimensional. Apply the quotient-space
+dimension theorem, using $U=\ker T$:
+\[
+\dim(V/\ker T)+\dim(\ker T)=\dim V.
+\]
+Since isomorphic spaces have the same dimension,
+$\dim(V/\ker T)=\dim(\operatorname{range}T)$. Substituting yields
+\[
+\dim(\operatorname{range}T)+\dim(\ker T)=\dim V,
+\]
+which is the rank-nullity theorem. \hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} For the earlier map
+$T_A:\mathbb{R}^3\longrightarrow\mathbb{R}^2$ given by
+$T_A(x,y,z)=(x+2y,-y+z)$, we found
+$\ker T_A=\operatorname{span}\{(-2,1,1)\}$. Its nullity is $1$, so
+\[
+\dim(\operatorname{range}T_A)=3-1=2.
+\]
+Since its range is a two-dimensional subspace of $\mathbb{R}^2$, the
+range is all of $\mathbb{R}^2$ and $T_A$ is surjective.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example:} Every linear map from $\mathbb{R}^3$ to
+$\mathbb{R}^2$ has a null space of dimension at least $1$, so it sends
+some nonzero vector to zero and cannot be injective.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example:} Every linear map from $\mathbb{R}^2$ to
+$\mathbb{R}^3$ has a range of dimension at most $2$, and therefore cannot
+be surjective. For instance, the inclusion
+\[
+J:\mathbb{R}^2\longrightarrow\mathbb{R}^3,
+\qquad J(x,y)=(x,y,0)
+\]
+has the $xy$-plane as its range and does not attain $(0,0,1)$.
+\end{example_box}
+
+\begin{remark_box}
+\textbf{Note.} The dimension obstructions above require linearity;
+they are not statements about arbitrary maps between the underlying
+sets.
+\end{remark_box}
+
+\section{Matrices}
+
+\begin{definition_box}
+\textbf{Definition (matrix):} Let $m,n$ be positive integers. An
+\emph{$m\times n$ matrix over $\mathbb{F}$} is a rectangular array of
+elements of $\mathbb{F}$ arranged in $m$ rows and $n$ columns:
+\[
+A=(a_{ij})=
+\begin{pmatrix}
+a_{11}&a_{12}&\cdots&a_{1n}\\
+a_{21}&a_{22}&\cdots&a_{2n}\\
+\vdots&\vdots&\ddots&\vdots\\
+a_{m1}&a_{m2}&\cdots&a_{mn}
+\end{pmatrix}.
+\]
+The scalar $a_{ij}$ is the \emph{entry} in row $i$ and column $j$.
+The size is written with the number of rows first. The set of all such
+matrices is denoted by $\mathbb{F}^{m\times n}$ or
+$M_{m\times n}(\mathbb{F})$. Two matrices are equal if they have the
+same size and all corresponding entries are equal.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Example:} The matrix
+\[
+B=\begin{pmatrix}1&2&0\\3&-1&4\end{pmatrix}
+\in\mathbb{R}^{2\times3}
+\]
+has two rows and three columns. For instance, $b_{21}=3$ and $b_{23}=4$.
+Its first row is $(1,2,0)$, and its second column is
+$\begin{pmatrix}2\\-1\end{pmatrix}$.
+A matrix with $m=n$ is called \emph{square}; a $1\times n$ matrix is a
+\emph{row vector}, and an $m\times1$ matrix is a \emph{column vector}.
+The \emph{zero matrix} of a given size has every entry equal to zero.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Definition (square, diagonal, and triangular matrices):}
+A \emph{square matrix of order $n$} has $n$ rows and $n$ columns.
+For $A=(a_{ij})\in M_{n\times n}(\mathbb{F})$, its \emph{main diagonal}
+consists of $a_{11},a_{22},\ldots,a_{nn}$. We call $A$:
+\begin{enumerate}
+    \item \emph{Diagonal} if $a_{ij}=0$ whenever $i\neq j$.
+    We write $A=\operatorname{diag}(d_1,\ldots,d_n)$ when $a_{ii}=d_i$.
+    \item \emph{Upper triangular} if $a_{ij}=0$ whenever $i>j$;
+    that is, every entry below the main diagonal is zero.
+    \item \emph{Lower triangular} if $a_{ij}=0$ whenever $i<j$;
+    that is, every entry above the main diagonal is zero.
+    \item A \emph{scalar matrix} if it is diagonal and all its
+    diagonal entries are the same scalar $c$. When $c=1$, it is the
+    \emph{identity matrix} $I_n$.
+\end{enumerate}
+Diagonal entries may be zero. A matrix is diagonal if and only if it is
+both upper and lower triangular: the two triangular conditions together
+say exactly that every off-diagonal entry vanishes. An upper or lower
+triangular matrix is called \emph{strictly triangular} of the respective
+type if its diagonal entries are also zero.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Examples:} Over $\mathbb{R}$, the matrices
+\[
+D=\begin{pmatrix}2&0&0\\0&0&0\\0&0&-1\end{pmatrix},\qquad
+U=\begin{pmatrix}1&2&3\\0&0&4\\0&0&5\end{pmatrix},\qquad
+L=\begin{pmatrix}1&0&0\\2&3&0\\4&5&6\end{pmatrix}
+\]
+are diagonal, upper triangular, and lower triangular, respectively.
+The square zero matrix is both diagonal and strictly upper and lower
+triangular. In these notes, triangular matrices are square; a rectangular
+matrix whose entries satisfy $a_{ij}=0$ for $i>j$ is instead called
+\emph{upper trapezoidal}.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Definition (matrix of a vector):} Let $V$ be a
+finite-dimensional vector space over $\mathbb{F}$ with ordered basis
+$\mathcal{B}=(v_1,\ldots,v_n)$. Each $v\in V$ has a unique expansion
+$v=x_1 v_1+\cdots+x_n v_n$. The \emph{matrix of $v$ relative to
+$\mathcal{B}$}, also called its \emph{coordinate column}, is
+\[
+{[v]}_{\mathcal{B}}=
+\begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}
+\in\mathbb{F}^{n\times1}.
+\]
+The order of the entries matches the order of the basis vectors.
+We identify this column matrix with a vector of $\mathbb{F}^n$.
+It records the coordinates of $v$, not necessarily the vector $v$
+itself; changing the basis can change the column.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (coordinates depend on the basis):} In
+$\mathbb{R}^2$, let $v=(3,1)$ and choose
+$\mathcal{B}=((1,1),(1,-1))$. Since
+\[
+(3,1)=2(1,1)+(1,-1),
+\]
+we have ${[v]}_{\mathcal{B}}=\begin{pmatrix}2\\1\end{pmatrix}$,
+whereas its coordinate column in the standard basis is
+$\begin{pmatrix}3\\1\end{pmatrix}$.
+\end{example_box}
+
+\begin{definition_box}
+\textbf{Definition (matrix of a linear map):} Let
+$T:V\longrightarrow W$ be linear, where $V,W$ are finite-dimensional
+vector spaces over $\mathbb{F}$. Choose ordered bases
+\[
+\mathcal{B}=(v_1,\ldots,v_n)\quad\text{of }V,
+\qquad \mathcal{C}=(w_1,\ldots,w_m)\quad\text{of }W.
+\]
+For each $j$, express $T(v_j)$ uniquely in the basis $\mathcal{C}$:
+\[
+T(v_j)=\sum_{i=1}^m a_{ij}w_i.
+\]
+The \emph{matrix of $T$ relative to $\mathcal{B}$ and $\mathcal{C}$} is
+the $m\times n$ matrix
+\[
+{[T]}_{\mathcal{C}\leftarrow\mathcal{B}}=(a_{ij}).
+\]
+Its $j$th column is the coordinate column of $T(v_j)$ in the target
+basis $\mathcal{C}$. Thus the number of columns is $\dim V$, and the
+number of rows is $\dim W$. The arrow in the notation records that
+input coordinates use $\mathcal{B}$ and output coordinates use
+$\mathcal{C}$.
+\end{definition_box}
+
+\begin{mainbox}{Proposition (linear maps as matrix multiplication):}
+With the ordered bases above fixed, put
+$A={[T]}_{\mathcal{C}\leftarrow\mathcal{B}}$. For every $v\in V$,
+\[
+{[T(v)]}_{\mathcal{C}}
+=A{[v]}_{\mathcal{B}}.
+\]
+Thus applying $T$ becomes multiplication by $A$ when inputs and outputs
+are expressed in their respective bases. Abbreviating these coordinate
+matrices by $M(T(v))$, $M(T)$, and $M(v)$ gives
+\[
+M(T(v))=M(T)M(v).
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Write $v=\sum_{j=1}^n x_j v_j$ and $A=(a_{ij})$.
+By linearity and the definition of $A$,
+\[
+T(v)=\sum_{j=1}^n x_j T(v_j)
+=\sum_{i=1}^m\left(\sum_{j=1}^n a_{ij}x_j\right)w_i,
+\]
+so uniqueness of coordinates gives
+\[
+{[T(v)]}_{\mathcal{C}}
+=\begin{pmatrix}
+\sum_{j=1}^n a_{1j}x_j\\
+\vdots\\
+\sum_{j=1}^n a_{mj}x_j
+\end{pmatrix}
+=A\begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}
+=A{[v]}_{\mathcal{B}}.
+\]
+Here an $m\times n$ matrix multiplies an $n\times1$ column to give
+an $m\times1$ column. \hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (differentiation in polynomial bases):} Consider
+$D:\mathcal{P}_2(\mathbb{R})\longrightarrow\mathcal{P}_1(\mathbb{R})$,
+$D(p)=p'$, with ordered bases
+$\mathcal{B}=(1,x,x^2)$ and $\mathcal{C}=(1,x)$. Since
+\[
+D(1)=0,\qquad D(x)=1,\qquad D(x^2)=2x,
+\]
+their coordinate columns give
+\[
+{[D]}_{\mathcal{C}\leftarrow\mathcal{B}}
+=\begin{pmatrix}0&1&0\\0&0&2\end{pmatrix}.
+\]
+For example, the polynomial $p=a+bx+cx^2$ has coordinate column
+${(a,b,c)}^{\mathsf{T}}$, and
+\[
+\begin{pmatrix}0&1&0\\0&0&2\end{pmatrix}
+\begin{pmatrix}a\\b\\c\end{pmatrix}
+=\begin{pmatrix}b\\2c\end{pmatrix},
+\]
+which is the coordinate column of $p'=b+2cx$ in $\mathcal{C}$.
+\end{example_box}
+
+\begin{remark_box}
+\textbf{Note (the bases matter):} A linear map is not itself a
+matrix: a matrix represents it after ordered bases have been chosen.
+Changing either basis can change the matrix without changing the map.
+For a map $T_A:\mathbb{F}^n\longrightarrow\mathbb{F}^m$, $T_A(x)=Ax$,
+the representing matrix in the standard bases is exactly $A$.
+\end{remark_box}
+
+\begin{claim_box}
+\textbf{Definition (addition and scalar multiplication):} Let
+$A=(a_{ij})$ and $B=(b_{ij})$ belong to
+$M_{m\times n}(\mathbb{F})$, and let $c\in\mathbb{F}$. Define
+\[
+A+B=(a_{ij}+b_{ij}),\qquad cA=(ca_{ij}).
+\]
+Thus addition adds corresponding entries, and scalar multiplication
+multiplies every entry by the same scalar. Both operations preserve the
+size of the matrix; addition requires the matrices to have the same size.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} Over $\mathbb{R}$,
+\[
+\begin{pmatrix}1&2\\0&-1\end{pmatrix}
++\begin{pmatrix}3&0\\4&2\end{pmatrix}
+=\begin{pmatrix}4&2\\4&1\end{pmatrix},
+\qquad
+3\begin{pmatrix}1&2\\0&-1\end{pmatrix}
+=\begin{pmatrix}3&6\\0&-3\end{pmatrix}.
+\]
+Under these operations, $M_{m\times n}(\mathbb{F})$ is a vector space:
+the axioms hold entrywise because they hold in $\mathbb{F}$. Its zero
+vector is the zero matrix, and the additive inverse of $A$ is $-A$.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Proposition (matrix representation respects linear combinations):}
+Fix ordered bases $\mathcal{B}=(v_1,\ldots,v_n)$ of $V$ and
+$\mathcal{C}=(w_1,\ldots,w_m)$ of $W$. For
+$T\in\mathcal{L}(V,W)$, abbreviate
+\[
+M(T)={[T]}_{\mathcal{C}\leftarrow\mathcal{B}}.
+\]
+Then for all $S,T\in\mathcal{L}(V,W)$ and $c\in\mathbb{F}$,
+\[
+M(S+T)=M(S)+M(T),\qquad M(cT)=cM(T).
+\]
+
+\textit{Proof:} Write $M(S)=(s_{ij})$ and $M(T)=(t_{ij})$. By the
+definition of a representing matrix, for each $j$,
+\[
+S(v_j)=\sum_{i=1}^m s_{ij}w_i,
+\qquad T(v_j)=\sum_{i=1}^m t_{ij}w_i.
+\]
+Using pointwise addition of maps gives
+\[
+(S+T)(v_j)=S(v_j)+T(v_j)
+=\sum_{i=1}^m(s_{ij}+t_{ij})w_i.
+\]
+Uniqueness of coordinates in $\mathcal{C}$ shows that the entry in row
+$i$, column $j$ of $M(S+T)$ is $s_{ij}+t_{ij}$. These are exactly the
+entries of $M(S)+M(T)$, proving the first identity.
+
+Similarly, pointwise scalar multiplication gives
+\[
+(cT)(v_j)=cT(v_j)=\sum_{i=1}^m(ct_{ij})w_i.
+\]
+Thus the entry in row $i$, column $j$ of $M(cT)$ is $ct_{ij}$, which
+is the corresponding entry of $cM(T)$. This proves the second identity.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Consequence:} With these bases fixed, the assignment
+\[
+M:\mathcal{L}(V,W)\longrightarrow M_{m\times n}(\mathbb{F}),
+\qquad T\longmapsto M(T),
+\]
+is itself a linear map. In particular,
+$M(aS+bT)=aM(S)+bM(T)$ for all $a,b\in\mathbb{F}$.
+All matrices in these identities must use the same ordered domain and
+codomain bases.
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Definition (matrix multiplication):} Let
+$A=(a_{ik})\in M_{m\times n}(\mathbb{F})$ and
+$B=(b_{kj})\in M_{n\times p}(\mathbb{F})$. Their \emph{product}
+$AB$ is the $m\times p$ matrix whose entries are
+\[
+{(AB)}_{ij}=\sum_{k=1}^n a_{ik}b_{kj},
+\qquad 1\leq i\leq m,\quad 1\leq j\leq p.
+\]
+To find the entry in row $i$, column $j$, multiply corresponding entries
+of row $i$ of $A$ and column $j$ of $B$, then add the products.
+The number of columns of $A$ must equal the number of rows of $B$:
+\[
+(m\times n)(n\times p)\longrightarrow m\times p.
+\]
+This is not entrywise multiplication.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Example (row-by-column multiplication):} Over $\mathbb{R}$,
+let
+\[
+A=\begin{pmatrix}1&2&0\\0&-1&1\end{pmatrix},
+\qquad B=\begin{pmatrix}1&0\\2&1\\3&4\end{pmatrix}.
+\]
+Since $A$ is $2\times3$ and $B$ is $3\times2$, the product $AB$ is
+$2\times2$. Computing each entry gives
+\[
+\begin{aligned}
+AB
+&=\begin{pmatrix}
+1\cdot1+2\cdot2+0\cdot3 & 1\cdot0+2\cdot1+0\cdot4\\
+0\cdot1+(-1)\cdot2+1\cdot3 & 0\cdot0+(-1)\cdot1+1\cdot4
+\end{pmatrix}\\[4pt]
+&=\begin{pmatrix}5&2\\1&3\end{pmatrix}.
+\end{aligned}
+\]
+\end{example_box}
+
+\begin{remark_box}
+\textbf{Note:} The reverse product $BA$ need not
+be defined. Even when both products exist, they need not be equal;
+in this example $BA$ is $3\times3$, whereas $AB$ is $2\times2$.
+\end{remark_box}
+
+\begin{claim_box}
+\textbf{Definition (identity matrix):} The \emph{identity matrix}
+$I_n\in\mathbb{F}^{n\times n}$ has $1$ in every diagonal position
+and $0$ elsewhere. Write $0_{m\times n}$ for the zero matrix of size
+$m\times n$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Properties of matrix addition and scalar multiplication:}
+For $A,B,C\in\mathbb{F}^{m\times n}$ and $a,b\in\mathbb{F}$,
+\[
+\begin{aligned}
+A+B&=B+A, & (A+B)+C&=A+(B+C),\\
+A+0_{m\times n}&=A, & A+(-A)&=0_{m\times n},\\
+a(A+B)&=aA+aB, & (a+b)A&=aA+bA,\\
+a(bA)&=(ab)A, & 1A&=A,\qquad 0A=0_{m\times n}.
+\end{aligned}
+\]
+These identities hold entry by entry because the corresponding
+identities hold in the field $\mathbb{F}$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Properties of matrix multiplication:} All products and
+sums below require the indicated compatible sizes.
+\begin{enumerate}
+    \item \emph{Associativity.} If $A$ is $m\times n$, $B$ is
+    $n\times p$, and $C$ is $p\times q$, then
+    \[
+    (AB)C=A(BC)\in\mathbb{F}^{m\times q}.
+    \]
+    Thus parentheses may be omitted from a product $ABC$, while
+    the order of the factors must be retained.
+    \item \emph{Distributivity.} If $A$ is $m\times n$ and $B,C$
+    are $n\times p$, then
+    \[
+    A(B+C)=AB+AC.
+    \]
+    If $A,B$ are $m\times n$ and $C$ is $n\times p$, then
+    \[
+    (A+B)C=AC+BC.
+    \]
+    \item \emph{Compatibility with scalars.} If $A$ is $m\times n$,
+    $B$ is $n\times p$, and $c\in\mathbb{F}$, then
+    \[
+    c(AB)=(cA)B=A(cB).
+    \]
+    \item \emph{Identity and zero.} For $A\in\mathbb{F}^{m\times n}$,
+    \[
+    I_m A=A=A I_n,\qquad
+    A0_{n\times p}=0_{m\times p},\qquad
+    0_{q\times m}A=0_{q\times n}.
+    \]
+\end{enumerate}
+
+\textit{Proof:} For associativity, the entry in row $i$, column $j$ is
+\[
+\begin{aligned}
+{((AB)C)}_{ij}
+&=\sum_{k=1}^p\left(\sum_{\ell=1}^n a_{i\ell}b_{\ell k}\right)c_{kj}\\
+&=\sum_{\ell=1}^n a_{i\ell}
+  \left(\sum_{k=1}^p b_{\ell k}c_{kj}\right)
+={\bigl(A(BC)\bigr)}_{ij}.
+\end{aligned}
+\]
+Distributivity follows by expanding each entry, for example
+\[
+{(A(B+C))}_{ij}
+=\sum_{k=1}^n a_{ik}(b_{kj}+c_{kj})
+={(AB)}_{ij}+{(AC)}_{ij}.
+\]
+Expanding $(a_{ik}+b_{ik})c_{kj}$ proves the other distributive law.
+A scalar factor can be moved outside each finite sum, proving scalar
+compatibility. Finally, multiplication by an identity matrix selects
+the corresponding row or column of $A$, while multiplication by a zero
+matrix gives only zero summands. These entrywise equalities prove all
+the identities. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Definition (left and right inverses):} Let
+$A\in\mathbb{F}^{m\times n}$. A matrix $L\in\mathbb{F}^{n\times m}$
+is a \emph{left inverse} of $A$ if $LA=I_n$. A matrix
+$R\in\mathbb{F}^{n\times m}$ is a \emph{right inverse} of $A$ if
+$AR=I_m$. The side refers to the position of the inverse in the product.
+Both kinds of inverse necessarily have size $n\times m$; their having
+the same size alone does not imply their existence or equality.
+\end{claim_box}
+
+\begin{definition_box}
+\textbf{Definition (inverse and invertibility):} A square matrix
+$A\in\mathbb{F}^{n\times n}$ is \emph{invertible}, or
+\emph{nonsingular}, if there is a matrix $B\in\mathbb{F}^{n\times n}$
+such that
+\[
+AB=BA=I_n.
+\]
+Such a $B$ is a \emph{two-sided inverse} of $A$. We will prove that it
+is unique and denote it by $A^{-1}$. A square matrix with no inverse is
+called \emph{singular}. Matrix inversion is not entrywise reciprocation.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Theorem (left and right inverses agree):} If a matrix
+$A\in\mathbb{F}^{m\times n}$ admits both a left inverse $L$ and a
+right inverse $R$, then $L=R$. Moreover, $m=n$, so $A$ is invertible
+and this common inverse is unique.
+
+\textit{Proof:} Associativity and the identity laws give
+\[
+L=L I_m=L(AR)=(LA)R=I_n R=R.
+\]
+To see why $A$ must be square, consider
+$T_A:\mathbb{F}^n\longrightarrow\mathbb{F}^m$, $T_A(x)=Ax$.
+If $Ax=0$, then $x=LAx=0$, so $T_A$ is injective and $n\leq m$.
+For every $y\in\mathbb{F}^m$, we have $y=A(Ry)$, so $T_A$ is
+surjective and $m\leq n$. Thus $m=n$.
+Finally, any other left inverse $L'$ equals $R$ by the same calculation,
+and any other right inverse $R'$ equals $L$. In particular, any two
+two-sided inverses coincide. \hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Theorem}
+Let
+$A\in\mathbb{F}^{n\times n}$. Then
+\[
+A\text{ has a left inverse}
+\quad\Longleftrightarrow\quad
+A\text{ has a right inverse}.
+\]
+Whenever these equivalent conditions hold, $A$ is invertible and
+every one-sided inverse equals the unique two-sided inverse $A^{-1}$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} $(\Rightarrow)$ Suppose $L$ is a left inverse,
+so $LA=I_n$.
+If $Ax=0$, then
+\[
+x=I_n x=(LA)x=L(Ax)=0.
+\]
+Thus $T_A:\mathbb{F}^n\longrightarrow\mathbb{F}^n$, $T_A(x)=Ax$,
+is injective. Since the domain and codomain have the same finite
+dimension, rank-nullity implies that $T_A$ is also surjective.
+For any $y\in\mathbb{F}^n$, choose $x$ with $Ax=y$. Then
+\[
+ALy=AL(Ax)=A(LA)x=Ax=y.
+\]
+Hence $AL$ acts as the identity on every vector, and evaluating on
+the standard basis gives $AL=I_n$. Therefore the very same matrix $L$
+is also a right inverse, and $A^{-1}=L$.
+
+$(\Leftarrow)$ Suppose $R$ is a right inverse, so $AR=I_n$. Every
+$y\in\mathbb{F}^n$ satisfies $y=A(Ry)$, making $T_A$ surjective
+and hence injective by equal finite dimensions. For every $x$,
+\[
+A(RAx-x)=(AR)Ax-Ax=0.
+\]
+Injectivity implies $RAx-x=0$. Thus $RA=I_n$, so $R$ is also a
+left inverse.
+
+This proves both implications. In either case the given inverse is
+two-sided, and uniqueness follows from the preceding theorem.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Caution (one-sided inverses need not be unique):}
+For rectangular matrices, a left inverse alone or a right inverse alone
+need not be unique. For example, for every $t\in\mathbb{F}$,
+\[
+\begin{pmatrix}1&t\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
+=I_1,\qquad
+\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}1\\t\end{pmatrix}
+=I_1.
+\]
+Thus the column matrix on the left has distinct left inverses, and
+the row matrix on the right has distinct right inverses (take $t=0,1$).
+Neither rectangular matrix can have both kinds of inverse.
+\end{remark_box}
+
+\begin{example_box}
+\textbf{Example (a zero product with nonzero factors):} Unlike
+scalars in a field, nonzero matrices can multiply to zero. For example,
+\[
+A=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+B=\begin{pmatrix}0&0\\1&0\end{pmatrix}
+\quad\Longrightarrow\quad
+AB=\begin{pmatrix}0&0\\0&0\end{pmatrix}.
+\]
+Both $A$ and $B$ are nonzero. Moreover, $BA=B\neq0$, so $AB=0$
+does not imply $BA=0$, even when both products are defined.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Theorem:} Let
+$A\in\mathbb{F}^{m\times n}$ and $B\in\mathbb{F}^{n\times p}$.
+Write $T_A(x)=Ax$ and $T_B(y)=By$. Then
+\[
+AB=0_{m\times p}
+\quad\Longleftrightarrow\quad
+\operatorname{range}T_B\subseteq\ker T_A.
+\]
+Equivalently, every column of $B$ lies in the null space of $A$.
+Consequently, if $AB=0$, then
+\[
+\operatorname{rank}A+\operatorname{rank}B\leq n.
+\]
+
+\textit{Proof:} If $AB=0$, every vector $z=By$ in the range of $T_B$
+satisfies $Az=ABy=0$, so $z\in\ker T_A$. Conversely, the inclusion
+implies $ABy=0$ for every $y\in\mathbb{F}^p$. Taking $y$ to be each
+standard basis vector shows that every column of $AB$ is zero.
+The column formulation follows because column $j$ of $AB$ is $AB_j$,
+where $B_j$ is column $j$ of $B$. Finally, the inclusion and
+rank-nullity give
+\[
+\operatorname{rank}B=\dim(\operatorname{range}T_B)
+\leq\dim(\ker T_A)=n-\operatorname{rank}A.
+\]
+Rearranging proves the inequality. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition:} For the same
+matrix sizes, suppose $AB=0$.
+\begin{enumerate}
+    \item If $A$ has a left inverse, then $B=0$.
+    In particular, this holds if $A$ is square and invertible.
+    \item If $B$ has a right inverse, then $A=0$.
+    In particular, this holds if $B$ is square and invertible.
+\end{enumerate}
+
+\textit{Proof:} If $LA=I_n$, then
+\[
+B=I_n B=(LA)B=L(AB)=0.
+\]
+If $BR=I_n$, then
+\[
+A=A I_n=A(BR)=(AB)R=0.
+\]
+Thus cancellation is justified by an inverse on the appropriate side,
+not merely by a factor being nonzero. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Corollary:} If $A$ has a left inverse
+and $AB=AC$, where $B,C$ have the same compatible size, then $B=C$.
+If $A$ has a right inverse and $BA=CA$, then $B=C$.
+
+\textit{Proof:} Distributivity gives $A(B-C)=0$ in the first case
+and $(B-C)A=0$ in the second. Apply the preceding proposition to
+obtain $B-C=0$. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition:}
+Let $A\in\mathbb{F}^{n\times n}$ with $n\geq1$. Then $A$ is singular
+if and only if there exists a nonzero $B\in\mathbb{F}^{n\times n}$
+such that $AB=0$.
+
+\textit{Proof:} If $A$ is singular, $T_A$ cannot be injective:
+an injective operator on $\mathbb{F}^n$ is bijective, and its linear
+inverse would provide an inverse matrix for $A$. Choose a nonzero
+$v\in\ker T_A$ and let $B$ have first column $v$ and all other
+columns zero. Then $B\neq0$ and every column of $AB$ is zero.
+Conversely, if $AB=0$ with $B\neq0$, $A$ cannot be invertible by
+the zero-factor proposition. Hence $A$ is singular. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Consequence:} If $A,B$ are square matrices of the same
+order, $AB=0$, and both factors are nonzero, then both factors are
+singular. Indeed, invertibility of either would force the other to be
+zero. The converse is false: two singular matrices need not have zero
+product. For instance,
+$P=\begin{pmatrix}1&0\\0&0\end{pmatrix}$ is singular but $P^2=P\neq0$.
+\end{claim_box}
+
+\begin{mainbox}{Theorem (inverse of a $2\times2$ matrix)}
+Let
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\qquad a,b,c,d\in\mathbb{F}.
+\]
+The scalar $\det A=ad-bc$ is called the \emph{determinant} of this
+$2\times2$ matrix. Then $A$ is invertible if and only if $ad-bc\neq0$,
+and in that case
+\[
+\boxed{A^{-1}=\frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.}
+\]
+To compute it, interchange the diagonal entries, negate the two
+off-diagonal entries, and multiply by ${(ad-bc)}^{-1}$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Put $C=\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$.
+Direct multiplication gives
+\[
+AC=\begin{pmatrix}ad-bc&0\\0&ad-bc\end{pmatrix}
+=CA=(ad-bc)I_2.
+\]
+If $ad-bc\neq0$, division by this scalar gives a two-sided inverse,
+proving the formula.
+
+If $ad-bc=0$, then $AC=0$. Were $A$ invertible, multiplying by
+$A^{-1}$ on the left would give $C=0$. The entries of $C$ then force
+$a=b=c=d=0$, so $A=0$, which cannot have an inverse because $0B=0\neq I_2$
+for every $B$. This contradiction proves the converse. \hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (computing a $2\times2$ inverse):} Over
+$\mathbb{R}$, let
+\[
+A=\begin{pmatrix}2&1\\5&3\end{pmatrix}.
+\]
+Since $\det A=2\cdot3-1\cdot5=1$, the formula gives
+\[
+A^{-1}=\begin{pmatrix}3&-1\\-5&2\end{pmatrix}.
+\]
+Indeed,
+\[
+\begin{pmatrix}2&1\\5&3\end{pmatrix}
+\begin{pmatrix}3&-1\\-5&2\end{pmatrix}
+=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
+\]
+In contrast, $\begin{pmatrix}1&2\\2&4\end{pmatrix}$ has determinant
+zero and hence no inverse.
+\end{example_box}
+
+\begin{problem_box}
+\textbf{Exercise:}
+Let $n\geq1$ be an integer, and define $A=(a_{ij})\in\mathbb{R}^{n\times n}$
+by
+\[
+a_{ij}=\frac{1}{i+j-1},\qquad 1\leq i,j\leq n.
+\]
+Prove that:
+\begin{enumerate}
+    \item $A$ is invertible for every $n\geq1$.
+    \item Every entry of $A^{-1}$ is an integer; that is,
+    $A^{-1}\in M_{n\times n}(\mathbb{Z})$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textbf{Solution:} We construct a matrix
+$B$ with integer entries such that $AB=I_n$. Since $A$ is square,
+this will prove both invertibility and $A^{-1}=B$. The only polynomial
+fact we need is that a polynomial of degree at most $n-1$ with $n$
+distinct roots is identically zero. Empty products below equal $1$,
+and $0!=1$.
+
+\emph{Construct one column of the inverse:} Fix
+$j\in\{1,\ldots,n\}$. We want numbers $b_{1j},\ldots,b_{nj}$ such that
+\[
+\sum_{i=1}^n\frac{b_{ij}}{k+i-1}
+=\begin{cases}1,&k=j,\\0,&k\neq j,\end{cases}
+\qquad 1\leq k\leq n.
+\]
+These are exactly the equations for column $j$ of $AB=I_n$.
+Introduce the polynomials
+\[
+Q(x)=\prod_{r=1}^n(x+r-1),\qquad
+P_j(x)=Q(j)\prod_{\substack{1\leq k\leq n\\k\neq j}}
+\frac{x-k}{j-k}.
+\]
+The polynomial $P_j$ has degree $n-1$, and its factors give
+$P_j(j)=Q(j)$ and $P_j(k)=0$ for all other $k\in\{1,\ldots,n\}$.
+Thus $P_j(k)/Q(k)$ has exactly the desired values.
+
+\emph{Write this quotient as a sum:} Set
+\[
+b_{ij}=\frac{P_j(1-i)}{
+\displaystyle\prod_{\substack{1\leq r\leq n\\r\neq i}}(r-i)}.
+\]
+Every denominator here is nonzero. We claim the polynomial identity
+\[
+P_j(x)=\sum_{i=1}^n b_{ij}
+\prod_{\substack{1\leq r\leq n\\r\neq i}}(x+r-1).
+\]
+To check it, substitute $x=1-s$, where $1\leq s\leq n$.
+All terms on the right vanish except $i=s$, and that term equals
+$P_j(1-s)$ by the definition of $b_{sj}$. Both sides have degree
+at most $n-1$, so their difference has $n$ distinct roots and is zero.
+Dividing by $Q(x)$, whenever $Q(x)\neq0$, gives
+\[
+\frac{P_j(x)}{Q(x)}=\sum_{i=1}^n\frac{b_{ij}}{x+i-1}.
+\]
+In particular, substitution of $x=k\in\{1,\ldots,n\}$ proves the
+equations in Step 1. Doing this for every $j$ constructs $B$ with
+$AB=I_n$, so $A$ is invertible and $B=A^{-1}$.
+
+\emph{Show that the entries are integers:} The products above
+can be written using factorials:
+\[
+\begin{aligned}
+Q(j)&=\frac{(n+j-1)!}{(j-1)!},\\
+\prod_{\substack{1\leq k\leq n\\k\neq j}}(j-k)
+&={(-1)}^{n-j}(j-1)!(n-j)!,\\
+\prod_{\substack{1\leq k\leq n\\k\neq j}}(1-i-k)
+&={(-1)}^{n-1}\frac{(n+i-1)!}{(i-1)!(i+j-1)},\\
+\prod_{\substack{1\leq r\leq n\\r\neq i}}(r-i)
+&={(-1)}^{i-1}(i-1)!(n-i)!.
+\end{aligned}
+\]
+Substitution into the formula for $b_{ij}$ yields
+\[
+b_{ij}={(-1)}^{i+j}
+\frac{(n+i-1)!(n+j-1)!}
+{(i+j-1){((i-1)!)}^2{((j-1)!)}^2(n-i)!(n-j)!}.
+\]
+Although this expression is a quotient, it can be regrouped as
+\[
+\boxed{
+b_{ij}={(-1)}^{i+j}(i+j-1)
+\binom{n+i-1}{n-j}\binom{n+j-1}{n-i}
+\binom{i+j-2}{i-1}^{\!2}.}
+\]
+Indeed, expanding the three binomial coefficients into factorials
+recovers the preceding expression. All their upper and lower arguments
+are nonnegative integers with the lower argument no larger than the
+upper one. Each binomial coefficient is therefore an integer, so
+$b_{ij}\in\mathbb{Z}$. Since $B=A^{-1}$, this completes the proof.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Theorem (the matrix of a composition)}
+Let
+$T:U\longrightarrow V$ and $S:V\longrightarrow W$ be linear maps
+between finite-dimensional vector spaces over $\mathbb{F}$. Fix ordered
+bases
+\[
+\mathcal{B}=(u_1,\ldots,u_p),\qquad
+\mathcal{C}=(v_1,\ldots,v_n),\qquad
+\mathcal{D}=(w_1,\ldots,w_m)
+\]
+of $U,V,W$, respectively. Then
+\[
+{[ST]}_{\mathcal{D}\leftarrow\mathcal{B}}
+={[S]}_{\mathcal{D}\leftarrow\mathcal{C}}
+{[T]}_{\mathcal{C}\leftarrow\mathcal{B}}.
+\]
+Abbreviating these matrices by $M(ST),M(S),M(T)$, this says
+\[
+M(ST)=M(S)M(T).
+\]
+Here $M(S)$ is $m\times n$, $M(T)$ is $n\times p$, and their product
+is $m\times p$, as required for the matrix of $ST:U\longrightarrow W$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Write $M(S)=(a_{ik})$ and $M(T)=(b_{kj})$.
+By the definition of these matrices,
+\[
+T(u_j)=\sum_{k=1}^n b_{kj}v_k,
+\qquad S(v_k)=\sum_{i=1}^m a_{ik}w_i.
+\]
+For each domain basis vector $u_j$, linearity of $S$ gives
+\[
+\begin{aligned}
+(ST)(u_j)
+&=S\left(\sum_{k=1}^n b_{kj}v_k\right)\\
+&=\sum_{k=1}^n b_{kj}S(v_k)\\
+&=\sum_{k=1}^n\sum_{i=1}^m b_{kj}a_{ik}w_i\\
+&=\sum_{i=1}^m\left(\sum_{k=1}^n a_{ik}b_{kj}\right)w_i.
+\end{aligned}
+\]
+Thus the entry in row $i$, column $j$ of $M(ST)$ is
+$\sum_{k=1}^n a_{ik}b_{kj}$. By the definition of matrix multiplication,
+this is precisely the corresponding entry of $M(S)M(T)$.
+Since all corresponding entries agree, $M(ST)=M(S)M(T)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Note:} The same intermediate basis $\mathcal{C}$ must be
+used for the output of $T$ and the input of $S$. The order also matches
+composition: $T$ acts first, so its matrix appears on the right.
+\end{remark_box}
+
+\begin{definition_box}
+\textbf{Definition (row echelon form and RREF):} The
+\emph{leading entry} of a nonzero row is its leftmost nonzero entry.
+A matrix is in \emph{row echelon form} (REF) if:
+\begin{enumerate}
+    \item All zero rows occur below all nonzero rows.
+    \item The leading entry of each nonzero row is strictly to the
+    right of the leading entry of the preceding nonzero row.
+    \item Every entry below a leading entry is zero.
+\end{enumerate}
+It is in \emph{reduced row echelon form} (RREF) if it also satisfies:
+\begin{enumerate}
+    \item Every leading entry is $1$.
+    \item Each leading $1$ is the only nonzero entry in its column.
+\end{enumerate}
+Leading entries need not lie on the main diagonal: columns may be
+skipped. The zero matrix satisfies these conditions as well.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition (echelon form and triangularity).} Every
+square matrix in REF is upper triangular. More generally, every
+rectangular matrix in REF is upper trapezoidal.
+
+\textit{Proof:} Let $A$ have $r$ nonzero rows. They are the first $r$
+rows because all zero rows are at the bottom. For $1\leq i\leq r$,
+let $p_i$ be the column index of the leading entry in row $i$.
+The echelon conditions give
+\[
+1\leq p_1<p_2<\cdots<p_r,
+\]
+so $p_i\geq i$. If $j<i$, then $j<p_i$, and hence $a_{ij}=0$
+because all entries before the leading entry of row $i$ vanish.
+For $i>r$, the entire row is zero. Thus $a_{ij}=0$ whenever $i>j$,
+which proves both assertions. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Theorem (square RREF with no zero rows):} If
+$A\in M_{n\times n}(\mathbb{F})$ is in RREF and has no zero row,
+then $A=I_n$.
+
+\textit{Proof:} Every row has a leading entry, so there are $n$
+leading columns with indices
+\[
+1\leq p_1<p_2<\cdots<p_n\leq n.
+\]
+The only possibility is $p_i=i$ for every $i$. Thus every diagonal
+entry is a leading $1$. Since $A$ is reduced, that $1$ is the only
+nonzero entry in its column. Consequently, all off-diagonal entries
+are zero, and $A=I_n$. \hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Caution (the hypotheses matter):} An upper triangular
+matrix need not be in REF\@: for example,
+$\begin{pmatrix}0&1\\0&1\end{pmatrix}$ has its two leading entries
+in the same column. Also, the square assumption in the preceding
+theorem is essential. The rectangular matrix
+\[
+\begin{pmatrix}1&0&2\\0&1&3\end{pmatrix}
+\]
+is in RREF and has no zero row, but is not an identity matrix.
+\end{remark_box}
+
+\begin{definition_box}
+\textbf{Definition (transpose of a matrix):} The
+\emph{transpose} of $A=(a_{ij})\in\mathbb{F}^{m\times n}$ is the
+$n\times m$ matrix $A^{\mathsf{T}}$ defined by
+\[
+{(A^{\mathsf{T}})}_{ji}=a_{ij},
+\qquad 1\leq i\leq m,\quad 1\leq j\leq n.
+\]
+It interchanges rows and columns without conjugating entries, even
+over $\mathbb{C}$. The notation $A'$ is also used for the transpose;
+here we use $A^{\mathsf{T}}$ to make its meaning explicit. For example,
+\[
+A=\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix}
+\quad\Longrightarrow\quad
+A^{\mathsf{T}}=\begin{pmatrix}1&4\\2&5\\3&6\end{pmatrix}.
+\]
+Transposing twice restores the original matrix, and transposing an
+identity matrix leaves it unchanged:
+\[
+{(A^{\mathsf{T}})}^{\mathsf{T}}=A,\qquad I_n^{\mathsf{T}}=I_n.
+\]
+Both identities follow directly by interchanging the row and column
+indices in the definition.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Proposition (transpose of a product):} If $A$ is
+$m\times n$ and $B$ is $n\times p$, then
+\[
+{(AB)}^{\mathsf{T}}=B^{\mathsf{T}}A^{\mathsf{T}}.
+\]
+In particular, transposition reverses the order of multiplication.
+
+\textit{Proof.} Both sides are $p\times m$. For each $i,j$,
+\[
+\begin{aligned}
+{\bigl({(AB)}^{\mathsf{T}}\bigr)}_{ij}
+&={(AB)}_{ji}=\sum_{k=1}^n a_{jk}b_{ki}\\
+&=\sum_{k=1}^n {(B^{\mathsf{T}})}_{ik}{(A^{\mathsf{T}})}_{kj}
+={(B^{\mathsf{T}}A^{\mathsf{T}})}_{ij}.
+\end{aligned}
+\]
+Equality of all entries proves the formula. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Theorem (transpose and inverse):} If
+$A\in\mathbb{F}^{n\times n}$ is invertible, then $A^{\mathsf{T}}$
+is invertible and
+\[
+\boxed{{(A^{\mathsf{T}})}^{-1}={(A^{-1})}^{\mathsf{T}}.}
+\]
+In prime notation, this is ${(A')}^{-1}={(A^{-1})}'$.
+
+\textit{Proof.} Transpose the identities $A^{-1}A=I_n$ and
+$AA^{-1}=I_n$, using the product rule:
+\[
+A^{\mathsf{T}}{(A^{-1})}^{\mathsf{T}}=I_n,\qquad
+{(A^{-1})}^{\mathsf{T}}A^{\mathsf{T}}=I_n.
+\]
+Thus ${(A^{-1})}^{\mathsf{T}}$ is a two-sided inverse of
+$A^{\mathsf{T}}$. Uniqueness of the inverse proves the result.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Definition (column echelon form and RCEF):}
+A matrix $A$ is in \emph{column echelon
+form} if $A^{\mathsf{T}}$ is in row echelon form, and in
+\emph{reduced column echelon form} (RCEF) if $A^{\mathsf{T}}$ is in RREF\@.
+Explicitly, RCEF means that zero columns are on the right, the topmost
+nonzero entry of each nonzero column is $1$, these leading $1$s move
+strictly downward as the columns move right, and each is the only
+nonzero entry in its row.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (the two reduced forms):} Over $\mathbb{R}$,
+\[
+R=\begin{pmatrix}1&2&0&3\\0&0&1&-1\\0&0&0&0\end{pmatrix}
+\quad\text{is in RREF},\qquad
+R^{\mathsf{T}}=
+\begin{pmatrix}1&0&0\\2&0&0\\0&1&0\\3&-1&0\end{pmatrix}
+\quad\text{is in RCEF}.
+\]
+The leading entries of $R$ are in positions $(1,1)$ and $(2,3)$;
+those of $R^{\mathsf{T}}$ are in positions $(1,1)$ and $(3,2)$.
+RREF does not require every column to have a leading $1$, nor does
+RCEF require every row to have one.
+\end{example_box}
+
+\begin{remark_box}
+\textbf{Note (row reduction versus column reduction):}
+Elementary row operations produce RREF\@; the corresponding operations
+on columns produce RCEF\@. Equivalently, reduce $A^{\mathsf{T}}$ by rows
+and transpose the result to obtain the RCEF of $A$. These are different
+operations: to solve $Ax=b$ in the original variables, use row
+operations on the entire augmented matrix $[A\mid b]$. Column
+operations on $A$ generally change the variables and require a
+corresponding change of coordinates; they cannot simply replace row
+operations on an augmented system.
+\end{remark_box}
+
+\begin{definition_box}
+\textbf{Definition (elementary matrices):} An \emph{elementary
+matrix of order $m$} is a matrix obtained from $I_m$ by one elementary
+row operation. There are three types:
+\begin{enumerate}
+    \item Interchange rows $i$ and $j$, where $i\neq j$.
+    \item Multiply row $i$ by a nonzero scalar $c$.
+    \item Add $c$ times row $j$ to row $i$, where $i\neq j$.
+\end{enumerate}
+In the second type, the matrix differs from $I_m$ only in its
+$(i,i)$ entry, which is $c$. In the third type, it differs only in
+its $(i,j)$ entry, which is $c$ instead of zero. The order of the
+elementary matrix matches the number of rows of the matrix on which
+the operation will act.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Examples:} The elementary matrices
+\[
+P=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+D=\begin{pmatrix}c&0\\0&1\end{pmatrix}\ (c\neq0),\qquad
+H=\begin{pmatrix}1&0\\c&1\end{pmatrix}
+\]
+are obtained from $I_2$ by $R_1\leftrightarrow R_2$,
+$R_1\leftarrow cR_1$, and $R_2\leftarrow R_2+cR_1$, respectively.
+For an arbitrary $2\times n$ matrix with rows $u$ and $v$,
+\[
+P\begin{pmatrix}u\\v\end{pmatrix}=\begin{pmatrix}v\\u\end{pmatrix},
+\qquad
+D\begin{pmatrix}u\\v\end{pmatrix}=\begin{pmatrix}cu\\v\end{pmatrix},
+\qquad
+H\begin{pmatrix}u\\v\end{pmatrix}=\begin{pmatrix}u\\v+cu\end{pmatrix}.
+\]
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Theorem (row operations are left multiplication):}
+Let $A\in\mathbb{F}^{m\times n}$, and let $E$ be obtained from $I_m$
+by an elementary row operation. Then $EA$ is exactly the matrix
+obtained by performing that same operation on $A$.
+
+\textit{Proof:} Write $A_{k,*}$ for row $k$ of $A$. Matrix
+multiplication says that row $i$ of $EA$ is
+\[
+{(EA)}_{i,*}=\sum_{k=1}^m e_{ik}A_{k,*}.
+\]
+Thus each row of $E$ specifies a linear combination of the rows of $A$.
+For an unchanged row of $I_m$, this formula returns the corresponding
+row of $A$. It remains to check the changed rows:
+\begin{enumerate}
+    \item If rows $i,j$ of $I_m$ are swapped, row $i$ of $E$ selects
+    $A_{j,*}$ and row $j$ selects $A_{i,*}$. Hence $EA$ swaps those rows.
+    \item If row $i$ is multiplied by $c$, its only nonzero entry
+    is $e_{ii}=c$. The formula gives $cA_{i,*}$.
+    \item If $c$ times row $j$ is added to row $i$, then row $i$
+    of $E$ has entries $e_{ii}=1$ and $e_{ij}=c$, with all others
+    zero. The formula gives $A_{i,*}+cA_{j,*}$.
+\end{enumerate}
+These are precisely the three stated operations. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Corollary (elementary matrices are invertible):}
+The inverse of an elementary matrix is the elementary matrix for the
+reverse operation: swap the same rows again, scale by $c^{-1}$,
+or add $-c$ times the other row, respectively.
+
+\textit{Proof.} Let $E$ represent an operation and $F$ its reverse.
+By the theorem, $FE$ applies the reverse operation to $E$, giving
+$I_m$. Similarly, $EF=I_m$. Thus $F=E^{-1}$. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Consequence (a sequence of row operations):} If the
+successive operations are represented by $E_1,\ldots,E_k$, then the
+final matrix is
+\[
+E_k\cdots E_2E_1A.
+\]
+The first operation appears nearest to $A$, on the right of the other
+elementary factors. This follows by applying the theorem at each step
+and using associativity. The product $Q=E_k\cdots E_1$ is invertible,
+with inverse $Q^{-1}=E_1^{-1}\cdots E_k^{-1}$, as direct cancellation
+in both products verifies.
+
+For an augmented matrix, the same operation acts on every column:
+\[
+E[A\mid b]=[EA\mid Eb].
+\]
+Since $E$ is invertible, $Ax=b$ if and only if $EAx=Eb$.
+This gives a matrix explanation of why elementary row operations on
+the entire augmented matrix preserve the solution set.
+\end{claim_box}
+
+\subsection{Homogeneous and nonhomogeneous linear systems}
+
+\begin{definition_box}
+\textbf{Definition:} A system of $m$ linear equations in $n$
+unknowns over $\mathbb{F}$ can be written as
+\[
+Ax=b,
+\qquad A\in\mathbb{F}^{m\times n},\quad
+x\in\mathbb{F}^n,\quad b\in\mathbb{F}^m.
+\]
+Here $A=(a_{ij})$ is the given coefficient matrix, $b$ is the given
+right-hand side, and $x$ is the unknown vector. The $i$th equation is
+$\sum_{j=1}^n a_{ij}x_j=b_i$. The system is \emph{homogeneous} if
+$b=0$, and \emph{nonhomogeneous} if $b\neq0$. A system is
+\emph{consistent} if it has at least one solution, and
+\emph{inconsistent} otherwise.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Definition (augmented matrix):} The \emph{augmented matrix}
+of $Ax=b$ records the coefficients and right-hand side together:
+\[
+[A\mid b]=\left(\begin{array}{cccc|c}
+a_{11}&a_{12}&\cdots&a_{1n}&b_1\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+a_{m1}&a_{m2}&\cdots&a_{mn}&b_m
+\end{array}\right).
+\]
+Each row represents one equation; the vertical line separates the
+coefficient columns from the right-hand side.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Elementary row operations:} The following operations on
+the \emph{entire} augmented matrix preserve the solution set:
+\begin{enumerate}
+    \item Interchange two rows: $R_i\leftrightarrow R_j$.
+    \item Multiply a row by a nonzero scalar:
+    $R_i\leftarrow cR_i$, where $c\neq0$.
+    \item Add a scalar multiple of another row to a row:
+    $R_i\leftarrow R_i+cR_j$, where $i\neq j$.
+\end{enumerate}
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Theorem (row operations preserve solutions):} Suppose
+$[A'\mid b']$ is obtained from $[A\mid b]$ by a finite sequence of
+elementary row operations. Then
+\[
+\{x\in\mathbb{F}^n:Ax=b\}
+=\{x\in\mathbb{F}^n:A'x=b'\}.
+\]
+
+\textit{Proof:} It suffices to prove the claim for one operation.
+Write $L_i(x)=\sum_{k=1}^n a_{ik}x_k$, so the original $i$th
+equation is $L_i(x)=b_i$. Fix any candidate vector $x\in\mathbb{F}^n$.
+\begin{enumerate}
+    \item \emph{Interchanging rows:} Swapping rows $i$ and $j$ only
+    changes the order of the equations. Thus $x$ satisfies all the
+    new equations if and only if it satisfies all the original ones.
+    \item \emph{Multiplying a row by a nonzero scalar:} The only
+    changed equation is $cL_i(x)=cb_i$. Since $c\neq0$ has an inverse
+    in $\mathbb{F}$,
+    \[
+    L_i(x)=b_i\quad\Longleftrightarrow\quad cL_i(x)=cb_i.
+    \]
+    All other equations are unchanged, so the solution set is unchanged.
+    \item \emph{Adding a multiple of another row:} The operation
+    $R_i\leftarrow R_i+cR_j$, with $i\neq j$, replaces equation $i$ by
+    \[
+    L_i(x)+cL_j(x)=b_i+cb_j
+    \]
+    and leaves equation $j$ and every other equation unchanged.
+    If $x$ solves the original system, adding the two corresponding
+    equalities shows that it satisfies the replacement equation.
+    Conversely, if $x$ solves the new system, it satisfies both the
+    replacement equation and $L_j(x)=b_j$. Subtracting $c$ times the
+    latter gives
+    \[
+    L_i(x)=(b_i+cb_j)-cb_j=b_i.
+    \]
+    Hence $x$ also solves the original system.
+\end{enumerate}
+Each elementary operation therefore preserves exactly the same
+solutions. Applying this conclusion at every step proves the result
+for any finite sequence. \hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Caution:} Perform each operation on the entire augmented
+row, including the right-hand side. The nonzero condition in row
+scaling is essential: multiplying the equation $x=1$ by zero gives
+$0=0$, which admits every $x$ and loses the original constraint.
+\end{remark_box}
+
+\begin{definition_box}
+\textbf{Definition (pivot entries, positions, and columns):}
+In a row echelon matrix, the leading entry of each nonzero row is
+called a \emph{pivot entry}. Its location is a \emph{pivot position},
+and a column containing one is a \emph{pivot column}. A pivot can be
+any nonzero scalar in REF\@; in RREF every pivot is $1$ and all other
+entries in its column are zero. Not every nonzero entry is a pivot.
+For an arbitrary coefficient matrix $A$, its pivot columns mean the
+column indices containing pivots after row reduction.
+\end{definition_box}
+
+\begin{claim_box}
+\textbf{Pivot variables and free variables:} For a consistent
+system, a variable $x_j$ is a \emph{pivot variable} if column $j$ of
+the coefficient matrix has a pivot after row reduction. Otherwise it
+is a \emph{free variable}, to which an arbitrary parameter can be
+assigned. The final column of $[A\mid b]$ is not a variable column:
+a pivot there instead signals an equation $0=d$ with $d\neq0$, hence
+inconsistency.
+
+For example, the RREF augmented matrix
+\[
+\left(\begin{array}{ccc|c}1&0&2&5\\0&1&-1&-1\end{array}\right)
+\]
+has pivot entries $1$ in positions $(1,1)$ and $(2,2)$. Its pivot
+variables are $x_1,x_2$, and $x_3$ is free. The entries $2$ and $-1$
+in column $3$ are not pivots. The equations are
+$x_1=5-2x_3$ and $x_2=-1+x_3$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Gaussian elimination:}
+\begin{enumerate}
+    \item Form $[A\mid b]$. Starting with the leftmost coefficient
+    column, find a nonzero entry in or below the current row. Swap
+    rows to place it in the current row, then use it to eliminate all
+    entries below it. If no such entry exists, skip that column.
+    Continue with the next row and the columns to the right until
+    the matrix is in row echelon form.
+    \item If a row has the form
+    $\left(\begin{array}{ccc|c}0&\cdots&0&d\end{array}\right)$
+    with $d\neq0$, it represents $0=d$. The system is inconsistent.
+    A completely zero row imposes no condition.
+    \item Otherwise, the variables whose coefficient columns contain
+    pivots are \emph{pivot variables}; the remaining variables are
+    \emph{free variables}. Assign arbitrary parameters in $\mathbb{F}$
+    to the free variables and solve for the pivot variables from the
+    bottom equation upward (\emph{back-substitution}).
+    \item Alternatively, divide each pivot row by its pivot and
+    eliminate entries above the pivots as well. This gives reduced
+    row echelon form (\emph{Gauss--Jordan elimination}), from which
+    the pivot variables can be read directly in terms of the free ones.
+\end{enumerate}
+\end{claim_box}
+
+\begin{mainbox}{Theorem (pivot criteria for solutions)}
+Let
+$A\in\mathbb{F}^{m\times n}$, $b\in\mathbb{F}^m$, and let
+$[R\mid d]$ be the RREF of $[A\mid b]$. Suppose $R$ has $r$ pivot
+columns. Then:
+\begin{enumerate}
+    \item $Ax=b$ is consistent if and only if the augmented column
+    contains no pivot, equivalently there is no row $[0\ \cdots\ 0\mid1]$.
+    \item If the system is consistent, every assignment of the $n-r$
+    free variables extends to exactly one solution.
+    \item A consistent system has a unique solution if and only if
+    $r=n$, that is, every variable column contains a pivot.
+    \item The homogeneous system $Ax=0$ has a nonzero solution if and
+    only if $r<n$.
+\end{enumerate}
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Row operations preserve solutions, so we may work with
+$Rx=d$. A pivot in the augmented column gives the equation $0=1$,
+making a solution impossible.
+
+Conversely, suppose there is no such pivot. Every nonzero row then
+has a pivot in a coefficient column. Let the pivot columns be
+$p_1,\ldots,p_r$ in row order, and let $F$ be the set of the remaining
+column indices. Since each pivot column has a single $1$ and zeros
+elsewhere, row $i$ gives
+\[
+x_{p_i}=d_i-\sum_{j\in F}R_{ij}x_j,
+\qquad 1\leq i\leq r.
+\]
+All remaining rows say $0=0$. Assign arbitrary values $x_j=t_j$ for
+$j\in F$; these formulas determine the pivot variables uniquely and
+satisfy every equation. This proves consistency and the second claim.
+
+If $r=n$, there are no free variables, so the formulas give just one
+solution. If $r<n$, assigning all free variables zero or assigning
+one of them $1$ gives distinct solutions. Thus a consistent system
+is unique exactly when $r=n$.
+
+For $Ax=0$, apply the same sequence of row operations used on $[A\mid b]$.
+The coefficient matrix again becomes $R$, while the zero right-hand
+side remains zero throughout.
+Thus the homogeneous system is always consistent, and if $r=n$ its
+only solution is zero. If $r<n$, setting one free variable to $1$
+produces a nonzero solution. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Proposition (pivot count equals rank):} The number $r$
+of pivots in a row echelon form of $A$ equals $\operatorname{rank}A$.
+Consequently, a consistent system has $n-\operatorname{rank}A$ free
+variables.
+
+\textit{Proof:} Further reducing an echelon form to RREF does not
+change the number of pivots. Let $R$ be the resulting coefficient
+matrix. Elementary row operations on vectors in $\mathbb{F}^m$ are
+invertible linear maps: their inverses are the reverse row operations.
+Their composition is an isomorphism $E:\mathbb{F}^m\longrightarrow
+\mathbb{F}^m$, and
+\[
+Rx=E(Ax)\qquad\text{for all }x\in\mathbb{F}^n.
+\]
+Hence $\operatorname{range}T_R=E(\operatorname{range}T_A)$, so $R$
+and $A$ have the same rank. The $r$ pivot columns of $R$ are the first
+$r$ standard coordinate columns of $\mathbb{F}^m$. They are linearly
+independent and span all columns of $R$, because every entry below
+row $r$ is zero. Thus $\operatorname{rank}R=r$, proving the claim.
+\hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Corollary:} We have
+\[
+Ax=b\text{ is consistent}
+\quad\Longleftrightarrow\quad
+\operatorname{rank}[A\mid b]=\operatorname{rank}A.
+\]
+Moreover, every $b\in\mathbb{F}^m$ gives a consistent system if and
+only if $A$ has a pivot in every row after row reduction.
+
+\textit{Proof:} In the reduced augmented matrix, the augmented column
+adds a pivot exactly when the system is inconsistent. The rank formula
+therefore follows from the pivot-count proposition. Finally, every
+right-hand side is attainable exactly when $\operatorname{range}T_A$
+is all of $\mathbb{F}^m$, equivalently $\operatorname{rank}A=m$.
+By the proposition, this means there are $m$ pivots, one in every row.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Note:} For a consistent system,
+the free-variable assignments give a bijection between the solution
+set and $\mathbb{F}^{n-r}$. Thus if $r<n$ there are infinitely many
+solutions over an infinite field; over a finite field with $q$ elements
+there are exactly $q^{n-r}$ solutions.
+\end{remark_box}
+
+\begin{example_box}
+\textbf{Example (solving by row reduction):} Consider
+\[
+x+2y=3,\qquad -y+z=1.
+\]
+The augmented matrix reduces as follows:
+\[
+\begin{aligned}
+\left(\begin{array}{ccc|c}1&2&0&3\\0&-1&1&1\end{array}\right)
+&\xrightarrow{R_2\leftarrow -R_2}
+\left(\begin{array}{ccc|c}1&2&0&3\\0&1&-1&-1\end{array}\right)\\[4pt]
+&\xrightarrow{R_1\leftarrow R_1-2R_2}
+\left(\begin{array}{ccc|c}1&0&2&5\\0&1&-1&-1\end{array}\right).
+\end{aligned}
+\]
+The pivot variables are $x,y$, and $z$ is free. Setting $z=t$ gives
+\[
+x=5-2t,\qquad y=t-1,\qquad z=t,
+\]
+so all solutions are
+$(x,y,z)=(5,-1,0)+t(-2,1,1)$ for $t\in\mathbb{R}$.
+With $s=t-1$, this is equivalently
+$(3,0,1)+s(-2,1,1)$, the form used below.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example (detecting inconsistency):} For
+$x+y=1$ and $2x+2y=3$,
+\[
+\left(\begin{array}{cc|c}1&1&1\\2&2&3\end{array}\right)
+\xrightarrow{R_2\leftarrow R_2-2R_1}
+\left(\begin{array}{cc|c}1&1&1\\0&0&1\end{array}\right).
+\]
+The last row says $0=1$, so there is no solution.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Homogeneous systems:} The system $Ax=0$ always has the
+\emph{trivial solution} $x=0$. Its complete solution set is
+\[
+\{x\in\mathbb{F}^n:Ax=0\}=\ker T_A,
+\qquad T_A(x)=Ax,
+\]
+so it is a subspace of $\mathbb{F}^n$. In particular, every linear
+combination of homogeneous solutions is another homogeneous solution.
+Writing $r=\operatorname{rank}A=\dim(\operatorname{range}T_A)$,
+rank-nullity gives
+\[
+\dim(\ker T_A)=n-r.
+\]
+Thus a nontrivial solution exists exactly when $r<n$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Nonhomogeneous systems and consistency:} The system
+$Ax=b$ has a solution exactly when
+\[
+b\in\operatorname{range}T_A.
+\]
+Equivalently, $b$ must be a linear combination of the columns of $A$,
+because $Ax=x_1 A_1+\cdots+x_n A_n$, where $A_j$ is the $j$th column.
+Unlike a homogeneous system, a nonhomogeneous system need not be
+consistent.
+\end{claim_box}
+
+\begin{mainbox}{Proposition (the complete solution set)}
+Suppose $x_p$
+is one particular solution of $Ax=b$. Then all solutions are given by
+\[
+x=x_p+h,\qquad h\in\ker T_A.
+\]
+In other words, the solution set is $x_p+\ker T_A$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} Since $Ax_p=b$, for any $x\in\mathbb{F}^n$,
+\[
+Ax=b\quad\Longleftrightarrow\quad A(x-x_p)=0
+\quad\Longleftrightarrow\quad x-x_p\in\ker T_A.
+\]
+This proves both that every solution has the stated form and that every
+vector of that form is a solution. \hfill$\square$
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Interpretation:} A consistent solution set is a translate
+of the null space, also called an \emph{affine subspace}. If $b\neq0$,
+it is not a vector subspace: it does not contain $0$, since $A0=0\neq b$.
+The difference of any two solutions lies in the null space, but the sum
+of two solutions need not be a solution of the same system.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example (a family of solutions):} Over $\mathbb{R}$,
+consider the homogeneous system
+\[
+x+2y=0,\qquad -y+z=0.
+\]
+Its solutions are $(x,y,z)=t(-2,1,1)$, where $t\in\mathbb{R}$.
+Now change the right-hand side:
+\[
+x+2y=3,\qquad -y+z=1.
+\]
+A particular solution is $(3,0,1)$. Thus all solutions are
+\[
+(x,y,z)=(3,0,1)+t(-2,1,1),\qquad t\in\mathbb{R}.
+\]
+The homogeneous solution set is a line through the origin; the
+nonhomogeneous solution set is a parallel line that does not pass
+through the origin. Both have one free parameter.
+\end{example_box}
+
+\begin{example_box}
+\textbf{Examples (no solution or a unique solution):} Over
+$\mathbb{R}$, the system
+\[
+x+y=1,\qquad 2x+2y=3
+\]
+is inconsistent: doubling the first equation would give $2x+2y=2$,
+contradicting the second. In contrast,
+\[
+x+y=3,\qquad x-y=1
+\]
+has the unique solution $(x,y)=(2,1)$. Its associated homogeneous system
+has only the zero solution.
+\end{example_box}
+
+\begin{claim_box}
+\textbf{Consequences of rank-nullity:}
+\begin{enumerate}
+    \item A consistent system has a unique solution if and only if
+    $\ker T_A=\{0\}$, equivalently $r=n$. Otherwise its solutions have
+    $n-r$ free parameters: if $h_1,\ldots,h_{n-r}$ is a basis of the
+    kernel, every solution is uniquely expressible as
+    \[
+    x=x_p+c_1 h_1+\cdots+c_{n-r}h_{n-r},\qquad c_i\in\mathbb{F}.
+    \]
+    Over an infinite field such as $\mathbb{R}$ or $\mathbb{C}$, a
+    consistent system with $r<n$ therefore has infinitely many solutions.
+    \item If $m<n$, then $r\leq m<n$, so the homogeneous system has
+    nonzero solutions. A nonhomogeneous system may be inconsistent,
+    but if it is consistent, its solution cannot be unique.
+    \item Every right-hand side $b\in\mathbb{F}^m$ gives a consistent
+    system exactly when $T_A$ is surjective, equivalently $r=m$.
+    In particular, if $m>n$, some right-hand sides have no solution;
+    this does not mean that every right-hand side is inconsistent.
+\end{enumerate}
+\end{claim_box}
+
+\end{document}

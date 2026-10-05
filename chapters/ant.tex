@@ -1,0 +1,1992 @@
+%-----------------------------------------------------------------------------------
+%   PACKAGES 
+%-----------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt,abstracton]{scrartcl}
+
+\usepackage[margin=.9in]{geometry}
+
+
+\usepackage{mlmodern}
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools,mathrsfs}
+\usepackage{centernot}
+\usepackage{wrapfig}
+
+\usepackage{tikz,tikz-cd,asymptote}
+\usetikzlibrary{positioning, fit, calc}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref,wrapfig}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage[a]{esvect}
+\usepackage{tocloft}
+
+
+\usepackage{sectsty}
+\makeatletter
+\def\@seccntformat#1{\textcolor{Red}{\hspace*{0.2em}$\textbf{\S}$\hspace{-0.3em} \csname the#1\endcsname}\hspace{0.5em}}
+\makeatother
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Analytical Number Theory}
+\rhead{\thepage}
+\cfoot{} 
+
+\setlength{\parindent}{0cm}
+
+%-----------------------------------------------------------------------------------
+%   COMMANDS
+%-----------------------------------------------------------------------------------
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\newcommand{\nonadj}{\,\neg\textsf{adj}\,}
+\newcommand{\adj}{\,\textsf{adj}\,}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\sgn}{\text{sgn\hspace{0.5mm}}}
+\newcommand{\osc}{\text{osc\hspace{0.5mm}}}
+\newcommand{\foralls}{\hspace{2mm}\forall}
+\newcommand{\rimply}{\Rightarrow}
+\newcommand{\limply}{\Leftarrow}
+\newcommand{\underdash}{\rule{0.25cm}{0.1mm}\hspace{0.5mm}}
+\newcommand{\undersmalldash}{\rule{0.18cm}{0.1mm}\hspace{0.3mm}}
+\newcommand{\s}{\square}
+\newcommand{\xr}{\xrightarrow}
+
+\newcommand{\genstirlingI}[3]{%
+  \genfrac{[}{]}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genstirlingII}[3]{%
+  \genfrac{\{}{\}}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genlah}[3]{%
+  \genfrac{\lfloor}{\rfloor}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\stirlingI}[2]{\genstirlingI{}{#1}{#2}}
+\newcommand{\stirlingII}[2]{\genstirlingII{}{#1}{#2}}
+\newcommand{\lah}[2]{\genlah{}{#1}{#2}}
+
+%-----------------------------------------------------------------------------------
+%   ENVIROMENTS
+%-----------------------------------------------------------------------------------
+
+\newtheoremstyle{dotlessP}{}{}{}{}{\color{RedViolet}\bfseries}{.}{ }{}
+\theoremstyle{dotlessP}
+\newtheorem{problem}{Problem}
+\newtheoremstyle{dotlessS}{}{}{}{}{\color{ForestGreen}\bfseries}{.}{ }{}
+\theoremstyle{dotlessS}
+\newtheorem*{solution}{Solution}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem*{theorem}{Theorem}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+
+\newtcolorbox{mainbox}[1]{
+  enhanced jigsaw,
+  breakable,
+  arc=0mm,
+  bottomtitle=0.5mm,
+  boxrule=0mm,
+  colbacktitle=black!10!white,
+  colframe=brandblue,
+  coltitle=black,
+  fonttitle=\bfseries,
+  left=2.5mm,
+  leftrule=1mm,
+  right=3.5mm,
+  title={#1},
+  toptitle=0.75mm
+}
+
+\newtcolorbox{subbox}[1]{
+  arc=0mm,
+  bottomtitle=0.5mm,
+  boxrule=0mm,
+  colbacktitle=black!10!white,
+  colframe=black!30!white,
+  coltitle=black,
+  fonttitle=\bfseries,
+  left=2.5mm,
+  leftrule=1mm,
+  right=3.5mm,
+  title={#1},
+  toptitle=0.75mm
+}
+
+\newtcolorbox{definition_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=RedViolet!45!black,
+colbacktitle=Gray!38!white,
+before={\vspace{4mm}},
+after={\vspace{2mm}},
+sharp corners
+}
+
+
+\newtcolorbox{problem_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white!5!white,
+colframe=gray!75!black,
+colbacktitle=white!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_1}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=SeaGreen!5!white,
+colframe=SeaGreen!75!black,
+colbacktitle=Black!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_title}[1]{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}},
+title={#1}, 
+fonttitle=\bfseries
+}
+
+\newtcolorbox{claim_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white,
+colframe=white,
+borderline west={2pt}{0pt}{white},
+sharp corners,
+before={\vspace{1mm}},
+after={\vspace{0.8mm}}
+}
+
+\newtcolorbox{example_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=lightgray!15!white,
+borderline west={2pt}{0pt}{black},
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{remark_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+
+\begin{document}
+
+%-----------------------------------------------------------------------------------
+%   TOP MATTERS
+%-----------------------------------------------------------------------------------
+
+\title{Analytical Number Theory}
+\subtitle{Handkerchief}
+\author{Pratyay Sen}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\eject
+
+
+%-----------------------------------------------------------------------------------
+%   MAIN BODY
+%-----------------------------------------------------------------------------------
+
+\section{Some Basic Notation}
+We begin with some basic notations that we will be using throughout this document. These notations are essential to analytical number theory in the study of number theoretic functions.
+Let $f,g$ be two functions. Let $c, k$ be any constants. Then we say,
+\begin{enumerate}
+\item $f=O(g) \iff |f|<cg$
+\item $f=o(g) \iff f/g \rightarrow 0$
+\item $f \sim g \iff f/g \rightarrow 1$
+\item $f \prec g \iff f/g \rightarrow 0 \iff f=o(g)$
+\item $f \succ g \iff f/g \rightarrow \infty$
+\item $f \asymp g \iff cg < f < kg$
+\end{enumerate}
+
+\begin{mainbox}{Growth estimates for common arithmetic functions:}
+For every fixed $\varepsilon>0$ and every fixed $k\geq0$, the
+following estimates hold as $n\to\infty$:
+\[
+    \mathbf{1}(n)=O(1),
+    \qquad
+    \mu(n)=O(1),
+    \qquad
+    \lambda(n)=O(1),
+\]
+\[
+    d(n)=O(n^{\varepsilon}),
+    \qquad
+    \varphi(n)=O(n),
+    \qquad
+    \operatorname{id}(n)=O(n),
+\]
+\[
+    \sigma_k(n)=O(n^{k+\varepsilon}),
+    \qquad
+    \omega(n)=O(\log n),
+    \qquad
+    \Omega(n)=O(\log n),
+\]
+and
+\[
+    \Lambda(n)=O(\log n)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof that $d(n)=O(n^{\varepsilon})$:}
+Fix $\varepsilon>0$, and write
+\[
+    n=\prod_{p\mid n}p^{\alpha_p}
+\]
+Then
+\[
+    d(n)=\prod_{p\mid n}(\alpha_p+1)
+\]
+For every integer $\alpha\geq1$,
+\[
+    \alpha+1\leq2^{\alpha}
+\]
+Thus, whenever $p\geq2^{1/\varepsilon}$,
+\[
+    \alpha+1
+      \leq2^{\alpha}
+      \leq p^{\varepsilon\alpha}
+\]
+
+Only finitely many primes satisfy $p<2^{1/\varepsilon}$. For each of
+these primes, let
+\[
+    C_{p,\varepsilon}
+      =\max_{\alpha\geq0}
+        \frac{\alpha+1}{p^{\varepsilon\alpha}}
+\]
+This maximum is finite because
+$(\alpha+1)p^{-\varepsilon\alpha}\to0$ as $\alpha\to\infty$.
+Therefore
+\begin{align*}
+    \frac{d(n)}{n^{\varepsilon}}
+      &=\prod_{p\mid n}
+        \frac{\alpha_p+1}{p^{\varepsilon\alpha_p}}\\
+      &\leq\prod_{p<2^{1/\varepsilon}}C_{p,\varepsilon}
+       =:C_{\varepsilon}
+\end{align*}
+The constant $C_{\varepsilon}$ is finite and independent of $n$.
+Hence
+\[
+    d(n)\leq C_{\varepsilon}n^{\varepsilon},
+\]
+which proves the result.
+\hfill$\square$
+\end{claim_box}
+
+\section{Euler--Maclaurin Summation and the Sum-to-Integral Method}
+
+Many sums in analytic number theory can be estimated by replacing the
+sum with an integral and controlling the resulting error. The
+Euler--Maclaurin summation formula makes this procedure precise. Its
+first-order form is often already sufficient for obtaining the main
+term of a summatory function.
+
+\subsection{The Sawtooth Function}
+
+\begin{definition_box}
+For $t\in\mathbb{R}$, let
+\[
+    \{t\}=t-\floor{t}
+\]
+be the fractional part of $t$, and define the \emph{sawtooth function}
+by
+\[
+    \psi(t)=\{t\}-\frac12
+\]
+The function $\psi$ is periodic with period $1$ and satisfies
+\[
+    -\frac12\leq\psi(t)<\frac12
+\]
+Moreover, for every integer $m$,
+\[
+    \int_m^{m+1}\psi(t)\,dt=0
+\]
+\end{definition_box}
+
+\subsection{Euler's Summation Formula}
+\label{subsec:euler-summation}
+
+The motivation behind this formula that looks absurd at first, is the we need a way to be able to approximate sums in some way. Now see that sums have an innate connection with integrals. Consider a function $f(x)$ and plot its graph, then if you want to visualise the sum, it would be the area of several rectangles whose y-component is $f(n)$ and 1 is the x-component. Thus the sum is the area under several rectangles of width 1 unit and height $f(n)$. This area is kind of close to the integral of $f(x)$, which leads us to this formula.
+
+\begin{mainbox}{First-order Euler--Maclaurin formula:}
+Let $A<B$ be integers, and let $f$ be continuously differentiable on
+$[A,B]$. Then
+\[
+    \sum_{n=A}^{B}f(n)
+      =\int_A^B f(t)\,dt
+       +\frac{f(A)+f(B)}2
+       +\int_A^B\psi(t)f'(t)\,dt
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+On each interval $[m,m+1]$, we have
+\[
+    \psi(t)=t-m-\frac12
+\]
+Integration by parts gives
+\begin{align*}
+    \int_m^{m+1}\psi(t)f'(t)\,dt
+      &=\left[\left(t-m-\frac12\right)f(t)\right]_m^{m+1}
+        -\int_m^{m+1}f(t)\,dt\\
+      &=\frac{f(m)+f(m+1)}2
+        -\int_m^{m+1}f(t)\,dt
+\end{align*}
+Summing this identity over the integers $m$ satisfying
+$A\leq m\leq B-1$ gives
+\[
+    \int_A^B\psi(t)f'(t)\,dt
+      =\frac{f(A)+f(B)}2
+       +\sum_{n=A+1}^{B-1}f(n)
+       -\int_A^Bf(t)\,dt
+\]
+Rearranging proves the formula.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Sum-to-integral estimate:}
+Under the same assumptions,
+\[
+    \sum_{n=A}^{B}f(n)
+      =\int_A^B f(t)\,dt
+       +\frac{f(A)+f(B)}2
+       +O\!\left(\int_A^B|f'(t)|\,dt\right)
+\]
+If $f$ is monotone on $[A,B]$, then
+\[
+    \sum_{n=A}^{B}f(n)
+      =\int_A^B f(t)\,dt
+       +O\bigl(|f(A)|+|f(B)|\bigr)
+\]
+In particular, if $f$ is positive and decreasing, the error is
+$O(f(A))$, while if $f$ is positive and increasing, the error is
+$O(f(B))$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $|\psi(t)|\leq1/2$, the first-order formula gives
+\[
+    \left|\int_A^B\psi(t)f'(t)\,dt\right|
+      \leq\frac12\int_A^B|f'(t)|\,dt
+\]
+If $f$ is monotone, then
+\[
+    \int_A^B|f'(t)|\,dt=|f(B)-f(A)|,
+\]
+and the stated bounds follow.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+Taking $f(t)=\log t$ gives
+\begin{align*}
+    \sum_{n\leq x}\log n
+      &=\int_1^x\log t\,dt+O(\log x)\\
+      &=x\log x-x+O(\log x)
+\end{align*}
+More generally, for fixed $\alpha>-1$,
+\[
+    \sum_{n\leq x}n^{\alpha}
+      =\frac{x^{\alpha+1}}{\alpha+1}
+       +
+       \begin{cases}
+           O(x^{\alpha}) & \text{if $\alpha\geq0$},\\
+           O(1) & \text{if $-1<\alpha<0$}
+       \end{cases}
+\]
+Replacing $x$ by $\floor{x}$ changes only the stated error terms.
+\end{example_box}
+
+
+\subsection{The Harmonic Sum}
+\label{subsec:harmonic-sum}
+
+\begin{mainbox}{Asymptotic formula for the harmonic sum:}
+For $x\geq2$,
+\begin{equation}
+\label{eq:harmonic-sum}
+    \sum_{n\leq x}\frac1n
+      =\log x+\gamma+O\!\left(\frac1x\right),
+\end{equation}
+where $\gamma$ is the Euler--Mascheroni constant. In particular,
+\[
+    \sum_{n\leq x}\frac1n=\log x+O(1)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $N$ be a positive integer and apply the first-order formula to
+$f(t)=1/t$ on $[1,N]$. Since $f'(t)=-1/t^2$, we obtain
+\[
+    \sum_{n=1}^{N}\frac1n
+      =\log N+\frac12\left(1+\frac1N\right)
+       -\int_1^N\frac{\psi(t)}{t^2}\,dt
+\]
+The improper integral converges absolutely because
+$|\psi(t)|\leq1/2$. Define
+\[
+    \gamma
+      =\frac12-\int_1^{\infty}\frac{\psi(t)}{t^2}\,dt
+\]
+It follows that
+\[
+    \sum_{n=1}^{N}\frac1n-\log N-\gamma
+      =\frac1{2N}
+       +\int_N^{\infty}\frac{\psi(t)}{t^2}\,dt
+\]
+Therefore
+\begin{align*}
+    \left|
+      \sum_{n=1}^{N}\frac1n-\log N-\gamma
+    \right|
+      &\leq\frac1{2N}
+        +\frac12\int_N^{\infty}\frac{dt}{t^2}\\
+      &\leq\frac1N
+\end{align*}
+Thus
+\[
+    \sum_{n=1}^{N}\frac1n
+      =\log N+\gamma+O\!\left(\frac1N\right)
+\]
+Finally, taking $N=\floor{x}$ gives
+\[
+    \log N=\log x+O\!\left(\frac1x\right),
+\]
+which proves the result for real $x\geq2$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+A simpler integral comparison already gives the weaker estimate needed
+in many arguments:
+\[
+    \log(N+1)
+      \leq\sum_{n=1}^{N}\frac1n
+      \leq1+\log N
+\]
+Hence the harmonic sum differs from $\log N$ by a bounded quantity.
+Euler--Maclaurin identifies the limiting constant and improves the
+error to $O(1/N)$.
+\end{remark_box}
+
+\section{Arithmetic Functions}
+\label{sec:arithmetic-functions}
+We have proved several results regarding arithmetic functions in the "Elementary Number Theory" document. We shall list the functions below:
+\\For
+\[
+    n=\prod_{i=1}^{r}p_i^{\alpha_i},
+\]
+the $p_i$ are distinct primes and the $\alpha_i$ are positive integers.
+\begin{enumerate}
+\item \textbf{The constant-one function:}
+\[
+    \mathbf{1}(n)=1
+\]
+
+\item \textbf{The identity function:}
+\[
+    \operatorname{id}(n)=n
+\]
+
+\item \textbf{The divisor-counting function:}
+\[
+    d(n)=\tau(n)=\sum_{d\mid n}1
+      =\prod_{i=1}^{r}(\alpha_i+1)
+\]
+
+\item \textbf{The sum-of-divisors functions:}
+\[
+    \sigma_k(n)=\sum_{d\mid n}d^k
+\]
+The ordinary sum-of-divisors function is
+\[
+    \sigma(n)=\sigma_1(n)=\sum_{d\mid n}d
+      =\prod_{i=1}^{r}
+        \frac{p_i^{\alpha_i+1}-1}{p_i-1}
+\]
+
+\item \textbf{Euler's totient function:}
+\[
+    \varphi(n)=\#\{1\leq a\leq n:\gcd(a,n)=1\}
+      =n\prod_{p\mid n}\left(1-\frac1p\right)
+\]
+
+\item \textbf{The Möbius function:}
+\[
+    \mu(n)=
+      \begin{cases}
+          1 & \text{if $n=1$},\\
+          (-1)^r & \text{if $n=\prod_{i=1}^{r}p_i$ is squarefree},\\
+          0 & \text{if a prime square divides $n$}
+      \end{cases}
+\]
+Its absolute value $|\mu(n)|$ is the indicator function of the
+squarefree integers.
+
+\item \textbf{The Dirichlet delta function:}
+\[
+    \delta(n)=
+      \begin{cases}
+          1 & \text{if $n=1$},\\
+          0 & \text{if $n>1$}
+      \end{cases}
+\]
+It is the identity element for Dirichlet convolution.
+
+\item \textbf{The distinct-prime-factor function:}
+\[
+    \omega(n)=r,
+\]
+the number of distinct primes dividing $n$, with $\omega(1)=0$.
+
+\item \textbf{The total-prime-factor function:}
+\[
+    \Omega(n)=\sum_{i=1}^{r}\alpha_i,
+\]
+the number of prime factors of $n$ counted with multiplicity, with
+$\Omega(1)=0$.
+
+\item \textbf{The von Mangoldt function:}
+\[
+    \Lambda(n)=
+      \begin{cases}
+          \log p & \text{if $n=p^m$ for a prime $p$ and $m\geq1$},\\
+          0 & \text{otherwise}
+      \end{cases}
+\]
+
+\item \textbf{Liouville's function:}
+\[
+    \lambda(n)=(-1)^{\Omega(n)}
+\]
+Thus $\lambda$ is completely multiplicative and $\lambda(1)=1$.
+
+\item \textbf{The logarithm as an arithmetic function:}
+It appears naturally in the convolution identity
+\[
+    \Lambda*\mathbf{1}= \text{log}(n)
+\]
+\end{enumerate}
+
+\subsection{Dirichlet Convolution and Dirichlet Series}
+\label{subsec:dirichlet-convolution}
+
+\begin{definition_box}
+Let $f,g:\mathbb{N}\to\mathbb{C}$ be arithmetic functions. Their
+\emph{Dirichlet convolution} is the arithmetic function $f*g$ defined by
+\[
+    (f*g)(n)=\sum_{d\mid n}f(d)g\!\left(\frac nd\right)
+\]
+Equivalently,
+\[
+    (f*g)(n)=\sum_{ab=n}f(a)g(b),
+\]
+where the second sum is over all ordered pairs of positive integers
+whose product is $n$.
+\end{definition_box}
+
+\begin{example_box}
+For example,
+\[
+    (f*g)(6)
+      =f(1)g(6)+f(2)g(3)+f(3)g(2)+f(6)g(1)
+\]
+Some important convolution identities are
+\[
+    \mu*\mathbf{1}=\delta,
+    \qquad
+    \mathbf{1}*\mathbf{1}=d,
+    \qquad
+    \operatorname{id}*\mathbf{1}=\sigma,
+    \qquad
+    \varphi*\mathbf{1}=\operatorname{id}
+\]
+\end{example_box}
+
+\begin{mainbox}{Möbius formula for Euler's totient function:}
+For every positive integer $n$,
+\begin{equation}
+\label{eq:totient-mobius}
+    \varphi(n)
+      =(\operatorname{id}*\mu)(n)
+      =n\sum_{d\mid n}\frac{\mu(d)}d
+\end{equation}
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Using
+\[
+    \varphi*\mathbf{1}=\operatorname{id},
+    \qquad
+    \mathbf{1}*\mu=\delta,
+\]
+associativity of Dirichlet convolution gives
+\begin{align*}
+    \varphi
+      &=\varphi*\delta
+       =\varphi*(\mathbf{1}*\mu)\\
+      &=(\varphi*\mathbf{1})*\mu
+       =\operatorname{id}*\mu
+\end{align*}
+Consequently,
+\begin{align*}
+    \varphi(n)
+      &=\sum_{d\mid n}d\,\mu\!\left(\frac nd\right)\\
+      &=\sum_{d\mid n}\frac nd\,\mu(d)
+       =n\sum_{d\mid n}\frac{\mu(d)}d
+\end{align*}
+\hfill$\square$
+\end{claim_box}
+
+\begin{definition_box}
+Let $f$ be an arithmetic function. Its \emph{Dirichlet series} is
+\[
+    D_f(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s},
+    \qquad s=\sigma+it\in\mathbb{C},
+\]
+whenever the series converges. Here
+\[
+    n^{-s}=e^{-s\log n}
+\]
+The series converges absolutely at $s$ when
+\[
+    \sum_{n=1}^{\infty}\frac{|f(n)|}{n^\sigma}<\infty
+\]
+\end{definition_box}
+
+\begin{remark_box}
+Let $s=\sigma+it$. If
+\[
+    \sum_{n=1}^{\infty}\frac{|f(n)|}{n^\sigma}<\infty,
+\]
+then the Dirichlet series
+\[
+    D_f(s)=\sum_{n=1}^{\infty}\frac{f(n)}{n^s}
+\]
+converges absolutely, and therefore converges.
+\end{remark_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $s=\sigma+it$, we have
+\[
+    |n^{-s}|=|e^{-s\log n}|
+      =e^{-\sigma\log n}=n^{-\sigma}
+\]
+Consequently,
+\[
+    \left|\frac{f(n)}{n^s}\right|
+      =\frac{|f(n)|}{n^\sigma}
+\]
+Thus the assumed convergence is exactly the absolute convergence of
+$D_f(s)$. More explicitly, for $M>N$,
+\[
+    \left|\sum_{n=N+1}^{M}\frac{f(n)}{n^s}\right|
+      \leq\sum_{n=N+1}^{M}\frac{|f(n)|}{n^\sigma}
+\]
+The right-hand side tends to $0$ as $N,M\to\infty$, because the
+series of absolute values converges. Hence the partial sums of
+$D_f(s)$ form a Cauchy sequence in $\mathbb{C}$, so $D_f(s)$ converges.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+If $f(n)=O(n^A)$ for some real number $A$, then $D_f(s)$ converges
+absolutely in the half-plane
+\[
+    \operatorname{Re}(s)>A+1,
+\]
+because its absolute values are bounded by a constant multiple of the
+convergent series $\sum n^{A-\sigma}$.
+\end{remark_box}
+
+\begin{mainbox}{Convolution becomes multiplication:}
+Suppose the Dirichlet series of $f$ and $g$ converge absolutely at
+$s$. Then
+\[
+    D_{f*g}(s)=D_f(s)D_g(s)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Absolute convergence allows us to multiply and rearrange the two
+series:
+\begin{align*}
+    D_f(s)D_g(s)
+      &=\left(\sum_{a=1}^{\infty}\frac{f(a)}{a^s}\right)
+        \left(\sum_{b=1}^{\infty}\frac{g(b)}{b^s}\right)\\
+      &=\sum_{a,b\geq1}\frac{f(a)g(b)}{(ab)^s}\\
+      &=\sum_{n=1}^{\infty}\frac{1}{n^s}
+        \sum_{ab=n}f(a)g(b)\\
+      &=\sum_{n=1}^{\infty}\frac{(f*g)(n)}{n^s}
+       =D_{f*g}(s)
+\end{align*}
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Divisor sums and Dirichlet series:}
+Suppose
+\[
+    f(n)=\sum_{d\mid n}g(d)
+\]
+At every $s$ for which $D_g(s)$ and $\zeta(s)$ converge absolutely,
+\[
+    D_f(s)=D_g(s)\zeta(s)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since the constant-one function satisfies $\mathbf{1}(n)=1$, we have
+\[
+    f(n)=\sum_{d\mid n}g(d)\mathbf{1}\!\left(\frac nd\right)
+      =(g*\mathbf{1})(n)
+\]
+The convolution-product formula therefore gives
+\[
+    D_f(s)
+      =D_{g*\mathbf{1}}(s)
+      =D_g(s)D_{\mathbf{1}}(s)
+      =D_g(s)\zeta(s)
+\]
+Equivalently, absolute convergence allows the direct rearrangement
+\begin{align*}
+    D_f(s)
+      &=\sum_{n=1}^{\infty}\frac1{n^s}
+        \sum_{d\mid n}g(d)\\
+      &=\sum_{d,m\geq1}\frac{g(d)}{(dm)^s}\\
+      &=\left(\sum_{d=1}^{\infty}\frac{g(d)}{d^s}\right)
+        \left(\sum_{m=1}^{\infty}\frac1{m^s}\right)
+       =D_g(s)\zeta(s)
+\end{align*}
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Generalised Convolutions}
+
+Dirichlet convolution combines two arithmetic functions at a fixed
+integer. In analytic number theory, it is also useful to convolve an
+arithmetic function with a function of a real variable.
+
+\begin{definition_box}
+Let $\alpha:\mathbb{N}\to\mathbb{C}$ be an arithmetic function and
+let $f:[1,\infty)\to\mathbb{C}$. Their \emph{generalised convolution}
+is the function
+\[
+    (\alpha\circ f)(x)
+      :=\sum_{n\leq x}\alpha(n)f\!\left(\frac xn\right),
+    \qquad x\geq1
+\]
+The sum is over all positive integers $n\leq x$. Unlike a Dirichlet
+series, this is a finite sum for every fixed $x$.
+\end{definition_box}
+
+\begin{example_box}
+If $f(x)=1$, then
+\[
+    (\alpha\circ f)(x)=\sum_{n\leq x}\alpha(n),
+\]
+which is the summatory function of $\alpha$. If $f(x)=x^s$, then
+\[
+    (\alpha\circ f)(x)
+      =x^s\sum_{n\leq x}\frac{\alpha(n)}{n^s},
+\]
+so generalised convolutions also naturally produce truncated
+Dirichlet series.
+\end{example_box}
+
+\begin{remark_box}
+Generalised convolution is linear in both variables. For constants
+$a,b\in\mathbb{C}$,
+\[
+    ((a\alpha+b\beta)\circ f)(x)
+      =a(\alpha\circ f)(x)+b(\beta\circ f)(x),
+\]
+and
+\[
+    (\alpha\circ(af+bg))(x)
+      =a(\alpha\circ f)(x)+b(\alpha\circ g)(x)
+\]
+\end{remark_box}
+
+\begin{mainbox}{Associativity with Dirichlet convolution:}
+Let $\alpha$ and $\beta$ be arithmetic functions, and let
+$f:[1,\infty)\to\mathbb{C}$. Then, for every $x\geq1$,
+\[
+    \alpha\circ(\beta\circ f)
+      =(\alpha*\beta)\circ f
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+By the definition of generalised convolution,
+\begin{align*}
+    (\alpha\circ(\beta\circ f))(x)
+      &=\sum_{n\leq x}\alpha(n)
+        (\beta\circ f)\!\left(\frac xn\right)\\
+      &=\sum_{n\leq x}\alpha(n)
+        \sum_{m\leq x/n}\beta(m)
+        f\!\left(\frac{x}{nm}\right)\\
+      &=\sum_{nm\leq x}\alpha(n)\beta(m)
+        f\!\left(\frac{x}{nm}\right)
+\end{align*}
+All these sums are finite, so we may group the pairs $(n,m)$ according
+to their product $r=nm$. This gives
+\begin{align*}
+    (\alpha\circ(\beta\circ f))(x)
+      &=\sum_{r\leq x}
+        \left(\sum_{nm=r}\alpha(n)\beta(m)\right)
+        f\!\left(\frac xr\right)\\
+      &=\sum_{r\leq x}(\alpha*\beta)(r)
+        f\!\left(\frac xr\right)\\
+      &=((\alpha*\beta)\circ f)(x)
+\end{align*}
+Therefore
+\[
+    \alpha\circ(\beta\circ f)=(\alpha*\beta)\circ f
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Generalised inversion formula:}
+Let $\alpha$ be an arithmetic function with $\alpha(1)\neq0$, so that
+its Dirichlet inverse $\alpha^{-1}$ exists. For functions
+$F,G:[1,\infty)\to\mathbb{C}$,
+\[
+    G=\alpha\circ F
+      \quad\Longleftrightarrow\quad
+      F=\alpha^{-1}\circ G
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $\alpha^{-1}$ is the Dirichlet inverse of $\alpha$,
+\[
+    \alpha^{-1}*\alpha
+      =\alpha*\alpha^{-1}=\delta
+\]
+Also, the delta function is the identity for generalised convolution,
+because
+\[
+    (\delta\circ F)(x)
+      =\sum_{n\leq x}\delta(n)F\!\left(\frac xn\right)
+      =F(x)
+\]
+
+Suppose first that $G=\alpha\circ F$. Using the associativity formula,
+\[
+    \alpha^{-1}\circ G
+      =\alpha^{-1}\circ(\alpha\circ F)
+      =(\alpha^{-1}*\alpha)\circ F
+      =\delta\circ F=F
+\]
+Thus $F=\alpha^{-1}\circ G$.
+
+Conversely, suppose that $F=\alpha^{-1}\circ G$. Then
+\[
+    \alpha\circ F
+      =\alpha\circ(\alpha^{-1}\circ G)
+      =(\alpha*\alpha^{-1})\circ G
+      =\delta\circ G=G
+\]
+Hence $G=\alpha\circ F$, which proves both directions.
+\\Note that we can also substitute $\alpha^{-1}(n)$ by $\mu(n)\alpha(n)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Sum with Dirichlet convolution:}
+Let $\alpha$ and $\beta$ be arithmetic functions, and define the
+summatory function
+\[
+    B(x)=\sum_{m\leq x}\beta(m)
+\]
+Then
+\[
+    (\alpha\circ B)(x)
+      =\sum_{r\leq x}(\alpha*\beta)(r)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Expanding the definition of $B$ gives
+\begin{align*}
+    (\alpha\circ B)(x)
+      &=\sum_{n\leq x}\alpha(n)
+        B\!\left(\frac xn\right)\\
+      &=\sum_{n\leq x}\alpha(n)
+        \sum_{m\leq x/n}\beta(m)\\
+      &=\sum_{nm\leq x}\alpha(n)\beta(m)
+\end{align*}
+Grouping the pairs $(n,m)$ according to their product $r=nm$, we
+obtain
+\[
+    \sum_{nm\leq x}\alpha(n)\beta(m)
+      =\sum_{r\leq x}\sum_{nm=r}\alpha(n)\beta(m)
+      =\sum_{r\leq x}(\alpha*\beta)(r)
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+Taking $\beta=\mathbf{1}$ gives $B(x)=\floor{x}$, and therefore
+\[
+    \sum_{n\leq x}\alpha(n)\floor{\frac xn}
+      =\sum_{r\leq x}(\alpha*\mathbf{1})(r)
+\]
+\end{example_box}
+
+\subsection{The Riemann Zeta Function}
+\label{subsec:riemann-zeta}
+
+\begin{definition_box}
+The \emph{Riemann zeta function} is initially defined in the half-plane
+$\operatorname{Re}(s)>1$ by
+\[
+    \zeta(s)=\sum_{n=1}^{\infty}\frac1{n^s}
+\]
+It is the Dirichlet series of the constant-one function:
+\[
+    \zeta(s)=D_{\mathbf{1}}(s)
+\]
+\end{definition_box}
+
+\begin{mainbox}{Euler product:}
+For $\operatorname{Re}(s)>1$,
+\[
+    \zeta(s)=\prod_{p}
+      \left(1-\frac1{p^s}\right)^{-1},
+\]
+where the product is over all prime numbers.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+For each prime $p$ and $\operatorname{Re}(s)>1$, the geometric series
+gives
+\[
+    \left(1-\frac1{p^s}\right)^{-1}
+      =\sum_{j=0}^{\infty}\frac1{p^{js}}
+\]
+Multiplying these series over a finite set of primes produces one term
+$n^{-s}$ for every positive integer $n$ whose prime divisors all lie
+in that set. By unique prime factorization, each such integer occurs
+exactly once. Letting the finite set increase to include every prime,
+and using the absolute convergence of $\sum n^{-s}$ when
+$\operatorname{Re}(s)>1$, we obtain
+\[
+    \prod_p\left(1-\frac1{p^s}\right)^{-1}
+      =\sum_{n=1}^{\infty}\frac1{n^s}
+      =\zeta(s)
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Euler's evaluation of $\zeta(2)$:}
+\begin{equation}
+\label{eq:zeta-two}
+    \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}
+      =\frac{\pi^2}{6}
+\end{equation}
+We use this without proof.
+\end{mainbox}
+
+
+\begin{example_box}
+For $\operatorname{Re}(s)>1$,
+\[
+    \sum_{n=1}^{\infty}\frac{d(n)}{n^s}=\zeta(s)^2,
+    \qquad
+    \sum_{n=1}^{\infty}\frac{\mu(n)}{n^s}=\frac1{\zeta(s)},
+\]
+while for $\operatorname{Re}(s)>2$,
+\[
+    \sum_{n=1}^{\infty}\frac{\sigma(n)}{n^s}
+      =\zeta(s)\zeta(s-1),
+    \qquad
+    \sum_{n=1}^{\infty}\frac{\varphi(n)}{n^s}
+      =\frac{\zeta(s-1)}{\zeta(s)}
+\]
+\end{example_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Recall the convolution identities
+\[
+    d=\mathbf{1}*\mathbf{1},
+    \qquad
+    \mu*\mathbf{1}=\delta,
+    \qquad
+    \sigma=\operatorname{id}*\mathbf{1},
+    \qquad
+    \varphi*\mathbf{1}=\operatorname{id}
+\]
+Also,
+\[
+    D_{\mathbf{1}}(s)=\zeta(s),
+    \qquad
+    D_\delta(s)=1,
+\]
+and
+\[
+    D_{\operatorname{id}}(s)
+      =\sum_{n=1}^{\infty}\frac{n}{n^s}
+      =\sum_{n=1}^{\infty}\frac1{n^{s-1}}
+      =\zeta(s-1)
+\]
+
+For $\operatorname{Re}(s)>1$, the Dirichlet series of
+$\mathbf{1}$ and $\mu$ converge absolutely, since
+$|\mu(n)|\leq1$. Therefore the convolution-product formula gives
+\[
+    \sum_{n=1}^{\infty}\frac{d(n)}{n^s}
+      =D_d(s)
+      =D_{\mathbf{1}*\mathbf{1}}(s)
+      =D_{\mathbf{1}}(s)^2
+      =\zeta(s)^2
+\]
+Similarly,
+\[
+    D_\mu(s)\zeta(s)
+      =D_{\mu*\mathbf{1}}(s)
+      =D_\delta(s)=1,
+\]
+so
+\begin{equation}
+\label{eq:mu-dirichlet-series}
+    \sum_{n=1}^{\infty}\frac{\mu(n)}{n^s}
+      =D_\mu(s)=\frac1{\zeta(s)}
+\end{equation}
+In particular, this also shows that $\zeta(s)\neq0$ when
+$\operatorname{Re}(s)>1$.
+
+For $\operatorname{Re}(s)>2$, the series of
+$\operatorname{id}$, $\sigma$, and $\varphi$ converge absolutely:
+indeed, $\varphi(n)\leq n$ and
+\[
+    \sigma(n)=\sum_{d\mid n}d
+      \leq n\sum_{d\mid n}\frac1d
+      \leq n\sum_{d=1}^{n}\frac1d
+      \leq n(1+\log n)
+\]
+Hence
+\[
+    \sum_{n=1}^{\infty}\frac{\sigma(n)}{n^s}
+      =D_{\operatorname{id}*\mathbf{1}}(s)
+      =D_{\operatorname{id}}(s)D_{\mathbf{1}}(s)
+      =\zeta(s-1)\zeta(s),
+\]
+and
+\[
+    D_\varphi(s)\zeta(s)
+      =D_{\varphi*\mathbf{1}}(s)
+      =D_{\operatorname{id}}(s)
+      =\zeta(s-1)
+\]
+Since $\zeta(s)\neq0$ in this region, division gives
+\[
+    \sum_{n=1}^{\infty}\frac{\varphi(n)}{n^s}
+      =D_\varphi(s)=\frac{\zeta(s-1)}{\zeta(s)}
+\]
+This proves all four identities.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Dirichlet series of the von Mangoldt function:}
+For $\operatorname{Re}(s)>1$,
+\[
+    D_\Lambda(s)
+      =\sum_{n=1}^{\infty}\frac{\Lambda(n)}{n^s}
+      =-\frac{\zeta'(s)}{\zeta(s)}
+\]
+Thus the Dirichlet series of $\Lambda$ is the negative logarithmic
+derivative of the Riemann zeta function.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+For every $n\geq1$, we have
+\[
+    0\leq\Lambda(n)\leq\log n
+\]
+Since $\sum (\log n)n^{-\sigma}$ converges for $\sigma>1$, the
+Dirichlet series of $\Lambda$ converges absolutely in this half-plane.
+
+On every closed half-plane
+$\operatorname{Re}(s)\geq1+\varepsilon$, the series
+\[
+    \sum_{n=1}^{\infty}\frac{\log n}{n^s}
+\]
+converges uniformly by the Weierstrass $M$-test. We may therefore
+differentiate the zeta series term by term:
+\[
+    \zeta'(s)
+      =\sum_{n=1}^{\infty}\frac{d}{ds}(n^{-s})
+      =-\sum_{n=1}^{\infty}\frac{\log n}{n^s}
+\]
+Hence
+\[
+    D_{\log}(s)
+      =\sum_{n=1}^{\infty}\frac{\log n}{n^s}
+      =-\zeta'(s)
+\]
+
+The convolution identity
+\[
+    \Lambda*\mathbf{1}=\log
+\]
+and the convolution-product formula now give
+\[
+    D_\Lambda(s)\zeta(s)
+      =D_\Lambda(s)D_{\mathbf{1}}(s)
+      =D_{\Lambda*\mathbf{1}}(s)
+      =D_{\log}(s)
+      =-\zeta'(s)
+\]
+Since $\zeta(s)\neq0$ for $\operatorname{Re}(s)>1$, division by
+$\zeta(s)$ yields
+\[
+    D_\Lambda(s)
+      =\sum_{n=1}^{\infty}\frac{\Lambda(n)}{n^s}
+      =-\frac{\zeta'(s)}{\zeta(s)}
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Dirichlet series of Liouville's function:}
+Let
+\[
+    \lambda(n)=(-1)^{\Omega(n)}
+\]
+For $\operatorname{Re}(s)>1$,
+\[
+    D_\lambda(s)
+      =\sum_{n=1}^{\infty}\frac{\lambda(n)}{n^s}
+      =\frac{\zeta(2s)}{\zeta(s)}
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $|\lambda(n)|=1$, the Dirichlet series of $\lambda$ converges
+absolutely when $\operatorname{Re}(s)>1$.
+
+Let $q$ be the indicator function of the perfect squares:
+\[
+    q(n)=
+      \begin{cases}
+          1 & \text{if $n$ is a perfect square},\\
+          0 & \text{otherwise}
+      \end{cases}
+\]
+If
+\[
+    n=\prod_{i=1}^{r}p_i^{\alpha_i},
+\]
+then
+\begin{align*}
+    (\lambda*\mathbf{1})(n)
+      &=\sum_{d\mid n}\lambda(d)\\
+      &=\prod_{i=1}^{r}
+        \left(\sum_{j=0}^{\alpha_i}(-1)^j\right)
+\end{align*}
+Each factor equals $1$ when $\alpha_i$ is even and $0$ when
+$\alpha_i$ is odd. Hence
+\[
+    \lambda*\mathbf{1}=q
+\]
+
+The Dirichlet series of $q$ is
+\[
+    D_q(s)
+      =\sum_{m=1}^{\infty}\frac1{(m^2)^s}
+      =\zeta(2s)
+\]
+Applying the convolution-product formula gives
+\[
+    D_\lambda(s)\zeta(s)
+      =D_{\lambda*\mathbf{1}}(s)
+      =D_q(s)=\zeta(2s)
+\]
+Since $\zeta(s)\neq0$ for $\operatorname{Re}(s)>1$, we may divide by
+$\zeta(s)$ and obtain
+\[
+    D_\lambda(s)=\frac{\zeta(2s)}{\zeta(s)}
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Dirichlet series of $k$-th-power-free integers:}
+Fix an integer $k\geq2$, and define
+\[
+    q_k(n)=
+      \begin{cases}
+          1 & \text{if $n$ is $k$-th-power-free},\\
+          0 & \text{otherwise}
+      \end{cases}
+\]
+Thus $q_k(n)=1$ exactly when no prime power $p^k$ divides $n$.
+For $\operatorname{Re}(s)>1$,
+\[
+    \sum_{n=1}^{\infty}\frac{q_k(n)}{n^s}
+      =\frac{\zeta(s)}{\zeta(ks)}
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $0\leq q_k(n)\leq1$, the Dirichlet series converges absolutely
+for $\operatorname{Re}(s)>1$. The function $q_k$ is multiplicative,
+and for every prime $p$,
+\[
+    q_k(p^j)=
+      \begin{cases}
+          1 & \text{if $0\leq j\leq k-1$},\\
+          0 & \text{if $j\geq k$}
+      \end{cases}
+\]
+Therefore its Euler factor at $p$ is the finite geometric sum
+\[
+    \sum_{j=0}^{\infty}\frac{q_k(p^j)}{p^{js}}
+      =\sum_{j=0}^{k-1}\frac1{p^{js}}
+      =\frac{1-p^{-ks}}{1-p^{-s}}
+\]
+Multiplying these factors over all primes gives
+\begin{align*}
+    \sum_{n=1}^{\infty}\frac{q_k(n)}{n^s}
+      &=\prod_p\frac{1-p^{-ks}}{1-p^{-s}}\\
+      &=\left(\prod_p(1-p^{-s})^{-1}\right)
+        \left(\prod_p(1-p^{-ks})\right)\\
+      &=\frac{\zeta(s)}{\zeta(ks)}
+\end{align*}
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Logarithmic Derivatives}
+\label{subsec:logarithmic-derivatives}
+
+Let $F$ be a differentiable complex-valued function that does not
+vanish in the region under consideration. Its \emph{logarithmic
+derivative} is
+\[
+    \frac{F'(s)}{F(s)}
+\]
+Whenever a branch of $\log F(s)$ is defined, the chain rule gives
+\[
+    \frac{d}{ds}\log F(s)=\frac{F'(s)}{F(s)}
+\]
+The main advantage of the logarithmic derivative is that it converts
+products into sums.
+
+\begin{mainbox}{Product rule for logarithmic derivatives:}
+If $F$ and $G$ are differentiable and nonzero, then
+\[
+    \frac{(FG)'(s)}{F(s)G(s)}
+      =\frac{F'(s)}{F(s)}+\frac{G'(s)}{G(s)}
+\]
+Consequently, an absolutely and locally uniformly convergent product
+$F(s)=\prod_jF_j(s)$ satisfies
+\[
+    \frac{F'(s)}{F(s)}
+      =\sum_j\frac{F_j'(s)}{F_j(s)}
+\]
+whenever the differentiated sum converges locally uniformly.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+The ordinary product rule gives
+\[
+    (FG)'=F'G+FG'
+\]
+Dividing by $FG$ yields the first identity. The product formula follows
+by applying the finite identity to partial products and passing to the
+limit under the stated convergence assumptions.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+Logarithmic derivatives record zeros and poles. If
+$F(s)=(s-s_0)^mG(s)$ with $G(s_0)\neq0$, then
+\[
+    \frac{F'(s)}{F(s)}
+      =\frac{m}{s-s_0}+\frac{G'(s)}{G(s)}
+\]
+Thus a zero of order $m$ gives a simple pole of the logarithmic
+derivative with residue $m$. A pole of order $m$ gives residue $-m$.
+\end{remark_box}
+
+\begin{mainbox}{Arithmetic logarithmic differentiation:}
+For an arithmetic function $f$, define
+\[
+    (\mathcal{D}f)(n)=f(n)\log n
+\]
+Then
+\begin{equation}
+\label{eq:arithmetic-log-derivative-product}
+    \mathcal{D}(f*g)
+      =(\mathcal{D}f)*g+f*(\mathcal{D}g)
+\end{equation}
+Whenever the Dirichlet series of $f$ may be differentiated term by
+term,
+\[
+    D_{\mathcal{D}f}(s)=-D_f'(s)
+\]
+In particular,
+\[
+    \mathcal{D}\mathbf{1}=\log,
+    \qquad
+    \mathcal{D}\log=\log^2,
+    \qquad
+    \mathcal{D}\Lambda=\Lambda\log
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+For the convolution rule, use
+$\log n=\log d+\log(n/d)$ to obtain
+\begin{align*}
+    \mathcal{D}(f*g)(n)
+      &=\sum_{d\mid n}f(d)g\!\left(\frac nd\right)\log n\\
+      &=\sum_{d\mid n}f(d)g\!\left(\frac nd\right)
+        \left(\log d+\log\frac nd\right)\\
+      &=((\mathcal{D}f)*g)(n)+(f*(\mathcal{D}g))(n)
+\end{align*}
+Also,
+\[
+    -D_f'(s)
+      =-\frac{d}{ds}\sum_{n=1}^{\infty}\frac{f(n)}{n^s}
+      =\sum_{n=1}^{\infty}\frac{f(n)\log n}{n^s}
+      =D_{\mathcal{D}f}(s)
+\]
+The three special cases follow immediately from the definition.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Selberg's Identity}
+\label{subsec:selberg-identity}
+
+\begin{mainbox}{Selberg's identity:}
+For every positive integer $n$,
+\begin{equation}
+\label{eq:selberg-identity}
+    \Lambda(n)\log n
+      +\sum_{d\mid n}\Lambda(d)\Lambda\!\left(\frac nd\right)
+      =\sum_{d\mid n}\mu(d)
+        \left(\log\frac nd\right)^2
+\end{equation}
+Equivalently, in terms of Dirichlet convolution,
+\[
+    \Lambda\log+\Lambda*\Lambda=\mu*\log^2
+\]
+where $\Lambda\log$ denotes the pointwise product
+$n\mapsto\Lambda(n)\log n$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+We now use the fundamental convolution identity
+\[
+    \log=\Lambda*\mathbf{1}
+\]
+Applying $\mathcal{D}$ and using
+Equation~\eqref{eq:arithmetic-log-derivative-product} gives
+\begin{align*}
+    \log^2
+      &=\mathcal{D}(\log)\\
+      &=\mathcal{D}(\Lambda*\mathbf{1})\\
+      &=(\mathcal{D}\Lambda)*\mathbf{1}
+        +\Lambda*(\mathcal{D}\mathbf{1})\\
+      &=(\Lambda\log)*\mathbf{1}+\Lambda*\log
+\end{align*}
+Convolving both sides with $\mu$ and using associativity yields
+\begin{align*}
+    \mu*\log^2
+      &=(\Lambda\log)*(\mu*\mathbf{1})
+        +\Lambda*(\mu*\log)\\
+      &=(\Lambda\log)*\delta+\Lambda*\Lambda\\
+      &=\Lambda\log+\Lambda*\Lambda
+\end{align*}
+Here $\mu*\mathbf{1}=\delta$, while
+$\mu*\log=\Lambda$ follows by Möbius inversion from
+$\log=\Lambda*\mathbf{1}$. Evaluating the last convolution identity at
+$n$ gives Equation~\eqref{eq:selberg-identity}.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+Summing Equation~\eqref{eq:selberg-identity} over $n\leq x$ and
+rearranging the finite divisor sums gives the exact summatory form
+\begin{equation}
+\label{eq:selberg-identity-summed}
+    \sum_{n\leq x}\Lambda(n)\log n
+      +\sum_{ab\leq x}\Lambda(a)\Lambda(b)
+      =\sum_{dm\leq x}\mu(d)(\log m)^2
+\end{equation}
+This identity is the algebraic starting point for Selberg's symmetry
+formula used in elementary proofs of the prime number theorem.
+\end{remark_box}
+
+\subsection{Ramanujan Sums}
+
+Ramanujan sums are finite exponential sums taken over the reduced
+residue classes modulo $n$. Although their definition involves complex
+numbers, their values are always integers.
+
+\begin{definition_box}
+For a positive integer $n$ and an integer $k$, the \emph{Ramanujan sum} is
+\[
+    c_n(k)
+      :=\sum_{\substack{1\leq a\leq n\\ \gcd(a,n)=1}}
+        e^{2\pi iak/n}
+\]
+It depends only on the residue class of $k$ modulo $n$.
+\end{definition_box}
+
+\begin{example_box}
+For $n=4$, the reduced residue classes are $1$ and $3$, so
+\[
+    c_4(k)=e^{2\pi ik/4}+e^{6\pi ik/4}
+\]
+In particular,
+\[
+    c_4(1)=0,
+    \qquad
+    c_4(2)=-2,
+    \qquad
+    c_4(4)=2
+\]
+\end{example_box}
+
+\begin{mainbox}{Divisor formula for Ramanujan sums:}
+For all positive integers $n$ and $k$,
+\[
+    c_n(k)=\sum_{d\mid\gcd(n,k)}
+      d\,\mu\!\left(\frac nd\right)
+\]
+Consequently, $c_n(k)$ is an integer and depends only on
+$\gcd(n,k)$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+The Möbius divisor-sum identity gives
+\[
+    \sum_{d\mid m}\mu(d)
+      =
+      \begin{cases}
+          1 & \text{if $m=1$},\\
+          0 & \text{if $m>1$}
+      \end{cases}
+\]
+Therefore the indicator of the condition $\gcd(a,n)=1$ is
+\[
+    \sum_{d\mid\gcd(a,n)}\mu(d)
+\]
+Substituting this into the definition of $c_n(k)$ and rearranging the
+finite sums gives
+\begin{align*}
+    c_n(k)
+      &=\sum_{a=1}^{n}e^{2\pi iak/n}
+        \sum_{d\mid\gcd(a,n)}\mu(d)\\
+      &=\sum_{d\mid n}\mu(d)
+        \sum_{\substack{1\leq a\leq n\\ d\mid a}}
+        e^{2\pi iak/n}
+\end{align*}
+Writing $a=db$, the inner sum becomes
+\[
+    \sum_{b=1}^{n/d}e^{2\pi ibk/(n/d)}
+\]
+This is the sum of all $(n/d)$-th roots of unity raised to the
+$k$-th power, so it equals $n/d$ if $n/d\mid k$, and equals $0$
+otherwise. Hence
+\[
+    c_n(k)
+      =\sum_{\substack{d\mid n\\ n/d\mid k}}
+        \mu(d)\frac nd
+\]
+Replacing $n/d$ by $q$ gives
+\[
+    c_n(k)
+      =\sum_{\substack{q\mid n\\ q\mid k}}
+        q\,\mu\!\left(\frac nq\right)
+      =\sum_{q\mid\gcd(n,k)}
+        q\,\mu\!\left(\frac nq\right)
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Closed formula for Ramanujan sums:}
+Let $n$ be a positive integer, let $m$ be an integer, and put
+\[
+    \delta=\gcd(n,m)
+\]
+Then
+\[
+    c_n(m)=
+      \mu\!\left(\frac n\delta\right)
+      \frac{\varphi(n)}{\varphi(n/\delta)}
+\]
+Here $\delta$ denotes the integer $\gcd(n,m)$, not the Dirichlet delta
+function.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Write
+\[
+    n=\prod_{p\mid n}p^{a_p},
+    \qquad
+    \delta=\prod_{p\mid n}p^{b_p},
+    \qquad 0\leq b_p\leq a_p
+\]
+Using the divisor formula and factoring the divisor sum prime by prime,
+we obtain
+\[
+    c_n(m)
+      =\prod_{p\mid n}
+        \left(\sum_{j=0}^{b_p}
+          p^j\mu\!\left(p^{a_p-j}\right)\right)
+\]
+For a fixed prime $p$, put $a=a_p$ and $b=b_p$. Since
+$\mu(p^r)=0$ for $r\geq2$, the corresponding local factor is
+\[
+    \sum_{j=0}^{b}p^j\mu(p^{a-j})
+      =
+      \begin{cases}
+          0 & \text{if $b\leq a-2$},\\
+          -p^{a-1} & \text{if $b=a-1$},\\
+          p^{a-1}(p-1) & \text{if $b=a$}
+      \end{cases}
+\]
+These three values are exactly
+\[
+    \mu(p^{a-b})
+      \frac{\varphi(p^a)}{\varphi(p^{a-b})},
+\]
+where $\varphi(1)=1$. Therefore
+\begin{align*}
+    c_n(m)
+      &=\prod_{p\mid n}
+        \mu(p^{a_p-b_p})
+        \frac{\varphi(p^{a_p})}
+             {\varphi(p^{a_p-b_p})}\\
+      &=\mu\!\left(\prod_{p\mid n}p^{a_p-b_p}\right)
+        \frac{\varphi(n)}
+             {\varphi\!\left(\prod_{p\mid n}p^{a_p-b_p}\right)}\\
+      &=\mu\!\left(\frac n\delta\right)
+        \frac{\varphi(n)}{\varphi(n/\delta)}
+\end{align*}
+This proves the formula.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+When $n\mid k$, and in particular when $k=n$, the divisor formula
+becomes
+\[
+    c_n(k)=\sum_{d\mid n}d\,\mu\!\left(\frac nd\right)
+      =(\operatorname{id}*\mu)(n)=\varphi(n)
+\]
+Thus the precise convolution identity is
+\[
+   c_n(n)=(\operatorname{id}*\mu)(n)=\varphi(n)
+\]
+For a general $k$, one must instead use the restricted divisor sum
+over $d\mid\gcd(n,k)$.
+\end{remark_box}
+
+\begin{remark_box}
+Two other useful special cases are
+\[
+    c_n(1)=\mu(n),
+    \qquad
+    c_n(0)=c_n(n)=\varphi(n)
+\]
+The first follows because $\gcd(n,1)=1$, while the second follows
+because every exponential in the defining sum equals $1$.
+\end{remark_box}
+
+\section{Average Orders of Arithmetic Functions}
+\label{sec:average-orders}
+
+All the prerequisites for the following calculations have now been
+proved. We shall use Euler summation from
+Subsection~\ref{subsec:euler-summation}, the harmonic estimate
+\eqref{eq:harmonic-sum}, the totient formula
+\eqref{eq:totient-mobius}, the reciprocal zeta series
+\eqref{eq:mu-dirichlet-series}, and the evaluation
+\eqref{eq:zeta-two} of $\zeta(2)$.
+
+\begin{definition_box}
+Let $f$ and $g$ be arithmetic functions. We say that $g$ is an
+\emph{average order} of $f$ if
+\[
+    \sum_{n\leq x}f(n)
+      \sim\sum_{n\leq x}g(n)
+      \qquad(x\to\infty)
+\]
+Thus an average order describes the typical size of $f(n)$ through
+the asymptotic behaviour of its summatory function. Equivalently, 
+$$\sum_{n\leq x}f(n)=xg(x)+o(xg(x))$$
+\end{definition_box}
+
+\begin{remark_box}
+One must compare the two summatory functions. For example, if
+$g(n)=cn$, then
+\[
+    \sum_{n\leq x}g(n)\sim\frac{c}{2}x^2,
+\]
+whereas for the slowly varying function $g(n)=\log n$,
+\[
+    \sum_{n\leq x}g(n)\sim xg(x)
+\]
+\end{remark_box}
+
+\begin{mainbox}{Average orders of common arithmetic functions:}
+Put
+\[
+    c=\zeta(2)=\frac{\pi^2}{6}
+\]
+by Equation~\eqref{eq:zeta-two}. Some standard average orders are
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.35}
+\setlength{\tabcolsep}{10pt}
+\begin{tabular}{@{}lcc@{}}
+    \hline
+    {\textbf{Name}}
+      &{\textbf{Function}}
+      &{\textbf{Average order}}\\
+    \hline
+    Constant-one function
+      & $\mathbf{1}(n)$ & $1$\\
+    Identity function
+      & $\operatorname{id}(n)$ & $n$\\
+    Divisor-counting function
+      & $d(n)$ & $\log n$\\
+    Euler's totient function
+      & $\varphi(n)$ & $\dfrac{n}{c}$\\
+    Sum-of-divisors function
+      & $\sigma(n)$ & $cn$\\
+    Squarefree indicator
+      & $|\mu(n)|$ & $\dfrac1c$\\
+    $k$-th-power-free indicator, $k\geq2$
+      & $q_k(n)$ & $\frac1{\zeta(k)}$\\
+    Distinct-prime-factor function
+      & $\omega(n)$ & $\log\log n$\\
+    Total-prime-factor function
+      & $\Omega(n)$ & $\log\log n$\\
+    \hline
+\end{tabular}
+\end{center}
+The average orders of $d$, $\varphi$, and $\sigma$ are proved below.
+\end{mainbox}
+
+\begin{mainbox}{Average order of the divisor function:}
+The divisor-counting function $d(n)$ has average order $\log n$:
+\[
+    \sum_{n\leq x}d(n)\sim x\log x
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $d(n)$ counts the factorizations $n=ab$ with $a,b\geq1$,
+\[
+    \sum_{n\leq x}d(n)
+      =\sum_{a\leq x}\floor{\frac xa}
+\]
+Using $\floor{y}=y+O(1)$ and Equation~\eqref{eq:harmonic-sum},
+\begin{align*}
+    \sum_{n\leq x}d(n)
+      &=x\sum_{a\leq x}\frac1a+O(x)\\
+      &=x\log x+O(x)
+\end{align*}
+The logarithmic sum estimate proved in
+Subsection~\ref{subsec:euler-summation} gives
+\[
+    \sum_{n\leq x}\log n
+      =x\log x-x+O(\log x)
+      \sim x\log x
+\]
+Hence
+\[
+    \sum_{n\leq x}d(n)
+      \sim\sum_{n\leq x}\log n,
+\]
+so $\log n$ is an average order of $d(n)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Average order of Euler's totient function:}
+Euler's totient function has average order
+\[
+    \frac{6}{\pi^2}n=\frac{n}{c}
+\]
+More precisely,
+\[
+    \sum_{n\leq x}\varphi(n)
+      =\frac{3}{\pi^2}x^2+O(x\log x)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+By Equation~\eqref{eq:totient-mobius},
+\[
+    \varphi(n)=n\sum_{d\mid n}\frac{\mu(d)}d
+\]
+Writing $n=dm$ and rearranging the finite sums gives
+\[
+    \sum_{n\leq x}\varphi(n)
+      =\sum_{d\leq x}\mu(d)
+        \sum_{m\leq x/d}m
+\]
+The power-sum estimate from
+Subsection~\ref{subsec:euler-summation} gives
+\[
+    \sum_{m\leq y}m=\frac{y^2}{2}+O(y)
+\]
+Consequently, using Equation~\eqref{eq:harmonic-sum},
+\[
+    \sum_{n\leq x}\varphi(n)
+      =\frac{x^2}{2}
+        \sum_{d\leq x}\frac{\mu(d)}{d^2}
+        +O(x\log x)
+\]
+Equation~\eqref{eq:mu-dirichlet-series} at $s=2$ and
+Equation~\eqref{eq:zeta-two} give
+\[
+    \sum_{d=1}^{\infty}\frac{\mu(d)}{d^2}
+      =\frac1{\zeta(2)}=\frac6{\pi^2}
+\]
+Moreover,
+\[
+    \sum_{d>x}\frac{|\mu(d)|}{d^2}
+      \leq\sum_{d>x}\frac1{d^2}
+      =O\!\left(\frac1x\right)
+\]
+Therefore
+\[
+    \sum_{n\leq x}\varphi(n)
+      =\frac{x^2}{2\zeta(2)}+O(x\log x)
+      =\frac3{\pi^2}x^2+O(x\log x)
+\]
+Since
+\[
+    \sum_{n\leq x}\frac6{\pi^2}n
+      =\frac3{\pi^2}x^2+O(x),
+\]
+the function $6n/\pi^2=n/c$ is an average order of $\varphi(n)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Average order of the sum-of-divisors function:}
+The sum-of-divisors function has average order
+\[
+    \frac{\pi^2}{6}n=cn
+\]
+More precisely,
+\[
+    \sum_{n\leq x}\sigma(n)
+      =\frac{\pi^2}{12}x^2+O(x\log x)
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Using the definition
+\[
+    \sigma(n)=\sum_{d\mid n}d
+\]
+from Section~\ref{sec:arithmetic-functions}, and writing $n=dm$, we
+obtain
+\[
+    \sum_{n\leq x}\sigma(n)
+      =\sum_{m\leq x}\sum_{d\leq x/m}d
+\]
+The power-sum estimate from
+Subsection~\ref{subsec:euler-summation} gives
+\[
+    \sum_{d\leq y}d=\frac{y^2}{2}+O(y)
+\]
+Thus, using Equation~\eqref{eq:harmonic-sum},
+\[
+    \sum_{n\leq x}\sigma(n)
+      =\frac{x^2}{2}\sum_{m\leq x}\frac1{m^2}
+        +O(x\log x)
+\]
+By Equation~\eqref{eq:zeta-two} and
+$\sum_{m>x}m^{-2}=O(1/x)$,
+\begin{align*}
+    \sum_{n\leq x}\sigma(n)
+      &=\frac{\zeta(2)}2x^2+O(x\log x)\\
+      &=\frac{\pi^2}{12}x^2+O(x\log x)
+\end{align*}
+Finally,
+\[
+    \sum_{n\leq x}\frac{\pi^2}{6}n
+      =\frac{\pi^2}{12}x^2+O(x),
+\]
+so $\pi^2n/6=cn$ is an average order of $\sigma(n)$.
+\hfill$\square$
+\end{claim_box}
+
+\section{Prime Number Function}
+
+\begin{definition_box}
+For every real number $x\geq0$, the \emph{prime-counting function} is
+defined by
+\[
+    \pi(x)=\#\{p\leq x:p\text{ is prime}\}
+\]
+\end{definition_box}
+
+Throughout this section, $\log$ denotes the natural logarithm.
+
+\begin{mainbox}{An elementary lower bound:}
+For every real number $x\geq2$,
+\[
+    \pi(x)>\log\log x
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Let
+\[
+    p_1=2
+\]
+and let $p_n$ denote the $n$-th prime. We first prove by induction that
+\[
+    p_n\leq2^{2^{n-1}}\qquad(n\geq1)
+\]
+The case $n=1$ is the equality $p_1=2$. Suppose the estimate holds
+for every $p_j$ with $1\leq j\leq n$. Every prime divisor of
+\[
+    N=\prod_{j=1}^{n}p_j+1
+\]
+is different from every $p_j$ with $1\leq j\leq n$. Therefore $N$ has a prime divisor
+at least as large as $p_{n+1}$, and hence
+\begin{align*}
+    p_{n+1}
+      &\leq \prod_{j=1}^{n}p_j+1\\
+      &\leq 2^{\sum_{j=0}^{n-1}2^j}+1\\
+      &=2^{2^n-1}+1
+       \leq2^{2^n}
+\end{align*}
+This completes the induction.
+
+Now let $n=\pi(x)$. Since $x\geq2$, we have $n\geq1$, and the next
+prime satisfies $x<p_{n+1}$. Using the bound just proved,
+\[
+    x<p_{n+1}\leq2^{2^n}
+\]
+Taking logarithms twice gives
+\[
+    \log\log x
+      <\log(2^n\log2)
+      =n\log2+\log\log2
+      <n,
+\]
+because $\log2<1$ and $\log\log2<0$. Since $n=\pi(x)$, this yields
+\[
+    \pi(x)>\log\log x
+\]
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Prime Values of Polynomials}
+
+\begin{mainbox}{No nonconstant polynomial is always prime:}
+Let $f\in\mathbb{Z}[x]$ be a nonconstant polynomial. Then $f(n)$
+cannot be prime for every positive integer $n$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose, for a contradiction, that $f(n)$ is prime for every positive
+integer $n$. Put
+\[
+    p=f(1)
+\]
+Then $p$ is prime. For every positive integer $k$, we have
+\[
+    1+kp\equiv1\pmod p
+\]
+Since a polynomial with integer coefficients preserves congruences,
+\[
+    f(1+kp)\equiv f(1)\equiv0\pmod p
+\]
+Thus $p\mid f(1+kp)$ for every $k\geq1$.
+
+Because $f$ is nonconstant, $|f(x)|\to\infty$ as $x\to\infty$.
+Choose $k$ sufficiently large that
+\[
+    f(1+kp)>p
+\]
+The integer $f(1+kp)$ is then divisible by the smaller positive integer
+$p>1$, so it is composite. This contradicts the assumption that every
+$f(n)$ is prime. Therefore no nonconstant polynomial in
+$\mathbb{Z}[x]$ can be prime for every positive integer input.
+\hfill$\square$
+\end{claim_box}
+
+\end{document}

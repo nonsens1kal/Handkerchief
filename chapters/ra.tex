@@ -1,0 +1,1286 @@
+%-----------------------------------------------------------------------------------
+%   PACKAGES 
+%-----------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt,abstracton]{scrartcl}
+
+\usepackage[margin=.9in]{geometry}
+
+
+\usepackage{mlmodern}
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools,mathrsfs}
+\usepackage{centernot}
+\usepackage{wrapfig}
+
+\usepackage{tikz,tikz-cd,asymptote}
+\usetikzlibrary{positioning, fit, calc}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref,wrapfig}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage[a]{esvect}
+\usepackage{tocloft}
+
+
+\usepackage{sectsty}
+\makeatletter
+\def\@seccntformat#1{\textcolor{Red}{\hspace*{0.2em}$\textbf{\S}$\hspace{-0.3em} \csname the#1\endcsname}\hspace{0.5em}}
+\makeatother
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Real Analysis}
+\rhead{\thepage}
+\cfoot{} 
+
+\setlength{\parindent}{0cm}
+
+%-----------------------------------------------------------------------------------
+%   COMMANDS
+%-----------------------------------------------------------------------------------
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\newcommand{\nonadj}{\,\neg\textsf{adj}\,}
+\newcommand{\adj}{\,\textsf{adj}\,}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\sgn}{\text{sgn\hspace{0.5mm}}}
+\newcommand{\osc}{\text{osc\hspace{0.5mm}}}
+\newcommand{\foralls}{\hspace{2mm}\forall}
+\newcommand{\rimply}{\Rightarrow}
+\newcommand{\limply}{\Leftarrow}
+\newcommand{\underdash}{\rule{0.25cm}{0.1mm}\hspace{0.5mm}}
+\newcommand{\undersmalldash}{\rule{0.18cm}{0.1mm}\hspace{0.3mm}}
+\newcommand{\s}{\square}
+\newcommand{\xr}{\xrightarrow}
+
+\newcommand{\genstirlingI}[3]{%
+  \genfrac{[}{]}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genstirlingII}[3]{%
+  \genfrac{\{}{\}}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genlah}[3]{%
+  \genfrac{\lfloor}{\rfloor}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\stirlingI}[2]{\genstirlingI{}{#1}{#2}}
+\newcommand{\stirlingII}[2]{\genstirlingII{}{#1}{#2}}
+\newcommand{\lah}[2]{\genlah{}{#1}{#2}}
+
+%-----------------------------------------------------------------------------------
+%   ENVIROMENTS
+%-----------------------------------------------------------------------------------
+
+\newtheoremstyle{dotlessP}{}{}{}{}{\color{RedViolet}\bfseries}{.}{ }{}
+\theoremstyle{dotlessP}
+\newtheorem{problem}{Problem}
+\newtheoremstyle{dotlessS}{}{}{}{}{\color{ForestGreen}\bfseries}{.}{ }{}
+\theoremstyle{dotlessS}
+\newtheorem*{solution}{Solution}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem*{theorem}{Theorem}
+
+\tcbset {
+  base/.style={
+    arc=0mm, 
+    bottomtitle=0.5mm,
+    boxrule=0mm,
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    fonttitle=\bfseries, 
+    left=2.5mm,
+    leftrule=1mm,
+    right=3.5mm,
+    title={#1},
+    toptitle=0.75mm, 
+  }
+}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+
+\newtcolorbox{mainbox}[1]{
+  enhanced jigsaw,
+  breakable,
+  colframe=brandblue, 
+  base={#1}
+}
+
+\newtcolorbox{subbox}[1]{
+  colframe=black!30!white,
+  base={#1}
+}
+
+\newtcolorbox{definition_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=RedViolet!45!black,
+colbacktitle=Gray!38!white,
+before={\vspace{4mm}},
+after={\vspace{2mm}},
+sharp corners
+}
+
+
+\newtcolorbox{problem_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white!5!white,
+colframe=gray!75!black,
+colbacktitle=white!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_1}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=SeaGreen!5!white,
+colframe=SeaGreen!75!black,
+colbacktitle=Black!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_title}[1]{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}},
+title={#1}, 
+fonttitle=\bfseries
+}
+
+\newtcolorbox{claim_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white,
+colframe=white,
+borderline west={2pt}{0pt}{white},
+sharp corners,
+before={\vspace{1mm}},
+after={\vspace{0.8mm}}
+}
+
+\newtcolorbox{example_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=lightgray!15!white,
+borderline west={2pt}{0pt}{black},
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{remark_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+
+\begin{document}
+
+%-----------------------------------------------------------------------------------
+%   TOP MATTERS
+%-----------------------------------------------------------------------------------
+
+\title{Real Analysis}
+\subtitle{Handkerchief}
+\author{Pratyay Sen}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\eject
+
+
+%-----------------------------------------------------------------------------------
+%   MAIN BODY
+%-----------------------------------------------------------------------------------
+
+
+\section{The Foundation}
+ 
+Feel free to ignore this section if you already have a basic idea of analysis.
+
+\subsection{Motivation}
+
+Before we jump right in, we need to first define the natural numbers themselves. But currently we have not yet defined addition, nor the numbers themselves. So first we define the numbers, define:
+$$0:=\emptyset$$
+$$1:= \left\{0\right\}$$
+$$2:= \left\{0,1\right\}$$
+This is the von Neumann construction of the natural numbers. Thus a natural way to formulate it would be:
+
+\begin{definition_box}
+$$0:=\emptyset$$
+For any other $n \in \mathbb{N}$
+$$n:=\left\{0,1,\dots,n-1\right\}$$
+\end{definition_box}
+
+But we run into a problem here as we have not yet defined subtraction, thus $n-1$ holds no meaning. This is where the Peano Axioms come into play. Using them we can finally define natural numbers and addition properly.
+
+\subsection{Statement of the Axioms}
+
+\begin{definition_box}
+\textbf{Peano axioms.} A natural-number system consists of a set $\NN$, a
+distinguished element $0$, and a successor operation $S$, satisfying the
+following five axioms:
+\begin{enumerate}[(P1)]
+    \item \textbf{Starting element:} $0\in\NN$.
+
+    \item \textbf{Closure under successor:} For every $n\in\NN$,
+    $S(n)\in\NN$.
+
+    \item \textbf{Zero is not a successor:} For every $n\in\NN$,
+    $S(n)\ne0$.
+
+    \item \textbf{Injectivity of successor:} For all $m,n\in\NN$,
+    \[
+        S(m)=S(n)\ \rimply\ m=n.
+    \]
+
+    \item \textbf{Induction:} If $A\subseteq\NN$ satisfies
+    \[
+        0\in A
+        \quad\text{and}\quad
+        n\in A\ \rimply\ S(n)\in A
+        \quad\text{for every }n\in\NN,
+    \]
+    then $A=\NN$.
+\end{enumerate}
+\end{definition_box}
+
+Thus we define
+\[
+    1:=S(0),\qquad 2:=S(1),\qquad 3:=S(2),\qquad\ldots.
+\]
+Thus we use the convention $\NN=\{0,1,2,3,\ldots\}$. If instead natural
+numbers are taken to begin at $1$, the analogous axioms use $1$ as the
+starting element, forbid $1$ from being a successor, and begin induction
+at $1$.
+
+\subsection{Addition}
+\label{subsec:addition}
+
+Intuitively, adding $m$ to $n$ means starting at $n$ and taking $m$
+successive steps. We make this precise using recursion, without assuming
+any arithmetic operations in advance.
+
+\begin{definition_box}
+\textbf{Addition.} For each $n\in\NN$, define $0+m:=m$. Now suppose inductively we have defined how to add $n$ to $m$. Then we can add $S(n)$ to $m$ by defining $S(n)+m:=S(n+m)$
+\end{definition_box}
+
+Thus addition is a well-defined operation
+$+:\NN\times\NN\to\NN$. 
+
+\textbf{Theorem:}
+For every $n\in\NN$,
+\[
+    n+0=n.
+\]
+
+\begin{claim_box}
+\textit{Proof:} 
+Note that this is not so obvious as it seems because we have not yet proved that addition is commutative. Thus we use induction. We have the base case $0+0=0$ (by substituting $m=0$ in the definition of $0+m$). Now suppose inductively that $n+0=n$, then we have $S(n)+0=S(n+0)=S(n)$. This proves the theorem by induction.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem:}
+For all $n,m\in\NN$,
+\[
+    n+S(m)=S(n+m).
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+We use induction on $n$, keeping $m$ fixed. Base case is satisfied as $0+S(m)=S(0+m)=S(m)$. Inductively assume we have $n+S(m)=S(n+m)$, then $S(n)+S(m)=S(n+S(m))=S(S(n+m))=S(S(n)+m)$, which completes the proof by induction.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem:}
+For all $n,m\in\NN$,
+\[
+    n+m=m+n.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+We use induction on $n$ keeping $m$ fixed. Thus the base case is satisfied, as we have $0+m = m = m+0$. Inductively assume $n+m=m+n$, then we have $S(n)+m = S(n+m) = S(m+n) = m + S(n)$, which completes the proof by induction.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem:}
+For all $n,m,k\in\NN$,
+\[
+    (n+m)+k=n+(m+k).
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Fix $n,m$ and induct on $k$. At $k=0$,
+\[
+    (n+m)+0=n+m=n+(m+0).
+\]
+Suppose $(n+m)+k=n+(m+k)$. Applying the successor rule gives
+\[
+\begin{aligned}
+    (n+m)+S(k)
+    &=S((n+m)+k)\\
+    &=S(n+(m+k))\\
+    &=n+S(m+k)\\
+    &=n+(m+S(k)).
+\end{aligned}
+\]
+Thus the identity also holds at $S(k)$, and induction proves
+associativity.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem:}
+For all $n,m,k\in\NN$,
+\[
+    n+k=m+k\ \rimply\ n=m,
+    \qquad k+n=k+m\ \rimply\ n=m.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Induct on $k$. At $k=0$, the equality $n+0=m+0$ is simply $n=m$.
+
+Suppose cancellation holds for $k$, and let
+$n+S(k)=m+S(k)$. By the successor rule,
+\[
+    S(n+k)=S(m+k).
+\]
+Injectivity of $S$, axiom (P4), gives $n+k=m+k$.
+The induction hypothesis then yields $n=m$. This proves cancellation
+of a common right summand.
+
+If instead $k+n=k+m$, commutativity gives $n+k=m+k$.
+The implication just proved gives $n=m$, establishing cancellation
+of a common left summand as well.
+\hfill$\square$
+\end{claim_box}
+
+\begin{definition_box}
+We call a natural number $n$ a \emph{positive natural number} iff it is not $0$.
+\end{definition_box}
+
+\textbf{Proposition:}
+The sum of two positive natural numbers is always a positive natural number. Consequently, if the sum of two natural numbers is $0$, then both of them must be $0$.
+\\\textit{Proof:} The proof is left as an exercise to the reader.
+
+\subsection{Ordering}
+\label{subsec:ordering}
+
+Addition lets us compare natural numbers without introducing subtraction.
+
+\begin{definition_box}
+\textbf{Ordering on $\NN$.} For $n,m\in\NN$, define
+\[
+    n\ge m
+    \quad\Longleftrightarrow\quad
+    \text{there exists }k\in\NN\text{ such that }n=m+k.
+\]
+We also write $m\le n$ to mean $n\ge m$.
+\end{definition_box}
+
+The natural number $k$ in this definition is unique: if
+$n=m+k=m+\ell$, additive cancellation gives $k=\ell$.
+
+\textbf{Theorem:}
+The relation $\ge$ has the following properties for all $n,m,k\in\NN$:
+\begin{enumerate}[(i)]
+    \item \textbf{Reflexivity:} $n\ge n$.
+    \item \textbf{Antisymmetry:} If $n\ge m$ and $m\ge n$, then $n=m$.
+    \item \textbf{Transitivity:} If $n\ge m$ and $m\ge k$, then $n\ge k$.
+\end{enumerate}
+
+\begin{claim_box}
+\textit{Proof:}
+\begin{enumerate}[(i)]
+    \item Since $n=n+0$ and $0\in\NN$, the definition gives $n\ge n$.
+
+    \item Suppose $n\ge m$ and $m\ge n$. There are $a,b\in\NN$ such that
+    \[
+        n=m+a,\qquad m=n+b.
+    \]
+    Substitution and associativity of addition give
+    \[
+        n=(n+b)+a=n+(b+a).
+    \]
+    Since $n=n+0$, additive cancellation yields $b+a=0$.
+    Hence $n=m+0=m$.
+
+    \item Suppose $n\ge m$ and $m\ge k$. Choose $a,b\in\NN$ such that
+    $n=m+a$ and $m=k+b$. Then
+    \[
+        n=(k+b)+a=k+(b+a).
+    \]
+    Since $b+a\in\NN$, this is precisely a representation showing
+    $n\ge k$.
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+A relation that is reflexive, antisymmetric, and transitive is called a
+\emph{partial order}. A set equipped with a partial order is called a
+\emph{partially ordered set}, or \emph{poset}. Thus $(\NN,\ge)$ is a poset.
+
+\textbf{Proposition:}
+The order also satisfies the following properties:
+\begin{enumerate}[(i)]
+    \item \textbf{Comparison with zero:} $n\ge0$ for every $n\in\NN$, and
+    $0\ge n$ if and only if $n=0$.
+    \item \textbf{Compatibility with addition and order cancellation:}
+    For all $n,m,k\in\NN$,
+    \[
+        n\ge m\quad\Longleftrightarrow\quad n+k\ge m+k.
+    \]
+\end{enumerate}
+
+\begin{claim_box}
+\textit{Proof:}
+\begin{enumerate}[(i)]
+    \item Since $n=0+n$, we have $n\ge0$. If also $0\ge n$,
+    antisymmetry gives $n=0$. Conversely, $0\ge0$ by reflexivity.
+
+    \item If $n\ge m$, write $n=m+a$ for some $a\in\NN$.
+    Associativity and commutativity give
+    \[
+        n+k=(m+a)+k=(m+k)+a,
+    \]
+    so $n+k\ge m+k$.
+
+    Conversely, if $n+k\ge m+k$, there is $a\in\NN$ such that
+    \[
+        n+k=(m+k)+a=(m+a)+k.
+    \]
+    Cancelling the common summand $k$ gives $n=m+a$, hence $n\ge m$.
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+
+\subsubsection{Strict Inequalities and Trichotomy}
+
+\begin{definition_box}
+\textbf{Strict ordering on $\NN$.} For $a,b\in\NN$, define
+\[
+    a<b\quad\Longleftrightarrow\quad a\le b\text{ and }a\ne b.
+\]
+Similarly, define
+\[
+    a>b\quad\Longleftrightarrow\quad b<a,
+\]
+which is equivalent to $a\ge b$ and $a\ne b$.
+\end{definition_box}
+
+\textbf{Theorem:}
+For all $a,b\in\NN$,
+\[
+    a<b\quad\Longleftrightarrow\quad S(a)\le b.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+First note that every nonzero natural number is a successor. Indeed, the
+set
+\[
+    A=\{0\}\cup\{S(c):c\in\NN\}
+\]
+contains $0$ and is closed under successors. Axiom (P5) gives $A=\NN$,
+so every nonzero $d\in\NN$ has the form $S(c)$ for some $c\in\NN$.
+
+Suppose $a<b$. Since $a\le b$, there is $d\in\NN$ such that $b=a+d$.
+We cannot have $d=0$, since that would give $b=a$. Write $d=S(c)$.
+The successor identities for addition give
+\[
+    b=a+S(c)=S(a+c)=S(a)+c.
+\]
+Thus $S(a)\le b$ by the definition of the non-strict order.
+
+Conversely, suppose $S(a)\le b$. Then $b=S(a)+c$ for some $c\in\NN$,
+and hence
+\[
+    b=S(a)+c=S(a+c)=a+S(c).
+\]
+This shows $a\le b$. If $a=b$, we would have $a+0=a+S(c)$.
+Additive cancellation would give $0=S(c)$, contradicting (P3).
+Therefore $a\ne b$, so $a<b$.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem:}
+For all $a,b\in\NN$,
+\[
+    a<b
+    \quad\Longleftrightarrow\quad
+    \text{there exists }d\in\NN\setminus\{0\}\text{ such that }b=a+d.
+\]
+In other words, $a<b$ precisely when $b$ is obtained by adding a
+\emph{positive} natural number to $a$.
+
+\begin{claim_box}
+\textit{Proof:}
+If $a<b$, then $a\le b$ gives $b=a+d$ for some $d\in\NN$.
+Since $a\ne b$, this $d$ cannot be $0$, so it is positive.
+
+Conversely, suppose $b=a+d$ for a positive $d\in\NN$.
+The definition gives $a\le b$. If $a=b$, then $a+0=a+d$, and
+additive cancellation forces $d=0$, a contradiction.
+Thus $a\ne b$, and consequently $a<b$.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem (Trichotomy):}
+For any $a,b\in\NN$, exactly one of the following holds:
+\[
+    a<b,\qquad a=b,\qquad a>b.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+The alternatives are mutually exclusive. Equality excludes either strict
+inequality by definition. If both $a<b$ and $a>b$ held, then $a\le b$
+and $b\le a$ would imply $a=b$ by antisymmetry, again contradicting the
+strict inequalities. It remains to prove that at least one alternative
+always holds.
+
+We first observe that successors preserve and reflect comparisons.
+Since $1=S(0)$, the addition rules give
+\[
+    t+1=t+S(0)=S(t+0)=S(t)\qquad(t\in\NN).
+\]
+Compatibility with addition and order cancellation therefore give
+\[
+    u\le v\quad\Longleftrightarrow\quad S(u)\le S(v).
+\]
+Also, $u=v$ if and only if $S(u)=S(v)$, by (P4).
+Combining these facts with the definition of strict order yields
+\[
+    u<v\quad\Longleftrightarrow\quad S(u)<S(v).
+\]
+Interchanging $u$ and $v$ gives the analogous equivalence for $>$.
+
+Now induct on $b$, with the assertion applying to \emph{every}
+$a\in\NN$. At $b=0$, either $a=0$, or $a\ne0$. In the latter case,
+$0\le a$ and $0\ne a$, so $a>0$.
+
+Assume the assertion holds for $b$ and every natural number $a$.
+To compare an arbitrary $a$ with $S(b)$, first consider $a=0$.
+Since $0\le S(b)$ and $S(b)\ne0$ by (P3), we have $a<S(b)$.
+If $a\ne0$, write $a=S(c)$ using the successor fact proved above.
+The induction hypothesis compares $c$ with $b$. The successor
+comparison rules then give
+\[
+\begin{aligned}
+    c<b&\ \rimply\ a=S(c)<S(b),\\
+    c=b&\ \rimply\ a=S(c)=S(b),\\
+    c>b&\ \rimply\ a=S(c)>S(b).
+\end{aligned}
+\]
+Thus at least one alternative holds for every $a$ at $S(b)$.
+Induction proves existence of an alternative for all $a,b\in\NN$;
+together with mutual exclusivity, this proves trichotomy.
+\hfill$\square$
+\end{claim_box}
+
+Trichotomy implies that any two natural numbers are comparable:
+$a\le b$ or $b\le a$. Thus the non-strict order on $\NN$ is a
+\emph{total order}, not merely a partial order.
+
+\subsection{Multiplication}
+\label{subsec:multiplication}
+
+Multiplication is repeated addition. As in our definition of addition, we
+use recursion on the first input while keeping the second input fixed.
+
+\begin{definition_box}
+\textbf{Multiplication.} Define the operator
+$\cdot:\NN\times\NN\to\NN$ by
+\[
+    0\cdot m:=0,
+    \qquad S(n)\cdot m:=n\cdot m+m
+    \quad(n,m\in\NN).
+\]
+We also write $nm$ or $n\times m$ for $n\cdot m$.
+\end{definition_box}
+
+For each fixed $m$, the recursion theorem applies with initial value $0$
+and recursive step $x\mapsto x+m$, giving a unique function of $n$.
+Closure follows by induction: $0\cdot m=0\in\NN$, and if
+$n\cdot m\in\NN$, then $S(n)\cdot m=n\cdot m+m\in\NN$ by closure
+of addition. Thus multiplication is a well-defined operator on $\NN$.
+
+\textbf{Proposition:}
+For all $n,m\in\NN$,
+\[
+    n\cdot0=0,
+    \qquad n\cdot S(m)=n\cdot m+n.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+First induct on $n$ to prove $n\cdot0=0$. The base case is
+$0\cdot0=0$. If $n\cdot0=0$, then
+\[
+    S(n)\cdot0=n\cdot0+0=0.
+\]
+
+For the second identity, fix $m$ and induct on $n$. At $n=0$,
+\[
+    0\cdot S(m)=0=0\cdot m+0.
+\]
+Assume $n\cdot S(m)=n\cdot m+n$. Then
+\[
+\begin{aligned}
+    S(n)\cdot S(m)
+    &=n\cdot S(m)+S(m)\\
+    &=(n\cdot m+n)+S(m)\\
+    &=(n\cdot m+m)+S(n)\\
+    &=S(n)\cdot m+S(n).
+\end{aligned}
+\]
+The third equality uses only the established addition laws. Explicitly,
+for any $x\in\NN$,
+\[
+    (x+n)+S(m)=S((x+n)+m)=S((x+m)+n)=(x+m)+S(n).
+\]
+This completes the induction.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem (Commutativity):}
+For all $n,m\in\NN$,
+\[
+    n\cdot m=m\cdot n.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Fix $m$ and induct on $n$. At $n=0$,
+$0\cdot m=0=m\cdot0$. Assuming $n\cdot m=m\cdot n$, we obtain
+\[
+    S(n)\cdot m=n\cdot m+m=m\cdot n+m=m\cdot S(n),
+\]
+where the last equality is the successor identity just proved.
+Induction gives commutativity for all $n,m\in\NN$.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem (Zero-product property):}
+For all $n,m\in\NN$,
+\[
+    n\cdot m=0\quad\Longleftrightarrow\quad n=0\text{ or }m=0.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+If $n=0$, the defining rule gives $n\cdot m=0$. If $m=0$, the preceding
+proposition gives $n\cdot m=0$.
+
+Conversely, suppose $n\cdot m=0$ and both $n$ and $m$ are nonzero.
+The successor fact proved in the ordering subsection gives $n=S(r)$
+for some $r\in\NN$. Therefore
+\[
+    0=n\cdot m=S(r)\cdot m=r\cdot m+m.
+\]
+The vanishing-sum property for addition forces $m=0$, a contradiction.
+Hence at least one factor must be $0$.
+\hfill$\square$
+\end{claim_box}
+
+In particular, the product of two positive natural numbers is positive.
+
+\textbf{Theorem (Distributivity):}
+For all $n,m,k\in\NN$,
+\[
+\begin{aligned}
+    (n+m)\cdot k&=n\cdot k+m\cdot k,\\
+    n\cdot(m+k)&=n\cdot m+n\cdot k.
+\end{aligned}
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Fix $m,k$ and induct on $n$ to prove the first identity. At $n=0$,
+\[
+    (0+m)\cdot k=m\cdot k=0\cdot k+m\cdot k.
+\]
+Assuming the identity at $n$, the defining successor rules give
+\[
+\begin{aligned}
+    (S(n)+m)\cdot k
+    &=S(n+m)\cdot k\\
+    &=(n+m)\cdot k+k\\
+    &=(n\cdot k+m\cdot k)+k\\
+    &=(n\cdot k+k)+m\cdot k\\
+    &=S(n)\cdot k+m\cdot k.
+\end{aligned}
+\]
+The fourth equality uses associativity and commutativity of addition.
+Thus the first distributive law holds by induction.
+
+For the second law, apply the first and commutativity of multiplication:
+\[
+    n\cdot(m+k)=(m+k)\cdot n
+    =m\cdot n+k\cdot n=n\cdot m+n\cdot k.
+\]
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem (Associativity):}
+For all $n,m,k\in\NN$,
+\[
+    (n\cdot m)\cdot k=n\cdot(m\cdot k).
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Fix $m,k$ and induct on $n$. At $n=0$,
+\[
+    (0\cdot m)\cdot k=0\cdot k=0=0\cdot(m\cdot k).
+\]
+Suppose $(n\cdot m)\cdot k=n\cdot(m\cdot k)$. Then
+\[
+\begin{aligned}
+    (S(n)\cdot m)\cdot k
+    &=(n\cdot m+m)\cdot k\\
+    &=(n\cdot m)\cdot k+m\cdot k\\
+    &=n\cdot(m\cdot k)+m\cdot k\\
+    &=S(n)\cdot(m\cdot k).
+\end{aligned}
+\]
+The second equality is distributivity. Induction proves associativity.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Theorem (Preservation of order):}
+For all $n,m,k\in\NN$:
+\begin{enumerate}[(i)]
+    \item If $n\ge m$, then
+    \[
+        n\cdot k\ge m\cdot k,
+        \qquad k\cdot n\ge k\cdot m.
+    \]
+    \item If $n>m$ and $k>0$, then
+    \[
+        n\cdot k>m\cdot k,
+        \qquad k\cdot n>k\cdot m.
+    \]
+\end{enumerate}
+
+\begin{claim_box}
+\textit{Proof:}
+If $n\ge m$, write $n=m+d$ for some $d\in\NN$. Distributivity gives
+\[
+    n\cdot k=(m+d)\cdot k=m\cdot k+d\cdot k.
+\]
+Since $d\cdot k\in\NN$, this representation shows
+$n\cdot k\ge m\cdot k$.
+
+If $n>m$, the positive-gap characterization gives the same
+representation with $d>0$. When also $k>0$, the zero-product property
+shows that $d\cdot k$ is positive. Thus
+\[
+    n\cdot k=m\cdot k+d\cdot k>m\cdot k.
+\]
+Commutativity gives the corresponding inequalities when the common
+factor is on the left.
+\hfill$\square$
+\end{claim_box}
+
+The restriction $k>0$ for strict inequalities is essential: multiplying
+by $0$ makes both products equal to $0$.
+
+\textbf{Theorem (Cancellation law):}
+For all $n,m,k\in\NN$ with $k\ne0$,
+\[
+    n\cdot k=m\cdot k\ \rimply\ n=m,
+    \qquad k\cdot n=k\cdot m\ \rimply\ n=m.
+\]
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose $n\cdot k=m\cdot k$ and $k\ne0$. Since $k\in\NN$, we have
+$k>0$. By trichotomy, exactly one of $n<m$, $n=m$, or $n>m$ holds.
+If $n<m$, strict order preservation gives $n\cdot k<m\cdot k$,
+contradicting the assumed equality. If $n>m$, it gives
+$n\cdot k>m\cdot k$, again a contradiction. Hence $n=m$.
+Commutativity gives cancellation of a nonzero left factor as well.
+\hfill$\square$
+\end{claim_box}
+
+We cannot cancel a zero factor: $0\cdot0=1\cdot0$, although $0\ne1$.
+
+Before defining powers, note that $1=S(0)$ is a multiplicative identity:
+\[
+    1\cdot a=S(0)\cdot a=0\cdot a+a=0+a=a.
+\]
+By commutativity, $a\cdot1=a$ as well.
+
+\begin{definition_box}
+\textbf{Exponentiation.} For each base $a\in\NN$, define its natural-number
+powers recursively by
+\[
+    a^0:=1,
+    \qquad a^{S(n)}:=a^n\cdot a
+    \quad(n\in\NN).
+\]
+\end{definition_box}
+
+The recursion theorem, with initial value $1$ and recursive step
+$x\mapsto x\cdot a$, makes exponentiation a well-defined map
+$\NN\times\NN\to\NN$. For example,
+\[
+    a^1=a^0\cdot a=1\cdot a=a,
+    \qquad a^2=a^1\cdot a=a\cdot a.
+\]
+With this recursive convention, $0^0=1$, corresponding to the empty
+product.
+
+\subsection{Subtraction}
+\label{subsec:subtraction}
+
+Subtraction reverses addition. Unlike addition and multiplication, it
+cannot be defined for every pair of natural numbers while taking values
+in $\NN$: a natural-number difference $a-b$ exists only when $a\ge b$.
+
+\begin{definition_box}
+\textbf{Subtraction on $\NN$.} If $a,b\in\NN$ and $a\ge b$, define
+$a-b$ to be the unique $c\in\NN$ such that
+\[
+    a=b+c.
+\]
+Thus subtraction is the operator $-:D\to\NN$, where
+\[
+    D=\{(a,b)\in\NN\times\NN:a\ge b\}.
+\]
+\end{definition_box}
+
+Existence follows from the definition of $a\ge b$. For uniqueness, if
+$a=b+c=b+d$, additive cancellation gives $c=d$. If $a<b$, there is no
+$c\in\NN$ satisfying $a=b+c$, so $a-b$ is not defined in $\NN$.
+
+\textbf{Theorem (Properties of subtraction):}
+The following laws hold for natural numbers whenever the stated
+hypotheses are satisfied:
+\begin{enumerate}[(i)]
+    \item \textbf{Zero and self-subtraction:}
+    \[
+        a-0=a,\qquad a-a=0.
+    \]
+    \item \textbf{Inverse relations:} If $a\ge b$, then
+    $b+(a-b)=a$. Also, for every $a,b\in\NN$,
+    \[
+        (a+b)-b=a.
+    \]
+    \item \textbf{Zero and positivity:} If $a\ge b$, then
+    \[
+        a-b=0\ \Longleftrightarrow\ a=b,
+        \qquad a-b>0\ \Longleftrightarrow\ a>b.
+    \]
+    \item \textbf{Cancellation of a common addend:} If $a\ge b$, then
+    \[
+        (a+k)-(b+k)=a-b\qquad(k\in\NN).
+    \]
+    \item \textbf{Successive subtraction:} If $a\ge b+c$, then
+    \[
+        (a-b)-c=a-(b+c).
+    \]
+    \item \textbf{Distributivity of multiplication over subtraction:}
+    If $a\ge b$, then for every $k\in\NN$,
+    \[
+        (k\cdot a)-(k\cdot b)=k\cdot(a-b).
+    \]
+    \item \textbf{Order properties:} If $a\ge b$ and $c\ge b$, then
+    \[
+        a-b\ge c-b\quad\Longleftrightarrow\quad a\ge c.
+    \]
+    If $a\ge c\ge b$, then $a-b\ge a-c$.
+\end{enumerate}
+
+\begin{claim_box}
+\textit{Proof:}
+Each difference is determined uniquely by its defining addition equation.
+\begin{enumerate}[(i)]
+    \item Since $a=0+a$ and $a=a+0$, the definition gives $a-0=a$
+    and $a-a=0$.
+
+    \item The equality $b+(a-b)=a$ is the defining equation.
+    Since $a+b=b+a$, the natural number $a$ is the unique difference
+    between $a+b$ and $b$. Hence $(a+b)-b=a$.
+
+    \item Writing $a=b+(a-b)$, a zero difference gives $a=b$.
+    Conversely, $a=b$ gives $a-b=a-a=0$. A natural number is strictly
+    greater than $0$ precisely when it is nonzero. Thus, under $a\ge b$,
+    the difference is positive precisely when $a\ne b$, that is, when
+    $a>b$.
+
+    \item Put $r=a-b$, so $a=b+r$. Then
+    \[
+        a+k=(b+r)+k=(b+k)+r.
+    \]
+    This also shows $a+k\ge b+k$, so the difference is defined, and
+    uniqueness gives $(a+k)-(b+k)=r=a-b$.
+
+    \item Since $a\ge b+c$, write $a=(b+c)+r=b+(c+r)$ for some
+    $r\in\NN$. Uniqueness gives $a-b=c+r$, so $a-b\ge c$ and
+    $(a-b)-c=r$. The original representation also gives
+    $a-(b+c)=r$, proving the identity and showing that both sides
+    are defined.
+
+    \item Put $r=a-b$. Distributivity gives
+    \[
+        k\cdot a=k\cdot(b+r)=k\cdot b+k\cdot r.
+    \]
+    Hence $k\cdot a\ge k\cdot b$, and uniqueness of the difference
+    gives $(k\cdot a)-(k\cdot b)=k\cdot r=k\cdot(a-b)$.
+
+    \item Write $a=b+(a-b)$ and $c=b+(c-b)$. The order cancellation
+    property for addition gives
+    \[
+        a\ge c\quad\Longleftrightarrow\quad a-b\ge c-b.
+    \]
+    For the second assertion, write $c=b+r$ and $a=c+s$, where
+    $r,s\in\NN$. Then $a=b+(r+s)$, so $a-b=r+s$ and $a-c=s$.
+    Since $r+s=s+r\ge s$, we obtain $a-b\ge a-c$.
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+For example, $0-1$ has no value in $\NN$. We now construct a larger
+number system in which subtraction is defined for every pair of numbers.
+
+\subsection{Construction of the Integers}
+\label{subsec:integers}
+
+To allow unrestricted subtraction, we represent formal differences by
+pairs of natural numbers, identifying pairs that represent the same value.
+
+\begin{definition_box}
+For $(a,b),(c,d)\in\NN\times\NN$, define the equivalence relation
+\[
+    (a,b)\sim(c,d)\quad\Longleftrightarrow\quad a+d=c+b.
+\]
+The \emph{integers} are the equivalence classes
+\[
+    \ZZ:=(\NN\times\NN)/\sim.
+\]
+Write $[a,b]$ for the class of $(a,b)$; thus
+$[a,b]=[c,d]$ if and only if $a-b=c-d$.
+\end{definition_box}
+
+Define integer arithmetic by
+\[
+\begin{aligned}
+    [a,b]+[c,d]&:=[a+c,b+d],\\
+    -[a,b]&:=[b,a],\\
+    [a,b]\cdot[c,d]&:=[ac+bd,ad+bc],\\
+    0_{\ZZ}&:=[0,0],\qquad 1_{\ZZ}:=[1,0].
+\end{aligned}
+\]
+These operations satisfy the usual commutative, associative and
+distributive laws, with identities $0_{\ZZ}$ and $1_{\ZZ}$.
+Every integer has an additive inverse, and
+\[
+    xy=0_{\ZZ}\quad\Longleftrightarrow\quad x=0_{\ZZ}\text{ or }y=0_{\ZZ}.
+\]
+
+The embedding $\iota:\NN\to\ZZ$, $\iota(n):=[n,0]$, is injective and
+preserves addition and multiplication. Identifying $\iota(n)$ with $n$,
+we write $\ZZ=\{\ldots,-2,-1,0,1,2,\ldots\}$ and define
+\[
+    x-y:=x+(-y),\qquad [a,b]-[c,d]=[a+d,b+c].
+\]
+Unlike natural-number subtraction, this is defined for every $x,y\in\ZZ$.
+
+\textbf{Exercises:}
+\begin{enumerate}[(i)]
+    \item Prove that $\sim$ is an equivalence relation and that addition,
+    negation and multiplication are independent of the representatives.
+    \item Prove the arithmetic laws above, the sign rules
+    $(-x)y=-(xy)$ and $(-x)(-y)=xy$, and cancellation of nonzero factors.
+    \item Verify the embedding and show that every integer has a unique
+    representative $[n,0]$ with $n\in\NN$, or $[0,n]$ with $n>0$.
+    Show that integer subtraction extends natural-number subtraction,
+    and prove $(x-y)+y=x$, $x-x=0$, and $x-0=x$.
+\end{enumerate}
+
+\subsection{Division}
+\label{subsec:division}
+
+Division reverses multiplication. In $\ZZ$ it is initially only an
+\emph{exact}, partial operation, not division with remainder.
+
+\begin{definition_box}
+For $a,b\in\ZZ$ with $b\ne0$, say that $b$ \emph{divides} $a$, written
+$b\mid a$, if $a=bq$ for some $q\in\ZZ$. In this case define
+\[
+    \frac{a}{b}:=q.
+\]
+The quotient is unique by cancellation of the nonzero factor $b$.
+\end{definition_box}
+
+For $b\ne0$, the basic identities are
+\[
+    \frac{a}{1}=a,\qquad \frac{0}{b}=0,\qquad \frac{ab}{b}=a.
+\]
+If $b,d,k\ne0$, $b\mid a$ and $d\mid c$, then
+\[
+\begin{aligned}
+    \frac{a}{b}\pm\frac{c}{d}&=\frac{ad\pm bc}{bd},\\
+    \frac{a}{b}\cdot\frac{c}{d}&=\frac{ac}{bd},\\
+    \frac{ka}{kb}&=\frac{a}{b}.
+\end{aligned}
+\]
+\textbf{Exercise:} Prove these identities from $a=bq$ and $c=dr$,
+including the existence of the displayed integer quotients. Establish
+also the sign rules and $(a/b)/c=a/(bc)$ when $b,c\ne0$ and $bc\mid a$.
+
+Not every integer quotient exists: $2\nmid1$. To remove this restriction,
+we introduce formal fractions.
+
+\subsection{Construction of the Rational Numbers}
+\label{subsec:rationals}
+
+\begin{definition_box}
+Define
+\[
+    (a,b)\approx(c,d)\quad\Longleftrightarrow\quad ad=cb.
+\]
+This is an equivalence relation. The \emph{rational numbers} are
+\[
+    \QQ:=\ZZ\times(\ZZ\setminus\{0\})/\approx.
+\]
+Denote the class of $(a,b)$ by $\langle a,b\rangle$; equality of classes
+is precisely equality of the cross products.
+\end{definition_box}
+
+Define
+\[
+\begin{aligned}
+    \langle a,b\rangle+\langle c,d\rangle&:=\langle ad+bc,bd\rangle,\\
+    -\langle a,b\rangle&:=\langle-a,b\rangle,\\
+    \langle a,b\rangle\langle c,d\rangle&:=\langle ac,bd\rangle,\\
+    \langle a,b\rangle^{-1}&:=\langle b,a\rangle\qquad(a\ne0).
+\end{aligned}
+\]
+The identities are $0_{\QQ}:=\langle0,1\rangle$ and
+$1_{\QQ}:=\langle1,1\rangle$. These operations make $\QQ$ a
+\emph{field}: the usual arithmetic laws hold, and every nonzero element
+has a multiplicative inverse.
+
+The embedding $j:\ZZ\to\QQ$, $j(a):=\langle a,1\rangle$, is injective
+and preserves arithmetic. We identify integers with their images and
+write $\langle a,b\rangle=a/b$. For $x,y\in\QQ$ with $y\ne0$, define
+\[
+    \frac{x}{y}:=xy^{-1},\qquad
+    \frac{a/b}{c/d}=\frac{ad}{bc}\quad(c\ne0).
+\]
+This is the unique rational $q$ satisfying $yq=x$. It agrees with exact
+integer division whenever that quotient exists. Division by zero remains
+undefined.
+
+\textbf{Order:} An integer is positive when it is the image of a nonzero
+natural number. For a rational represented with $b>0$, declare $a/b$
+positive if $a>0$. In both systems, define $x<y$ when $y-x$ is positive,
+and $x\le y$ when $x<y$ or $x=y$.
+
+\textbf{Exercises:}
+\begin{enumerate}[(i)]
+    \item Prove that $\approx$ is an equivalence relation and that the
+    rational operations are well-defined. Prove the field laws.
+    \item Verify the embedding, uniqueness of division, and agreement
+    with exact integer division. Prove the fraction identities in the
+    previous subsection without the integer divisibility restrictions.
+    \item Show that every rational has a representative with positive
+    denominator, that positivity is well-defined, and that these orders
+    make $\ZZ$ an ordered ring and $\QQ$ an ordered field. In particular,
+    prove $a/b<c/d$ if and only if $ad<cb$ when $b,d>0$.
+    \item Prove rational density: if $x<y$, then $x<(x+y)/2<y$.
+    \item Prove the Archimedean property: for every $x\in\QQ$, some $n\in\NN$
+    satisfies $n>x$.
+\end{enumerate}
+
+\subsection{Construction of the Real Numbers}
+\label{subsec:reals}
+
+Rational numbers still have gaps. We fill them by treating rational
+Cauchy sequences as numbers, identifying sequences whose difference
+tends to zero. This construction does not assume that real limits
+already exist.
+
+A rational sequence is a map $\NN\to\QQ$, written $(a_n)_{n\ge0}$.
+For $q\in\QQ$, write $|q|=q$ if $q\ge0$, and $|q|=-q$ otherwise.
+
+\begin{definition_box}
+A sequence $(a_n)$ in $\QQ$ is \emph{Cauchy} if, for every rational
+$\varepsilon>0$, there is $N\in\NN$ such that
+\[
+    |a_m-a_n|<\varepsilon\qquad(m,n\ge N).
+\]
+
+Define
+\[
+    (a_n)\sim(b_n)\quad\Longleftrightarrow\quad(a_n-b_n) \rightarrow 0.
+\]
+This is an equivalence relation. Let $\mathcal C$ be the set of rational Cauchy sequences. The \emph{real numbers} are
+\[
+    \RR:=\mathcal C/\sim.
+\]
+Write $[(a_n)]$ for the class of $(a_n)$. Sequences differing in only
+finitely many terms represent the same real number.
+\end{definition_box}
+
+Every rational Cauchy sequence is bounded: its tail lies within $1$ of
+some fixed term, and its finitely many remaining terms are bounded.
+Moreover, if it is not null, then $|a_n|\ge c$ eventually for some
+rational $c>0$. To see this, choose a rational $\varepsilon>0$ for which
+arbitrarily late terms have $|a_n|\ge\varepsilon$. A Cauchy tail whose
+terms differ by less than $\varepsilon/2$ then satisfies
+$|a_n|>\varepsilon/2$ throughout.
+
+\begin{claim_box}
+\textbf{Arithmetic:} Define
+\[
+\begin{aligned}
+    [(a_n)]+[(b_n)]&:=[(a_n+b_n)],\\
+    -[(a_n)]&:=[(-a_n)],\\
+    [(a_n)]\cdot[(b_n)]&:=[(a_nb_n)].
+\end{aligned}
+\]
+The rational embedding is $\eta(q):=[(q,q,q,\ldots)]$.
+It preserves arithmetic; we identify $q$ with $\eta(q)$, so the constant
+sequences $0$ and $1$ represent the corresponding real identities.
+Set $x-y:=x+(-y)$.
+
+If $x=[(a_n)]\ne0$, choose $c>0$ and $N$ with $|a_n|\ge c$ for
+$n\ge N$. Define
+\[
+    x^{-1}:=[(r_n)],\qquad
+    r_n:=\begin{cases}0,&n<N,\\1/a_n,&n\ge N.\end{cases}
+\]
+The reciprocal sequence is Cauchy, since on this tail
+$|1/a_m-1/a_n|\le |a_m-a_n|/c^2$.
+Define $x/y:=xy^{-1}$ whenever $y\ne0$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Order:} For $x=[(a_n)]$ and $y=[(b_n)]$, define
+\[
+    x<y\quad\Longleftrightarrow\quad
+    \text{some rational }\delta>0\text{ satisfies }
+    b_n-a_n\ge\delta\text{ eventually}.
+\]
+Define $x\le y$ if $x<y$ or $x=y$. The positive gap is essential:
+termwise strict inequalities alone do not define strict order on classes.
+These operations and this order make $\RR$ an ordered field.
+\end{claim_box}
+
+\begin{definition_box}
+Let $A \subset \RR$ be nonempty. 
+\\We say $\alpha$ is an \emph{upper bound} of $A$ if $\forall x \in A, x \le \alpha$. 
+We say $\beta$ is a \emph{lower bound} of $A$ if $\forall x \in A, x \ge \beta$. 
+\\$A$ is said to be \emph{bounded above} if it has an upper bound. It is said to be \emph{bounded below} if it has a lower bound. 
+\\If an upper bound $\alpha$ is such that for all upper bounds $\beta$, we have $\alpha \le \beta$, $\alpha$ is the \emph{least upper bound} (LUB). 
+Similarly, if a lower bound $\alpha$ is such that for all lower bounds $\beta$, we have $\alpha \ge \beta$, $\alpha$ is the \emph{greatest lower bound} (GLB).
+\end{definition_box}
+
+It is easy to see that the LUB and GLB must be unique.
+
+\textbf{Theorem (Least-upper-bound property of $\RR$):}
+Every nonempty set $A\subseteq\RR$ that is bounded above has a unique
+least upper bound in $\RR$, denoted by $\sup A$.
+
+\begin{claim_box}
+\textit{Proof:}
+Choose $x_0\in A$ and an upper bound $u$ of $A$. Using the rational
+bounds established above, choose $a_0,b_0\in\QQ$ with
+\[
+    a_0<x_0\le u<b_0.
+\]
+Thus $a_0$ is not an upper bound of $A$, whereas $b_0$ is.
+Bisect this rational interval repeatedly. Given $a_n,b_n$, put
+$c_n=(a_n+b_n)/2$ and define
+\[
+    (a_{n+1},b_{n+1}):=
+    \begin{cases}
+        (a_n,c_n),&c_n\text{ is an upper bound of }A,\\
+        (c_n,b_n),&c_n\text{ is not an upper bound of }A.
+    \end{cases}
+\]
+For every $n$, $a_n$ is not an upper bound, $b_n$ is an upper bound,
+and the intervals are nested, with
+\[
+    b_n-a_n=\frac{b_0-a_0}{2^n}.
+\]
+If $j,k\ge n$, both $a_j$ and $a_k$ lie in $[a_n,b_n]$, so
+$|a_j-a_k|\le(b_0-a_0)/2^n$. Hence $(a_n)$ is a rational Cauchy
+sequence, and it defines a real number
+\[
+    \alpha:=[(a_n)].
+\]
+For each fixed $n$, all later terms lie between $a_n$ and $b_n$.
+The order on classes therefore gives
+\[
+    a_n\le\alpha\le b_n.
+\]
+
+We show that $\alpha$ is an upper bound of $A$. If some $x\in A$
+satisfied $x>\alpha$, choose $n$ with $b_n-a_n<x-\alpha$.
+Since $a_n\le\alpha$, we would have
+\[
+    b_n=a_n+(b_n-a_n)\le\alpha+(b_n-a_n)<x,
+\]
+contradicting the fact that $b_n$ is an upper bound.
+
+Finally, if $\beta<\alpha$, choose $n$ with $b_n-a_n<\alpha-\beta$.
+Since $\alpha\le b_n$, we obtain
+\[
+    a_n=b_n-(b_n-a_n)\ge\alpha-(b_n-a_n)>\beta.
+\]
+But $a_n$ is not an upper bound, so some $x\in A$ satisfies
+$x>a_n>\beta$. Thus no number below $\alpha$ is an upper bound.
+Consequently $\alpha=\sup A$, and uniqueness follows from antisymmetry.
+\hfill$\square$
+\end{claim_box}
+
+Thus the Cauchy-sequence construction gives $\RR$ the least-upper-bound
+property, making it a \emph{complete ordered field}.
+
+\section{Sequences}
+
+
+\end{document}
