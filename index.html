@@ -16,6 +16,7 @@
     --ink-faint: #9A9384;
     --accent: #7A2E2A;
     --rule: #DEDACD;
+    --signal: #F2C200;
     --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
     box-sizing: border-box;
@@ -27,11 +28,13 @@
     :root:not([data-theme="light"]) {
       --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
       --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
+      --signal: #FFD60A;
     }
   }
   :root[data-theme="dark"] {
     --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
     --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
+    --signal: #FFD60A;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
@@ -81,6 +84,27 @@
 
   .tag {
     font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap;
+  }
+
+  /* Blinking yellow signal beside "work in progress" — sized to the tag's font */
+  .tag.wip {
+    display: inline-flex; align-items: center; gap: 0.5em;
+  }
+  .tag.wip::before {
+    content: "";
+    flex: none;
+    width: 1em; height: 1em;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0.6em var(--signal);
+    animation: wip-blink 1.4s ease-in-out infinite;
+  }
+  @keyframes wip-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.15; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tag.wip::before { animation: none; }
   }
 
   .subtopics {
@@ -141,32 +165,23 @@
       <div class="subtopics">
         <div class="subtopic">
           <span class="name"><a href="elementary-number-theory.pdf">Elementary number theory</a></span>
-          <span class="tag">pdf</span>
+          <span class="tag wip">work in progress</span>
         </div>
         <div class="subtopic pending">
           <span class="name">Algebraic number theory</span>
           <span class="tag">coming soon</span>
         </div>
         <div class="subtopic pending">
-          <span class="name">Analytic number theory</span>
-          <span class="tag">coming soon</span>
+          <span class="name"><a href="ant.pdf">Analytic number theory</a></span>
+          <span class="tag wip">work in progress</span>
         </div>
       </div>
     </div>
 
     <div class="topic-group pending">
       <div class="topic-row">
-        <h3 class="topic">Linear algebra</h3>
-      </div>
-      <div class="subtopics">
-        <div class="subtopic">
-          <span class="name"><a href="vector-spaces.pdf">Vector spaces</a></span>
-          <span class="tag">pdf</span>
-        </div>
-        <div class="subtopic pending">
-          <span class="name"><a href="linear-transformations.pdf">Linear transformations</a></span>
-          <span class="tag">coming soon</span>
-        </div>
+        <h3 class="topic"><a href="la.pdf">Linear algebra</a></h3>
+        <span class="tag wip">work in progress</span>
       </div>
     </div>
 
@@ -200,8 +215,8 @@
       </div>
       <div class="subtopics">
         <div class="subtopic pending">
-          <span class="name">Real analysis</span>
-          <span class="tag">coming soon</span>
+          <span class="name"><a href="ra.pdf">Real analysis</a></span>
+          <span class="tag wip">work in progress</span>
         </div>
         <div class="subtopic pending">
           <span class="name">Multivariable analysis</span>
