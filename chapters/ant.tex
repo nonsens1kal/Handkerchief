@@ -33,7 +33,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{Analytical Number Theory}
+\lhead{Analytic Number Theory}
 \rhead{\thepage}
 \cfoot{} 
 
@@ -217,7 +217,7 @@ after={\vspace{2mm}}
 %   TOP MATTERS
 %-----------------------------------------------------------------------------------
 
-\title{Analytical Number Theory}
+\title{Analytic Number Theory}
 \subtitle{Handkerchief}
 \author{Pratyay Sen}
 \date{\today}
@@ -321,7 +321,7 @@ which proves the result.
 \hfill$\square$
 \end{claim_box}
 
-\section{Euler--Maclaurin Summation and the Sum-to-Integral Method}
+\section{Euler-Maclaurin Summation}
 
 Many sums in analytic number theory can be estimated by replacing the
 sum with an integral and controlling the resulting error. The
@@ -365,6 +365,9 @@ $[A,B]$. Then
        +\frac{f(A)+f(B)}2
        +\int_A^B\psi(t)f'(t)\,dt
 \]
+$$\Rightarrow \sum_{n=A}^{B}f(n)
+      =\int_A^B f(t)\,dt
+       +\int_A^B\left\{t\right\}f'(t)\,dt$$
 \end{mainbox}
 
 \begin{claim_box}
@@ -1663,12 +1666,73 @@ The first follows because $\gcd(n,1)=1$, while the second follows
 because every exponential in the defining sum equals $1$.
 \end{remark_box}
 
-\section{Average Orders of Arithmetic Functions}
-\label{sec:average-orders}
+\section{Averages of Arithmetic Functions}
 
-All the prerequisites for the following calculations have now been
+\begin{definition_box}
+Let $f(x)$ be an arithmetic function, then we define the average as
+$$S(x):= \frac{1}{x}\sum_{n \le x}f(n)$$
+If as $x \rightarrow \infty$, $S(x)$ approaches a limit, then we say $f$ has a limiting average value. Otherwise, we try to approximate the size of $S(x)$ by seeing which real-valued function comes closest to it.
+\end{definition_box}
+
+\textbf{Theorem:}
+Let $a(n)$ be an arithmetic function and set 
+$$A(x)=\sum_{n \le x} a(n)$$
+Let $0 \le y < x$ be real numbers and $f$ be a real valued function with continuous derivative on $[y,x]$. Then,
+$$\sum_{y < n \le x} a(n)f(n) = f(x)A(x)-f(y)A(y)-\int_{y}^{x}A(t)f'(t)\,dt$$
+
+\begin{claim_box}
+\textit{Proof:}
+For $y\leq t\leq x$, split the sum defining $A(t)$ at $y$:
+\[
+    A(t)=A(y)+\sum_{y<n\leq t}a(n)
+\]
+Integrating against $f'(t)$, and interchanging the finite sum and the
+integral, gives
+\begin{align*}
+    \int_y^x A(t)f'(t)\,dt
+      &=A(y)\int_y^x f'(t)\,dt
+        +\sum_{y<n\leq x}a(n)\int_n^x f'(t)\,dt\\
+      &=A(y)(f(x)-f(y))
+        +\sum_{y<n\leq x}a(n)(f(x)-f(n))
+\end{align*}
+$$=A(y)(f(x)-f(y))
+        +(A(x)-A(y))f(x)-\sum_{y<n\leq x}a(n)f(n)$$
+$$=A(x)f(x)-A(y)f(y)-\sum_{y<n\leq x}a(n)f(n)$$
+Thus proving the theorem.
+\hfill $\square$
+\end{claim_box}
+
+This implies for $y=0$, we have
+$$\sum_{n \le x}a(n)f(n) = f(x)A(x)-\int_{0}^{x}A(t)f'(t)\,dt$$
+
+\begin{mainbox}{General First-Order Euler-Maclaurin Formula}
+Let $f(n)$ be an arithmetic function.
+$$\sum_{y<n \le x}f(n)
+      =\int_y^x f(t)\,dt
+       +\int_y^x \left\{t\right\}f'(t)\,dt
+       -f(x)\left\{x\right\}+f(y)\left\{y\right\}$$
+where $x,y$ are any real numbers.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+By the above theorem, taking $a(n)=1$, it gives $A(x)=[x]$. Thus we have,
+$$\sum_{y < n \le x} f(n) = f(x)[x]-f(y)[y]-\int_{y}^{x}[t]f'(t)\,dt$$
+$$=xf(x)-yf(y)-\left\{x\right\}f(x)+\left\{y\right\}f(y)-\int_y^x tf'(t)\,dt+\int_y^x \left\{t\right\}f'(t)\,dt$$
+$$=xf(x)-yf(y)-\int_y^x tf'(t)\,dt-\left\{x\right\}f(x)+\left\{y\right\}f(y)+\int_y^x \left\{t\right\}f'(t)\,dt$$
+Applying integration by parts, we get
+$$      =\int_y^x f(t)\,dt
+       +\int_y^x \left\{t\right\}f'(t)\,dt
+       -f(x)\left\{x\right\}+f(y)\left\{y\right\}$$
+       Thus proving the theorem.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Average Orders of Arithmetic Functions}
+
+All the prerequisites for the following calculations have been
 proved. We shall use Euler summation from
-Subsection~\ref{subsec:euler-summation}, the harmonic estimate
+subsection~\ref{subsec:euler-summation}, the harmonic estimate
 \eqref{eq:harmonic-sum}, the totient formula
 \eqref{eq:totient-mobius}, the reciprocal zeta series
 \eqref{eq:mu-dirichlet-series}, and the evaluation
@@ -1889,6 +1953,145 @@ so $\pi^2n/6=cn$ is an average order of $\sigma(n)$.
 \hfill$\square$
 \end{claim_box}
 
+\subsection{Dirichlet Hyperbola Method}
+
+The method counts lattice points below the hyperbola $ab=x$ by splitting
+the region into two overlapping strips. Choosing the strips near the
+square root balances their sizes and gives a sharp estimate for the
+divisor summatory function.
+
+\begin{mainbox}{Hyperbola decomposition of the divisor function:}
+For $x\geq1$, define
+\[
+    D(x)=\sum_{n\leq x}d(n)
+\]
+If $u,v>0$ and $uv=x$, then
+\[
+    D(x)=\sum_{a\leq u}\floor{\frac xa}
+       +\sum_{b\leq v}\floor{\frac xb}
+       -\floor{u}\floor{v}
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+The sum $D(x)$ counts pairs of positive integers $(a,b)$ with $ab\leq x$.
+Every such pair satisfies $a\leq u$ or $b\leq v$, since otherwise
+$ab>uv=x$. The first strip contributes
+$\sum_{a\leq u}\floor{x/a}$ pairs, and the second contributes
+$\sum_{b\leq v}\floor{x/b}$. Their intersection is the rectangle
+$a\leq u$, $b\leq v$, which contains $\floor{u}\floor{v}$ pairs.
+Inclusion-exclusion gives the formula.
+\hfill$\square$
+\end{claim_box}
+
+Taking $u=v=\sqrt{x}$ yields the symmetric form
+\[
+    D(x)=2\sum_{n\leq\sqrt{x}}\floor{\frac xn}
+       -\floor{\sqrt{x}}^2
+\]
+
+\begin{mainbox}{Dirichlet divisor estimate:}
+As $x\to\infty$,
+\[
+    D(x)=x\log x+(2\gamma-1)x+O(\sqrt{x})
+\]
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $m=\floor{\sqrt{x}}$. Applying the symmetric formula and
+$\floor{z}=z+O(1)$ gives
+\[
+    D(x)=2x\sum_{n\leq m}\frac1n-m^2+O(m)
+\]
+By Equation~\eqref{eq:harmonic-sum},
+\[
+    \sum_{n\leq m}\frac1n=\log m+\gamma+O\!\left(\frac1m\right)
+\]
+Therefore
+\[
+    D(x)=2x(\log m+\gamma)-m^2+O\!\left(\frac{x}{m}+m\right)
+\]
+Since $m=\sqrt{x}+O(1)$, we have
+\[
+    \log m=\frac12\log x+O\!\left(\frac1{\sqrt{x}}\right),
+    \qquad
+    m^2=x+O(\sqrt{x}),
+    \qquad
+    \frac{x}{m}+m=O(\sqrt{x})
+\]
+Substitution gives the stated estimate.
+\hfill$\square$
+\end{claim_box}
+
+\begin{mainbox}{Generalised Dirichlet Hyperbola Method}
+Let $f,g$ be two arithmetic functions with 
+$$F(x)=\sum_{n \le x}f(n)$$
+$$G(x)=\sum_{n \le x}g(n)$$
+For $1 \le y \le x$, we have
+$$\sum_{n \le x}(f*g)(n) = \sum_{b \le y}g(b)F(\frac{x}{b})+\sum_{a \le \frac{x}{y}}f(a)G(\frac{x}{a})-F(\frac{x}{y})G(y)$$
+\end{mainbox}
+ 
+\begin{claim_box}
+\textit{Proof:}
+ 
+The curve given below is the hyperbola $ab=x$. The dots are the lattice points, plotted with $a$ on the horizontal axis and $b$ on the vertical axis. 
+ 
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+  % region under hyperbola, used for clipping
+  \def\X{10}
+  \def\Y{3}
+  \begin{scope}
+    \clip (0,0) -- (0,10) -- (1,10) -- plot[domain=1:10, samples=60] (\x,{10/\x}) -- (10,0) -- cycle;
+    % A : b <= y  (blue)
+    \fill[blue!25] (0,0) rectangle (10.5,\Y);
+    % B : a <= x/y (red)
+    \fill[red!25] (0,0) rectangle ({10/3},10.5);
+    % A cap B (purple), drawn on top
+    \fill[violet!45] (0,0) rectangle ({10/3},\Y);
+  \end{scope}
+ 
+  % axes
+  \draw[-{Stealth}] (0,0) -- (11,0) node[right] {$a$};
+  \draw[-{Stealth}] (0,0) -- (0,11) node[above] {$b$};
+ 
+  % hyperbola
+  \draw[thick, domain=0.95:10.5, samples=80] plot (\x,{10/\x});
+  \node[above right] at (3.2,3.6) {$ab=x$};
+ 
+  % dividing lines
+  \draw[dashed, blue!70!black] (0,\Y) -- (10.5,\Y);
+  \draw[dashed, red!70!black] ({10/3},0) -- ({10/3},10.5);
+  \node[left, blue!70!black] at (0,\Y) {$y$};
+  \node[below, red!70!black] at ({10/3},0) {$x/y$};
+ 
+  % lattice points with ab <= x
+  \foreach \a in {1,...,10}{
+    \pgfmathtruncatemacro{\m}{floor(10/\a)}
+    \foreach \b in {1,...,\m}{
+      \fill (\a,\b) circle (1.6pt);
+    }
+  }
+ 
+  % labels
+  \node[blue!60!black] at (7.5,1.5) {$A$: $b\le y$};
+  \node[red!60!black]  at (1.6,7.5) {$B$: $a\le x/y$};
+  \node[violet!70!black] at (1.65,1.5) {$A\cap B$};
+\end{tikzpicture}
+\end{center}
+ 
+\noindent The lattice points are exactly those in the union of the blue strip $A$ ($b\le y$) and the red strip $B$ ($a\le x/y$). The points of the purple rectangle $A\cap B$ are counted twice when the two strips are summed separately, which is why the term $F(x/y)G(y)$ is subtracted. This forms the basis of our intuition for the above theorem. Let us write this formally.
+
+$$\sum_{n \le x}(f*g)(n) = \sum_{ab \le x}f(a)g(b)$$
+$$=\sum_{\substack{ab \le x \\ b \le y}}f(a)g(b)+\sum_{\substack{ab \le x \\ b > y}}f(a)g(b)$$
+$$=\sum_{b \le y}F(\frac{x}{b})g(b)+\sum_{a \le \frac{x}{y}}f(a)\left\{G(\frac{x}{a})-G(y)\right\}$$
+Finally we have,
+$$\sum_{n \le x}(f*g)(n) = \sum_{b \le y}g(b)F(\frac{x}{b})+\sum_{a \le \frac{x}{y}}f(a)G(\frac{x}{a})-F(\frac{x}{y})G(y)$$
+\hfill$\square$
+\end{claim_box}
+
 \section{Prime Number Function}
 
 \begin{definition_box}
@@ -1953,39 +2156,117 @@ because $\log2<1$ and $\log\log2<0$. Since $n=\pi(x)$, this yields
 \hfill$\square$
 \end{claim_box}
 
-\subsection{Prime Values of Polynomials}
+\subsection{Elementary Proof of the Prime Number Theorem}
 
-\begin{mainbox}{No nonconstant polynomial is always prime:}
-Let $f\in\mathbb{Z}[x]$ be a nonconstant polynomial. Then $f(n)$
-cannot be prime for every positive integer $n$.
+\begin{mainbox}{The Prime Number Theorem}
+Let $x$ be a real positive number. Then
+$$\pi(x) \sim \frac{x}{\ln x}$$
+\end{mainbox}
+
+Our goal in this subsection will be to present the elementary proof of this wonderful theorem in a simple and easy-to-understand manner. We start with the two beautiful functions Chebyshev has to his name. Counterintuitively, we start with the second-order function first.
+
+\subsubsection*{The Second-Order Chebyshev Function}
+
+\begin{definition_box}
+For a real number $x \ge 1$,
+$$\psi(x) = \sum_{p^m \le x}\ln p = \sum_{n \le x}\Lambda(n)$$
+\end{definition_box}
+
+\textbf{Theorem:}
+Let $x$ be a real positive number. Then
+$$\psi(x) \sim x$$
+In other words, there exist positive constants $c_1,c_2$ such that
+$$c_1x \le \psi(x) \le c_2(x)$$
+\begin{claim_box}
+\textit{Proof:}
+For $x \ge 4$, let
+$$S=\sum_{n \le x}\ln n - 2\sum_{n \le \frac{x}{2}} \ln n$$
+By Euler-Maclaurin, we have 
+$$\sum_{n \le x} = x\ln x - x + O(\ln x)$$
+$$\Rightarrow S = x\ln 2 + O(\ln x)$$
+As $\ln x$ lies between $\frac{1}{2}$ and $1$, there exists $x_0 \ge 4$, such that
+
+\setcounter{equation}{0}
+\begin{equation}\label{eq:sim}
+  \frac{x}{2} \le S \le x
+\end{equation}
+
+for all $x \ge x_0$. Now, recall that 
+$$\ln n = \sum_{d|n}\Lambda(d)$$
+Substituting this in the equation, we get
+$$S = \sum_{n \le x}\sum_{d|n}\Lambda(d)-2\sum_{n \le \frac{x}{2}}\sum_{d|n}\Lambda(d)$$
+$$=\sum_{d \le x}\Lambda(d)\sum_{n \le \frac{x}{d}}1 - 2\sum_{d \le \frac{x}{2}}\Lambda(d)\sum_{n \le \frac{x}{2d}}1$$
+$$=\sum_{d \le x}\Lambda(d)[\frac{x}{d}] - 2\sum_{d \le \frac{x}{2}}\Lambda(d)[\frac{x}{2d}]$$
+$$=\sum_{d \le \frac{x}{2}}\Lambda(d)\left\{[\frac{x}{d}]- 2[\frac{x}{2d}]\right\} + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)[\frac{x}{d}]$$
+Let $\theta_d =  [\frac{x}{d}]- 2[\frac{x}{2d}]$. Then
+$$S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)[\frac{x}{d}]$$
+Now observe that for $\frac{x}{2} \le d \le x, [\frac{x}{d}]=1$
+$$\Rightarrow S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)$$
+Now observe that $\theta_d = 0 \text{ or } 1$, so we have
+$$S \le \sum_{d \le \frac{x}{2}}\Lambda(d) + \sum_{\frac{x}{2} \le d \le x}\Lambda(d) = \sum_{d \le x}\Lambda(x) = \psi(x)$$
+and 
+$$S \ge \sum_{\frac{x}{2} \le d \le x}\Lambda(d) = \psi(x) - \psi(\frac{x}{2})$$
+By $(1)$, we get 
+$$\psi(x) \ge S \ge \frac{x}{2}$$
+and 
+$$\psi(x)-\psi(\frac{x}{2}) \le S \le x$$
+A bit of rearranging here and there, and you will ultimately get
+$$c_1x \le \psi(x) \le c_2x$$
+$$\Rightarrow \psi(x) \sim x$$
+\hfill$\square$
+\end{claim_box}
+ 
+\subsubsection*{The First-Order Chebyshev Function}
+
+\begin{definition_box}
+For a real number $x \ge 1$,
+$$\theta(x) = \sum_{p \le x}\ln p$$
+\end{definition_box}
+
+\textbf{Theorem:}
+For $x \in \RR, x \ge 1$, we have
+$$\theta(x) = \psi(x) + O(\sqrt{x})$$
+
+\begin{claim_box}
+\textit{Proof:}
+Consider the difference
+$$\psi(x)-\theta(x) = \sum_{\substack{p^m \le x \\ m \le 2}}\ln p$$
+$$=\sum_{p \le \sqrt(x)}\ln p + \sum_{p \le x^{\frac{1}{3}}}\ln p \sum_{3 \le m \le \frac{\ln x}{\ln p}}1$$
+$$\le \psi(\sqrt{x})+\sum_{p \le x^{\frac{1}{3}}}\ln p \frac{\ln x}{\ln p}$$
+$$=O(\sqrt{x}+x^{\frac{1}{3}}\ln x) = O(\sqrt{x})$$
+\hfill$\square$
+\end{claim_box}
+
+This implies $\theta(x) \sim x$ as $\psi(x) \sim x$. Also, if you think that I should have written $\psi(x)=\theta(x) + O(\sqrt{x})$ in the theorem, you should revisit section 1, and if you don't know what I'm talking about, read the proof again.
+\\Let us now see the elementary proof of the Prime Number Theorem.
+
+\begin{mainbox}{The Prime Number Theorem}
+Let $x$ be a real positive number. Then
+$$\pi(x) \sim \frac{x}{\ln x}$$
 \end{mainbox}
 
 \begin{claim_box}
 \textit{Proof:}
-Suppose, for a contradiction, that $f(n)$ is prime for every positive
-integer $n$. Put
+Recall
+$$\pi(x)=\sum_{p \le x}1$$
+Since we want $\frac{x}{\ln x}$, it suffices to show that $\pi(x)-\frac{1}{\ln x}\theta(x)$ is of some order less than $x$. So we consider
+$$\pi(x)-\frac{\theta(x)}{\ln x} = \sum_{p \le x}(1-\frac{\ln p}{\ln x}) = \sum_{p \le x}\ln p(\frac{1}{\ln p}-\frac{1}{\ln x})$$
+Consider the function
 \[
-    p=f(1)
+a(n) = 
+\begin{cases}
+    \ln p & \text{if n is a prime} \\
+     0    & \text{otherwise } 
+\end{cases}
 \]
-Then $p$ is prime. For every positive integer $k$, we have
-\[
-    1+kp\equiv1\pmod p
-\]
-Since a polynomial with integer coefficients preserves congruences,
-\[
-    f(1+kp)\equiv f(1)\equiv0\pmod p
-\]
-Thus $p\mid f(1+kp)$ for every $k\geq1$.
-
-Because $f$ is nonconstant, $|f(x)|\to\infty$ as $x\to\infty$.
-Choose $k$ sufficiently large that
-\[
-    f(1+kp)>p
-\]
-The integer $f(1+kp)$ is then divisible by the smaller positive integer
-$p>1$, so it is composite. This contradicts the assumption that every
-$f(n)$ is prime. Therefore no nonconstant polynomial in
-$\mathbb{Z}[x]$ can be prime for every positive integer input.
+Then $A(x) = \sum_{n \le x}a(n) = \theta(x) \sim x$
+Using the Euler-Maclaurin formula on the expression of $\pi(x)-\frac{\theta(x)}{\ln x}$, we get
+$$\pi(x)-\frac{\theta(x)}{\ln x} = \theta(x)(\frac{1}{\ln x} - \frac{1}{\ln x}) - \int_2^x \theta(t)(\frac{1}{\ln t}-\frac{1}{\ln x})' \,dt$$
+$$=\int_2^x \frac{\theta(t)}{t \ln^2t} \,dt \sim \int_2^x \frac{\,dt}{\ln^2t}$$
+$$=\int_2^{\sqrt{x}}\frac{\,dt}{\ln^2t}+\int_{\sqrt{x}}^x \frac{\,dt}{\ln^2t} \sim \sqrt{x} + \int_{\sqrt{x}}^x \frac{\,dt}{\ln^2x} \sim \frac{x}{\ln^2 x}$$
+$$\Rightarrow \pi(x)-\frac{\theta(x)}{\ln x} \sim \frac{x}{\ln^2 x}$$
+$$\Rightarrow \pi(x) = \frac{\theta(x)}{\ln x} + O(\frac{x}{\ln^2 x})$$
+$$\Rightarrow \pi(x) \sim \frac{x}{\ln x}$$
 \hfill$\square$
 \end{claim_box}
 
