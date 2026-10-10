@@ -17,6 +17,7 @@
     --accent: #7A2E2A;
     --rule: #DEDACD;
     --signal: #F2C200;
+    --done: #3E8E5A;
     --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
     box-sizing: border-box;
@@ -28,13 +29,13 @@
     :root:not([data-theme="light"]) {
       --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
       --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
-      --signal: #FFD60A;
+      --signal: #FFD60A; --done: #5FBF80;
     }
   }
   :root[data-theme="dark"] {
     --bg: #15130F; --bg-alt: #1D1A14; --ink: #E3DFD3;
     --ink-soft: #A69D89; --ink-faint: #75705F; --accent: #DE8F72; --rule: #332F26;
-    --signal: #FFD60A;
+    --signal: #FFD60A; --done: #5FBF80;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
@@ -107,6 +108,17 @@
     .tag.wip::before { animation: none; }
   }
 
+  .tag.done {
+    display: inline-flex; align-items: center; gap: 0.5em;
+  }
+  .tag.done::before {
+    content: "";
+    flex: none;
+    width: 1em; height: 1em;
+    border-radius: 50%;
+    background: var(--done);
+  }
+
   .subtopics {
     margin-top: 0.75rem; padding-left: 1.3rem; border-left: 1px solid var(--rule);
     display: flex; flex-direction: column; gap: 0.55rem;
@@ -165,7 +177,7 @@
       <div class="subtopics">
         <div class="subtopic">
           <span class="name"><a href="elementary-number-theory.pdf">Elementary number theory</a></span>
-          <span class="tag wip">work in progress</span>
+          <span class="tag done">complete</span>
         </div>
         <div class="subtopic pending">
           <span class="name">Algebraic number theory</span>
@@ -216,7 +228,7 @@
       <div class="subtopics">
         <div class="subtopic pending">
           <span class="name"><a href="ra.pdf">Real analysis</a></span>
-          <span class="tag wip">work in progress</span>
+          <span class="tag">coming soon</span>
         </div>
         <div class="subtopic pending">
           <span class="name">Multivariable analysis</span>
