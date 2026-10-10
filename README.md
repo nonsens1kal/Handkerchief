@@ -14,7 +14,7 @@ are written out in full with explicit labeling and a clean logical flow.
 
 ## Download
 
-You can download the most recent PDF from the releases page (link to be added).
+You can download the most recent PDFs from the website.
 
 ## Code
 
