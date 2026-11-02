@@ -183,6 +183,19 @@ before={\vspace{1mm}},
 after={\vspace{0.8mm}}
 }
 
+
+\newtcolorbox{example_claim_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=lightgray!12!white,
+borderline west={2pt}{0pt}{lightgray!12!white},
+sharp corners,
+before={\vspace{1mm}},
+after={\vspace{0.8mm}}
+}
+
 \newtcolorbox{example_box}{
 enhanced jigsaw,
 breakable,
@@ -228,10 +241,9 @@ after={\vspace{2mm}}
 %   MAIN BODY
 %-----------------------------------------------------------------------------------
 
-
 \section{The Foundation}
  
-Feel free to ignore this section if you already have a basic idea of analysis.
+Feel free to ignore this section if you don't want the rigorous foundation of analysis.
 
 \subsection{Motivation}
 
@@ -266,7 +278,7 @@ following five axioms:
 
     \item \textbf{Injectivity of successor:} For all $m,n\in\NN$,
     \[
-        S(m)=S(n)\ \rimply\ m=n.
+        S(m)=S(n)\ \rimply\ m=n
     \]
 
     \item \textbf{Induction:} If $A\subseteq\NN$ satisfies
@@ -282,7 +294,7 @@ following five axioms:
 
 Thus we define
 \[
-    1:=S(0),\qquad 2:=S(1),\qquad 3:=S(2),\qquad\ldots.
+    1:=S(0),\qquad 2:=S(1),\qquad 3:=S(2),\qquad\ldots
 \]
 Thus we use the convention $\NN=\{0,1,2,3,\ldots\}$. If instead natural
 numbers are taken to begin at $1$, the analogous axioms use $1$ as the
@@ -303,11 +315,13 @@ any arithmetic operations in advance.
 Thus addition is a well-defined operation
 $+:\NN\times\NN\to\NN$. 
 
+\begin{problem_box}
 \textbf{Theorem:}
 For every $n\in\NN$,
 \[
-    n+0=n.
+    n+0=n
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:} 
@@ -315,11 +329,13 @@ Note that this is not so obvious as it seems because we have not yet proved that
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $n,m\in\NN$,
 \[
-    n+S(m)=S(n+m).
+    n+S(m)=S(n+m)
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -327,11 +343,13 @@ We use induction on $n$, keeping $m$ fixed. Base case is satisfied as $0+S(m)=S(
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $n,m\in\NN$,
 \[
-    n+m=m+n.
+    n+m=m+n
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -339,17 +357,19 @@ We use induction on $n$ keeping $m$ fixed. Thus the base case is satisfied, as w
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $n,m,k\in\NN$,
 \[
-    (n+m)+k=n+(m+k).
+    (n+m)+k=n+(m+k)
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 Fix $n,m$ and induct on $k$. At $k=0$,
 \[
-    (n+m)+0=n+m=n+(m+0).
+    (n+m)+0=n+m=n+(m+0)
 \]
 Suppose $(n+m)+k=n+(m+k)$. Applying the successor rule gives
 \[
@@ -358,7 +378,7 @@ Suppose $(n+m)+k=n+(m+k)$. Applying the successor rule gives
     &=S((n+m)+k)\\
     &=S(n+(m+k))\\
     &=n+S(m+k)\\
-    &=n+(m+S(k)).
+    &=n+(m+S(k))
 \end{aligned}
 \]
 Thus the identity also holds at $S(k)$, and induction proves
@@ -366,12 +386,14 @@ associativity.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $n,m,k\in\NN$,
 \[
     n+k=m+k\ \rimply\ n=m,
-    \qquad k+n=k+m\ \rimply\ n=m.
+    \qquad k+n=k+m\ \rimply\ n=m
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -380,7 +402,7 @@ Induct on $k$. At $k=0$, the equality $n+0=m+0$ is simply $n=m$.
 Suppose cancellation holds for $k$, and let
 $n+S(k)=m+S(k)$. By the successor rule,
 \[
-    S(n+k)=S(m+k).
+    S(n+k)=S(m+k)
 \]
 Injectivity of $S$, axiom (P4), gives $n+k=m+k$.
 The induction hypothesis then yields $n=m$. This proves cancellation
@@ -396,9 +418,18 @@ of a common left summand as well.
 We call a natural number $n$ a \emph{positive natural number} iff it is not $0$.
 \end{definition_box}
 
+\begin{problem_box}
 \textbf{Proposition:}
 The sum of two positive natural numbers is always a positive natural number. Consequently, if the sum of two natural numbers is $0$, then both of them must be $0$.
-\\\textit{Proof:} The proof is left as an exercise to the reader.
+\end{problem_box}
+
+\textit{Proof:}
+If $a,b\in\NN$ are positive, then $a\ne0$ and $b\ne0$. By the
+recursive definition of addition, $a+b\ge a+1>a\ge1$, so $a+b$
+is positive. Conversely, suppose $a+b=0$. If $a$ were positive,
+the first part would imply that $a+b$ is positive, a contradiction.
+Thus $a=0$. The same argument gives $b=0$.
+\hfill$\square$
 
 \subsection{Ordering}
 \label{subsec:ordering}
@@ -410,7 +441,7 @@ Addition lets us compare natural numbers without introducing subtraction.
 \[
     n\ge m
     \quad\Longleftrightarrow\quad
-    \text{there exists }k\in\NN\text{ such that }n=m+k.
+    \text{there exists }k\in\NN\text{ such that }n=m+k
 \]
 We also write $m\le n$ to mean $n\ge m$.
 \end{definition_box}
@@ -418,6 +449,7 @@ We also write $m\le n$ to mean $n\ge m$.
 The natural number $k$ in this definition is unique: if
 $n=m+k=m+\ell$, additive cancellation gives $k=\ell$.
 
+\begin{problem_box}
 \textbf{Theorem:}
 The relation $\ge$ has the following properties for all $n,m,k\in\NN$:
 \begin{enumerate}[(i)]
@@ -425,6 +457,7 @@ The relation $\ge$ has the following properties for all $n,m,k\in\NN$:
     \item \textbf{Antisymmetry:} If $n\ge m$ and $m\ge n$, then $n=m$.
     \item \textbf{Transitivity:} If $n\ge m$ and $m\ge k$, then $n\ge k$.
 \end{enumerate}
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -433,11 +466,11 @@ The relation $\ge$ has the following properties for all $n,m,k\in\NN$:
 
     \item Suppose $n\ge m$ and $m\ge n$. There are $a,b\in\NN$ such that
     \[
-        n=m+a,\qquad m=n+b.
+        n=m+a,\qquad m=n+b
     \]
     Substitution and associativity of addition give
     \[
-        n=(n+b)+a=n+(b+a).
+        n=(n+b)+a=n+(b+a)
     \]
     Since $n=n+0$, additive cancellation yields $b+a=0$.
     Hence $n=m+0=m$.
@@ -445,7 +478,7 @@ The relation $\ge$ has the following properties for all $n,m,k\in\NN$:
     \item Suppose $n\ge m$ and $m\ge k$. Choose $a,b\in\NN$ such that
     $n=m+a$ and $m=k+b$. Then
     \[
-        n=(k+b)+a=k+(b+a).
+        n=(k+b)+a=k+(b+a)
     \]
     Since $b+a\in\NN$, this is precisely a representation showing
     $n\ge k$.
@@ -457,6 +490,7 @@ A relation that is reflexive, antisymmetric, and transitive is called a
 \emph{partial order}. A set equipped with a partial order is called a
 \emph{partially ordered set}, or \emph{poset}. Thus $(\NN,\ge)$ is a poset.
 
+\begin{problem_box}
 \textbf{Proposition:}
 The order also satisfies the following properties:
 \begin{enumerate}[(i)]
@@ -465,9 +499,10 @@ The order also satisfies the following properties:
     \item \textbf{Compatibility with addition and order cancellation:}
     For all $n,m,k\in\NN$,
     \[
-        n\ge m\quad\Longleftrightarrow\quad n+k\ge m+k.
+        n\ge m\quad\Longleftrightarrow\quad n+k\ge m+k
     \]
 \end{enumerate}
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -484,7 +519,7 @@ The order also satisfies the following properties:
 
     Conversely, if $n+k\ge m+k$, there is $a\in\NN$ such that
     \[
-        n+k=(m+k)+a=(m+a)+k.
+        n+k=(m+k)+a=(m+a)+k
     \]
     Cancelling the common summand $k$ gives $n=m+a$, hence $n\ge m$.
 \end{enumerate}
@@ -497,7 +532,7 @@ The order also satisfies the following properties:
 \begin{definition_box}
 \textbf{Strict ordering on $\NN$.} For $a,b\in\NN$, define
 \[
-    a<b\quad\Longleftrightarrow\quad a\le b\text{ and }a\ne b.
+    a<b\quad\Longleftrightarrow\quad a\le b\text{ and }a\ne b
 \]
 Similarly, define
 \[
@@ -506,11 +541,13 @@ Similarly, define
 which is equivalent to $a\ge b$ and $a\ne b$.
 \end{definition_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $a,b\in\NN$,
 \[
-    a<b\quad\Longleftrightarrow\quad S(a)\le b.
+    a<b\quad\Longleftrightarrow\quad S(a)\le b
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -526,14 +563,14 @@ Suppose $a<b$. Since $a\le b$, there is $d\in\NN$ such that $b=a+d$.
 We cannot have $d=0$, since that would give $b=a$. Write $d=S(c)$.
 The successor identities for addition give
 \[
-    b=a+S(c)=S(a+c)=S(a)+c.
+    b=a+S(c)=S(a+c)=S(a)+c
 \]
 Thus $S(a)\le b$ by the definition of the non-strict order.
 
 Conversely, suppose $S(a)\le b$. Then $b=S(a)+c$ for some $c\in\NN$,
 and hence
 \[
-    b=S(a)+c=S(a+c)=a+S(c).
+    b=S(a)+c=S(a+c)=a+S(c)
 \]
 This shows $a\le b$. If $a=b$, we would have $a+0=a+S(c)$.
 Additive cancellation would give $0=S(c)$, contradicting (P3).
@@ -541,15 +578,17 @@ Therefore $a\ne b$, so $a<b$.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 For all $a,b\in\NN$,
 \[
     a<b
     \quad\Longleftrightarrow\quad
-    \text{there exists }d\in\NN\setminus\{0\}\text{ such that }b=a+d.
+    \text{there exists }d\in\NN\setminus\{0\}\text{ such that }b=a+d
 \]
 In other words, $a<b$ precisely when $b$ is obtained by adding a
 \emph{positive} natural number to $a$.
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -563,11 +602,13 @@ Thus $a\ne b$, and consequently $a<b$.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem (Trichotomy):}
 For any $a,b\in\NN$, exactly one of the following holds:
 \[
-    a<b,\qquad a=b,\qquad a>b.
+    a<b,\qquad a=b,\qquad a>b
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -580,16 +621,16 @@ always holds.
 We first observe that successors preserve and reflect comparisons.
 Since $1=S(0)$, the addition rules give
 \[
-    t+1=t+S(0)=S(t+0)=S(t)\qquad(t\in\NN).
+    t+1=t+S(0)=S(t+0)=S(t)\qquad(t\in\NN)
 \]
 Compatibility with addition and order cancellation therefore give
 \[
-    u\le v\quad\Longleftrightarrow\quad S(u)\le S(v).
+    u\le v\quad\Longleftrightarrow\quad S(u)\le S(v)
 \]
 Also, $u=v$ if and only if $S(u)=S(v)$, by (P4).
 Combining these facts with the definition of strict order yields
 \[
-    u<v\quad\Longleftrightarrow\quad S(u)<S(v).
+    u<v\quad\Longleftrightarrow\quad S(u)<S(v)
 \]
 Interchanging $u$ and $v$ gives the analogous equivalence for $>$.
 
@@ -607,7 +648,7 @@ comparison rules then give
 \begin{aligned}
     c<b&\ \rimply\ a=S(c)<S(b),\\
     c=b&\ \rimply\ a=S(c)=S(b),\\
-    c>b&\ \rimply\ a=S(c)>S(b).
+    c>b&\ \rimply\ a=S(c)>S(b)
 \end{aligned}
 \]
 Thus at least one alternative holds for every $a$ at $S(b)$.
@@ -632,7 +673,7 @@ $\cdot:\NN\times\NN\to\NN$ by
 \[
     0\cdot m:=0,
     \qquad S(n)\cdot m:=n\cdot m+m
-    \quad(n,m\in\NN).
+    \quad(n,m\in\NN)
 \]
 We also write $nm$ or $n\times m$ for $n\cdot m$.
 \end{definition_box}
@@ -643,24 +684,26 @@ Closure follows by induction: $0\cdot m=0\in\NN$, and if
 $n\cdot m\in\NN$, then $S(n)\cdot m=n\cdot m+m\in\NN$ by closure
 of addition. Thus multiplication is a well-defined operator on $\NN$.
 
+\begin{problem_box}
 \textbf{Proposition:}
 For all $n,m\in\NN$,
 \[
     n\cdot0=0,
-    \qquad n\cdot S(m)=n\cdot m+n.
+    \qquad n\cdot S(m)=n\cdot m+n
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 First induct on $n$ to prove $n\cdot0=0$. The base case is
 $0\cdot0=0$. If $n\cdot0=0$, then
 \[
-    S(n)\cdot0=n\cdot0+0=0.
+    S(n)\cdot0=n\cdot0+0=0
 \]
 
 For the second identity, fix $m$ and induct on $n$. At $n=0$,
 \[
-    0\cdot S(m)=0=0\cdot m+0.
+    0\cdot S(m)=0=0\cdot m+0
 \]
 Assume $n\cdot S(m)=n\cdot m+n$. Then
 \[
@@ -669,23 +712,25 @@ Assume $n\cdot S(m)=n\cdot m+n$. Then
     &=n\cdot S(m)+S(m)\\
     &=(n\cdot m+n)+S(m)\\
     &=(n\cdot m+m)+S(n)\\
-    &=S(n)\cdot m+S(n).
+    &=S(n)\cdot m+S(n)
 \end{aligned}
 \]
 The third equality uses only the established addition laws. Explicitly,
 for any $x\in\NN$,
 \[
-    (x+n)+S(m)=S((x+n)+m)=S((x+m)+n)=(x+m)+S(n).
+    (x+n)+S(m)=S((x+n)+m)=S((x+m)+n)=(x+m)+S(n)
 \]
 This completes the induction.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem (Commutativity):}
 For all $n,m\in\NN$,
 \[
-    n\cdot m=m\cdot n.
+    n\cdot m=m\cdot n
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -699,11 +744,13 @@ Induction gives commutativity for all $n,m\in\NN$.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem (Zero-product property):}
 For all $n,m\in\NN$,
 \[
-    n\cdot m=0\quad\Longleftrightarrow\quad n=0\text{ or }m=0.
+    n\cdot m=0\quad\Longleftrightarrow\quad n=0\text{ or }m=0
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -714,7 +761,7 @@ Conversely, suppose $n\cdot m=0$ and both $n$ and $m$ are nonzero.
 The successor fact proved in the ordering subsection gives $n=S(r)$
 for some $r\in\NN$. Therefore
 \[
-    0=n\cdot m=S(r)\cdot m=r\cdot m+m.
+    0=n\cdot m=S(r)\cdot m=r\cdot m+m
 \]
 The vanishing-sum property for addition forces $m=0$, a contradiction.
 Hence at least one factor must be $0$.
@@ -723,20 +770,22 @@ Hence at least one factor must be $0$.
 
 In particular, the product of two positive natural numbers is positive.
 
+\begin{problem_box}
 \textbf{Theorem (Distributivity):}
 For all $n,m,k\in\NN$,
 \[
 \begin{aligned}
     (n+m)\cdot k&=n\cdot k+m\cdot k,\\
-    n\cdot(m+k)&=n\cdot m+n\cdot k.
+    n\cdot(m+k)&=n\cdot m+n\cdot k
 \end{aligned}
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 Fix $m,k$ and induct on $n$ to prove the first identity. At $n=0$,
 \[
-    (0+m)\cdot k=m\cdot k=0\cdot k+m\cdot k.
+    (0+m)\cdot k=m\cdot k=0\cdot k+m\cdot k
 \]
 Assuming the identity at $n$, the defining successor rules give
 \[
@@ -746,7 +795,7 @@ Assuming the identity at $n$, the defining successor rules give
     &=(n+m)\cdot k+k\\
     &=(n\cdot k+m\cdot k)+k\\
     &=(n\cdot k+k)+m\cdot k\\
-    &=S(n)\cdot k+m\cdot k.
+    &=S(n)\cdot k+m\cdot k
 \end{aligned}
 \]
 The fourth equality uses associativity and commutativity of addition.
@@ -755,22 +804,24 @@ Thus the first distributive law holds by induction.
 For the second law, apply the first and commutativity of multiplication:
 \[
     n\cdot(m+k)=(m+k)\cdot n
-    =m\cdot n+k\cdot n=n\cdot m+n\cdot k.
+    =m\cdot n+k\cdot n=n\cdot m+n\cdot k
 \]
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem (Associativity):}
 For all $n,m,k\in\NN$,
 \[
-    (n\cdot m)\cdot k=n\cdot(m\cdot k).
+    (n\cdot m)\cdot k=n\cdot(m\cdot k)
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 Fix $m,k$ and induct on $n$. At $n=0$,
 \[
-    (0\cdot m)\cdot k=0\cdot k=0=0\cdot(m\cdot k).
+    (0\cdot m)\cdot k=0\cdot k=0=0\cdot(m\cdot k)
 \]
 Suppose $(n\cdot m)\cdot k=n\cdot(m\cdot k)$. Then
 \[
@@ -779,33 +830,35 @@ Suppose $(n\cdot m)\cdot k=n\cdot(m\cdot k)$. Then
     &=(n\cdot m+m)\cdot k\\
     &=(n\cdot m)\cdot k+m\cdot k\\
     &=n\cdot(m\cdot k)+m\cdot k\\
-    &=S(n)\cdot(m\cdot k).
+    &=S(n)\cdot(m\cdot k)
 \end{aligned}
 \]
 The second equality is distributivity. Induction proves associativity.
 \hfill$\square$
 \end{claim_box}
 
+\begin{problem_box}
 \textbf{Theorem (Preservation of order):}
 For all $n,m,k\in\NN$:
 \begin{enumerate}[(i)]
     \item If $n\ge m$, then
     \[
         n\cdot k\ge m\cdot k,
-        \qquad k\cdot n\ge k\cdot m.
+        \qquad k\cdot n\ge k\cdot m
     \]
     \item If $n>m$ and $k>0$, then
     \[
         n\cdot k>m\cdot k,
-        \qquad k\cdot n>k\cdot m.
+        \qquad k\cdot n>k\cdot m
     \]
 \end{enumerate}
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 If $n\ge m$, write $n=m+d$ for some $d\in\NN$. Distributivity gives
 \[
-    n\cdot k=(m+d)\cdot k=m\cdot k+d\cdot k.
+    n\cdot k=(m+d)\cdot k=m\cdot k+d\cdot k
 \]
 Since $d\cdot k\in\NN$, this representation shows
 $n\cdot k\ge m\cdot k$.
@@ -814,7 +867,7 @@ If $n>m$, the positive-gap characterization gives the same
 representation with $d>0$. When also $k>0$, the zero-product property
 shows that $d\cdot k$ is positive. Thus
 \[
-    n\cdot k=m\cdot k+d\cdot k>m\cdot k.
+    n\cdot k=m\cdot k+d\cdot k>m\cdot k
 \]
 Commutativity gives the corresponding inequalities when the common
 factor is on the left.
@@ -824,12 +877,14 @@ factor is on the left.
 The restriction $k>0$ for strict inequalities is essential: multiplying
 by $0$ makes both products equal to $0$.
 
+\begin{problem_box}
 \textbf{Theorem (Cancellation law):}
 For all $n,m,k\in\NN$ with $k\ne0$,
 \[
     n\cdot k=m\cdot k\ \rimply\ n=m,
-    \qquad k\cdot n=k\cdot m\ \rimply\ n=m.
+    \qquad k\cdot n=k\cdot m\ \rimply\ n=m
 \]
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -846,7 +901,7 @@ We cannot cancel a zero factor: $0\cdot0=1\cdot0$, although $0\ne1$.
 
 Before defining powers, note that $1=S(0)$ is a multiplicative identity:
 \[
-    1\cdot a=S(0)\cdot a=0\cdot a+a=0+a=a.
+    1\cdot a=S(0)\cdot a=0\cdot a+a=0+a=a
 \]
 By commutativity, $a\cdot1=a$ as well.
 
@@ -856,7 +911,7 @@ powers recursively by
 \[
     a^0:=1,
     \qquad a^{S(n)}:=a^n\cdot a
-    \quad(n\in\NN).
+    \quad(n\in\NN)
 \]
 \end{definition_box}
 
@@ -865,7 +920,7 @@ $x\mapsto x\cdot a$, makes exponentiation a well-defined map
 $\NN\times\NN\to\NN$. For example,
 \[
     a^1=a^0\cdot a=1\cdot a=a,
-    \qquad a^2=a^1\cdot a=a\cdot a.
+    \qquad a^2=a^1\cdot a=a\cdot a
 \]
 With this recursive convention, $0^0=1$, corresponding to the empty
 product.
@@ -881,11 +936,11 @@ in $\NN$: a natural-number difference $a-b$ exists only when $a\ge b$.
 \textbf{Subtraction on $\NN$.} If $a,b\in\NN$ and $a\ge b$, define
 $a-b$ to be the unique $c\in\NN$ such that
 \[
-    a=b+c.
+    a=b+c
 \]
 Thus subtraction is the operator $-:D\to\NN$, where
 \[
-    D=\{(a,b)\in\NN\times\NN:a\ge b\}.
+    D=\{(a,b)\in\NN\times\NN:a\ge b\}
 \]
 \end{definition_box}
 
@@ -893,43 +948,45 @@ Existence follows from the definition of $a\ge b$. For uniqueness, if
 $a=b+c=b+d$, additive cancellation gives $c=d$. If $a<b$, there is no
 $c\in\NN$ satisfying $a=b+c$, so $a-b$ is not defined in $\NN$.
 
+\begin{problem_box}
 \textbf{Theorem (Properties of subtraction):}
 The following laws hold for natural numbers whenever the stated
 hypotheses are satisfied:
 \begin{enumerate}[(i)]
     \item \textbf{Zero and self-subtraction:}
     \[
-        a-0=a,\qquad a-a=0.
+        a-0=a,\qquad a-a=0
     \]
     \item \textbf{Inverse relations:} If $a\ge b$, then
     $b+(a-b)=a$. Also, for every $a,b\in\NN$,
     \[
-        (a+b)-b=a.
+        (a+b)-b=a
     \]
     \item \textbf{Zero and positivity:} If $a\ge b$, then
     \[
         a-b=0\ \Longleftrightarrow\ a=b,
-        \qquad a-b>0\ \Longleftrightarrow\ a>b.
+        \qquad a-b>0\ \Longleftrightarrow\ a>b
     \]
     \item \textbf{Cancellation of a common addend:} If $a\ge b$, then
     \[
-        (a+k)-(b+k)=a-b\qquad(k\in\NN).
+        (a+k)-(b+k)=a-b\qquad(k\in\NN)
     \]
     \item \textbf{Successive subtraction:} If $a\ge b+c$, then
     \[
-        (a-b)-c=a-(b+c).
+        (a-b)-c=a-(b+c)
     \]
     \item \textbf{Distributivity of multiplication over subtraction:}
     If $a\ge b$, then for every $k\in\NN$,
     \[
-        (k\cdot a)-(k\cdot b)=k\cdot(a-b).
+        (k\cdot a)-(k\cdot b)=k\cdot(a-b)
     \]
     \item \textbf{Order properties:} If $a\ge b$ and $c\ge b$, then
     \[
-        a-b\ge c-b\quad\Longleftrightarrow\quad a\ge c.
+        a-b\ge c-b\quad\Longleftrightarrow\quad a\ge c
     \]
     If $a\ge c\ge b$, then $a-b\ge a-c$.
 \end{enumerate}
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
@@ -950,7 +1007,7 @@ Each difference is determined uniquely by its defining addition equation.
 
     \item Put $r=a-b$, so $a=b+r$. Then
     \[
-        a+k=(b+r)+k=(b+k)+r.
+        a+k=(b+r)+k=(b+k)+r
     \]
     This also shows $a+k\ge b+k$, so the difference is defined, and
     uniqueness gives $(a+k)-(b+k)=r=a-b$.
@@ -963,7 +1020,7 @@ Each difference is determined uniquely by its defining addition equation.
 
     \item Put $r=a-b$. Distributivity gives
     \[
-        k\cdot a=k\cdot(b+r)=k\cdot b+k\cdot r.
+        k\cdot a=k\cdot(b+r)=k\cdot b+k\cdot r
     \]
     Hence $k\cdot a\ge k\cdot b$, and uniqueness of the difference
     gives $(k\cdot a)-(k\cdot b)=k\cdot r=k\cdot(a-b)$.
@@ -971,7 +1028,7 @@ Each difference is determined uniquely by its defining addition equation.
     \item Write $a=b+(a-b)$ and $c=b+(c-b)$. The order cancellation
     property for addition gives
     \[
-        a\ge c\quad\Longleftrightarrow\quad a-b\ge c-b.
+        a\ge c\quad\Longleftrightarrow\quad a-b\ge c-b
     \]
     For the second assertion, write $c=b+r$ and $a=c+s$, where
     $r,s\in\NN$. Then $a=b+(r+s)$, so $a-b=r+s$ and $a-c=s$.
@@ -992,11 +1049,11 @@ pairs of natural numbers, identifying pairs that represent the same value.
 \begin{definition_box}
 For $(a,b),(c,d)\in\NN\times\NN$, define the equivalence relation
 \[
-    (a,b)\sim(c,d)\quad\Longleftrightarrow\quad a+d=c+b.
+    (a,b)\sim(c,d)\quad\Longleftrightarrow\quad a+d=c+b
 \]
 The \emph{integers} are the equivalence classes
 \[
-    \ZZ:=(\NN\times\NN)/\sim.
+    \ZZ:=(\NN\times\NN)/\sim
 \]
 Write $[a,b]$ for the class of $(a,b)$; thus
 $[a,b]=[c,d]$ if and only if $a-b=c-d$.
@@ -1008,21 +1065,21 @@ Define integer arithmetic by
     [a,b]+[c,d]&:=[a+c,b+d],\\
     -[a,b]&:=[b,a],\\
     [a,b]\cdot[c,d]&:=[ac+bd,ad+bc],\\
-    0_{\ZZ}&:=[0,0],\qquad 1_{\ZZ}:=[1,0].
+    0_{\ZZ}&:=[0,0],\qquad 1_{\ZZ}:=[1,0]
 \end{aligned}
 \]
 These operations satisfy the usual commutative, associative and
 distributive laws, with identities $0_{\ZZ}$ and $1_{\ZZ}$.
 Every integer has an additive inverse, and
 \[
-    xy=0_{\ZZ}\quad\Longleftrightarrow\quad x=0_{\ZZ}\text{ or }y=0_{\ZZ}.
+    xy=0_{\ZZ}\quad\Longleftrightarrow\quad x=0_{\ZZ}\text{ or }y=0_{\ZZ}
 \]
 
 The embedding $\iota:\NN\to\ZZ$, $\iota(n):=[n,0]$, is injective and
 preserves addition and multiplication. Identifying $\iota(n)$ with $n$,
 we write $\ZZ=\{\ldots,-2,-1,0,1,2,\ldots\}$ and define
 \[
-    x-y:=x+(-y),\qquad [a,b]-[c,d]=[a+d,b+c].
+    x-y:=x+(-y),\qquad [a,b]-[c,d]=[a+d,b+c]
 \]
 Unlike natural-number subtraction, this is defined for every $x,y\in\ZZ$.
 
@@ -1048,21 +1105,21 @@ Division reverses multiplication. In $\ZZ$ it is initially only an
 For $a,b\in\ZZ$ with $b\ne0$, say that $b$ \emph{divides} $a$, written
 $b\mid a$, if $a=bq$ for some $q\in\ZZ$. In this case define
 \[
-    \frac{a}{b}:=q.
+    \frac{a}{b}:=q
 \]
 The quotient is unique by cancellation of the nonzero factor $b$.
 \end{definition_box}
 
 For $b\ne0$, the basic identities are
 \[
-    \frac{a}{1}=a,\qquad \frac{0}{b}=0,\qquad \frac{ab}{b}=a.
+    \frac{a}{1}=a,\qquad \frac{0}{b}=0,\qquad \frac{ab}{b}=a
 \]
 If $b,d,k\ne0$, $b\mid a$ and $d\mid c$, then
 \[
 \begin{aligned}
     \frac{a}{b}\pm\frac{c}{d}&=\frac{ad\pm bc}{bd},\\
     \frac{a}{b}\cdot\frac{c}{d}&=\frac{ac}{bd},\\
-    \frac{ka}{kb}&=\frac{a}{b}.
+    \frac{ka}{kb}&=\frac{a}{b}
 \end{aligned}
 \]
 \textbf{Exercise:} Prove these identities from $a=bq$ and $c=dr$,
@@ -1078,11 +1135,11 @@ we introduce formal fractions.
 \begin{definition_box}
 Define
 \[
-    (a,b)\approx(c,d)\quad\Longleftrightarrow\quad ad=cb.
+    (a,b)\approx(c,d)\quad\Longleftrightarrow\quad ad=cb
 \]
 This is an equivalence relation. The \emph{rational numbers} are
 \[
-    \QQ:=\ZZ\times(\ZZ\setminus\{0\})/\approx.
+    \QQ:=\ZZ\times(\ZZ\setminus\{0\})/\approx
 \]
 Denote the class of $(a,b)$ by $\langle a,b\rangle$; equality of classes
 is precisely equality of the cross products.
@@ -1094,7 +1151,7 @@ Define
     \langle a,b\rangle+\langle c,d\rangle&:=\langle ad+bc,bd\rangle,\\
     -\langle a,b\rangle&:=\langle-a,b\rangle,\\
     \langle a,b\rangle\langle c,d\rangle&:=\langle ac,bd\rangle,\\
-    \langle a,b\rangle^{-1}&:=\langle b,a\rangle\qquad(a\ne0).
+    \langle a,b\rangle^{-1}&:=\langle b,a\rangle\qquad(a\ne0)
 \end{aligned}
 \]
 The identities are $0_{\QQ}:=\langle0,1\rangle$ and
@@ -1107,7 +1164,7 @@ and preserves arithmetic. We identify integers with their images and
 write $\langle a,b\rangle=a/b$. For $x,y\in\QQ$ with $y\ne0$, define
 \[
     \frac{x}{y}:=xy^{-1},\qquad
-    \frac{a/b}{c/d}=\frac{ad}{bc}\quad(c\ne0).
+    \frac{a/b}{c/d}=\frac{ad}{bc}\quad(c\ne0)
 \]
 This is the unique rational $q$ satisfying $yq=x$. It agrees with exact
 integer division whenever that quotient exists. Division by zero remains
@@ -1149,16 +1206,24 @@ For $q\in\QQ$, write $|q|=q$ if $q\ge0$, and $|q|=-q$ otherwise.
 A sequence $(a_n)$ in $\QQ$ is \emph{Cauchy} if, for every rational
 $\varepsilon>0$, there is $N\in\NN$ such that
 \[
-    |a_m-a_n|<\varepsilon\qquad(m,n\ge N).
+    |a_m-a_n|<\varepsilon\qquad(m,n\ge N)
 \]
 
 Define
 \[
-    (a_n)\sim(b_n)\quad\Longleftrightarrow\quad(a_n-b_n) \rightarrow 0.
+    (a_n)\sim(b_n)\quad\Longleftrightarrow\quad(a_n-b_n) \rightarrow 0
 \]
-This is an equivalence relation. Let $\mathcal C$ be the set of rational Cauchy sequences. The \emph{real numbers} are
+The relation is an equivalence relation: $a_n-a_n=0$ proves
+reflexivity; if $a_n-b_n\to0$, then
+$b_n-a_n=-(a_n-b_n)\to0$, proving symmetry; and if
+$a_n-b_n\to0$ and $b_n-c_n\to0$, then
 \[
-    \RR:=\mathcal C/\sim.
+ |a_n-c_n|\le|a_n-b_n|+|b_n-c_n|\to0,
+\]
+proving transitivity. Let $\mathcal C$ be the set of rational Cauchy
+sequences. The \emph{real numbers} are
+\[
+    \RR:=\mathcal C/\sim
 \]
 Write $[(a_n)]$ for the class of $(a_n)$. Sequences differing in only
 finitely many terms represent the same real number.
@@ -1167,10 +1232,15 @@ finitely many terms represent the same real number.
 Every rational Cauchy sequence is bounded: its tail lies within $1$ of
 some fixed term, and its finitely many remaining terms are bounded.
 Moreover, if it is not null, then $|a_n|\ge c$ eventually for some
-rational $c>0$. To see this, choose a rational $\varepsilon>0$ for which
-arbitrarily late terms have $|a_n|\ge\varepsilon$. A Cauchy tail whose
-terms differ by less than $\varepsilon/2$ then satisfies
-$|a_n|>\varepsilon/2$ throughout.
+rational $c>0$. Indeed, since $a_n$ does not tend to zero, there is a
+rational $\varepsilon>0$ such that arbitrarily late terms satisfy
+$|a_n|\ge\varepsilon$. Choose $N$ so that
+$|a_m-a_n|<\varepsilon/2$ for all $m,n\ge N$, and choose
+$n_0\ge N$ with $|a_{n_0}|\ge\varepsilon$. Then for every $n\ge N$,
+\[
+ |a_n|\ge |a_{n_0}|-|a_n-a_{n_0}|>\varepsilon/2.
+\]
+Thus one may take $c=\varepsilon/2$.
 
 \begin{claim_box}
 \textbf{Arithmetic:} Define
@@ -1178,7 +1248,7 @@ $|a_n|>\varepsilon/2$ throughout.
 \begin{aligned}
     [(a_n)]+[(b_n)]&:=[(a_n+b_n)],\\
     -[(a_n)]&:=[(-a_n)],\\
-    [(a_n)]\cdot[(b_n)]&:=[(a_nb_n)].
+    [(a_n)]\cdot[(b_n)]&:=[(a_nb_n)]
 \end{aligned}
 \]
 The rational embedding is $\eta(q):=[(q,q,q,\ldots)]$.
@@ -1190,7 +1260,7 @@ If $x=[(a_n)]\ne0$, choose $c>0$ and $N$ with $|a_n|\ge c$ for
 $n\ge N$. Define
 \[
     x^{-1}:=[(r_n)],\qquad
-    r_n:=\begin{cases}0,&n<N,\\1/a_n,&n\ge N.\end{cases}
+    r_n:=\begin{cases}0,&n<N,\\1/a_n,&n\ge N\end{cases}
 \]
 The reciprocal sequence is Cauchy, since on this tail
 $|1/a_m-1/a_n|\le |a_m-a_n|/c^2$.
@@ -1202,11 +1272,101 @@ Define $x/y:=xy^{-1}$ whenever $y\ne0$.
 \[
     x<y\quad\Longleftrightarrow\quad
     \text{some rational }\delta>0\text{ satisfies }
-    b_n-a_n\ge\delta\text{ eventually}.
+    b_n-a_n\ge\delta\text{ eventually}
 \]
 Define $x\le y$ if $x<y$ or $x=y$. The positive gap is essential:
 termwise strict inequalities alone do not define strict order on classes.
 These operations and this order make $\RR$ an ordered field.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Verification that the construction is an ordered field.}
+We verify the points that are not automatic from the definitions.
+
+First, sums and products of rational Cauchy sequences are Cauchy.
+For sums this follows from
+\[
+ |(a_m+b_m)-(a_n+b_n)|\le|a_m-a_n|+|b_m-b_n|.
+\]
+For products, Cauchy sequences are bounded, say
+$|a_n|\le M$ and $|b_n|\le K$. Then
+\[
+ |a_mb_m-a_nb_n|
+ \le M|b_m-b_n|+K|a_m-a_n|,
+\]
+which tends to zero as $m,n\to\infty$. Negatives are Cauchy because
+$|(-a_m)-(-a_n)|=|a_m-a_n|$.
+
+Next, the operations do not depend on the chosen representatives.
+If $a_n-a_n'\to0$ and $b_n-b_n'\to0$, then
+\[
+ (a_n+b_n)-(a_n'+b_n')\to0.
+\]
+For products, boundedness gives
+\[
+ a_nb_n-a_n'b_n'
+ =a_n(b_n-b_n')+b_n'(a_n-a_n')\to0.
+\]
+The negative operation is plainly independent of representatives.
+Thus addition, multiplication and negation are well-defined on
+ equivalence classes.
+
+For a nonzero class $x=[(a_n)]$, the representative is not a null
+sequence. The observation preceding the arithmetic definitions gives
+$c>0$ and $N$ such that $|a_n|\ge c$ for $n\ge N$. The sequence
+$r_n$ defining $x^{-1}$ is Cauchy because, for $m,n\ge N$,
+\[
+ |r_m-r_n|=\frac{|a_m-a_n|}{|a_ma_n|}
+ \le\frac{|a_m-a_n|}{c^2}.
+\]
+If $(a_n')$ is an equivalent representative of the same nonzero
+class, then it too is bounded away from zero eventually, say
+$|a_n'|\ge c'$. For all sufficiently large $n$,
+\[
+ \left|\frac1{a_n}-\frac1{a_n'}\right|
+ \le\frac{|a_n-a_n'|}{cc'}\longrightarrow0.
+\]
+Hence the reciprocal class is independent of the representative.
+Moreover, $a_nr_n=1$ for every $n\ge N$, so $xx^{-1}=1$ as
+classes.
+
+All field identities (commutativity and associativity of addition
+and multiplication, distributivity, and the additive and
+multiplicative identity laws) hold term by term in $\QQ$. Therefore
+they hold for the corresponding equivalence classes. The preceding
+paragraph supplies a multiplicative inverse for every nonzero class.
+Thus the constructed structure is a field.
+
+It remains to verify the order. If $(a_n)$ and $(b_n)$ are replaced
+by equivalent sequences $(a_n')$ and $(b_n')$, then
+\[
+ (b_n'-a_n')-(b_n-a_n)\to0.
+\]
+If $b_n-a_n\ge\delta>0$ eventually, then for all sufficiently large
+$n$ the difference above has absolute value less than $\delta/2$;
+therefore $b_n'-a_n'\ge\delta/2$ eventually. Hence $<$ is
+well-defined. It is irreflexive. It is transitive because eventual
+bounds $b_n-a_n\ge\delta$ and $c_n-b_n\ge\eta$ imply
+$c_n-a_n\ge\delta+\eta$ eventually.
+
+For trichotomy, consider a representative $(d_n)$ of $y-x$.
+If $y-x=0$, then $x=y$. If $y-x\ne0$, the observation above gives
+$c>0$ with $|d_n|\ge c$ eventually. Since $(d_n)$ is Cauchy, there
+is a tail on which $|d_m-d_n|<c$ for all indices in that tail.
+On this tail the terms cannot have opposite signs, since opposite
+signs together with absolute values at least $c$ would give
+$|d_m-d_n|\ge2c$. Thus either $d_n\ge c$ eventually or
+$-d_n\ge c$ eventually. Consequently exactly one of $x<y$ or
+$y<x$ holds. This proves trichotomy and hence antisymmetry of $\le$.
+
+Adding the same class to both sides preserves order because the
+representative difference is unchanged. Finally, if $x>0$ and $y>0$,
+choose representatives with $a_n\ge\delta>0$ and
+$b_n\ge\eta>0$ eventually. Then
+$a_nb_n\ge\delta\eta>0$ eventually, so $xy>0$.
+These properties show that the field order is compatible with
+addition and multiplication. Therefore $\RR$ is an ordered field.
+\hfill$\square$
 \end{claim_box}
 
 \begin{definition_box}
@@ -1218,18 +1378,24 @@ We say $\beta$ is a \emph{lower bound} of $A$ if $\forall x \in A, x \ge \beta$.
 Similarly, if a lower bound $\alpha$ is such that for all lower bounds $\beta$, we have $\alpha \ge \beta$, $\alpha$ is the \emph{greatest lower bound} (GLB).
 \end{definition_box}
 
-It is easy to see that the LUB and GLB must be unique.
+The LUB and GLB are unique. Indeed, if $s_1$ and $s_2$ are both least
+upper bounds of $A$, then the defining minimality gives
+$s_1\le s_2$ and $s_2\le s_1$, so antisymmetry gives $s_1=s_2$.
+The proof for greatest lower bounds is identical, with the inequalities
+reversed.
 
+\begin{problem_box}
 \textbf{Theorem (Least-upper-bound property of $\RR$):}
 Every nonempty set $A\subseteq\RR$ that is bounded above has a unique
 least upper bound in $\RR$, denoted by $\sup A$.
+\end{problem_box}
 
 \begin{claim_box}
 \textit{Proof:}
 Choose $x_0\in A$ and an upper bound $u$ of $A$. Using the rational
 bounds established above, choose $a_0,b_0\in\QQ$ with
 \[
-    a_0<x_0\le u<b_0.
+    a_0<x_0\le u<b_0
 \]
 Thus $a_0$ is not an upper bound of $A$, whereas $b_0$ is.
 Bisect this rational interval repeatedly. Given $a_n,b_n$, put
@@ -1238,24 +1404,24 @@ $c_n=(a_n+b_n)/2$ and define
     (a_{n+1},b_{n+1}):=
     \begin{cases}
         (a_n,c_n),&c_n\text{ is an upper bound of }A,\\
-        (c_n,b_n),&c_n\text{ is not an upper bound of }A.
+        (c_n,b_n),&c_n\text{ is not an upper bound of }A
     \end{cases}
 \]
 For every $n$, $a_n$ is not an upper bound, $b_n$ is an upper bound,
 and the intervals are nested, with
 \[
-    b_n-a_n=\frac{b_0-a_0}{2^n}.
+    b_n-a_n=\frac{b_0-a_0}{2^n}
 \]
 If $j,k\ge n$, both $a_j$ and $a_k$ lie in $[a_n,b_n]$, so
 $|a_j-a_k|\le(b_0-a_0)/2^n$. Hence $(a_n)$ is a rational Cauchy
 sequence, and it defines a real number
 \[
-    \alpha:=[(a_n)].
+    \alpha:=[(a_n)]
 \]
 For each fixed $n$, all later terms lie between $a_n$ and $b_n$.
 The order on classes therefore gives
 \[
-    a_n\le\alpha\le b_n.
+    a_n\le\alpha\le b_n
 \]
 
 We show that $\alpha$ is an upper bound of $A$. If some $x\in A$
@@ -1269,7 +1435,7 @@ contradicting the fact that $b_n$ is an upper bound.
 Finally, if $\beta<\alpha$, choose $n$ with $b_n-a_n<\alpha-\beta$.
 Since $\alpha\le b_n$, we obtain
 \[
-    a_n=b_n-(b_n-a_n)\ge\alpha-(b_n-a_n)>\beta.
+    a_n=b_n-(b_n-a_n)\ge\alpha-(b_n-a_n)>\beta
 \]
 But $a_n$ is not an upper bound, so some $x\in A$ satisfies
 $x>a_n>\beta$. Thus no number below $\alpha$ is an upper bound.
@@ -1277,10 +1443,3135 @@ Consequently $\alpha=\sup A$, and uniqueness follows from antisymmetry.
 \hfill$\square$
 \end{claim_box}
 
-Thus the Cauchy-sequence construction gives $\RR$ the least-upper-bound
-property, making it a \emph{complete ordered field}.
+Thus the Cauchy-sequence construction gives $\RR$ the least-upper-bound property.
+
+\begin{problem_box}
+\textbf{Corollary (Greatest-Lower-Bound Property):}
+Every nonempty set $A\subseteq\RR$ that is bounded below has a unique
+greatest lower bound, denoted by $\inf A$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} The set $-A:=\{-x:x\in A\}$ is nonempty and bounded
+above. Let $s:=\sup(-A)$. Then $-s$ is a lower bound of $A$. If
+$\beta$ is any lower bound of $A$, then $-\beta$ is an upper bound
+of $-A$, so $s\le-\beta$, or $\beta\le-s$. Hence $-s=\inf A$.
+Uniqueness follows from antisymmetry.\hfill$\square$
+\end{claim_box}
+
+\subsection{The Archimedean Property and Density}
+
+I just realised I never really formally stated these two, so here they are.
+
+\begin{problem_box}
+\textbf{Theorem (Archimedean Property):} For every $x\in\RR$ there
+exists $n\in\NN$ such that $n>x$. Equivalently, for every
+$\epsilon>0$ there exists $n\in\NN$ such that $1/n<\epsilon$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Suppose that $\NN$ were bounded above in $\RR$. By the
+least-upper-bound property it would have a supremum $s$. Since $s-1$
+is not an upper bound, there exists $n\in\NN$ with $n>s-1$. But then
+$n+1\in\NN$ and $n+1>s$, contradicting that $s$ is an upper bound.
+Thus $\NN$ is unbounded above. The equivalent formulation follows by
+applying this to $x=1/\epsilon$.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Density of the Rationals):} If $x,y\in\RR$ and
+$x<y$, then there exists $q\in\QQ$ such that $x<q<y$. In fact, there
+also exists an irrational number between $x$ and $y$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Choose $n\in\NN$ so large that $n(y-x)>1$.
+By the Archimedean property, there is an integer $m$ satisfying
+$nx<m<ny$ (take the least integer strictly larger than $nx$).
+Then $q=m/n$ lies strictly between $x$ and $y$. For the irrational
+case, choose a rational $q$ in $(x/\sqrt2,y/\sqrt2)$ when this interval
+is ordered as written; more generally, first choose a sufficiently
+small positive rational $r$ and then use the density of $\QQ$ to find
+$q\in(x-r\sqrt2,y-r\sqrt2)$. The number $q+r\sqrt2$ is irrational
+and lies in $(x,y)$.\hfill$\square$
+\end{claim_box}
 
 \section{Sequences}
+\subsection{Convergence}
+\textbf{Motivation:} Consider the sequence of numbers, $a_1=1$ and $a_{n+1}=\frac{a_n+2}{a_n+1}$. Does this sequence converge? If yes, to which number? To answer this, we shall first define what sequences are, and then we shall define convergence.
 
+\begin{definition_box}
+Let X be a nonempty set. A sequence in X is a function $f:\NN \rightarrow X$. We let $x_n:=f(n)$ and call $x_n$ the $n$-th term of the sequence. We denote the sequence by $(x_n)$.  
+\end{definition_box}
+
+There may exist some sequences that ultimately \emph{converge} to a single number, or \emph{diverge}. For example, take the sequence $(x_n)=(-1)^n$. It is an alternating sequence, and thus obviously it diverges. However if you take the sequence $(x_n)=\frac{1}{n}$, it actually converges to zero. We get a feel of convergence and divergence from here, and thus we define it formally now.
+
+\begin{definition_box}
+Let $(x_n)$ be a real sequence. Then we say that $(x_n)$ converges to $x \in \RR$ if for any given $\epsilon > 0$, there exists $N_\epsilon \in \NN$ such that for all $k \ge N_\epsilon$, we have $|x_k-x| < \epsilon$. The number $x$ is called the limit of the sequence $(x_n)$. We then write $x_n \rightarrow x$, or $(x_n)$ converges to $x$. We write it as $\lim_{n \rightarrow \infty} x_n = x$. A sequence is divergent if it is not convergent. 
+\end{definition_box}
+
+Basically what we are trying to say is that given any `$\epsilon$-neighbourhood' of $x$, we have all $x_k$ in that neighbourhood for k greater than some cutoff, i.e, for large enough k, we have $x_k \in (x-\epsilon, x+\epsilon)$, for any given $\epsilon > 0$, and this open interval is known as the `$\epsilon$-neighbourhood' of $x$.
+
+\begin{problem_box}
+\textbf{Theorem:}
+A real sequence can converge to at most one real number.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose that $(x_n)$ converges to both $x$ and $y$. Assume, for a
+contradiction, that $x\ne y$, and take some $\epsilon > 0$.
+Since $x_n\to x$, there is $N_1\in\NN$ such that
+$|x_n-x|<\epsilon$ whenever $n\ge N_1$. Similarly, since $x_n\to y$,
+there is $N_2\in\NN$ such that $|x_n-y|<\epsilon$ whenever
+$n\ge N_2$.
+
+Choose $n\ge\max\{N_1,N_2\}$. By the triangle inequality,
+$$    |x-y|
+    \le |x-x_n|+|x_n-y|
+    <2\epsilon
+$$
+for all $\epsilon>0$. Therefore, as $x-y$ is arbitrarily close to 0, $x=y$, so the limit is unique.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} Let
+\[
+    a_1=1,
+    \qquad
+    a_{n+1}=\frac{a_n+2}{a_n+1}
+\]
+Then $(a_n)$ converges to $\sqrt{2}$.
+
+\textit{Proof:}
+The existence of the positive number $\sqrt{2}$ follows from the
+least-upper-bound property. First, $a_n\ge1$ for every $n$: this is true
+for $a_1$, and if $a_n\ge1$, then
+\[
+    a_{n+1}=1+\frac{1}{a_n+1}>1
+\]
+Since $(\sqrt{2})^2=2$, we obtain
+\[
+\begin{aligned}
+    \left|a_{n+1}-\sqrt{2}\right|
+    &=\left|\frac{a_n+2}{a_n+1}-\sqrt{2}\right|\\
+    &=\frac{\sqrt{2}-1}{a_n+1}
+      \left|a_n-\sqrt{2}\right|\\
+    &\le\frac12\left|a_n-\sqrt{2}\right|,
+\end{aligned}
+\]
+because $a_n+1\ge2$ and $0<\sqrt{2}-1<1$. Repeated application gives
+\[
+    \left|a_n-\sqrt{2}\right|
+    \le \frac{|1-\sqrt{2}|}{2^{n-1}}
+\]
+Let $\epsilon>0$. By the Archimedean property, choose $N$ such that
+\[
+    \frac{|1-\sqrt{2}|}{2^{N-1}}<\epsilon
+\]
+Then for every $n\ge N$,
+\[
+    |a_n-\sqrt{2}|
+    \le\frac{|1-\sqrt{2}|}{2^{n-1}}
+    \le\frac{|1-\sqrt{2}|}{2^{N-1}}
+    <\epsilon
+\]
+Therefore $a_n\to\sqrt{2}$.
+\hfill$\square$
+\end{example_box}
+
+\begin{problem_box}
+\textbf{Propositions:}
+\begin{enumerate}
+\item $x_n \rightarrow x \Rightarrow |x_n| \rightarrow |x|$
+\item $x_n \rightarrow 0 \iff |x_n| \rightarrow 0$
+\item $x_n \rightarrow x \iff |x_n-x| \rightarrow 0$
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+For (i), the reverse triangle inequality gives
+\[
+  \bigl||x_n|-|x|\bigr|\le |x_n-x|.
+\]
+If $x_n\to x$, the right-hand side tends to zero, hence $|x_n|\to|x|$.
+For (ii), if $x_n\to0$, part (i) gives $|x_n|\to0$. Conversely,
+$|x_n|\to0$ is exactly the assertion $|x_n-0|\to0$, which is the
+definition of $x_n\to0$. For (iii), apply (ii) to the sequence
+$y_n:=x_n-x$: it converges to zero exactly when $x_n\to x$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Proposition:}
+Every convergent sequence is bounded.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $(x_n)$ be a convergent sequence converging to $x$. To put bounds on $(x_n)$, we need to estimate $|x_k|$
+$$ |x_k| < |x_k - x| + |x| < \epsilon + |x| \text{ for all } k \ge N_\epsilon $$
+Taking $\epsilon=1$, we have
+\[
+ |x_k|<1+|x|\qquad(k\ge N_1).
+\]
+The initial set $\{x_1,\ldots,x_{N_1-1}\}$ is finite and therefore
+bounded. Hence, for example,
+\[
+ |x_k|\le \max\{1+|x|,|x_1|,\ldots,|x_{N_1-1}|\}
+ \qquad(k\in\NN),
+\]
+so the whole sequence is bounded.
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Algebra of Convergent Sequences):}
+Let $x_n \rightarrow x, y_n \rightarrow y$, and $c \in \RR$. Then:
+\begin{enumerate}
+\item $x_n+y_n\rightarrow x+y$.
+\item $cx_n\rightarrow cx$.
+\item $x_ny_n\rightarrow xy$.
+\item If $x\ne0$, then $x_n\ne0$ eventually and
+$\frac{1}{x_n}\rightarrow\frac{1}{x}$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\epsilon>0$.
+
+\begin{enumerate}
+    \item Choose $N_1,N_2\in\NN$ such that
+    \[
+        |x_n-x|<\frac{\epsilon}{2}\quad(n\ge N_1),
+        \qquad
+        |y_n-y|<\frac{\epsilon}{2}\quad(n\ge N_2)
+    \]
+    If $n\ge\max\{N_1,N_2\}$, then
+    \[
+    \begin{aligned}
+        |(x_n+y_n)-(x+y)|
+        &\le |x_n-x|+|y_n-y|\\
+        &<\epsilon
+    \end{aligned}
+    \]
+    Hence $x_n+y_n\to x+y$.
+
+    \item If $c=0$, the result is immediate. If $c\ne0$, choose
+    $N\in\NN$ such that
+    \[
+        |x_n-x|<\frac{\epsilon}{|c|}\qquad(n\ge N)
+    \]
+    Then
+    \[
+        |cx_n-cx|=|c|\,|x_n-x|<\epsilon,
+    \]
+    so $cx_n\to cx$.
+
+    \item Since $x_n\to x$, there is $N_0\in\NN$ such that
+    $|x_n-x|<1$ for $n\ge N_0$. Thus
+    \[
+        |x_n|\le |x_n-x|+|x|<1+|x|=:M
+        \qquad(n\ge N_0)
+    \]
+    Choose $N_1,N_2\in\NN$ such that
+    \[
+        |y_n-y|<\frac{\epsilon}{2M}\quad(n\ge N_1),
+        \qquad
+        |x_n-x|<\frac{\epsilon}{2(|y|+1)}\quad(n\ge N_2)
+    \]
+    For $n\ge\max\{N_0,N_1,N_2\}$,
+    \[
+    \begin{aligned}
+        |x_ny_n-xy|
+        &=|x_n(y_n-y)+y(x_n-x)|\\
+        &\le |x_n|\,|y_n-y|+|y|\,|x_n-x|\\
+        &<M.\frac{\epsilon}{2M}
+          +|y|.\frac{\epsilon}{2(|y|+1)}
+        <\epsilon
+    \end{aligned}
+    \]
+    Therefore $x_ny_n\to xy$.
+
+    \item Suppose $x\ne0$. Taking $\epsilon' = \frac{|x|}{2}$, choose $N_0\in\NN$ such that
+    \[
+        |x_n-x|<\frac{|x|}{2}\qquad(n\ge N_0)
+    \]
+    The triangle inequality gives
+    \[
+        |x_n|\ge |x|-|x_n-x|>\frac{|x|}{2},
+    \]
+    so $x_n\ne0$ for every $n\ge N_0$. Taking $\epsilon''=\frac{\epsilon |x|^2}{2}$, choose $N_1\in\NN$ such that
+    \[
+        |x_n-x|<\frac{\epsilon |x|^2}{2}
+        \qquad(n\ge N_1)
+    \]
+    For $n\ge\max\{N_0,N_1\}$,
+    \[
+    \begin{aligned}
+        \left|\frac{1}{x_n}-\frac{1}{x}\right|
+        &=\frac{|x_n-x|}{|x_n|\,|x|}\\
+        &<\frac{2|x_n-x|}{|x|^2}
+        <\epsilon
+    \end{aligned}
+    \]
+    Hence $1/x_n\to1/x$. 
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+Using this theorem, it is evident that the set of all convergent sequences is a vector space.
+
+\subsection{Cauchy Sequences}
+\begin{definition_box}
+A sequence $(x_n)$ in $\RR$ is said to be \emph{Cauchy} if for any given
+$\epsilon>0, \exists N \in \NN$ such that for all $m,n \ge N$ we have $|x_n-x_m|<\epsilon$.
+\end{definition_box}
+
+\begin{mainbox}{Cauchy Completeness of $\RR$}
+A real sequence is Cauchy $\iff$ it is convergent.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:} ($\Leftarrow$)
+Let $(x_n)$ be a sequence converging to $x$.
+Then we have 
+$$|x_n-x| < \frac{\epsilon}{2} \text{ for all } n \ge N$$
+$$|x_m-x| < \frac{\epsilon}{2} \text{ for all } m \ge N$$
+Thus,
+$$|x_n - x_m| \le |x_n-x| + |x-x_m| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
+Thus $(x_n)$ is Cauchy.
+\hfill$\square$
+
+($\Rightarrow$) Let $(x_n)$ be Cauchy. First, $(x_n)$ is bounded:
+choose $N_0$ such that $|x_n-x_{N_0}|<1$ for all $n\ge N_0$;
+then the tail is bounded by $|x_{N_0}|+1$, and the finitely many
+initial terms are bounded as well.
+
+Define the set of eventual lower bounds
+\[
+  S:=\{s\in\RR:\text{there exists }N\in\NN\text{ such that }
+             s\le x_n\text{ for every }n\ge N\}.
+\]
+This set is nonempty because any lower bound of the bounded sequence
+is an eventual lower bound. It is bounded above: if $M$ is an upper
+bound for the sequence and $s\in S$, then for some $N$ we have
+$s\le x_N\le M$. By completeness, $l:=\sup S$ exists.
+
+We prove $x_n\to l$. Let $\epsilon>0$. Since $(x_n)$ is Cauchy,
+there is $N$ such that
+\[
+  |x_m-x_n|<\epsilon/3\qquad(m,n\ge N).
+\]
+Fix $n\ge N$. For every $m\ge N$,
+$x_n-\epsilon/3<x_m$, so $x_n-\epsilon/3$ is an eventual lower
+bound and therefore
+\[
+  x_n-\epsilon/3\le l.
+\]
+On the other hand, if $s\in S$, choose $M_s$ such that
+$s\le x_m$ for all $m\ge M_s$. Taking
+$m\ge\max\{M_s,N\}$ and using the Cauchy estimate gives
+\[
+  s\le x_m<x_n+\epsilon/3.
+\]
+Thus $x_n+\epsilon/3$ is an upper bound for $S$, and hence
+$l\le x_n+\epsilon/3$. Combining the two inequalities,
+\[
+  |x_n-l|\le\epsilon/3<\epsilon\qquad(n\ge N).
+\]
+Therefore $x_n\to l$, as required.
+\hfill$\square$
+Thus $(x_n)$ is convergent.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} Let
+\[
+    s_n=\sum_{k=1}^{n}\frac{(-1)^{k+1}}{k}
+    =1-\frac12+\frac13-\cdots+\frac{(-1)^{n+1}}{n}
+\]
+Then $(s_n)$ converges.
+
+This sequence is not strictly increasing or decreasing, since $s_2=\tfrac12<s_3=\tfrac56>s_4=\tfrac7{12}$.
+We also have no candidate for the limit, so the definition of convergence
+cannot be applied directly. The Cauchy criterion needs no candidate.
+
+\textit{Proof:}
+Fix $n\in\NN$ and $p\ge1$, and put $a_j:=\dfrac{1}{n+j}$, so that
+$a_1>a_2>\cdots>a_p>0$. For $m=n+p$,
+\[
+    s_m-s_n=(-1)^{n}\,T_p,
+    \qquad
+    T_p:=a_1-a_2+a_3-\cdots+(-1)^{p-1}a_p
+\]
+
+\begin{example_claim_box}
+\textbf{Claim:} $0\le T_p\le a_1$.
+
+\textit{Proof:} Group the terms of $T_p$ in two ways.
+\begin{itemize}
+    \item If $p$ is even,
+    \[
+        T_p=(a_1-a_2)+(a_3-a_4)+\cdots+(a_{p-1}-a_p)\ \ge 0,
+    \]
+    and
+    \[
+        T_p=a_1-(a_2-a_3)-\cdots-(a_{p-2}-a_{p-1})-a_p\ \le a_1
+    \]
+    \item If $p$ is odd,
+    \[
+        T_p=(a_1-a_2)+\cdots+(a_{p-2}-a_{p-1})+a_p\ \ge 0,
+    \]
+    and
+    \[
+        T_p=a_1-(a_2-a_3)-\cdots-(a_{p-1}-a_p)\ \le a_1
+    \]
+\end{itemize}
+Each bracket is nonnegative because $(a_j)$ is decreasing, and the
+case $p=1$ is trivial. This proves the claim.
+\end{example_claim_box}
+
+Now let $\epsilon>0$. By the Archimedean property, choose $N\in\NN$ with
+$N>1/\epsilon$. If $m>n\ge N$, then the claim gives
+\[
+    |s_m-s_n|=T_{m-n}\le a_1=\frac{1}{n+1}<\frac1N<\epsilon
+\]
+Thus $(s_n)$ is Cauchy, and therefore it converges.
+\hfill$\square$
+\end{example_box}
+
+\begin{remark_box}
+The argument produces no value for the limit (it is in fact $\ln 2$, but
+proving this requires more machinery). This is the typical use of the
+Cauchy criterion: it proves that a limit \emph{exists} without
+identifying it.
+\end{remark_box}
+
+\subsection{Monotone Sequences}
+\begin{definition_box}
+We say that a sequence $(x_n)$ is \emph{increasing} if for all $n$, we have $x_n \le x_{n+1}$. We call it \emph{decreasing} if for all $n$, we have $x_n \ge x_{n+1}$. A \emph{monotone sequence} is a sequence that is either increasing or decreasing.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Every increasing sequence bounded above converges to the supremum of its
+terms, and every decreasing sequence bounded below converges to their
+infimum.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+
+Suppose first that $(x_n)$ is increasing and bounded above. The set
+$S:=\{x_n:n\in\NN\}$ is nonempty and bounded above. By completeness,
+let $L:=\sup S$. Given $\epsilon>0$, $L-\epsilon$ is not an upper bound
+of $S$, so there is an index $N$ with $L-\epsilon<x_N$. For $n\ge N$,
+monotonicity gives
+\[
+    L-\epsilon<x_N\le x_n\le L,
+\]
+so $|x_n-L|<\epsilon$. Hence $x_n\to L=\sup S$.
+
+Now suppose $(x_n)$ is decreasing and bounded below. The sequence
+$(-x_n)$ is increasing and bounded above, so the first part shows that
+it converges to $L:=\sup\{-x_n:n\in\NN\}$. Thus $x_n\to-L$. Also,
+$-L\le x_n$ for every $n$. If $b$ is any lower bound of
+$S:=\{x_n:n\in\NN\}$, then $-b$ is an upper bound of
+$\{-x_n:n\in\NN\}$, so $L\le-b$ and $b\le-L$. Therefore
+$-L=\inf S$, and $x_n\to\inf S$.
+\hfill$\square$
+\end{claim_box}
+
+\textbf{Note:} This in fact, implies the \textbf{Monotone Convergence Theorem}, which states that any monotone sequence that is bounded, is convergent.
+
+\subsection{Sandwich Lemma}
+
+\begin{mainbox}{Sandwich Lemma}
+Let $(x_n)$, $(y_n)$, $(z_n)$ be real sequences and let $l\in\RR$. Suppose that
+\begin{enumerate}[(i)]
+    \item there exists $N_0\in\NN$ such that $x_n\le y_n\le z_n$ for all $n\ge N_0$, and
+    \item $x_n\to l$ and $z_n\to l$.
+\end{enumerate}
+Then $y_n\to l$.
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\epsilon>0$. We must find $N\in\NN$ such that $|y_n-l|<\epsilon$ for all $n\ge N$.
+
+Since $x_n\to l$, there exists $N_1\in\NN$ such that
+\[
+    |x_n-l|<\epsilon\qquad(n\ge N_1),
+\]
+and in particular $l-\epsilon<x_n$ for all $n\ge N_1$.
+
+Since $z_n\to l$, there exists $N_2\in\NN$ such that
+\[
+    |z_n-l|<\epsilon\qquad(n\ge N_2),
+\]
+and in particular $z_n<l+\epsilon$ for all $n\ge N_2$.
+
+Put $N:=\max\{N_0,N_1,N_2\}$. For every $n\ge N$, all three conditions hold simultaneously, so
+\[
+    l-\epsilon<x_n\le y_n\le z_n<l+\epsilon
+\]
+Hence $l-\epsilon<y_n<l+\epsilon$, that is, $|y_n-l|<\epsilon$ for all $n\ge N$.
+
+Since $\epsilon>0$ was arbitrary, $y_n\to l$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example:} Let
+\[
+    y_n=\frac{\sin n}{n}\qquad(n\ge1)
+\]
+Then $y_n\to0$.
+
+The sequence $(\sin n)$ does not converge, so the algebra of convergent
+sequences cannot be applied to the quotient directly. We instead bound
+$y_n$ between two sequences that we understand.
+
+\textit{Proof:}
+For every real number $t$ we have $-1\le\sin t\le1$. Dividing by $n>0$
+preserves the inequalities, so
+\[
+    -\frac1n\le\frac{\sin n}{n}\le\frac1n\qquad(n\ge1)
+\]
+Put $x_n:=-\dfrac1n$ and $z_n:=\dfrac1n$, so that $x_n\le y_n\le z_n$
+for all $n\ge1$.
+
+We claim $z_n\to0$. Let $\epsilon>0$. By the Archimedean property,
+choose $N\in\NN$ with $N>1/\epsilon$. Then for every $n\ge N$,
+\[
+    \left|\frac1n-0\right|=\frac1n\le\frac1N<\epsilon
+\]
+Hence $\dfrac1n\to0$. By the algebra of convergent sequences (taking
+$c=-1$), $x_n=-\dfrac1n\to-0=0$ as well.
+
+Thus $x_n\le y_n\le z_n$ for all $n\ge1$, and $x_n\to0$, $z_n\to0$.
+By the Sandwich Lemma, $y_n\to0$.
+\hfill$\square$
+\end{example_box}
+
+
+\subsection{Nested Interval Theorem}
+
+\begin{mainbox}{Nested Interval Theorem}
+Let $I_n=[a_n,b_n]$ ($n\ge1$) be closed bounded intervals with $a_n\le b_n$, such that
+\[
+    I_1\supseteq I_2\supseteq I_3\supseteq\cdots
+\]
+Then:
+\begin{enumerate}[(i)]
+    \item $\displaystyle\bigcap_{n\ge1}I_n\ne\emptyset$. More precisely, if
+    $\alpha:=\sup_n a_n$ and $\beta:=\inf_n b_n$, then
+    \[
+        \bigcap_{n\ge1}I_n=[\alpha,\beta]
+    \]
+    \item If moreover $b_n-a_n\to0$, then $\bigcap_{n\ge1}I_n$ consists of exactly one point.
+\end{enumerate}
+\end{mainbox}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $I_{k+1}\subseteq I_k$ for every $k$, we have $a_k\le a_{k+1}$ and $b_{k+1}\le b_k$, so $(a_n)$ is increasing and $(b_n)$ is decreasing. We first observe that $a_n\le b_m$ for all $n,m\in\NN$. Indeed, if $n\le m$ then $a_n\le a_m\le b_m$, and if $n>m$ then $a_n\le b_n\le b_m$.
+
+By this observation, the set $\{a_n\}$ is nonempty and bounded above by $b_1$, so $\alpha=\sup_n a_n$ exists by the least-upper-bound property. Likewise $\{b_n\}$ is nonempty and bounded below by $a_1$, so $\beta=\inf_n b_n$ exists, by applying the least-upper-bound property to $\{-b_n\}$. Clearly $a_n\le\alpha$ and $\beta\le b_n$ for every $n$. Moreover, for each fixed $m$ the number $b_m$ is an upper bound of $\{a_n\}$, whence $\alpha\le b_m$; thus $\alpha$ is a lower bound of $\{b_m\}$, and therefore $\alpha\le\beta$. Consequently
+\[
+    a_n\le\alpha\le\beta\le b_n\qquad(n\ge1)
+\]
+
+To prove (i), let $x\in[\alpha,\beta]$. Then $a_n\le\alpha\le x\le\beta\le b_n$ for every $n$, so $x\in\bigcap_n I_n$. Conversely, let $x\in\bigcap_n I_n$. Then $a_n\le x$ for every $n$, so $x$ is an upper bound of $\{a_n\}$ and hence $\alpha\le x$; similarly $x\le b_n$ for every $n$, so $x$ is a lower bound of $\{b_n\}$ and hence $x\le\beta$. Thus $x\in[\alpha,\beta]$, which gives $\bigcap_n I_n=[\alpha,\beta]$. In particular the intersection contains $\alpha$ and is nonempty.
+
+To prove (ii), suppose $b_n-a_n\to0$. By the inequalities above,
+\[
+    0\le\beta-\alpha\le b_n-a_n\qquad(n\ge1)
+\]
+The constant sequence $(\beta-\alpha)$ is therefore bounded between the constant sequence $0$ and the sequence $(b_n-a_n)$, both of which converge to $0$. By the Sandwich Lemma, $\beta-\alpha\to0$. On the other hand, the constant sequence $(\beta-\alpha)$ converges to $\beta-\alpha$, so uniqueness of limits yields $\beta-\alpha=0$, that is, $\alpha=\beta$. By (i), $\bigcap_n I_n=\{\alpha\}$ consists of exactly one point.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Some Important Limits}
+
+\begin{problem_box}
+\textbf{Theorem:}
+The following limits hold.
+\begin{enumerate}[(i)]
+    \item If $|r|<1$, then $r^n\to0$.
+    \item If $|r|<1$, then $nr^n\to0$.
+    \item If $a>0$, then $a^{1/n}\to1$.
+    \item $n^{1/n}\to1$.
+    \item If $a\in\RR$, then $\dfrac{a^n}{n!}\to0$.
+    \item If $|a|>1$, then $\dfrac{n}{a^n}\to0$.
+    \item If $x_n\to0$ and $s_n:=\dfrac{x_1+x_2+\cdots+x_n}{n}$ is the sequence of averages of $(x_n)$, then $s_n\to0$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We shall use two elementary inequalities. If $h\ge0$ and $n\in\NN$, then
+\[
+    (1+h)^n\ge1+nh
+\]
+This holds for $n=0$, and if it holds for $n$, then
+\[
+    (1+h)^{n+1}\ge(1+nh)(1+h)=1+(n+1)h+nh^2\ge1+(n+1)h
+\]
+Also, if $h\ge0$ and $n\ge2$, then all terms in the binomial expansion of $(1+h)^n$ are nonnegative, so discarding all but the term containing $h^2$ gives
+\[
+    (1+h)^n\ge\binom n2h^2=\frac{n(n-1)}2\,h^2
+\]
+Throughout, $a^{1/n}$ denotes the unique positive $n$-th root of $a>0$, whose existence follows from the least-upper-bound property as for $\sqrt2$.
+
+\textit{Proof of (i).}
+If $r=0$ there is nothing to prove, so suppose $0<|r|<1$. Then $1/|r|>1$, and writing $h:=1/|r|-1>0$ we have $|r|=1/(1+h)$. By the first inequality,
+\[
+    |r^n-0|=\frac1{(1+h)^n}\le\frac1{1+nh}<\frac1{nh}\qquad(n\ge1)
+\]
+Let $\epsilon>0$. By the Archimedean property, choose $N\in\NN$ with $N>1/(h\epsilon)$. Then for every $n\ge N$ we have $|r^n|<1/(nh)\le 1/(Nh)<\epsilon$. Hence $r^n\to0$.
+
+\textit{Proof of (ii).}
+Again we may assume $0<|r|<1$ and write $|r|=1/(1+h)$ with $h>0$. For $n\ge2$, the second inequality gives
+\[
+    |nr^n-0|=\frac n{(1+h)^n}\le\frac{n}{\frac{n(n-1)}{2}h^2}=\frac2{(n-1)h^2}
+\]
+Let $\epsilon>0$ and choose $N\ge2$ with $N-1>2/(h^2\epsilon)$. Then for every $n\ge N$,
+\[
+    |nr^n|\le\frac2{(n-1)h^2}\le\frac2{(N-1)h^2}<\epsilon
+\]
+Hence $nr^n\to0$.
+
+\textit{Proof of (iii).}
+First let $a\ge1$. Then $a^{1/n}\ge1$, since otherwise $a=(a^{1/n})^n<1$. Write $a^{1/n}=1+x_n$ with $x_n\ge0$. By the first inequality,
+\[
+    a=(1+x_n)^n\ge1+nx_n,
+    \qquad\text{so}\qquad
+    0\le a^{1/n}-1=x_n\le\frac{a-1}n
+\]
+Given $\epsilon>0$, choose $N$ with $N>(a-1)/\epsilon$; then $|a^{1/n}-1|\le(a-1)/n<\epsilon$ for all $n\ge N$ (if $a=1$ the sequence is constant $1$). Thus $a^{1/n}\to1$ for $a\ge1$.
+
+Now let $0<a<1$ and put $b:=1/a>1$. Since $\bigl(1/b^{1/n}\bigr)^n=1/b=a$, uniqueness of positive $n$-th roots gives $a^{1/n}=1/b^{1/n}$. By the case already proved, $b^{1/n}\to1\ne0$, so the algebra of convergent sequences yields $a^{1/n}=1/b^{1/n}\to1$.
+
+\textit{Proof of (iv).}
+For $n\ge1$ we have $n^{1/n}\ge1$, so write $n^{1/n}=1+x_n$ with $x_n\ge0$. For $n\ge2$ the second inequality gives
+\[
+    n=(1+x_n)^n\ge\frac{n(n-1)}2\,x_n^2,
+    \qquad\text{so}\qquad
+    x_n^2\le\frac2{n-1}
+\]
+Let $\epsilon>0$ and choose $N\ge2$ with $N-1>2/\epsilon^2$. For $n\ge N$ we have $x_n^2\le 2/(n-1)<\epsilon^2$, and since $x_n\ge0$ this forces $x_n<\epsilon$ (otherwise $x_n\ge\epsilon$ would give $x_n^2\ge\epsilon^2$). Hence $|n^{1/n}-1|=x_n<\epsilon$ for all $n\ge N$, and $n^{1/n}\to1$.
+
+\textit{Proof of (v).}
+Put $u_n:=|a|^n/n!$. By the Archimedean property, choose an integer $M\ge1$ with $M>2|a|$. For every $n\ge M$,
+\[
+    \frac{u_{n+1}}{u_n}=\frac{|a|}{n+1}\le\frac{|a|}M<\frac12,
+\]
+so $u_{n+1}\le\frac12u_n$. Induction on $n$ gives
+\[
+    0\le u_n\le\left(\frac12\right)^{n-M}u_M=C\left(\frac12\right)^n
+    \qquad(n\ge M),\qquad C:=2^Mu_M
+\]
+By (i), $(1/2)^n\to0$, hence $C(1/2)^n\to0$ by the algebra of convergent sequences. Applying the Sandwich Lemma to $0\le u_n\le C(1/2)^n$ for $n\ge M$ gives $u_n\to0$. Since $|a^n/n!|=u_n\to0$, we conclude $a^n/n!\to0$.
+
+\textit{Proof of (vi).}
+The hypothesis $|a|>1$ is needed, since for $|a|\le1$ the sequence $n/a^n$ does not tend to $0$. Put $r:=1/a$, so that $|r|<1$ and
+\[
+    \frac n{a^n}=nr^n
+\]
+By (ii), $nr^n\to0$, and hence $n/a^n\to0$.
+
+\textit{Proof of (vii).}
+Let $\epsilon>0$. Since $x_n\to0$, there is $N\in\NN$ such that $|x_k|<\epsilon/2$ for all $k\ge N$. Put
+\[
+    A:=|x_1|+|x_2|+\cdots+|x_{N-1}|\ \ (\ge0)
+\]
+By the Archimedean property, choose $M\ge N$ with $M>2A/\epsilon$. Let $n\ge M$. Splitting the sum at index $N$ and applying the triangle inequality,
+\[
+    |s_n|\le\frac{|x_1|+\cdots+|x_{N-1}|}n+\frac{|x_N|+\cdots+|x_n|}n
+    <\frac An+\frac{(n-N+1)}n\cdot\frac\epsilon2
+    \le\frac An+\frac\epsilon2
+\]
+Since $n\ge M>2A/\epsilon$, we have $A/n<\epsilon/2$ (trivially so if $A=0$). Therefore $|s_n|<\epsilon/2+\epsilon/2=\epsilon$ for all $n\ge M$, that is, $s_n\to0$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Corollary:}
+If $x_n\to x$ and $y_n\to y$, then
+\[
+    \frac{x_ny_1+x_{n-1}y_2+\cdots+x_1y_n}{n}\rightarrow xy
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Write $a_n:=x_n-x$ and $b_n:=y_n-y$, so that $a_n\to0$ and $b_n\to0$. Denote the sequence in question by
+\[
+    c_n:=\frac1n\sum_{k=1}^nx_{n+1-k}\,y_k
+\]
+Substituting $x_{n+1-k}=x+a_{n+1-k}$ and $y_k=y+b_k$ and expanding, we obtain
+\[
+    c_n=\frac1n\sum_{k=1}^n\bigl(xy+x\,b_k+y\,a_{n+1-k}+a_{n+1-k}b_k\bigr)
+    =xy+x\cdot\frac{b_1+\cdots+b_n}n+y\cdot\frac{a_1+\cdots+a_n}n+d_n,
+\]
+where $d_n:=\dfrac1n\sum_{k=1}^na_{n+1-k}b_k$, and where we have used that $\sum_{k=1}^na_{n+1-k}=a_1+\cdots+a_n$ (the same terms in reverse order). By (vii), the averages $(b_1+\cdots+b_n)/n$ and $(a_1+\cdots+a_n)/n$ both tend to $0$. By the algebra of convergent sequences, it therefore suffices to show that $d_n\to0$.
+
+Since $(a_n)$ converges, it is bounded, so there is $A>0$ with $|a_j|\le A$ for every $j$. Hence
+\[
+    0\le|d_n|\le\frac1n\sum_{k=1}^n|a_{n+1-k}|\,|b_k|\le A\cdot\frac{|b_1|+\cdots+|b_n|}n
+\]
+Since $b_n\to0$, we have $|b_n|\to0$, and (vii) applied to the sequence $(|b_n|)$ shows that $(|b_1|+\cdots+|b_n|)/n\to0$. Consequently $A\cdot(|b_1|+\cdots+|b_n|)/n\to0$, and the Sandwich Lemma gives $|d_n|\to0$, so $d_n\to0$. We conclude that
+\[
+    c_n=xy+x\cdot\frac{b_1+\cdots+b_n}n+y\cdot\frac{a_1+\cdots+a_n}n+d_n\rightarrow xy+0+0+0=xy
+\]
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Divergent Sequences}
+
+A sequence is divergent if it does not converge to any real number. Divergence can happen in several ways: a sequence may be bounded but oscillate, such as $(-1)^n$, or it may be unbounded, such as $n$.
+
+\begin{definition_box}
+We say that $(x_n)$ \emph{diverges to $+\infty$}, and write $x_n\rightarrow\infty$, if for every $M\in\RR$ there exists $N\in\NN$ such that $x_n>M$ for all $n\ge N$.
+
+We say that $(x_n)$ \emph{diverges to $-\infty$}, and write $x_n\rightarrow-\infty$, if for every $M\in\RR$ there exists $N\in\NN$ such that $x_n<M$ for all $n\ge N$. Since $x_n<M$ if and only if $-x_n>-M$, and $M$ is arbitrary, this holds if and only if $-x_n\rightarrow\infty$.
+\end{definition_box}
+
+Note that $\infty$ is not a real number, so a sequence diverging to $\pm\infty$ is still divergent in the sense above; this is proved in the first theorem below.
+
+\begin{problem_box}
+\textbf{Theorem:}
+\begin{enumerate}[(i)]
+    \item Every unbounded sequence is divergent.
+    \item If $x_n\rightarrow\infty$ or $x_n\rightarrow-\infty$, then $(x_n)$ is unbounded, and hence divergent.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Part (i) is the contrapositive of the proposition that every convergent sequence is bounded.
+
+For (ii), suppose $x_n\rightarrow\infty$ and let $M\in\RR$. There is $N$ with $x_N>M$, so $M$ is not an upper bound of $\{x_n\}$. Since $M$ was arbitrary, $(x_n)$ is not bounded above, hence unbounded, and divergent by (i). If instead $x_n\rightarrow-\infty$, then $-x_n\rightarrow\infty$, so $(-x_n)$ is unbounded by what was just proved. As $|-x_n|=|x_n|$, the sequence $(x_n)$ is unbounded as well.
+\hfill$\square$
+\end{claim_box}
+
+The converses fail: $(-1)^n$ is divergent but bounded, and $(-1)^nn$ is unbounded but does not diverge to $\pm\infty$ (see the examples below). For monotone sequences, however, the situation is clean.
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $(x_n)$ be monotone. If $(x_n)$ is increasing and unbounded above, then $x_n\rightarrow\infty$. If $(x_n)$ is decreasing and unbounded below, then $x_n\rightarrow-\infty$. Consequently, every monotone sequence either converges or diverges to $+\infty$ or $-\infty$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $(x_n)$ be increasing and unbounded above, and let $M\in\RR$. Since $M$ is not an upper bound of $\{x_n\}$, there exists $N$ with $x_N>M$. For every $n\ge N$, monotonicity gives $x_n\ge x_N>M$. Hence $x_n\rightarrow\infty$.
+
+If $(x_n)$ is decreasing and unbounded below, then $(-x_n)$ is increasing and unbounded above, so $-x_n\rightarrow\infty$ and therefore $x_n\rightarrow-\infty$.
+
+For the last assertion, suppose $(x_n)$ is increasing. If it is bounded above, it converges by the monotone convergence theorem; otherwise it diverges to $+\infty$ by the first part. The decreasing case is analogous, using boundedness below.
+\hfill$\square$
+\end{claim_box}
+
+We now show how divergence to infinity interacts with the other limit operations.
+
+\begin{problem_box}
+\textbf{Theorem:}
+Suppose $x_n\rightarrow\infty$.
+\begin{enumerate}[(i)]
+    \item \textbf{Comparison:} If $y_n\ge x_n$ for all $n\ge N_0$, then $y_n\rightarrow\infty$.
+    \item \textbf{Sums:} If $(y_n)$ is bounded below, then $x_n+y_n\rightarrow\infty$.
+    \item \textbf{Products:} If there is $c>0$ such that $y_n\ge c$ for all $n$, then $x_ny_n\rightarrow\infty$.
+    \item \textbf{Reciprocals:} $x_n>0$ for all large $n$, and $\dfrac1{x_n}\rightarrow0$. Conversely, if $x_n>0$ for all $n$ and $x_n\rightarrow0$, then $\dfrac1{x_n}\rightarrow\infty$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+(i) Let $M\in\RR$. Choose $N_1$ with $x_n>M$ for $n\ge N_1$, and put $N=\max\{N_0,N_1\}$. Then $y_n\ge x_n>M$ for all $n\ge N$.
+
+(ii) Choose $B\in\RR$ with $y_n\ge-B$ for all $n$. Let $M\in\RR$ and choose $N$ with $x_n>M+B$ for $n\ge N$. Then $x_n+y_n>(M+B)-B=M$ for all $n\ge N$.
+
+(iii) Let $M\in\RR$ and put $M':=\max\{M,0\}$. Choose $N$ with $x_n>M'/c$ for $n\ge N$. Since $M'/c\ge0$, we have $x_n>0$ for such $n$, and therefore
+\[
+    x_ny_n\ge x_nc>M'\ge M\qquad(n\ge N)
+\]
+
+(iv) Taking $M=0$ in the definition, $x_n>0$ for all large $n$, so $1/x_n$ is defined from some point on. Let $\epsilon>0$ and choose $N$ with $x_n>1/\epsilon$ for $n\ge N$. Then $0<1/x_n<\epsilon$, so $1/x_n\rightarrow0$.
+Conversely, let $x_n>0$ for all $n$ with $x_n\rightarrow0$, and let $M\in\RR$. Put $\epsilon:=1/\max\{M,1\}>0$ and choose $N$ with $|x_n|<\epsilon$ for $n\ge N$. Then $0<x_n<\epsilon$, so
+\[
+    \frac1{x_n}>\frac1\epsilon=\max\{M,1\}\ge M\qquad(n\ge N)
+\]
+Hence $1/x_n\rightarrow\infty$.
+\hfill$\square$
+\end{claim_box}
+
+The analogous statements for sequences diverging to $-\infty$ follow by applying the theorem to $(-x_n)$.
+
+A convenient way to prove that a bounded sequence diverges uses subsequences.
+
+\subsection{Subsequences}
+
+\begin{definition_box}
+A \emph{subsequence} of $(x_n)$ is a sequence $(x_{n_k})_{k\ge1}$, where $n_1<n_2<n_3<\cdots$ is a strictly increasing sequence of indices.
+\end{definition_box}
+
+Since the indices are strictly increasing natural numbers, $n_k\ge k$ for every $k$ (by induction: $n_1\ge1$, and $n_{k+1}>n_k\ge k$ gives $n_{k+1}\ge k+1$).
+
+\begin{problem_box}
+\textbf{Theorem:}
+\begin{enumerate}[(i)]
+    \item If $x_n\rightarrow x$, then every subsequence of $(x_n)$ also converges to $x$.
+    \item If $(x_n)$ has two subsequences converging to different limits, then $(x_n)$ is divergent.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+(i) Let $(x_{n_k})$ be a subsequence and let $\epsilon>0$. Choose $N$ with $|x_n-x|<\epsilon$ for all $n\ge N$. For every $k\ge N$ we have $n_k\ge k\ge N$, so $|x_{n_k}-x|<\epsilon$. Hence $x_{n_k}\rightarrow x$.
+
+(ii) Suppose, for a contradiction, that $x_n\rightarrow x$ for some $x\in\RR$, while two subsequences converge to $l_1$ and $l_2$ respectively. By (i), both subsequences converge to $x$, so uniqueness of limits gives $l_1=x=l_2$, contradicting $l_1\ne l_2$. Hence $(x_n)$ diverges.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example 1:} The sequence $x_n=(-1)^n$ is divergent.
+
+\textit{Proof:}
+The subsequence $(x_{2k})$ is constantly $1$, and the subsequence $(x_{2k+1})$ is constantly $-1$. These converge to the different limits $1$ and $-1$, so $(x_n)$ is divergent by part (ii) of the preceding theorem. Note that $(x_n)$ is bounded, so boundedness alone does not imply convergence.
+\hfill$\square$
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example 2:} If $r>1$, then $r^n\rightarrow\infty$.
+
+\textit{Proof:}
+Write $r=1+h$ with $h>0$. By Bernoulli's inequality, $r^n\ge1+nh>nh$ for every $n\ge1$. The sequence $(nh)$ diverges to $\infty$: given $M\in\RR$, the Archimedean property gives $N$ with $N>M/h$ (when $M>0$; any $N$ works otherwise), and then $nh>M$ for all $n\ge N$. By the comparison property, $r^n\rightarrow\infty$.
+\hfill$\square$
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example 3:} The sequence $x_n=(-1)^nn$ is unbounded, and hence divergent, but it does not diverge to $+\infty$ or to $-\infty$.
+
+\textit{Proof:}
+Since $|x_n|=n$ is unbounded, $(x_n)$ is divergent by part (i) of the first theorem. If $x_n\rightarrow\infty$, then $x_n>0$ for all large $n$, which is false for all odd $n$, since $x_n=-n<0$ there. If $x_n\rightarrow-\infty$, then $x_n<0$ for all large $n$, which is false for all even $n$. Hence neither case occurs.
+\hfill$\square$
+\end{example_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Every real sequence has a monotone subsequence.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $(x_n)$ be a real sequence. Call an index $m$ a \emph{peak} if $x_m\ge x_n$ for every $n>m$. We distinguish two cases according to the number of peaks.
+
+Suppose first that there are infinitely many peaks, say $m_1<m_2<m_3<\cdots$. Since $m_k$ is a peak and $m_{k+1}>m_k$, we have $x_{m_k}\ge x_{m_{k+1}}$ for every $k$. Hence $(x_{m_k})$ is a decreasing subsequence of $(x_n)$.
+
+Suppose now that there are only finitely many peaks. Choose an index $n_1$ larger than every peak (any $n_1$ if there are none). Since $n_1$ is not a peak, there exists $n_2>n_1$ with $x_{n_2}>x_{n_1}$. As $n_2>n_1$, the index $n_2$ is not a peak either, so there exists $n_3>n_2$ with $x_{n_3}>x_{n_2}$. Continuing recursively, we obtain indices $n_1<n_2<n_3<\cdots$ with $x_{n_k}<x_{n_{k+1}}$ for every $k$, so $(x_{n_k})$ is an increasing subsequence of $(x_n)$.
+
+In either case $(x_n)$ has a monotone subsequence.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Bolzano--Weierstrass):}
+Every bounded real sequence has a convergent subsequence.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $(x_n)$ be a bounded sequence, say $|x_n|\le B$ for every $n$. By the preceding theorem, $(x_n)$ has a monotone subsequence $(x_{n_k})$. This subsequence is bounded, since $|x_{n_k}|\le B$ for every $k$. If it is increasing, it is bounded above, so it converges by the theorem on monotone sequences; if it is decreasing, it is bounded below, and it converges for the same reason. In both cases $(x_n)$ has a convergent subsequence.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $(x_n)$ be a Cauchy sequence. If some subsequence $(x_{n_k})$ converges to $x$, then $x_n\rightarrow x$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\epsilon>0$. Since $(x_n)$ is Cauchy, there exists $N_1\in\NN$ such that
+\[
+    |x_m-x_n|<\frac\epsilon2\qquad(m,n\ge N_1)
+\]
+Since $x_{n_k}\rightarrow x$, there exists $K\in\NN$ such that $|x_{n_k}-x|<\epsilon/2$ for all $k\ge K$. Put $k:=\max\{K,N_1\}$. Then $|x_{n_k}-x|<\epsilon/2$, and, since $n_k\ge k\ge N_1$, the Cauchy condition applies to the indices $n$ and $n_k$ for every $n\ge N_1$. Hence for every $n\ge N_1$,
+\[
+    |x_n-x|\le|x_n-x_{n_k}|+|x_{n_k}-x|<\frac\epsilon2+\frac\epsilon2=\epsilon
+\]
+Therefore $x_n\rightarrow x$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Every Cauchy sequence of real numbers is convergent.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $(x_n)$ be a Cauchy sequence. We first show that it is bounded. Taking $\epsilon=1$ in the definition, there exists $N\in\NN$ such that $|x_n-x_N|<1$ for all $n\ge N$, whence $|x_n|<|x_N|+1$ for all $n\ge N$. Therefore
+\[
+    |x_n|\le\max\{|x_1|,\ldots,|x_{N-1}|,\ |x_N|+1\}\qquad\text{for every }n,
+\]
+and $(x_n)$ is bounded.
+
+By the Bolzano--Weierstrass theorem, $(x_n)$ has a subsequence $(x_{n_k})$ converging to some $x\in\RR$. Since $(x_n)$ is Cauchy and has a subsequence converging to $x$, the preceding theorem shows that $x_n\rightarrow x$. Hence $(x_n)$ is convergent.
+\hfill$\square$
+\end{claim_box}
+
+This gives a second proof of the forward direction of the Cauchy completeness of $\RR$ proved earlier, one that passes through the Bolzano--Weierstrass theorem instead of directly invoking the least-upper-bound property.
+
+\subsection{Limit Points, Limit Superior and Limit Inferior}
+
+\begin{definition_box}
+A number $a\in\RR$ is a \emph{limit point} (or cluster point) of a
+sequence $(x_n)$ if every neighbourhood of $a$ contains terms $x_n$
+with arbitrarily large indices. Equivalently, some subsequence of
+$(x_n)$ converges to $a$.
+\end{definition_box}
+
+The equivalence follows directly from the definitions: if every
+neighbourhood contains arbitrarily late terms, choose recursively
+$n_k>n_{k-1}$ with $|x_{n_k}-a|<1/k$. Conversely, a convergent
+subsequence supplies arbitrarily late terms in every neighbourhood.
+
+For a bounded sequence define its tail suprema and infima by
+\[
+ s_n:=\sup\{x_k:k\ge n\},\qquad
+ i_n:=\inf\{x_k:k\ge n\}.
+\]
+The sequence $(s_n)$ is decreasing and $(i_n)$ is increasing. Both are
+bounded, so both converge.
+
+\begin{definition_box}
+For a bounded real sequence $(x_n)$, define
+\[
+ \limsup_{n\to\infty}x_n:=\lim_{n\to\infty}s_n,
+ \qquad
+ \liminf_{n\to\infty}x_n:=\lim_{n\to\infty}i_n.
+\]
+For an unbounded sequence the same definitions are made in the
+extended real line, allowing $+\infty$ and $-\infty$.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:} For every bounded real sequence,
+\[
+ \liminf x_n\le\limsup x_n.
+\]
+Moreover, $x_n\to L$ if and only if
+$\liminf x_n=\limsup x_n=L$.
+The limit superior is the largest subsequential limit and the limit
+inferior is the smallest subsequential limit.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Since $i_n\le x_k\le s_n$ for every $k\ge n$,
+we have $i_n\le s_n$, and passing to limits gives the first inequality.
+If $x_n\to L$, then for every $\epsilon>0$ all sufficiently late terms
+lie in $(L-\epsilon,L+\epsilon)$, so both tail extrema converge to $L$.
+Conversely, if both limits equal $L$, then for every $\epsilon>0$ and
+all sufficiently large $n$,
+$L-\epsilon<i_n\le x_n\le s_n<L+\epsilon$, proving convergence.
+We prove the assertion about subsequential limits. Write
+$s:=\limsup x_n=\lim s_n$. If a subsequence $x_{n_j}$ converges to
+$L$, then for every fixed $N$ we have $x_{n_j}\le s_N$ whenever
+$n_j\ge N$. Passing to the limit gives $L\le s_N$. This holds for
+every $N$, so $L\le s$. To see that $s$ is itself a subsequential
+limit, choose recursively indices $n_j>n_{j-1}$ so large that
+$|s_{n_j}-s|<1/j$. By the definition of supremum, choose
+$k_j\ge n_j$ with
+\[
+ s_{n_j}-1/j<x_{k_j}\le s_{n_j}.
+\]
+The indices $k_j$ are strictly increasing because
+$k_j\ge n_j>n_{j-1}\ge k_{j-1}$, and the displayed inequalities
+imply $x_{k_j}\to s$. Thus $s$ is the largest subsequential limit.
+The proof for $i:=\liminf x_n$ is the same with infima: every
+subsequential limit is at least $i$, and choosing
+$k_j\ge n_j$ with $i_{n_j}\le x_{k_j}<i_{n_j}+1/j$ produces a
+subsequence converging to $i$. Hence $i$ is the smallest
+subsequential limit.\hfill$\square$
+\end{claim_box}
+
+\section{Infinite Series}
+
+An infinite series is the limit of its finite partial sums. Thus the
+study of series reduces, at its foundation, to the study of sequences. I have found infinite sums to be very cool since I was a child, especially when I found out that they can also converge.
+
+\subsection{Convergence of Series}
+
+\begin{definition_box}
+Given a sequence $(a_n)$, its $N$-th partial sum is
+$S_N:=\sum_{n=1}^N a_n$. The series $\sum_{n=1}^{\infty}a_n$
+converges to $S$ if $S_N\to S$; otherwise it diverges. The number $S$
+is called its sum.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem (Necessary Condition):} If $\sum a_n$ converges,
+then $a_n\to0$. The converse is false.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} If $S_n\to S$, then
+$a_n=S_n-S_{n-1}\to S-S=0$. For the converse, the harmonic series
+$\sum_{n=1}^{\infty}1/n$ diverges although $1/n\to0$: grouping terms
+between consecutive powers of two shows that every block
+$2^{k-1}<n\le2^k$ contributes at least $1/2$.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Cauchy Criterion for Series):}
+The series $\sum a_n$ converges if and only if for every
+$\epsilon>0$ there exists $N$ such that
+\[
+ \left|\sum_{k=m}^n a_k\right|<\epsilon
+ \qquad(n\ge m\ge N).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Let $S_0:=0$ and $S_N:=\sum_{k=1}^N a_k$ for $N\ge1$.
+For $n\ge m\ge1$,
+\[
+    \sum_{k=m}^n a_k=S_n-S_{m-1}.
+\]
+Thus the displayed condition is exactly the Cauchy criterion for the
+sequence $(S_N)$. Since $\RR$ is complete, $(S_N)$ is Cauchy if and
+only if it converges. By definition, this is equivalent to convergence
+of the series.\hfill$\square$
+\end{claim_box}
+
+\subsection{Positive-Term Series and Convergence Tests}
+
+For $a_n\ge0$, the partial sums are increasing. Hence
+\[
+ \sum_{n=1}^{\infty}a_n\text{ converges}
+ \quad\Longleftrightarrow\quad
+ (S_N)\text{ is bounded above}.
+\]
+Indeed, if $(S_N)$ is bounded above, let $S:=\sup_N S_N$. Given
+$\epsilon>0$, the definition of supremum gives an $N$ with
+$S_N>S-\epsilon$. For every $M\ge N$, monotonicity gives
+$S-\epsilon<S_N\le S_M\le S$, so $S_M\to S$. Conversely, every
+convergent sequence is bounded.
+
+\begin{problem_box}
+\textbf{Theorem (Comparison Test):} Suppose $0\le a_n\le b_n$ for
+all sufficiently large $n$. If $\sum b_n$ converges, then
+$\sum a_n$ converges. If $\sum a_n$ diverges, then $\sum b_n$
+diverges.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Choose $N_0$ such that $0\le a_n\le b_n$ for
+$n\ge N_0$. For $N\ge N_0$,
+\[
+    S_N=\sum_{n=1}^{N_0-1}a_n+\sum_{n=N_0}^N a_n
+    \le \sum_{n=1}^{N_0-1}a_n+\sum_{n=N_0}^N b_n.
+\]
+If $\sum b_n$ converges, its partial sums (and hence the right-hand
+side) are bounded above. The partial sums $S_N$ are increasing from
+$N_0$ onward, so they are bounded and converge by the preceding
+criterion. The finitely many initial terms do not affect convergence.
+The second assertion is the contrapositive of the first.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Limit Comparison Test):} Suppose $a_n,b_n>0$ and
+\[
+ \lim_{n\to\infty}\frac{a_n}{b_n}=c\in(0,\infty).
+\]
+Then $\sum a_n$ and $\sum b_n$ either both converge or both diverge.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Choose constants $c_1,c_2$ with
+$0<c_1<c<c_2$. By the definition of the limit, for all sufficiently
+large $n$,
+\[
+    c_1<\frac{a_n}{b_n}<c_2,
+    \qquad\text{so}\qquad c_1b_n<a_n<c_2b_n.
+\]
+If $\sum b_n$ converges, comparison with $a_n<c_2b_n$ shows that
+$\sum a_n$ converges. If $\sum a_n$ converges, comparison with
+$b_n<a_n/c_1$ shows that $\sum b_n$ converges. Removing or adding
+finitely many terms changes neither conclusion.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Ratio Test):} Let $a_n\ne0$ eventually and suppose
+\[
+ L:=\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|
+\]
+exists. If $L<1$, then $\sum a_n$ converges absolutely. If $L>1$,
+the series diverges. If $L=1$, the test is inconclusive.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Suppose first that $L<1$, and choose $r$ with
+$L<r<1$. There is an $N$ such that
+$|a_{n+1}|/|a_n|<r$ for every $n\ge N$. Iterating this inequality
+gives $|a_{N+j}|\le |a_N|r^j$ for every $j\ge0$. Thus the absolute
+tail is bounded by the convergent geometric series
+$|a_N|\sum_{j=0}^{\infty}r^j$, proving absolute convergence.
+
+If $L>1$, choose $r$ with $1<r<L$. For all sufficiently large $n$,
+$|a_{n+1}|>r|a_n|$. Hence the absolute values eventually grow at
+least geometrically and in particular do not tend to zero. The
+necessary condition for convergence of a series then shows that
+$\sum a_n$ diverges. When $L=1$ the test gives no conclusion: the
+harmonic series diverges, whereas $\sum 1/n^2$ converges, and the
+ratios of consecutive absolute terms tend to $1$ in both examples.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Root Test):} If
+\[
+ L:=\limsup_{n\to\infty}\sqrt[n]{|a_n|},
+\]
+then $L<1$ implies absolute convergence and $L>1$ implies
+divergence. The case $L=1$ is inconclusive.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Suppose $L<1$. Choose $r$ with $L<r<1$. The
+definition of limit superior implies that $|a_n|^{1/n}<r$ for all
+sufficiently large $n$; hence $|a_n|<r^n$, and comparison with a
+geometric series proves absolute convergence.
+
+If $L>1$, choose $r$ with $1<r<L$. Infinitely many indices $n$
+satisfy $|a_n|^{1/n}>r$, so along those indices $|a_n|>r^n$ and the
+terms do not tend to zero. Thus the series diverges. At $L=1$ the
+test is inconclusive, as witnessed by $\sum1/n$ and $\sum1/n^2$:
+the corresponding root limits both equal $1$, although only the
+second series converges.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Alternating Series Test):} If
+$a_1\ge a_2\ge\cdots\ge0$ and $a_n\to0$, then
+\[
+ \sum_{n=1}^{\infty}(-1)^{n-1}a_n
+\]
+converges. Its sum lies between any two consecutive partial sums,
+and the error after $N$ terms has magnitude at most $a_{N+1}$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Write
+$S_N:=\sum_{n=1}^N(-1)^{n-1}a_n$ and $S_0:=0$. For every $k\ge0$,
+\[
+    S_{2k+2}-S_{2k}=a_{2k+1}-a_{2k+2}\ge0,
+\]
+so $(S_{2k})$ is increasing. Also
+\[
+    S_{2k+3}-S_{2k+1}=-a_{2k+2}+a_{2k+3}\le0,
+\]
+so $(S_{2k+1})$ is decreasing. Since
+$S_{2k}\le S_{2k+1}$ and $S_{2k+1}-S_{2k}=a_{2k+1}\to0$,
+the even partial sums are bounded above, the odd partial sums are
+bounded below, and the two subsequences have the same limit $S$.
+Every partial sum is in one of these subsequences, so $S_N\to S$.
+
+For every $N$, $S$ lies between $S_N$ and $S_{N+1}$: when $N$ is
+even, $S_N\le S\le S_{N+1}$, and when $N$ is odd,
+$S_{N+1}\le S\le S_N$. Their difference is $a_{N+1}$, so
+$|S-S_N|\le a_{N+1}$. This also proves the claimed bracketing.
+\hfill$\square$
+\end{claim_box}
+
+The geometric series and zeta function are fundamental examples; here
+$s\in\RR$:
+\[
+ \sum_{n=0}^{\infty}r^n=\frac1{1-r}\quad(|r|<1),
+ \qquad
+ \sum_{n=1}^{\infty}\frac1{n^s}
+ \begin{cases}
+  \text{converges},&s>1,\\
+  \text{diverges},&s\le1.
+ \end{cases}
+\]
+For the geometric series, the finite sum is
+$\sum_{n=0}^N r^n=(1-r^{N+1})/(1-r)$, and $r^{N+1}\to0$ when
+$|r|<1$. For the second assertion, partition the positive integers
+into blocks $2^k\le n<2^{k+1}$. If $s>1$, the sum over the $k$th
+block is at most
+\[
+    2^k(2^k)^{-s}=2^{-k(s-1)},
+\]
+so the series is bounded above by a convergent geometric series. If
+$0<s\le1$, the sum over that block is at least
+\[
+    2^k(2^{k+1})^{-s}=2^{-s}2^{k(1-s)}\ge2^{-s};
+\]
+infinitely many blocks therefore force divergence. If $s\le0$, then
+$n^{-s}\not\to0$, so divergence follows from the necessary condition
+for series convergence.
+
+\subsection{Absolute and Conditional Convergence}
+
+\begin{definition_box}
+A series $\sum a_n$ is absolutely convergent if
+$\sum|a_n|$ converges. It is conditionally convergent if it converges
+but does not converge absolutely.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:} Absolute convergence implies convergence.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Since
+$|\sum_{k=m}^n a_k|\le\sum_{k=m}^n|a_k|$, the Cauchy criterion
+for $\sum|a_n|$ implies the Cauchy criterion for $\sum a_n$.
+\hfill$\square$
+\end{claim_box}
+
+The alternating harmonic series
+$\sum_{n=1}^{\infty}(-1)^{n-1}/n$ is conditionally convergent:
+convergence follows from the alternating series test, while absolute
+convergence fails by divergence of the harmonic series.
+
+\subsection{Rearrangements and the Riemann Rearrangement Theorem}
+
+A rearrangement is a series obtained by permuting the terms. Absolute
+convergence is invariant under rearrangement and every rearrangement
+has the same sum. Conditional convergence behaves very differently.
+
+\begin{problem_box}
+\textbf{Theorem (Rearrangement of Absolutely Convergent Series):}
+If $\sum a_n$ converges absolutely to $S$, then every rearrangement
+$\sum a_{\pi(n)}$ also converges absolutely to $S$, where $\pi$ is a
+permutation of the positive integers.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\epsilon>0$. Since $\sum|a_n|$ converges, choose $N$ such that
+$\sum_{n>N}|a_n|<\epsilon$. Because $\pi$ is a permutation, there is
+an index $M$ such that each of the finitely many terms
+$a_1,\ldots,a_N$ occurs among
+$a_{\pi(1)},\ldots,a_{\pi(M)}$. For $m> M$, the difference between
+the $m$-th rearranged partial sum and $S$ consists only of terms with
+original indices greater than $N$: some such terms have been included
+in the partial sum, and the rest have not. The triangle inequality
+therefore gives
+\[
+    \left|\sum_{j=1}^m a_{\pi(j)}-S\right|
+    \le \sum_{n>N}|a_n|<\epsilon.
+\]
+Thus the rearranged partial sums converge to $S$. Applying the same
+argument to the nonnegative series $\sum|a_n|$ shows that
+$\sum_{j=1}^{\infty}|a_{\pi(j)}|=\sum_{n=1}^{\infty}|a_n|$; hence the
+rearrangement converges absolutely as well.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Riemann Rearrangement):} If a real series converges
+conditionally, then for every $L\in\RR$ its terms can be rearranged
+so that the rearranged series converges to $L$. The terms can also be
+rearranged to diverge to $+\infty$ or to $-\infty$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Write the positive terms of the series, in their original order, as
+$p_1,p_2,\ldots>0$, and write the absolute values of its negative
+terms, in their original order, as $q_1,q_2,\ldots>0$. There must be
+infinitely many terms of each sign. Moreover,
+\[
+  \sum_{j=1}^{\infty}p_j=+\infty,
+  \qquad
+  \sum_{j=1}^{\infty}q_j=+\infty.
+\]
+For if, for example, the positive subseries had finite sum, then the
+convergence of the original series would force the negative subseries
+to have finite sum as well, making the original series absolutely
+convergent. The same argument applies with the signs reversed.
+Also, $p_j\to0$ and $q_j\to0$, because the terms of every convergent
+series tend to zero.
+
+Fix $L\in\RR$. Starting with partial sum $0$, add unused positive
+terms in their original order until the sum first becomes strictly
+greater than $L$, then add unused negative terms until it first becomes
+strictly less than $L$, and repeat. If $L<0$, begin instead with the
+negative stage, since $0>L$ already; after this first crossing the
+stages alternate as described. Each required crossing occurs after
+finitely many terms because both $\sum p_j$ and $\sum q_j$ diverge.
+Every stage uses at least one term, and there are infinitely many
+stages of each sign. Thus the procedure is a rearrangement and uses
+every term, preserving the original order within each sign.
+
+Let $U_k$ be the partial sum immediately after the $k$-th positive
+stage, and let $V_k$ be the partial sum immediately after the
+$k$-th negative stage. Apart from a possible initial negative stage
+when $L<0$, each stage crosses $L$ from the opposite side. By the
+definition of the first crossing,
+\[
+  0<U_k-L\le p_{r_k},
+  \qquad
+  0<L-V_k\le q_{s_k},
+\]
+where $p_{r_k}$ and $q_{s_k}$ are the last terms used in the
+corresponding stages. Since each stage uses at least one new term,
+$r_k,s_k\to\infty$, and hence $p_{r_k},q_{s_k}\to0$. Therefore
+$U_k\to L$ and $V_k\to L$. Within each stage the partial sums move
+monotonically between the crossing sum at the start of that stage and
+the crossing sum at its end. Both endpoint sums tend to $L$, so all
+partial sums tend to $L$. Any exceptional initial stage is finite and
+does not affect convergence. This proves the first assertion.
+
+For a rearrangement diverging to $+\infty$, at stage $k$ take the
+next unused negative term and then take unused positive terms, in
+their original order, until the partial sum exceeds $k$. Each positive
+block is finite because the positive subseries diverges. At the end of
+an active positive block, the overshoot above $k$ is at most its last
+positive term. There must be infinitely many nonempty positive blocks:
+otherwise only finitely much positive mass would be added, while the
+inserted negative terms have divergent total magnitude, eventually
+forcing the partial sum below the next threshold; the divergence of
+$\sum p_j$ would then force another nonempty block. Thus every positive
+term, in its original order, is eventually used; every negative term
+is used once per stage. Immediately after the negative term at stage
+$k$, the sum is greater than $k-1$ minus the magnitude of that term,
+which tends to zero, since the preceding stage ended above $k-1$. The
+other partial sums in that stage only increase; thus the entire
+sequence of partial sums tends to $+\infty$.
+Interchanging positive and negative terms gives a rearrangement
+tending to $-\infty$.
+\hfill$\square$\end{claim_box}
+
+\subsection{Cauchy Products}
+
+\begin{definition_box}
+For sequences indexed from $0$, the Cauchy product of $\sum a_n$ and
+$\sum b_n$ is
+\[
+ \sum_{n=0}^{\infty}c_n,\qquad
+ c_n:=\sum_{k=0}^n a_kb_{n-k}.
+\]
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem (Cauchy Product):} If $\sum a_n$ and $\sum b_n$
+converge absolutely to $A$ and $B$, respectively, then their Cauchy
+product converges absolutely and has sum $AB$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Put $A_N:=\sum_{k=0}^N a_k$ and $B_N:=\sum_{k=0}^N b_k$.
+First, the triangle inequality gives
+\[
+ \sum_{n=0}^N|c_n|
+ \le\sum_{n=0}^N\sum_{k=0}^n|a_k|\,|b_{n-k}|
+ \le\left(\sum_{k=0}^{\infty}|a_k|\right)
+      \left(\sum_{j=0}^{\infty}|b_j|\right).
+\]
+The partial sums on the left are increasing and bounded above, so
+$\sum|c_n|$ converges. In particular, the Cauchy product converges
+absolutely.
+
+It remains to identify its sum. Let
+\[
+ C_N:=\sum_{n=0}^N c_n
+     =\sum_{i+j\le N}a_i b_j.
+\]
+The rectangular partial sum is
+\[
+ A_NB_N=\sum_{0\le i,j\le N}a_i b_j.
+\]
+Their difference consists of the terms with $0\le i,j\le N$ and
+$i+j>N$. We show that the sum of the absolute values of these omitted
+terms tends to zero. Given $\epsilon>0$, choose $K$ so large that
+\[
+ \left(\sum_{i>K}|a_i|\right)\left(\sum_{j\ge0}|b_j|\right)
+ +\left(\sum_{i\ge0}|a_i|\right)
+  \left(\sum_{j>K}|b_j|\right)<\epsilon.
+\]
+If $N\ge2K$ and $i+j>N$, then at least one of $i,j$ is greater
+than $K$. Consequently
+\[
+ |A_NB_N-C_N|
+ \le\sum_{\substack{0\le i,j\le N\\i+j>N}}|a_i||b_j|
+ <\epsilon.
+\]
+Thus $A_NB_N-C_N\to0$. Since $A_N\to A$ and $B_N\to B$,
+the algebra of limits gives $A_NB_N\to AB$. It follows that
+$C_N\to AB$, which proves that the Cauchy product has sum $AB$.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Infinite Products}
+
+\begin{definition_box}
+For a sequence $(u_n)$, the infinite product
+$\prod_{n=1}^{\infty}(1+u_n)$ is said to converge to a nonzero value
+if its partial products
+$P_N:=\prod_{n=1}^N(1+u_n)$ converge to a finite nonzero limit.
+\end{definition_box}
+
+A necessary condition for convergence to a nonzero value is $u_n\to0$:
+indeed, if $P_N\to P\ne0$, then $P_{N-1}\to P$ and, for all
+sufficiently large $N$,
+$1+u_N=P_N/P_{N-1}\to P/P=1$.
+If $u_n\ge0$, the partial products are increasing. Thus they have a
+finite limit exactly when they are bounded above; since $P_N\ge1$,
+that limit is automatically nonzero.
+
+For nonnegative terms, the precise criterion is
+\[
+    \prod_{n=1}^{\infty}(1+u_n)\text{ converges to a finite value}
+    \quad\Longleftrightarrow\quad
+    \sum_{n=1}^{\infty}u_n\text{ converges}.
+\]
+
+For $u\ge0$, the mean value theorem applied to $\log(1+t)$ on
+$[0,u]$ gives
+\[
+ \log(1+u)=\frac{u}{1+c}
+\]
+for some $c\in(0,u)$ when $u>0$ (the case $u=0$ is immediate).
+Therefore
+\[
+ \frac{u}{1+u}\le\log(1+u)\le u.
+\]
+If $u_n\to0$, then
+$u_n\le1$ eventually, and consequently
+\[
+ \frac{u_n}{2}\le\log(1+u_n)\le u_n
+\]
+for all sufficiently large $n$. By comparison, when $u_n\to0$,
+$\sum\log(1+u_n)$ converges if and only if $\sum u_n$ converges.
+If instead $u_n\not\to0$, there are $\delta>0$ and infinitely many
+$n$ with $u_n\ge\delta$; then
+$\log(1+u_n)\ge\log(1+\delta)>0$ along those indices, so both
+nonnegative-term series diverge. Thus the equivalence holds in all
+cases. Finally,
+\[
+ \log P_N=\sum_{n=1}^N\log(1+u_n).
+\]
+Since $P_N\ge1$, continuity and monotonicity of the logarithm show
+that $P_N$ has a finite limit if and only if $\log P_N$ has a
+finite limit. This identity and the established series equivalence
+prove the criterion.
+
+\section{Continuity}
+
+Continuity expresses the idea that values of a function near a point are close to its value at that point. We begin with the interval definition.
+
+\begin{definition_box}
+Let $J\subseteq\RR$, let $f:J\to\RR$, and let $a\in J$. We say that $f$ is \emph{continuous at $a$ (in $J$)} if, for every sequence $(x_n)$ in $J$ such that $x_n\to a$, we have
+\[
+    f(x_n)\to f(a).
+\]
+We say that $f$ is \emph{continuous on $J$} if it is continuous at every $a\in J$.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Example 1:} The function $f:\RR\to\RR$, $f(x)=x^2$, is continuous on $\RR$.
+
+\textit{Proof:}
+Let $a\in\RR$ and let $(x_n)$ be any sequence in $\RR$ with $x_n\to a$. By the algebra of convergent sequences (the product rule, applied with $y_n=x_n$), we have $x_n\cdot x_n\to a\cdot a$, that is,
+\[
+    f(x_n)=x_n^2\to a^2=f(a)
+\]
+Since $a$ and $(x_n)$ were arbitrary, $f$ is continuous at every $a\in\RR$.
+\hfill$\square$
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example 2:} The absolute value function $f:\RR\to\RR$, $f(x)=|x|$, is continuous on $\RR$.
+
+\textit{Proof:}
+Let $a\in\RR$ and let $x_n\to a$. By the reverse triangle inequality,
+\[
+    0\le\bigl||x_n|-|a|\bigr|\le|x_n-a|\qquad(n\ge1)
+\]
+Since $x_n\to a$, we have $|x_n-a|\to0$, and the constant sequence $0$ also tends to $0$. By the Sandwich Lemma, $\bigl||x_n|-|a|\bigr|\to0$, that is, $|x_n|\to|a|$. Hence $f(x_n)\to f(a)$, and $f$ is continuous at $a$.
+\hfill$\square$
+\end{example_box}
+
+\begin{example_box}
+\textbf{Example 3:} The step function $f:\RR\to\RR$ defined by
+\[
+    f(x)=\begin{cases}0,&x<0,\\1,&x\ge0\end{cases}
+\]
+is not continuous at $0$.
+
+To show that a function is \emph{not} continuous at $a$, it suffices by the definition to exhibit a single sequence $x_n\to a$ for which $f(x_n)\not\to f(a)$.
+
+\textit{Proof:}
+Let $x_n:=-\dfrac1n$ for $n\ge1$. Since $\dfrac1n\to0$, the algebra of convergent sequences gives $x_n\to0$. However, $x_n<0$ for every $n$, so $f(x_n)=0$ for every $n$, and therefore $f(x_n)\to0$. Since $f(0)=1$ and limits are unique, $f(x_n)\not\to f(0)$. Hence $f$ is not continuous at $0$.
+\hfill$\square$
+\end{example_box}
+
+The interval definition actually very useful in a lot of cases but the more popular definition of continuity is the epsilon-delta definition.
+
+\begin{definition_box}
+Let $J\subseteq\RR$ be nonempty, let $f:J\rightarrow\RR$ be a function, and let $a\in J$. We say that $f$ is \emph{continuous at $a$} if for every $\epsilon>0$ there exists $\delta>0$ such that
+\[
+    |f(x)-f(a)|<\epsilon\qquad\text{for all }x\in J\text{ with }|x-a|<\delta
+\]
+We say that $f$ is \emph{continuous on $J$} if it is continuous at every point of $J$.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem (Equivalence of the Two Definitions of Continuity):}
+Let $J\subseteq\RR$, let $f:J\to\RR$, and let $a\in J$. Then $f$ is continuous at $a$ in the sequential sense if and only if it is continuous at $a$ in the $\epsilon$--$\delta$ sense.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We prove both implications.
+
+\textbf{($\epsilon$--$\delta$ continuity $\Rightarrow$ sequential continuity):}
+Suppose $f$ is continuous at $a$ in the $\epsilon$--$\delta$ sense. Let $(x_n)$ be any sequence in $J$ such that $x_n\to a$. Given $\epsilon>0$, choose $\delta>0$ such that
+\[
+    |x-a|<\delta\implies |f(x)-f(a)|<\epsilon
+\]
+for every $x\in J$. Since $x_n\to a$, there exists $N\in\NN$ such that $|x_n-a|<\delta$ whenever $n\ge N$. Therefore, for all $n\ge N$,
+\[
+    |f(x_n)-f(a)|<\epsilon.
+\]
+Thus $f(x_n)\to f(a)$. Since $(x_n)$ was arbitrary, $f$ is sequentially continuous at $a$.
+
+\medskip
+\textbf{(Sequential continuity $\Rightarrow$ $\epsilon$--$\delta$ continuity):}
+We prove the contrapositive. Suppose $f$ is not continuous at $a$ in the $\epsilon$--$\delta$ sense. Then there exists $\epsilon_0>0$ such that, for every $\delta>0$, there is some $x\in J$ with
+\[
+    |x-a|<\delta\qquad\text{and}\qquad |f(x)-f(a)|\ge\epsilon_0.
+\]
+For each $n\in\NN$, take $\delta=1/n$ and choose $x_n\in J$ such that
+\[
+    |x_n-a|<\frac1n\qquad\text{and}\qquad |f(x_n)-f(a)|\ge\epsilon_0.
+\]
+The first inequality implies $x_n\to a$, but the second shows that $f(x_n)$ does not converge to $f(a)$. Hence $f$ is not sequentially continuous at $a$.
+
+Therefore, each definition implies the other, so the two definitions of continuity are equivalent.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Algebra of Continuous Functions):}
+Let $f,g:J\rightarrow\RR$ be continuous at $a\in J$, and let $c\in\RR$. Then:
+\begin{enumerate}[(i)]
+    \item $f+g$ is continuous at $a$.
+    \item $cf$ is continuous at $a$.
+    \item $fg$ is continuous at $a$.
+    \item If $g(a)\ne0$, then there is $\delta_0>0$ such that $g(x)\ne0$ for all $x\in J$ with $|x-a|<\delta_0$. Moreover, on the set $J_0:=\{x\in J:g(x)\ne0\}$, which contains $a$, the functions $\dfrac1g$ and $\dfrac fg$ are continuous at $a$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\epsilon>0$. In each part, all points $x$ considered lie in $J$.
+
+\begin{enumerate}[(i)]
+    \item Choose $\delta_1,\delta_2>0$ such that
+    \[
+        |f(x)-f(a)|<\frac\epsilon2\quad(|x-a|<\delta_1),
+        \qquad
+        |g(x)-g(a)|<\frac\epsilon2\quad(|x-a|<\delta_2)
+    \]
+    If $|x-a|<\delta:=\min\{\delta_1,\delta_2\}$, then
+    \[
+    \begin{aligned}
+        |(f+g)(x)-(f+g)(a)|
+        &\le|f(x)-f(a)|+|g(x)-g(a)|\\
+        &<\epsilon
+    \end{aligned}
+    \]
+    Hence $f+g$ is continuous at $a$.
+
+    \item If $c=0$, then $cf$ is the zero function and $|cf(x)-cf(a)|=0<\epsilon$ for every $x$. If $c\ne0$, choose $\delta>0$ such that
+    \[
+        |f(x)-f(a)|<\frac\epsilon{|c|}\qquad(|x-a|<\delta)
+    \]
+    Then
+    \[
+        |cf(x)-cf(a)|=|c|\,|f(x)-f(a)|<\epsilon,
+    \]
+    so $cf$ is continuous at $a$.
+
+    \item Since $f$ is continuous at $a$, there is $\delta_0>0$ such that $|f(x)-f(a)|<1$ for $|x-a|<\delta_0$. Thus
+    \[
+        |f(x)|\le|f(x)-f(a)|+|f(a)|<1+|f(a)|=:M
+        \qquad(|x-a|<\delta_0)
+    \]
+    Choose $\delta_1,\delta_2>0$ such that
+    \[
+        |g(x)-g(a)|<\frac\epsilon{2M}\quad(|x-a|<\delta_1),
+        \qquad
+        |f(x)-f(a)|<\frac\epsilon{2(|g(a)|+1)}\quad(|x-a|<\delta_2)
+    \]
+    For $|x-a|<\delta:=\min\{\delta_0,\delta_1,\delta_2\}$,
+    \[
+    \begin{aligned}
+        |f(x)g(x)-f(a)g(a)|
+        &=|f(x)(g(x)-g(a))+g(a)(f(x)-f(a))|\\
+        &\le|f(x)|\,|g(x)-g(a)|+|g(a)|\,|f(x)-f(a)|\\
+        &<M\cdot\frac\epsilon{2M}+|g(a)|\cdot\frac\epsilon{2(|g(a)|+1)}
+        <\epsilon
+    \end{aligned}
+    \]
+    Therefore $fg$ is continuous at $a$.
+
+    \item Suppose $g(a)\ne0$. Since $g$ is continuous at $a$, taking $\epsilon'=\frac{|g(a)|}2$ there is $\delta_0>0$ such that
+    \[
+        |g(x)-g(a)|<\frac{|g(a)|}2\qquad(|x-a|<\delta_0)
+    \]
+    The triangle inequality gives
+    \[
+        |g(x)|\ge|g(a)|-|g(x)-g(a)|>\frac{|g(a)|}2>0,
+    \]
+    so $g(x)\ne0$ for every $x\in J$ with $|x-a|<\delta_0$. In particular $a\in J_0$, and $1/g$ is defined on $J_0$.
+
+    Next, choose $\delta_1>0$ such that
+    \[
+        |g(x)-g(a)|<\frac{\epsilon\,|g(a)|^2}2\qquad(|x-a|<\delta_1)
+    \]
+    For $x\in J_0$ with $|x-a|<\delta:=\min\{\delta_0,\delta_1\}$,
+    \[
+    \begin{aligned}
+        \left|\frac1{g(x)}-\frac1{g(a)}\right|
+        &=\frac{|g(x)-g(a)|}{|g(x)|\,|g(a)|}\\
+        &<\frac{2\,|g(x)-g(a)|}{|g(a)|^2}
+        <\epsilon
+    \end{aligned}
+    \]
+    Hence $1/g$ is continuous at $a$. Finally, the restriction of $f$ to $J_0$ is continuous at $a$ (the same $\delta$ works), so by (iii), applied on the domain $J_0$, the product $f\cdot\frac1g=\frac fg$ is continuous at $a$.
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+Applying this theorem at every point of $J$, we see that if $f$ and $g$ are continuous on $J$, then so are $f+g$, $cf$ and $fg$, and $f/g$ is continuous on $\{x\in J:g(x)\ne0\}$. Since constant functions and the identity function $x\mapsto x$ are trivially continuous (take $\delta=\epsilon$ for the latter), it follows that every polynomial is continuous on $\RR$, and every rational function is continuous wherever its denominator is nonzero.
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $f,g:J\rightarrow\RR$ be continuous at $a\in J$. Define the functions $\max\{f,g\}$ and $\min\{f,g\}$ on $J$ by
+\[
+    \max\{f,g\}(x):=\max\{f(x),g(x)\},
+    \qquad
+    \min\{f,g\}(x):=\min\{f(x),g(x)\}
+\]
+Then $\max\{f,g\}$ and $\min\{f,g\}$ are continuous at $a$. Consequently, if $f$ and $g$ are continuous on $J$, then so are $\max\{f,g\}$ and $\min\{f,g\}$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We first show that if $h:J\rightarrow\RR$ is continuous at $a$, then so is $|h|$. Let $\epsilon>0$ and choose $\delta>0$ such that $|h(x)-h(a)|<\epsilon$ whenever $x\in J$ and $|x-a|<\delta$. By the reverse triangle inequality, for such $x$,
+\[
+    \bigl||h|(x)-|h|(a)\bigr|=\bigl||h(x)|-|h(a)|\bigr|\le|h(x)-h(a)|<\epsilon
+\]
+Hence $|h|$ is continuous at $a$.
+
+Next, for all real numbers $s,t$ we have
+\[
+    \max\{s,t\}=\frac{s+t+|s-t|}2,
+    \qquad
+    \min\{s,t\}=\frac{s+t-|s-t|}2
+\]
+Indeed, if $s\ge t$ then $|s-t|=s-t$, and the right-hand sides equal $s$ and $t$ respectively, which are the maximum and the minimum; if $s<t$ then $|s-t|=t-s$, and the right-hand sides equal $t$ and $s$ respectively. Applying these identities pointwise gives
+\[
+    \max\{f,g\}=\frac12\bigl(f+g+|f-g|\bigr),
+    \qquad
+    \min\{f,g\}=\frac12\bigl(f+g-|f-g|\bigr)
+\]
+By the algebra of continuous functions, $f+g$ is continuous at $a$, and $f-g=f+(-1)g$ is continuous at $a$. By the first paragraph, $|f-g|$ is continuous at $a$. Applying the algebra of continuous functions again, the sum $f+g+|f-g|$ and the difference $f+g-|f-g|$ are continuous at $a$, and so are their products with the constant $\tfrac12$. Hence $\max\{f,g\}$ and $\min\{f,g\}$ are continuous at $a$.
+
+If $f$ and $g$ are continuous on $J$, the above holds at every $a\in J$, so $\max\{f,g\}$ and $\min\{f,g\}$ are continuous on $J$.
+\hfill$\square$
+\end{claim_box}
+
+
+\subsection{Types of Discontinuity}
+
+A function may fail to be continuous at a point in several distinct
+ways. The following classification is useful when one-sided limits
+exist.
+
+\begin{definition_box}
+Let $f$ be defined on a deleted neighbourhood of $a$.
+A discontinuity at $a$ is called:
+\begin{enumerate}[(i)]
+ \item \emph{removable} if $\lim_{x\to a}f(x)$ exists and is finite,
+ but differs from $f(a)$ or $f(a)$ is undefined;
+ \item a \emph{jump discontinuity} if the finite one-sided limits
+ $f(a^-)$ and $f(a^+)$ exist but are unequal;
+ \item an \emph{infinite discontinuity} if at least one one-sided
+ limit is $+\infty$ or $-\infty$.
+\end{enumerate}
+If neither one-sided limit exists, the discontinuity is often called
+an oscillatory discontinuity.
+\end{definition_box}
+
+\begin{example_box}
+\textbf{Examples.} The function $f(x)=\sin x/x$ for $x\ne0$, with
+$f(0)=0$, has a removable discontinuity at $0$, since its limit there
+is $1$. The step function has a jump at $0$. The function $1/x^2$
+has an infinite discontinuity at $0$. The function $\sin(1/x)$ has an
+oscillatory discontinuity at $0$.
+\end{example_box}
+
+\begin{problem_box}
+\textbf{Example (Dirichlet Function):} Define $D:\RR\to\RR$ by
+\[
+    D(x):=\begin{cases}
+        1,&x\in\QQ,\\
+        0,&x\notin\QQ.
+    \end{cases}
+\]
+Then $D$ is discontinuous at every real number.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Fix $a\in\RR$. By the density of both $\QQ$ and its
+complement, choose rational numbers $q_n\to a$ and irrational numbers
+$r_n\to a$. Then $D(q_n)=1$ for every $n$, whereas $D(r_n)=0$ for
+every $n$. If $D$ were continuous at $a$, both sequences of function
+values would converge to $D(a)$, which is impossible. Therefore $D$
+is discontinuous at every $a\in\RR$.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Thomae's Function):}
+Define $T:\RR\to\RR$ by
+\[
+    T(x):=\begin{cases}
+        \dfrac1q, & x=\dfrac pq\in\QQ,\ \gcd(p,q)=1,\ q\ge1,\\[2mm]
+        0, & x\in\RR\setminus\QQ.
+    \end{cases}
+\]
+Then $T$ is continuous at every irrational number and discontinuous at every rational number.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We consider the irrational and rational points separately.
+
+\textbf{(i) Continuity at irrational points:}
+Let $a\in\RR\setminus\QQ$. Then $T(a)=0$. Let $\epsilon>0$ be arbitrary. Choose $N\in\NN$ such that $1/N<\epsilon$.
+
+Consider the finite set
+\[
+    S:=\left\{\frac pq\in[a-1,a+1]:\gcd(p,q)=1,\ 1\le q<N\right\}.
+\]
+This set is finite because there are only finitely many possible denominators $q<N$, and for each such denominator only finitely many numerators $p$ give a fraction in $[a-1,a+1]$. Since $a$ is irrational, $a\notin S$. If $S$ is nonempty, let
+\[
+    d:=\min_{r\in S}|r-a|>0;
+\]
+if $S$ is empty, set $d:=1$. Choose $\delta:=\min\{1,d\}/2>0$.
+
+Suppose $|x-a|<\delta$. If $x$ is irrational, then $T(x)=0$, so $|T(x)-T(a)|=0<\epsilon$. If $x$ is rational, write $x=p/q$ in lowest terms with $q\ge1$. The choice of $\delta$ ensures that $q\ge N$, since otherwise $x$ would belong to $S$ while satisfying $|x-a|<d$. Hence
+\[
+    |T(x)-T(a)|=T(x)=\frac1q\le\frac1N<\epsilon.
+\]
+Thus for every $\epsilon>0$ there exists $\delta>0$ such that $|x-a|<\delta$ implies $|T(x)-T(a)|<\epsilon$. Therefore $T$ is continuous at $a$.
+
+\medskip
+\textbf{(ii) Discontinuity at rational points:}
+Let $a\in\QQ$, and write $a=p/q$ in lowest terms with $q\ge1$. Then
+\[
+    T(a)=\frac1q>0.
+\]
+Since the irrational numbers are dense in $\RR$, there exists a sequence of irrational numbers $(x_n)$ such that $x_n\to a$. For every $n$, $T(x_n)=0$, and therefore
+\[
+    T(x_n)=0\longrightarrow 0\ne T(a).
+\]
+Thus $T(x_n)$ does not converge to $T(a)$. By the sequential criterion for continuity, $T$ is discontinuous at $a$.
+
+Since $a$ was arbitrary in each case, $T$ is continuous at every irrational point and discontinuous at every rational point.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Intermediate Value Theorem (IVT)}
+
+The Intermediate Value Theorem has a useful special case: a continuous function that takes both negative and positive values must take the value $0$ in between. The general version says that it takes every value between any two of its values.
+
+\begin{problem_box}
+\textbf{Theorem (Zero-Value Form of IVT):}
+Let $J\subseteq\RR$ be an interval and let $f:J\to\RR$ be continuous. If there exist $u,v\in J$ such that $f(u)<0<f(v)$, then there exists $c$ strictly between $u$ and $v$ such that
+\[
+    f(c)=0.
+\]
+The same conclusion holds if $f(v)<0<f(u)$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+It suffices to consider the case $u<v$ and $f(u)<0<f(v)$; the other cases follow by interchanging the endpoints or replacing $f$ by $-f$. Restrict $f$ to $[u,v]$ and define
+\[
+    A:=\{x\in[u,v]:f(x)<0\}.
+\]
+The set $A$ is nonempty because $u\in A$, and it is bounded above by $v$. By completeness of $\RR$, $c:=\sup A$ exists and $u\le c\le v$.
+
+We show that $f(c)=0$, using continuity at $c$.
+
+If $f(c)<0$, choose $\epsilon=-f(c)>0$. By continuity at $c$, there exists $\delta>0$ such that for every $x\in[u,v]$ with $|x-c|<\delta$,
+\[
+    |f(x)-f(c)|<-f(c),
+\]
+which implies $f(x)<0$. Since $f(v)>0$, we have $c<v$. Choose $x$ with $c<x<\min\{c+\delta,v\}$. Then $f(x)<0$, so $x\in A$, contradicting that $c$ is an upper bound of $A$.
+
+If $f(c)>0$, choose $\epsilon=f(c)>0$. Continuity gives $\delta>0$ such that
+\[
+    |x-c|<\delta\implies |f(x)-f(c)|<f(c),
+\]
+for $x\in[u,v]$, and hence $f(x)>0$ throughout this neighbourhood. By the defining property of the supremum, there exists $x\in A$ with $c-\delta<x\le c$. But $x\in A$ means $f(x)<0$, a contradiction.
+
+Thus neither $f(c)<0$ nor $f(c)>0$ is possible, so $f(c)=0$. Since $f(u)<0<f(v)$, $c$ is neither endpoint; hence $c\in(u,v)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Generalized Intermediate Value Theorem):}
+Let $a,b\in\RR$ with $a<b$, and let $f:[a,b]\to\RR$ be continuous. For every $y$ strictly between $f(a)$ and $f(b)$, there exists $c\in(a,b)$ such that
+\[
+    f(c)=y.
+\]
+In particular, this applies whether $f(a)<f(b)$ or $f(b)<f(a)$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+First suppose $f(a)<y<f(b)$. Define
+\[
+    A:=\{x\in[a,b]:f(x)<y\}.
+\]
+Since $f(a)<y$, the set $A$ is nonempty; it is bounded above by $b$. Let $c:=\sup A$, which exists by completeness of $\RR$.
+
+We prove $f(c)=y$ directly from the definition of continuity.
+
+Suppose $f(c)<y$. Taking $\epsilon=y-f(c)>0$, continuity at $c$ gives $\delta>0$ such that, for every $x\in[a,b]$ with $|x-c|<\delta$,
+\[
+    |f(x)-f(c)|<y-f(c),
+\]
+so $f(x)<y$. Since $f(b)>y$, we have $c<b$. Choose $x$ with $c<x<\min\{c+\delta,b\}$. Then $x\in A$, contradicting that $c$ is an upper bound of $A$.
+
+Suppose instead that $f(c)>y$. Taking $\epsilon=f(c)-y>0$, continuity at $c$ gives $\delta>0$ such that
+\[
+    |x-c|<\delta\implies |f(x)-f(c)|<f(c)-y,
+\]
+for $x\in[a,b]$. Consequently, $f(x)>y$ whenever $x\in[a,b]$ and $|x-c|<\delta$. By the defining property of the supremum, there exists $x\in A$ with $c-\delta<x\le c$. But $x\in A$ means $f(x)<y$, a contradiction.
+
+Therefore $f(c)=y$. Because $f(a)<y<f(b)$, we have $c\ne a$ and $c\ne b$, so $c\in(a,b)$.
+
+If $f(b)<y<f(a)$, apply the proved case to $-f$ and the value $-y$. This yields a point $c\in(a,b)$ with $-f(c)=-y$, hence $f(c)=y$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Existence of $n$th Roots):}
+For every $x\ge 0$ and every positive integer $n$, there exists a real number $r\ge 0$ such that
+\[
+    r^n=x.
+\]
+In particular, every positive real number has a positive $n$th root.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+The case $x=0$ is immediate, since $0^n=0$. Suppose $x>0$. Consider the function
+\[
+    f(t)=t^n.
+\]
+Since $f$ is a polynomial, it is continuous on $[0,b]$, where $b:=\max\{1,x\}$. Also, $f(0)=0<x$ and $f(b)\ge x$: if $x\le 1$, then $b=1$ and $b^n=1\ge x$; if $x\ge 1$, then $b=x$ and $b^n=x^n\ge x$.
+
+Thus $x$ lies between $f(0)$ and $f(b)$. By the Intermediate Value Theorem, there exists $r\in[0,b]$ such that
+\[
+    f(r)=x,
+\]
+which means $r^n=x$. Since $x>0$, we have $r>0$. Hence every positive real number has a positive $n$th root.
+\hfill$\square$
+\end{claim_box}
+
+
+\begin{problem_box}
+\textbf{Theorem (Fixed Point Theorem):}
+Let $a,b\in\RR$ with $a<b$, and let $f:[a,b]\to[a,b]$ be continuous. Then there exists $c\in[a,b]$ such that
+\[
+    f(c)=c.
+\]
+Such a point $c$ is called a fixed point of $f$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Define $g:[a,b]\to\RR$ by
+\[
+    g(x)=f(x)-x.
+\]
+Since $f$ and the identity function $x\mapsto x$ are continuous, $g$ is continuous on $[a,b]$. Moreover, because $f([a,b])\subseteq[a,b]$, we have $f(a)\ge a$ and $f(b)\le b$. Therefore,
+\[
+    g(a)=f(a)-a\ge0,\qquad g(b)=f(b)-b\le0.
+\]
+If either $g(a)=0$ or $g(b)=0$, the corresponding endpoint is already a fixed point of $f$. Otherwise, $g(a)>0$ and $g(b)<0$. By the Intermediate Value Theorem, there exists $c\in(a,b)$ such that $g(c)=0$. Hence
+\[
+    f(c)-c=0\quad\Longrightarrow\quad f(c)=c.
+\]
+Thus $f$ has a fixed point in $[a,b]$.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Extreme Value Theorem (EVT)}
+
+\begin{problem_box}
+\textbf{Theorem (Weierstrass Boundedness Theorem):}
+If $f:[a,b]\to\RR$ is continuous on the closed interval $[a,b]$, then $f$ is bounded on $[a,b]$. That is, there exists $M>0$ such that
+\[
+    |f(x)|\le M \qquad\text{for all }x\in[a,b].
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose, for a contradiction, that $f$ is unbounded on $[a,b]$. For every $n\in\mathbb N$, choose $x_n\in[a,b]$ such that
+\[
+    |f(x_n)|>n.
+\]
+Since $(x_n)$ is a sequence in the bounded interval $[a,b]$, the Bolzano--Weierstrass theorem gives a convergent subsequence $(x_{n_k})$ with limit $c\in[a,b]$. By continuity of $f$ at $c$,
+\[
+    f(x_{n_k})\longrightarrow f(c).
+\]
+Every convergent real sequence is bounded, so $(f(x_{n_k}))$ must be bounded. But
+\[
+    |f(x_{n_k})|>n_k\ge k,
+\]
+which makes this subsequence unbounded, a contradiction. Therefore $f$ is bounded on $[a,b]$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Extreme Value Theorem):}
+If $f:[a,b]\to\RR$ is continuous on $[a,b]$, then there exist $x_{\min},x_{\max}\in[a,b]$ such that
+\[
+    f(x_{\min})\le f(x)\le f(x_{\max})
+    \qquad\text{for every }x\in[a,b].
+\]
+Thus $f$ attains both its absolute minimum and its absolute maximum on $[a,b]$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+By the Weierstrass Boundedness Theorem, the set
+\[
+    S:=\{f(x):x\in[a,b]\}
+\]
+is nonempty and bounded above and below. Let
+\[
+    M:=\sup S,\qquad m:=\inf S.
+\]
+We first show that $M$ is attained. By the definition of supremum, for every $n\in\mathbb N$ there exists $x_n\in[a,b]$ such that
+\[
+    M-\frac1n<f(x_n)\le M.
+\]
+Hence $f(x_n)\to M$. By the Bolzano--Weierstrass theorem, $(x_n)$ has a subsequence $(x_{n_k})$ converging to some $x_{\max}\in[a,b]$. Continuity at $x_{\max}$ gives
+\[
+    f(x_{n_k})\longrightarrow f(x_{\max}).
+\]
+But $f(x_{n_k})\to M$ as well. By uniqueness of limits, $f(x_{\max})=M$.
+
+Similarly, by the definition of infimum, for every $n\in\mathbb N$ there exists $y_n\in[a,b]$ such that
+\[
+    m\le f(y_n)<m+\frac1n.
+\]
+Thus $f(y_n)\to m$. The sequence $(y_n)$ has a convergent subsequence $(y_{n_k})$ with limit $x_{\min}\in[a,b]$. Continuity gives
+\[
+    f(y_{n_k})\longrightarrow f(x_{\min}),
+\]
+so uniqueness of limits implies $f(x_{\min})=m$.
+
+Therefore $f$ attains both its supremum and infimum on $[a,b]$, proving the Extreme Value Theorem.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Monotone Functions}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $J\subseteq\RR$ be an interval, and let $f:J\to\RR$ be continuous and one-to-one. Then $f$ is strictly monotone on $J$; that is, $f$ is either strictly increasing or strictly decreasing.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We first show that for any $x,y,z\in J$ with $x<y<z$, the value $f(y)$ lies strictly between $f(x)$ and $f(z)$. Since $f$ is one-to-one, these three values are distinct. Suppose that $f(y)$ does not lie between $f(x)$ and $f(z)$. Then either
+\[
+    f(y)>\max\{f(x),f(z)\}
+\]
+or
+\[
+    f(y)<\min\{f(x),f(z)\}.
+\]
+In either case, the Intermediate Value Theorem applied on $[x,y]$ and $[y,z]$ gives a point $u\in(x,y)$ and a point $v\in(y,z)$ such that $f(u)=f(v)$: choose a value strictly between $f(y)$ and the larger of $f(x),f(z)$ in the first case, or strictly between $f(y)$ and the smaller of them in the second case. This contradicts the fact that $f$ is one-to-one. Hence $f(y)$ lies strictly between $f(x)$ and $f(z)$.
+
+Now choose $a,b\in J$ with $a<b$. Since $f$ is one-to-one, either $f(a)<f(b)$ or $f(a)>f(b)$. Suppose first that $f(a)<f(b)$. By the property proved above, if $x<a$ then $f(x)<f(a)$; if $a<x<b$ then $f(a)<f(x)<f(b)$; and if $x>b$ then $f(x)>f(b)$. The same property shows that $f$ is strictly increasing within each of the three parts $J\cap(-\infty,a]$, $J\cap[a,b]$, and $J\cap[b,\infty)$. The inequalities just established order the values across these parts as well. Hence $f(x)<f(y)$ whenever $x<y$ in $J$, so $f$ is strictly increasing.
+
+If instead $f(a)>f(b)$, apply the preceding argument to $-f$: since $-f(a)<-f(b)$, it follows that $-f$ is strictly increasing, and therefore $f$ is strictly decreasing.
+
+Therefore $f$ is strictly monotone on $J$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $J\subseteq\RR$ be an interval and let $f:J\to\RR$ be monotone. If $f(J)$ is also an interval, then $f$ is continuous on $J$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+It is enough to consider the case where $f$ is nondecreasing. If $f$ is nonincreasing, apply the same argument to $-f$, since $(-f)(J)=-f(J)$ is an interval and continuity of $-f$ is equivalent to continuity of $f$.
+
+We prove continuity using the $\varepsilon$--$\delta$ definition. Suppose, for a contradiction, that $f$ is not continuous at some $c\in J$. Then there exists $\varepsilon_0>0$ such that for every $\delta>0$, there is $x\in J$ with
+\[
+    |x-c|<\delta
+    \qquad\text{and}\qquad
+    |f(x)-f(c)|\ge\varepsilon_0.
+\]
+Taking $\delta=1/n$, choose $x_n\in J$ such that
+\[
+    |x_n-c|<\frac1n,
+    \qquad |f(x_n)-f(c)|\ge\varepsilon_0.
+\]
+Thus $x_n\to c$. Since $f$ is nondecreasing, each $x_n$ must satisfy either $f(x_n)\le f(c)-\varepsilon_0$ or $f(x_n)\ge f(c)+\varepsilon_0$. At least one of these alternatives holds for infinitely many indices, so we may pass to a subsequence for which the same alternative holds throughout.
+
+First suppose that $f(x_n)\le f(c)-\varepsilon_0$ for every term of this subsequence. Since $x_n\ne c$ and $f$ is nondecreasing, we must have $x_n<c$. Let
+\[
+    y=f(c)-\frac{\varepsilon_0}{2}.
+\]
+Then $f(x_n)<y<f(c)$. We claim that $y\notin f(J)$. Indeed, if $t\in J$ and $t<c$, choose $n$ large enough that $t<x_n<c$, which is possible because $x_n\to c$ from the left. Monotonicity gives
+\[
+    f(t)\le f(x_n)\le f(c)-\varepsilon_0<y.
+\]
+If $t\ge c$, then $f(t)\ge f(c)>y$. Hence no $t\in J$ satisfies $f(t)=y$. But $f(x_n)<y<f(c)$, while both $f(x_n)$ and $f(c)$ belong to $f(J)$. This contradicts the assumption that $f(J)$ is an interval.
+
+The other possibility, $f(x_n)\ge f(c)+\varepsilon_0$ for every term of the subsequence, is handled similarly. In this case $x_n>c$. Set
+\[
+    y=f(c)+\frac{\varepsilon_0}{2}.
+\]
+For any $t\in J$ with $t\le c$, monotonicity gives $f(t)\le f(c)<y$. For any $t>c$, choose $n$ sufficiently large that $c<x_n<t$. Then
+\[
+    f(t)\ge f(x_n)\ge f(c)+\varepsilon_0>y.
+\]
+Thus $y\notin f(J)$, although $f(c)<y<f(x_n)$ and both endpoint values belong to $f(J)$, again contradicting that $f(J)$ is an interval.
+
+Both possibilities lead to a contradiction. Therefore $f$ is continuous at every $c\in J$, and hence continuous on $J$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $J\subseteq\RR$ be an interval, and let $f:J\to\RR$ be continuous and one-to-one. Then $f^{-1}:f(J)\to J$ exists and is continuous.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $f$ is one-to-one, its inverse $f^{-1}:f(J)\to J$ is well-defined. By the theorem on monotonicity of continuous injective functions, $f$ is strictly monotone on $J$. Consequently, $f^{-1}$ is also strictly monotone on $f(J)$.
+
+It remains to show that $f(J)$ is an interval. Let $u,v\in f(J)$ with $u<v$, and let $w$ satisfy $u<w<v$. There exist $x,y\in J$ such that $f(x)=u$ and $f(y)=v$. Since $f$ is strictly monotone, the point between $x$ and $y$ corresponding to the intermediate value $w$ belongs to $J$; by the Intermediate Value Theorem, there is $z$ between $x$ and $y$ such that $f(z)=w$. Hence $w\in f(J)$, so $f(J)$ is an interval.
+
+Now $f^{-1}$ is a monotone function defined on the interval $f(J)$, and its image is $J$, also an interval. By the theorem that a monotone function with interval image is continuous, $f^{-1}$ is continuous on $f(J)$.
+
+Therefore the inverse function exists and is continuous.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Uniform Continuity}
+
+\begin{definition_box}
+Let $J \subset \RR$ be any subset. A function $f:J \rightarrow \RR$ is \emph{uniformly continuous} on $J$ if for all $\epsilon > 0$ there exists $\delta > 0$ such that 
+\[
+x_1,x_2 \in J \text{ with } |x_1-x_2|<\delta \Rightarrow |f(x_1)-f(x_2)| < \epsilon
+\]
+\end{definition_box}
+
+\begin{definition_box}
+Let $J \subset \RR$ be any subset. A function $f:J \rightarrow \RR$ is \emph{Lipschitz continuous} on $J$ if there exists a real constant $L \geq 0$ such that for all $x,y \in J$,
+\[
+|f(x)-f(y)| \leq L|x-y|
+\]
+The smallest such $L$ is called the \emph{Lipschitz constant} of the function $f$.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $J\subseteq\RR$ and let $f:J\to\RR$ be Lipschitz continuous on $J$. Then $f$ is uniformly continuous on $J$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $L\ge0$ be a Lipschitz constant for $f$, so that $|f(x)-f(y)|\le L|x-y|$ for all $x,y\in J$. Let $\epsilon>0$ be given and put
+\[
+    \delta:=\frac{\epsilon}{L+1}>0
+\]
+which is well defined and positive since $L+1\ge1$. Note that $\delta$ depends only on $\epsilon$ and $L$, and not on any point of $J$. Now let $x_1,x_2\in J$ satisfy $|x_1-x_2|<\delta$. Then
+\[
+    |f(x_1)-f(x_2)|\le L|x_1-x_2|\le L\delta=\frac{L}{L+1}\,\epsilon<\epsilon
+\]
+where the last inequality holds because $0\le L/(L+1)<1$ and $\epsilon>0$. (The choice $\delta=\epsilon/(L+1)$, rather than $\epsilon/L$, avoids a separate treatment of the case $L=0$, in which $f$ is constant.) Since $\epsilon>0$ was arbitrary, $f$ is uniformly continuous on $J$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} The converse is false. The function $f(x)=\sqrt{x}$ on $[0,1]$ is uniformly continuous but not Lipschitz. Indeed, for $x\ge y\ge0$ we have $(\sqrt{x}-\sqrt{y})^2\le(\sqrt{x}-\sqrt{y})(\sqrt{x}+\sqrt{y})=x-y$, so $|\sqrt{x}-\sqrt{y}|\le\sqrt{|x-y|}$, and $\delta=\epsilon^2$ works for every $\epsilon>0$. On the other hand, for $x\in(0,1]$,
+\[
+    \frac{|f(x)-f(0)|}{|x-0|}=\frac{1}{\sqrt{x}}\longrightarrow\infty\quad\text{as }x\to0^+
+\]
+so no constant $L$ can satisfy $|f(x)-f(0)|\le L|x-0|$ for all $x\in[0,1]$.
+\end{remark_box}
+
+\section{Limits}
+
+\begin{problem_box}
+\textbf{Definition (Limit of a Function):}
+Let $f:J\to\RR$, and let $a$ be a limit point of $J$. We say that
+\[
+    \lim_{x\to a}f(x)=L
+\]
+if for every $\varepsilon>0$ there exists $\delta>0$ such that, for every $x\in J$,
+\[
+    0<|x-a|<\delta\quad\Longrightarrow\quad |f(x)-L|<\varepsilon.
+\]
+The condition $0<|x-a|$ means that the value of $f$ at $a$ itself is irrelevant to the limit.
+\end{problem_box}
+
+\begin{problem_box}
+\textbf{Theorem (Uniqueness of Limits):}
+If $\lim_{x\to a}f(x)=L$ and $\lim_{x\to a}f(x)=M$, then $L=M$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose, for a contradiction, that $L\ne M$. Set $\varepsilon=|L-M|/3>0$. Since both limits equal their stated values, there exist $\delta_1,\delta_2>0$ such that
+\[
+0<|x-a|<\delta_1\implies |f(x)-L|<\varepsilon,
+\]
+and
+\[
+0<|x-a|<\delta_2\implies |f(x)-M|<\varepsilon.
+\]
+Because $a$ is a limit point of $J$, we can choose $x\in J$ with
+\[
+0<|x-a|<\min\{\delta_1,\delta_2\}.
+\]
+The triangle inequality then gives
+\[
+|L-M|\le |L-f(x)|+|f(x)-M|<2\varepsilon
+=\frac{2}{3}|L-M|,
+\]
+which is impossible. Hence $L=M$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example 1: A linear function.} Find $\displaystyle\lim_{x\to 2}(3x+1)$.
+\end{example_box}
+\begin{example_claim_box}
+We claim that the limit is $7$. Given $\varepsilon>0$, choose $\delta=\varepsilon/3$. Then
+\[
+0<|x-2|<\delta\implies |(3x+1)-7|=3|x-2|<3\delta=\varepsilon.
+\]
+Therefore
+\[
+\boxed{\lim_{x\to2}(3x+1)=7.}
+\]
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 2: A polynomial.} Find $\displaystyle\lim_{x\to 1}(x^2+1)$.
+\end{example_box}
+\begin{example_claim_box}
+The expected limit is $2$. Given $\varepsilon>0$, observe that if $|x-1|<1$, then $0<x<2$ and so $|x+1|<3$. Choose $\delta=\min\{1,\varepsilon/3\}$. Whenever $0<|x-1|<\delta$,
+\[
+|(x^2+1)-2|=|x-1||x+1|<3\delta\le\varepsilon.
+\]
+Thus
+\[
+\boxed{\lim_{x\to1}(x^2+1)=2.}
+\]
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 3: A removable algebraic expression.} Find $\displaystyle\lim_{x\to2}\frac{x^2-4}{x-2}$.
+\end{example_box}
+\begin{example_claim_box}
+For $x\ne2$, factor and cancel:
+\[
+\frac{x^2-4}{x-2}=\frac{(x-2)(x+2)}{x-2}=x+2.
+\]
+Hence, for every $\varepsilon>0$, choosing $\delta=\varepsilon$ gives
+\[
+0<|x-2|<\delta\implies
+\left|\frac{x^2-4}{x-2}-4\right|=|x-2|<\varepsilon.
+\]
+Therefore
+\[
+\boxed{\lim_{x\to2}\frac{x^2-4}{x-2}=4.}
+\]
+The function need not be defined at the point where the limit is taken.
+\end{example_claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Algebra of Limits):}
+Suppose $\lim_{x\to a}f(x)=\alpha$ and $\lim_{x\to a}g(x)=\beta$, where $\alpha,\beta\in\RR$. Then
+\[
+\begin{aligned}
+\lim_{x\to a}(f(x)+g(x))&=\alpha+\beta,\\
+\lim_{x\to a}(c f(x))&=c\alpha\quad(c\in\RR),\\
+\lim_{x\to a}(f(x)g(x))&=\alpha\beta.
+\end{aligned}
+\]
+If $\beta\ne0$, then $g(x)\ne0$ for all $x$ sufficiently close to $a$ (with $x\ne a$), and
+\[
+\lim_{x\to a}\frac{f(x)}{g(x)}=\frac{\alpha}{\beta}.
+\]
+The corresponding difference rule follows from the sum and scalar-multiple rules.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+We use the $\varepsilon$--$\delta$ definition throughout.
+
+\textit{Sum.} Let $\varepsilon>0$. By the two limit assumptions, choose $\delta_1,\delta_2>0$ such that
+\[
+0<|x-a|<\delta_1\implies |f(x)-\alpha|<\varepsilon/2,
+\]
+\[
+0<|x-a|<\delta_2\implies |g(x)-\beta|<\varepsilon/2.
+\]
+For $\delta=\min\{\delta_1,\delta_2\}$, whenever $0<|x-a|<\delta$,
+\[
+|(f(x)+g(x))-(\alpha+\beta)|
+\le |f(x)-\alpha|+|g(x)-\beta|<\varepsilon.
+\]
+Thus the limit of the sum is $\alpha+\beta$.
+
+\textit{Scalar multiple.} If $c=0$, the result is immediate. If $c\ne0$, choose $\delta>0$ so that $0<|x-a|<\delta$ implies $|f(x)-\alpha|<\varepsilon/|c|$. Then
+\[
+|cf(x)-c\alpha|=|c|\,|f(x)-\alpha|<\varepsilon.
+\]
+
+\textit{Product.} Since $f(x)\to\alpha$, there exists $\delta_0>0$ such that
+\[
+0<|x-a|<\delta_0\implies |f(x)-\alpha|<1,
+\]
+so $|f(x)|<|\alpha|+1$. Given $\varepsilon>0$, choose $\delta_1>0$ such that $|f(x)-\alpha|<\varepsilon/[2(|\beta|+1)]$ whenever $0<|x-a|<\delta_1$, and choose $\delta_2>0$ such that $|g(x)-\beta|<\varepsilon/[2(|\alpha|+1)]$ whenever $0<|x-a|<\delta_2$. For $\delta=\min\{\delta_0,\delta_1,\delta_2\}$,
+\[
+\begin{aligned}
+|f(x)g(x)-\alpha\beta|
+&=|f(x)(g(x)-\beta)+\beta(f(x)-\alpha)|\\
+&\le |f(x)|\,|g(x)-\beta|+|\beta|\,|f(x)-\alpha|\\
+&<\frac{(|\alpha|+1)\varepsilon}{2(|\alpha|+1)}
+ +\frac{|\beta|\varepsilon}{2(|\beta|+1)}\le\varepsilon.
+\end{aligned}
+\]
+Thus $f(x)g(x)\to\alpha\beta$.
+
+\textit{Quotient.} Suppose $\beta\ne0$. Since $g(x)\to\beta$, there exists $\delta_0>0$ such that
+\[
+0<|x-a|<\delta_0\implies |g(x)-\beta|<|\beta|/2.
+\]
+It follows that $|g(x)|>|\beta|/2$, so the denominator is nonzero and
+\[
+\left|\frac1{g(x)}-\frac1\beta\right|
+=\frac{|g(x)-\beta|}{|g(x)|\,|\beta|}
+\le\frac{2|g(x)-\beta|}{|\beta|^2}.
+\]
+Consequently $1/g(x)\to1/\beta$. Applying the product rule to $f(x)$ and $1/g(x)$ gives
+\[
+\lim_{x\to a}\frac{f(x)}{g(x)}=\alpha\cdot\frac1\beta=\frac\alpha\beta.
+\]
+This proves the algebra of finite limits.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Sandwich or Squeeze Lemma):}
+Suppose that, for all $x$ sufficiently close to $a$ with $x\ne a$,
+\[
+f(x)\le g(x)\le h(x),
+\]
+and suppose
+\[
+\lim_{x\to a}f(x)=\lim_{x\to a}h(x)=L.
+\]
+Then $\displaystyle\lim_{x\to a}g(x)=L$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\varepsilon>0$. Since $f(x)\to L$ and $h(x)\to L$, there exist $\delta_1,\delta_2>0$ such that
+\[
+0<|x-a|<\delta_1\implies L-\varepsilon<f(x)<L+\varepsilon,
+\]
+\[
+0<|x-a|<\delta_2\implies L-\varepsilon<h(x)<L+\varepsilon.
+\]
+Take $\delta$ to be the minimum of $\delta_1$, $\delta_2$, and a radius on which the inequalities $f(x)\le g(x)\le h(x)$ hold. Then, for $0<|x-a|<\delta$,
+\[
+L-\varepsilon<f(x)\le g(x)\le h(x)<L+\varepsilon.
+\]
+Therefore $|g(x)-L|<\varepsilon$. By the definition of a limit, $g(x)\to L$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Definition (One-Sided Limits):}
+We say $\lim_{x\to a^-}f(x)=L$ if for every $\varepsilon>0$ there exists $\delta>0$ such that
+\[
+ x\in J,\quad a-\delta<x<a\quad\Longrightarrow\quad |f(x)-L|<\varepsilon.
+\]
+Similarly, $\lim_{x\to a^+}f(x)=L$ if for every $\varepsilon>0$ there exists $\delta>0$ such that
+\[
+ x\in J,\quad a<x<a+\delta\quad\Longrightarrow\quad |f(x)-L|<\varepsilon.
+\]
+These are called the left-hand limit (LHL) and right-hand limit (RHL), respectively.
+\end{problem_box}
+
+\begin{problem_box}
+\textbf{Theorem (Existence of a Two-Sided Limit):}
+Suppose $a$ is an interior point of the interval $J$. A finite limit $\lim_{x\to a}f(x)$ exists if and only if both one-sided limits exist and are equal. In that case,
+\[
+\lim_{x\to a}f(x)=L
+\quad\Longleftrightarrow\quad
+\lim_{x\to a^-}f(x)=\lim_{x\to a^+}f(x)=L.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose first that $\lim_{x\to a}f(x)=L$. Given $\varepsilon>0$, choose $\delta>0$ from the two-sided limit definition. The same bound $|f(x)-L|<\varepsilon$ then holds whenever $a-\delta<x<a$ and whenever $a<x<a+\delta$. Thus both one-sided limits equal $L$.
+
+Conversely, suppose the left-hand and right-hand limits both exist and equal $L$. Given $\varepsilon>0$, choose $\delta_1,\delta_2>0$ for the left- and right-hand limits, respectively, and let $\delta=\min\{\delta_1,\delta_2\}$. If $x\in J$ and $0<|x-a|<\delta$, then either $x<a$ or $x>a$. The appropriate one-sided limit gives $|f(x)-L|<\varepsilon$. Hence $\lim_{x\to a}f(x)=L$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Continuity in Terms of One-Sided Limits):}
+Let $a$ be an interior point of $J$, and let $f:J\to\RR$. Then $f$ is continuous at $a$ if and only if
+\[
+\boxed{\lim_{x\to a^-}f(x)=\lim_{x\to a^+}f(x)=f(a).}
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+By definition, $f$ is continuous at $a$ exactly when $\lim_{x\to a}f(x)=f(a)$. By the preceding theorem, this is equivalent to the left-hand and right-hand limits both existing and equalling $f(a)$. Therefore
+\[
+f\text{ is continuous at }a
+\quad\Longleftrightarrow\quad
+\lim_{x\to a^-}f(x)=\lim_{x\to a^+}f(x)=f(a).
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem (Limit of a Composite Function):}
+Suppose $\lim_{x\to a}f(x)=\alpha$, and let $g$ be defined on an interval containing $\alpha$ and continuous at $\alpha$. Assume also that $f(x)$ lies in the domain of $g$ for all $x$ sufficiently close to $a$ (with $x\ne a$). Then
+\[
+\boxed{\lim_{x\to a}g(f(x))=g(\alpha).}
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $\varepsilon>0$. Since $g$ is continuous at $\alpha$, there exists $\eta>0$ such that, for every $y$ in the domain of $g$,
+\[
+|y-\alpha|<\eta\implies |g(y)-g(\alpha)|<\varepsilon.
+\]
+Since $f(x)\to\alpha$, there exists $\delta>0$ such that
+\[
+0<|x-a|<\delta\implies |f(x)-\alpha|<\eta.
+\]
+For such $x$, putting $y=f(x)$ in the continuity condition gives
+\[
+|g(f(x))-g(\alpha)|<\varepsilon.
+\]
+This is precisely the $\varepsilon$--$\delta$ definition of $\lim_{x\to a}g(f(x))=g(\alpha)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{The seven standard indeterminate forms:}
+When evaluating limits, the following forms do not determine a unique limit by themselves:
+\[
+\boxed{
+\frac00,\quad \frac{\infty}{\infty},\quad 0\cdot\infty,\quad
+\infty-\infty,\quad 0^0,\quad 1^\infty,\quad \infty^0.
+}
+\]
+Here $0$ and $\infty$ describe limiting behaviour, not ordinary real-number values.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Explanation:}
+These are called indeterminate because expressions with the same apparent form can have different limits. For example, as $x\to0$,
+\[
+\frac{x}{x}\to1,\qquad \frac{x^2}{x}\to0,\qquad \frac{x}{x^2}\text{ is unbounded},
+\]
+even though each quotient has the form $0/0$. Thus the form alone does not determine the answer; the expression must be simplified or analysed further. The same principle applies to each of the seven forms listed above.
+\end{claim_box}
+
+\section{Differentiation}
+
+Continuity says that $f(x)$ is close to $f(a)$ when $x$ is close to $a$. Differentiation asks for something finer: \emph{how fast} $f(x)$ moves away from $f(a)$ as $x$ moves away from $a$. Geometrically, the secant through $(a,f(a))$ and $(x,f(x))$ has slope $\dfrac{f(x)-f(a)}{x-a}$, and the tangent at $a$ should be the limiting position of these secants as $x\to a$. Analytically, the tangent line is the best affine approximation of $f$ near $a$. Both viewpoints lead to the same definition, and the second one is the one that generalises.
+
+\subsection{Differentiability of Functions}
+
+\begin{problem_box}
+\textbf{Definition (Derivative):}
+Let $f:J\to\RR$ and $a\in J$. We say that $f$ is \emph{differentiable at $a$} if the limit
+\[
+    f'(a):=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}
+\]
+exists in $\RR$; the number $f'(a)$ is called the \emph{derivative} of $f$ at $a$. We say that $f$ is \emph{differentiable on $J$} if it is differentiable at every point of $J$, in which case $f':J\to\RR$ is the \emph{derivative function} of $f$. At an endpoint of $J$ that belongs to $J$, the limit is taken over $x\in J$, and so is automatically one-sided.
+\end{problem_box}
+
+The quotient $\dfrac{f(x)-f(a)}{x-a}$ is defined for $x\in J\setminus\{a\}$, and $a$ is a limit point of this set, so the limit makes sense. Note that the quotient is of the indeterminate form $0/0$ as $x\to a$: both numerator and denominator tend to zero when $f$ is continuous. This is why the existence of the limit is a genuine condition.
+
+\begin{example_box}
+\textbf{Example 1:} For $n\in\NN$ with $n\ge1$, the function $f(x)=x^n$ is differentiable on $\RR$ with $f'(a)=na^{n-1}$. In particular constants and linear functions are differentiable.
+\end{example_box}
+\begin{example_claim_box}
+For $x\ne a$, the factorisation of $x^n-a^n$ gives
+\[
+    \frac{x^n-a^n}{x-a}=\sum_{k=0}^{n-1}x^{\,n-1-k}a^{k}.
+\]
+By the algebra of limits, each of the $n$ terms tends to $a^{n-1}$ as $x\to a$. Hence the quotient tends to $na^{n-1}$.
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 2:} The function $f(x)=|x|$ is differentiable at every $a\ne0$, with $f'(a)=1$ for $a>0$ and $f'(a)=-1$ for $a<0$, but it is not differentiable at $0$.
+\end{example_box}
+\begin{example_claim_box}
+If $a>0$, then $x>0$ for all $x$ sufficiently close to $a$, so $f(x)=x$ there and the quotient equals $1$. The case $a<0$ is identical with $f(x)=-x$. At $a=0$ the quotient is $\dfrac{|x|}{x}$, which equals $1$ for $x>0$ and $-1$ for $x<0$. The one-sided limits differ, so by the theorem on the existence of two-sided limits, the limit does not exist.
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 3:} The function $f(x)=x|x|$ is differentiable on $\RR$ with $f'(x)=2|x|$, but $f'$ is not differentiable at $0$.
+\end{example_box}
+\begin{example_claim_box}
+For $a>0$ we have $f(x)=x^2$ near $a$, and for $a<0$ we have $f(x)=-x^2$ near $a$, so $f'(a)=2a$ and $f'(a)=-2a$ respectively by Example 1. At $a=0$,
+\[
+    \left|\frac{f(h)-f(0)}{h}\right|=|h|\longrightarrow0,
+\]
+so $f'(0)=0$. Thus $f'(x)=2|x|$ for every $x$, which is not differentiable at $0$ by Example 2.
+\end{example_claim_box}
+
+Differentiability is a stronger property than continuity.
+
+\begin{problem_box}
+\textbf{Theorem (Differentiability Implies Continuity):}
+If $f:J\to\RR$ is differentiable at $a\in J$, then $f$ is continuous at $a$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+For $x\in J\setminus\{a\}$ we may write
+\[
+    f(x)-f(a)=\frac{f(x)-f(a)}{x-a}\cdot(x-a).
+\]
+As $x\to a$, the first factor tends to $f'(a)$ and the second tends to $0$. By the product rule for limits, $f(x)-f(a)\to f'(a)\cdot0=0$, that is, $\lim_{x\to a}f(x)=f(a)$.
+\hfill$\square$
+\end{claim_box}
+
+The converse is false: $|x|$ is continuous at $0$ but not differentiable there (Example 2).
+
+We now give a reformulation of differentiability that avoids dividing by $x-a$. Dividing by $x-a$ is awkward in proofs, because the denominator can create trouble near $a$. The idea is that $f(x)-f(a)$ is, to first order, a multiple of $x-a$ by a factor which depends continuously on $x$.
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $f:J\to\RR$ and $a\in J$. Then $f$ is differentiable at $a$ if and only if there exists a function $\varphi:J\to\RR$, continuous at $a$, such that
+\[
+    f(x)=f(a)+\varphi(x)\,(x-a)\qquad\text{for all }x\in J.
+\]
+In this case $\varphi(a)=f'(a)$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose first that $f$ is differentiable at $a$. Define $\varphi(x):=\dfrac{f(x)-f(a)}{x-a}$ for $x\ne a$ and $\varphi(a):=f'(a)$. Then the displayed identity holds for $x\ne a$ by construction, and for $x=a$ both sides equal $f(a)$. Moreover $\lim_{x\to a}\varphi(x)=f'(a)=\varphi(a)$ by the definition of $f'(a)$, so $\varphi$ is continuous at $a$.
+
+Conversely, suppose such a $\varphi$ exists. For $x\ne a$ the identity gives $\dfrac{f(x)-f(a)}{x-a}=\varphi(x)$, and since $\varphi$ is continuous at $a$, we get $\lim_{x\to a}\varphi(x)=\varphi(a)$. Hence the limit defining $f'(a)$ exists and equals $\varphi(a)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} Writing $r(x):=\varphi(x)-\varphi(a)$, the theorem says
+\[
+    f(x)=f(a)+f'(a)(x-a)+r(x)(x-a),\qquad r(x)\to0\ \text{ as }x\to a.
+\]
+So $f(a)+f'(a)(x-a)$ is an affine approximation of $f$ whose error is small even compared with the distance $|x-a|$. This is the sense in which the tangent line is the best linear approximation.
+\end{remark_box}
+
+\begin{problem_box}
+\textbf{Theorem (Algebra of Derivatives):}
+Let $f,g:J\to\RR$ be differentiable at $a\in J$ and let $c\in\RR$. Then:
+\begin{enumerate}[(i)]
+    \item $f+g$ and $cf$ are differentiable at $a$, with $(f+g)'(a)=f'(a)+g'(a)$ and $(cf)'(a)=cf'(a)$.
+    \item (Product rule) $fg$ is differentiable at $a$, with $(fg)'(a)=f'(a)g(a)+f(a)g'(a)$.
+    \item (Quotient rule) If $g(a)\ne0$, then $1/g$ and $f/g$ (defined on a neighbourhood of $a$ in $J$ on which $g\ne0$) are differentiable at $a$, with
+    \[
+        \left(\frac1g\right)'(a)=-\frac{g'(a)}{g(a)^2},\qquad
+        \left(\frac fg\right)'(a)=\frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}.
+    \]
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+By the above theorem, write $f(x)=f(a)+\varphi(x)(x-a)$ and $g(x)=g(a)+\psi(x)(x-a)$, where $\varphi,\psi$ are continuous at $a$, with $\varphi(a)=f'(a)$ and $\psi(a)=g'(a)$.
+
+(i) We have $(f+g)(x)=(f+g)(a)+(\varphi+\psi)(x)(x-a)$ and $(cf)(x)=(cf)(a)+c\varphi(x)(x-a)$. The functions $\varphi+\psi$ and $c\varphi$ are continuous at $a$ by the algebra of continuous functions, so the characterisation shows that $f+g$ and $cf$ are differentiable at $a$, with derivatives $\varphi(a)+\psi(a)$ and $c\varphi(a)$.
+
+(ii) Multiplying out,
+\[
+    f(x)g(x)=f(a)g(a)+\chi(x)(x-a),\qquad
+    \chi(x):=\varphi(x)g(a)+f(a)\psi(x)+\varphi(x)\psi(x)(x-a).
+\]
+By the algebra of continuous functions, $\chi$ is continuous at $a$, and $\chi(a)=f'(a)g(a)+f(a)g'(a)$. The characterisation gives the product rule.
+
+(iii) Since $g$ is continuous at $a$ and $g(a)\ne0$, there is $\delta_0>0$ such that $g(x)\ne0$ for all $x\in J$ with $|x-a|<\delta_0$. For such $x$,
+\[
+    \frac1{g(x)}-\frac1{g(a)}=\frac{g(a)-g(x)}{g(x)g(a)}
+    =-\frac{\psi(x)}{g(x)g(a)}\,(x-a).
+\]
+The function $x\mapsto-\psi(x)/(g(x)g(a))$ is continuous at $a$ by the algebra of continuous functions, and its value at $a$ is $-g'(a)/g(a)^2$. Thus $1/g$ is differentiable at $a$ with the stated derivative. Finally $f/g=f\cdot\frac1g$, so by the product rule,
+\[
+    \left(\frac fg\right)'(a)=\frac{f'(a)}{g(a)}-\frac{f(a)g'(a)}{g(a)^2}
+    =\frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}.
+\]
+\hfill$\square$
+\end{claim_box}
+
+Together with Example 1 this shows that every polynomial is differentiable on $\RR$ and every rational function is differentiable wherever its denominator is nonzero.
+
+\begin{problem_box}
+\textbf{Theorem (Chain Rule):}
+Let $J,K$ be intervals, let $f:J\to\RR$ with $f(J)\subseteq K$, and let $g:K\to\RR$. If $f$ is differentiable at $a\in J$ and $g$ is differentiable at $f(a)$, then $g\circ f$ is differentiable at $a$, and
+\[
+    \boxed{(g\circ f)'(a)=g'(f(a))\,f'(a).}
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Put $b:=f(a)$. By the characterisation, there are $\varphi:J\to\RR$ continuous at $a$ and $\psi:K\to\RR$ continuous at $b$ such that
+\[
+    f(x)=f(a)+\varphi(x)(x-a)\quad(x\in J),\qquad
+    g(y)=g(b)+\psi(y)(y-b)\quad(y\in K),
+\]
+with $\varphi(a)=f'(a)$ and $\psi(b)=g'(b)$. Substituting $y=f(x)$ and using $f(x)-b=\varphi(x)(x-a)$ gives
+\[
+    g(f(x))=g(f(a))+\psi(f(x))\,\varphi(x)\,(x-a)\qquad(x\in J).
+\]
+Since $f$ is continuous at $a$ and $\psi$ is continuous at $f(a)$, the theorem on the limit of a composite function shows that $\psi\circ f$ is continuous at $a$. Hence $x\mapsto\psi(f(x))\varphi(x)$ is continuous at $a$, with value $g'(f(a))f'(a)$ at $a$. The characterisation now shows that $g\circ f$ is differentiable at $a$ with the stated derivative.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} The tempting proof writes $\dfrac{g(f(x))-g(f(a))}{x-a}=\dfrac{g(f(x))-g(f(a))}{f(x)-f(a)}\cdot\dfrac{f(x)-f(a)}{x-a}$. This is invalid, because $f(x)-f(a)$ may vanish for $x\ne a$ arbitrarily close to $a$ (think of a function that oscillates around a constant value). 
+\end{remark_box}
+
+\begin{problem_box}
+\textbf{Theorem (Derivative of an Inverse Function):}
+Let $f:J\to\RR$ be continuous and one-to-one, let $a\in J$ and $b:=f(a)$. If $f$ is differentiable at $a$ and $f'(a)\ne0$, then $f^{-1}:f(J)\to J$ is differentiable at $b$, and
+\[
+    \boxed{(f^{-1})'(b)=\frac1{f'(a)}.}
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+By the theorem on continuous one-to-one functions, $f(J)$ is an interval and $f^{-1}:f(J)\to J$ is continuous. Write $f(x)=f(a)+\varphi(x)(x-a)$ with $\varphi$ continuous at $a$ and $\varphi(a)=f'(a)\ne0$. We claim that $\varphi(x)\ne0$ for every $x\in J$. This holds at $x=a$ by assumption, and for $x\ne a$ we have $\varphi(x)(x-a)=f(x)-f(a)\ne0$ because $f$ is one-to-one. Hence $1/\varphi$ is defined on all of $J$ and is continuous at $a$.
+
+Let $y\in f(J)$ and put $x:=f^{-1}(y)$. Then $y-b=f(x)-f(a)=\varphi(x)(x-a)$, that is,
+\[
+    f^{-1}(y)-f^{-1}(b)=\frac1{\varphi(f^{-1}(y))}\,(y-b).
+\]
+The function $y\mapsto1/\varphi(f^{-1}(y))$ is continuous at $b$, since $f^{-1}$ is continuous at $b$ with $f^{-1}(b)=a$ and $1/\varphi$ is continuous at $a$. Its value at $b$ is $1/\varphi(a)=1/f'(a)$. By the characterisation, $f^{-1}$ is differentiable at $b$ with $(f^{-1})'(b)=1/f'(a)$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example 4:} For $n\ge1$, the function $g(y)=y^{1/n}$ is differentiable on $(0,\infty)$ with $g'(y)=\dfrac1n\,y^{\frac1n-1}$.
+\end{example_box}
+\begin{example_claim_box}
+The function $f(x)=x^n$ is continuous and strictly increasing on $(0,\infty)$, with image $(0,\infty)$, and $f'(x)=nx^{n-1}\ne0$ there. Its inverse is $g$. For $y>0$ put $x=y^{1/n}$; the theorem gives
+\[
+    g'(y)=\frac1{nx^{n-1}}=\frac1{n\,y^{(n-1)/n}}=\frac1n\,y^{\frac1n-1}.
+\]
+\end{example_claim_box}
+
+%-----------------------------------------------------------------------------------
+\subsection{Mean Value Theorems}
+
+The derivative is a \emph{local} quantity: it records the behaviour of $f$ at a single point. The mean value theorems are what allow us to pass from information about $f'$ to information about $f$ on an entire interval, and they are the basis for most of the theory that follows. The starting point is the observation that at the top of a smooth hill the tangent is horizontal.
+
+\begin{problem_box}
+\textbf{Definition (Local Extremum):}
+Let $f:J\to\RR$ and $c\in J$. We say that $f$ has a \emph{local maximum} at $c$ if there exists $\delta>0$ such that $f(x)\le f(c)$ for all $x\in J$ with $|x-c|<\delta$. A \emph{local minimum} is defined by reversing the inequality, and a \emph{local extremum} is either of the two.
+\end{problem_box}
+
+\begin{problem_box}
+\textbf{Theorem (Fermat's Theorem on Interior Extrema):}
+Let $c$ be an interior point of $J$, and let $f:J\to\RR$ have a local extremum at $c$. If $f$ is differentiable at $c$, then $f'(c)=0$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Suppose $f$ has a local maximum at $c$; if it has a local minimum, apply the argument to $-f$, which has a local maximum at $c$ and satisfies $(-f)'(c)=-f'(c)$. Choose $\delta>0$ such that $(c-\delta,c+\delta)\subseteq J$ and $f(x)\le f(c)$ for all $x\in(c-\delta,c+\delta)$. Write
+\[
+    q(x):=\frac{f(x)-f(c)}{x-c}\qquad(x\ne c).
+\]
+Then $q(x)\le0$ for $c<x<c+\delta$ and $q(x)\ge0$ for $c-\delta<x<c$.
+
+Suppose, for a contradiction, that $f'(c)>0$. Applying the definition of the limit $q(x)\to f'(c)$ with $\varepsilon=f'(c)$ yields $\delta'>0$ such that $q(x)>0$ whenever $0<|x-c|<\delta'$. Taking $x\in(c,c+\min\{\delta,\delta'\})$ gives both $q(x)>0$ and $q(x)\le0$, which is absurd. If instead $f'(c)<0$, the same argument with $\varepsilon=-f'(c)$ and $x\in(c-\min\{\delta,\delta'\},c)$ gives $q(x)<0$ and $q(x)\ge0$ simultaneously, again absurd. Hence $f'(c)=0$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} Both hypotheses are essential. The point $c$ must be interior: $f(x)=x$ on $[0,1]$ has its maximum at $1$ but $f'(1)=1$. And the converse fails: $f(x)=x^3$ satisfies $f'(0)=0$ but has no local extremum at $0$. Fermat's theorem only tells us where to look for extrema.
+\end{remark_box}
+
+\begin{problem_box}
+\textbf{Theorem (Rolle's Theorem):}
+Let $f:[a,b]\to\RR$ be continuous on $[a,b]$ and differentiable on $(a,b)$, with $f(a)=f(b)$. Then there exists $c\in(a,b)$ such that $f'(c)=0$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+By the Extreme Value Theorem there are $x_{\min},x_{\max}\in[a,b]$ at which $f$ attains its minimum $m$ and maximum $M$ on $[a,b]$. If $m=M$, then $f$ is constant and $f'(c)=0$ for every $c\in(a,b)$. Otherwise $m<M$. If both $x_{\min}$ and $x_{\max}$ were in $\{a,b\}$, then $m$ and $M$ would both equal $f(a)=f(b)$, contradicting $m<M$. Hence at least one of the two points, say $c$, lies in $(a,b)$. Such a $c$ is a global, and therefore local, extremum of $f$ at an interior point at which $f$ is differentiable. By Fermat's theorem, $f'(c)=0$.
+\hfill$\square$
+\end{claim_box}
+
+Rolle's theorem is the special case of the next theorem in which the chord is horizontal; conversely, the general case follows by tilting the picture.
+
+\begin{problem_box}
+\textbf{Theorem (Lagrange's Mean Value Theorem):}
+Let $f:[a,b]\to\RR$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Then there exists $c\in(a,b)$ such that
+\[
+    \boxed{f(b)-f(a)=f'(c)\,(b-a).}
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Define $h:[a,b]\to\RR$ by
+\[
+    h(x):=f(x)-f(a)-\frac{f(b)-f(a)}{b-a}\,(x-a).
+\]
+This is the vertical distance from the graph of $f$ to the chord joining $(a,f(a))$ and $(b,f(b))$. By the algebra of continuous and differentiable functions, $h$ is continuous on $[a,b]$ and differentiable on $(a,b)$. Moreover $h(a)=0$ and $h(b)=f(b)-f(a)-(f(b)-f(a))=0$. By Rolle's theorem there exists $c\in(a,b)$ with
+\[
+    0=h'(c)=f'(c)-\frac{f(b)-f(a)}{b-a},
+\]
+which is the claim.
+\hfill$\square$
+\end{claim_box}
+
+Geometrically, some tangent to the graph is parallel to the chord; in terms of motion, the average velocity over a time interval is attained as the instantaneous velocity at some moment. For limits, we need a version for two functions at once.
+
+\begin{problem_box}
+\textbf{Theorem (Cauchy's Mean Value Theorem):}
+Let $f,g:[a,b]\to\RR$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Then there exists $c\in(a,b)$ such that
+\[
+    \bigl(f(b)-f(a)\bigr)\,g'(c)=\bigl(g(b)-g(a)\bigr)\,f'(c).
+\]
+In particular, if $g'(x)\ne0$ for all $x\in(a,b)$, then $g(b)\ne g(a)$ and
+\[
+    \frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(c)}{g'(c)}.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Define $h:[a,b]\to\RR$ by $h(x):=\bigl(f(b)-f(a)\bigr)g(x)-\bigl(g(b)-g(a)\bigr)f(x)$. Then $h$ is continuous on $[a,b]$ and differentiable on $(a,b)$, and a direct computation gives
+\[
+    h(a)=f(b)g(a)-g(b)f(a)=h(b).
+\]
+By Rolle's theorem there is $c\in(a,b)$ with $0=h'(c)=\bigl(f(b)-f(a)\bigr)g'(c)-\bigl(g(b)-g(a)\bigr)f'(c)$, which is the first claim.
+
+Now suppose $g'\ne0$ on $(a,b)$. If $g(b)=g(a)$, Rolle's theorem applied to $g$ would give a point of $(a,b)$ at which $g'=0$, a contradiction; hence $g(b)\ne g(a)$. Dividing the first identity by $\bigl(g(b)-g(a)\bigr)g'(c)\ne0$ gives the second.
+\hfill$\square$
+\end{claim_box}
+
+Taking $g(x)=x$ recovers Lagrange's theorem. The first application of the mean value theorem is that the sign of $f'$ controls the monotonicity of $f$, which is the rigorous form of the familiar slogan ``positive derivative means increasing''.
+
+\begin{problem_box}
+\textbf{Theorem (Consequences of the Mean Value Theorem):}
+Let $f:J\to\RR$ be continuous on $J$ and differentiable at every interior point of $J$. Then:
+\begin{enumerate}[(i)]
+    \item If $f'(x)=0$ for every interior point $x$, then $f$ is constant on $J$. Consequently, two such functions with equal derivatives differ by a constant.
+    \item $f'(x)\ge0$ for every interior point $x$ if and only if $f$ is nondecreasing on $J$. If $f'(x)>0$ for every interior point $x$, then $f$ is strictly increasing. The analogous statements hold for $\le$, $<$ and nonincreasing, strictly decreasing.
+    \item If $|f'(x)|\le L$ for every interior point $x$, then $|f(x)-f(y)|\le L|x-y|$ for all $x,y\in J$; that is, $f$ is Lipschitz continuous on $J$ with constant at most $L$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Let $x<y$ be points of $J$. Then $f$ is continuous on $[x,y]$ and differentiable on $(x,y)$, which consists of interior points of $J$. By Lagrange's theorem there is $c\in(x,y)$ with
+\[
+    f(y)-f(x)=f'(c)(y-x).
+\]
+
+(i) If $f'(c)=0$, then $f(y)=f(x)$. Since $x<y$ were arbitrary, $f$ is constant. For the second statement, apply this to the difference of two functions with equal derivatives.
+
+(ii) If $f'\ge0$ on the interior, then $f(y)-f(x)=f'(c)(y-x)\ge0$, so $f$ is nondecreasing; if $f'>0$, then $f(y)-f(x)>0$ and $f$ is strictly increasing. Conversely, suppose $f$ is nondecreasing and let $a$ be an interior point. Then every difference quotient $\dfrac{f(x)-f(a)}{x-a}$ is nonnegative. If we had $f'(a)<0$, the definition of the limit with $\varepsilon=-f'(a)$ would produce $x\ne a$ close to $a$ whose quotient is negative, a contradiction. Hence $f'(a)\ge0$.
+
+(iii) Here $|f(y)-f(x)|=|f'(c)|\,|y-x|\le L|y-x|$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} The converse in the strict case of (ii) fails: $f(x)=x^3$ is strictly increasing although $f'(0)=0$. Also note that (i) uses that $J$ is an interval; on a disconnected set such as $(0,1)\cup(2,3)$ a function can have zero derivative everywhere without being constant.
+\end{remark_box}
+
+%-----------------------------------------------------------------------------------
+\subsection{Darboux's Theorem}
+
+Derivatives need not be continuous. Nevertheless, they cannot have
+jump discontinuities: they always possess the intermediate value
+property.
+
+\begin{problem_box}
+\textbf{Theorem (Darboux):} Let $f$ be differentiable on an interval
+$J$. If $a<b$ belong to $J$ and $\lambda$ lies between $f'(a)$ and
+$f'(b)$, then there exists $c\in[a,b]$ such that $f'(c)=\lambda$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Suppose, for example, that $f'(a)<\lambda<f'(b)$.
+Define $g(x):=f(x)-\lambda x$. Then $g'(a)<0<g'(b)$. By the
+Extreme Value Theorem, $g$ attains a minimum on $[a,b]$. The negative
+derivative at $a$ implies that $g$ takes a smaller value immediately
+to the right of $a$, so the minimum is not at $a$. The positive
+derivative at $b$ implies that $g$ takes a smaller value immediately
+to the left of $b$, so the minimum is not at $b$. Thus a minimum occurs
+at some $c\in(a,b)$. Fermat's theorem gives $g'(c)=0$, hence
+$f'(c)=\lambda$. The case $f'(a)>\lambda>f'(b)$ follows by applying
+the argument to $-g$. Endpoint equality is immediate.\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+\textbf{Remark.} Darboux's theorem does not say that derivatives are
+continuous. For example, $f(x)=x^2\sin(1/x^2)$ for $x\ne0$ and
+$f(0)=0$ is differentiable at $0$, but its derivative is unbounded
+near $0$ and is not continuous there.
+\end{remark_box}
+
+\subsection{Some Weird Functions}
+
+The next examples show that continuity and differentiability can fail
+in very different ways. The Weierstrass function is continuous but
+nowhere differentiable, while the following oscillatory examples are
+differentiable at their endpoints even though their derivatives are
+discontinuous there.
+
+\begin{problem_box}
+\textbf{Example (Weierstrass Function):} Let $0<a<1$ and let $b$ be an
+odd positive integer such that $ab>1+\frac{3\pi}{2}$. Define
+\[
+    W(x):=\sum_{n=0}^{\infty}a^n\cos(b^n\pi x),
+    \qquad x\in\RR.
+\]
+Then $W$ is continuous everywhere and differentiable nowhere. For
+example, $a=\frac12$ and $b=13$ satisfy the stated condition.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} The tail is uniformly bounded by a geometric series:
+for every $N$ and every $x$,
+\[
+    \left|\sum_{n=N}^{\infty}a^n\cos(b^n\pi x)\right|
+    \le\frac{a^N}{1-a}.
+\]
+To see continuity directly, fix $x_0$ and $\epsilon>0$. Choose $N$ so
+that $2a^N/(1-a)<\epsilon/2$. The finite sum
+$W_{N-1}(x):=\sum_{n=0}^{N-1}a^n\cos(b^n\pi x)$ is continuous, so
+there is $\delta>0$ such that
+$|W_{N-1}(x)-W_{N-1}(x_0)|<\epsilon/2$ whenever
+$|x-x_0|<\delta$. The two tails contribute less than
+$2a^N/(1-a)<\epsilon/2$, proving continuity of $W$ at $x_0$.
+
+We prove nowhere differentiability. Fix $x_0\in\RR$. For each $m\ge1$
+choose an integer $k_m$ nearest to $b^m x_0$, and set
+\[
+    z_m:=b^m x_0-k_m,\qquad
+    x_m:=\frac{k_m+1}{b^m},\qquad
+    h_m:=x_m-x_0=\frac{1-z_m}{b^m}.
+\]
+Then $|z_m|\le\frac12$ and $0<h_m\le\frac{3}{2b^m}$, so
+$x_m\to x_0$. Split the difference $W(x_m)-W(x_0)$ into the terms
+with $n<m$ and $n\ge m$, calling the two sums $A_m$ and $B_m$,
+respectively. Since cosine is $1$-Lipschitz,
+\[
+    |A_m|
+    \le \pi h_m\sum_{n=0}^{m-1}(ab)^n
+    \le \frac{\pi}{ab-1}(ab)^m h_m.
+\]
+For $n\ge m$, the integer $b^{n-m}$ is odd. Therefore
+\[
+\cos(\pi b^n x_m)=(-1)^{k_m+1},\qquad
+\cos(\pi b^n x_0)=(-1)^{k_m}\cos(\pi b^{n-m}z_m).
+\]
+All terms of $B_m$ consequently have the same sign, and the $n=m$
+term alone has magnitude
+$a^m(1+\cos(\pi z_m))\ge a^m$. Since
+$h_m\le3/(2b^m)$, we have
+\[
+\frac{|W(x_m)-W(x_0)|}{h_m}
+\ge (ab)^m\left(\frac23-\frac{\pi}{ab-1}\right).
+\]
+The factor in parentheses is positive by the assumed bound on $ab$,
+and $ab>1$. Thus these difference quotients are unbounded as
+$m\to\infty$, so $W'(x_0)$ does not exist. As $x_0$ was arbitrary,
+$W$ is nowhere differentiable.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Example 1:} Define $f:\RR\to\RR$ by
+\[
+    f(x):=\begin{cases}
+        x^2\sin(1/x),&x\ne0,\\
+        0,&x=0.
+    \end{cases}
+\]
+Then $f$ is differentiable everywhere, but $f'$ is discontinuous at
+$0$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Away from $0$, the function is differentiable by the
+usual rules. At $0$,
+\[
+    f'(0)=\lim_{h\to0}\frac{f(h)-f(0)}h
+    =\lim_{h\to0}h\sin(1/h)=0,
+\]
+since $|h\sin(1/h)|\le|h|$. For $x\ne0$,
+\[
+    f'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+Along $x_n=1/(2\pi n)$ this tends to $-1$, whereas along
+$y_n=1/((2n+1)\pi)$ it tends to $1$. Both sequences tend to $0$, so
+$f'$ is not continuous at $0$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Example 2:} Define $h:[0,1]\to\RR$ by
+\[
+    h(x):=\begin{cases}
+        x^2(1-x)^2\sin\!\left(\dfrac{1}{\pi x(1-x)}\right),&0<x<1,\\
+        0,&x=0\text{ or }x=1.
+    \end{cases}
+\]
+Then $h$ is differentiable on $[0,1]$, but $h'$ is discontinuous at
+both endpoints.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} For $0<x<1$, put $q(x):=x(1-x)$. Then
+$h(x)=q(x)^2\sin(1/(\pi q(x)))$, and differentiation gives
+\[
+    h'(x)=2q(x)q'(x)\sin\!\left(\frac{1}{\pi q(x)}\right)
+    -\frac{q'(x)}{\pi}\cos\!\left(\frac{1}{\pi q(x)}\right).
+\]
+Since $|h(x)|\le q(x)^2$, the difference quotients at $0$ and $1$
+satisfy
+\[
+    \left|\frac{h(x)-h(0)}x\right|\le x(1-x)^2\longrightarrow0,
+    \qquad
+    \left|\frac{h(x)-h(1)}{x-1}\right|
+    \le x^2(1-x)\longrightarrow0.
+\]
+Thus $h'(0)=h'(1)=0$.
+
+For all sufficiently large $n$, continuity and strict increase of
+$q$ on $[0,1/2]$ give points $x_n,y_n\in(0,1/2)$ such that
+\[
+    \frac{1}{\pi q(x_n)}=2\pi n,
+    \qquad
+    \frac{1}{\pi q(y_n)}=(2n+1)\pi.
+\]
+These points tend to $0$. The derivative formula shows that
+$h'(x_n)\to-1/\pi$ and $h'(y_n)\to1/\pi$, so $h'$ is
+discontinuous at $0$. Finally, $h(1-x)=h(x)$, hence
+$h'(1-x)=-h'(x)$ for $0<x<1$; the corresponding reflected sequences
+show that $h'$ is also discontinuous at $1$.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Higher Derivatives and Leibniz's Formula}
+
+If $f'$ is differentiable, its derivative is denoted by $f''$ and is
+called the second derivative. Inductively, $f^{(n)}$ denotes the
+$n$-th derivative when it exists. Higher derivatives describe the
+local variation of the preceding derivatives.
+
+\begin{problem_box}
+\textbf{Theorem (Leibniz Formula):} If $f$ and $g$ are $n$ times
+differentiable, then
+\[
+ (fg)^{(n)}(x)=\sum_{k=0}^n\binom nk
+ f^{(k)}(x)g^{(n-k)}(x).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Induct on $n$. The case $n=1$ is the product rule.
+Differentiating the formula for $n$ and collecting adjacent terms,
+Pascal's identity
+$\binom nk+\binom n{k-1}=\binom{n+1}k$ gives the formula for
+$n+1$.\hfill$\square$
+\end{claim_box}
+
+\subsection{Taylor's Theorem}
+
+Taylor polynomials provide higher-order local approximations to a
+function. The remainder term measures the error in that approximation.
+
+\begin{problem_box}
+\textbf{Theorem (Taylor's Theorem with Lagrange Remainder):}
+Suppose $f$ has continuous derivatives through order $n$ on an
+interval containing $a$ and $x$, and is $(n+1)$ times differentiable
+between them. Then there exists $c$ between $a$ and $x$ such that
+\[
+ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k
+ +\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} The case $x=a$ is immediate. For $x\ne a$, let
+$P_n(t)=\sum_{k=0}^n f^{(k)}(a)(t-a)^k/k!$ and set
+\[
+ K:=\frac{f(x)-P_n(x)}{(x-a)^{n+1}},\qquad
+ h(t):=f(t)-P_n(t)-K(t-a)^{n+1}.
+\]
+Then $h(a)=h'(a)=\cdots=h^{(n)}(a)=0$ and $h(x)=0$.
+Repeated application of Rolle's theorem gives a point $c$ between
+$a$ and $x$ with $h^{(n+1)}(c)=0$. Since
+$P_n^{(n+1)}=0$ and the $(n+1)$-st derivative of
+$K(t-a)^{n+1}$ is $K(n+1)!$, we obtain
+$f^{(n+1)}(c)=K(n+1)!$. Substituting the definition of $K$
+gives the result.\hfill$\square$
+\end{claim_box}
+
+The Taylor polynomials form a sequence of approximations. If the
+remainder tends to zero as $n\to\infty$, the function equals its
+infinite Taylor series:
+\[
+ f(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k.
+\]
+For example, for every $x\in\RR$,
+\[
+ e^x=\sum_{k=0}^{\infty}\frac{x^k}{k!},\qquad
+ \sin x=\sum_{k=0}^{\infty}(-1)^k\frac{x^{2k+1}}{(2k+1)!},
+\]
+\[
+ \cos x=\sum_{k=0}^{\infty}(-1)^k\frac{x^{2k}}{(2k)!}.
+\]
+We justify the first three identities. Fix $x\in\RR$. Taylor's theorem
+with Lagrange remainder, applied at $0$, gives for $e^x$ a remainder
+whose absolute value is at most
+$e^{|x|}|x|^{n+1}/(n+1)!$, because every derivative of $e^t$ is
+$e^t$. For $\sin x$ and $\cos x$, every derivative has absolute
+value at most $1$, so the corresponding remainder is at most
+$|x|^{n+1}/(n+1)!$. For each fixed $x$, these bounds tend to zero:
+if $u_n:=|x|^n/n!$, then
+$u_{n+1}/u_n=|x|/(n+1)$, which is at most $1/2$ for all sufficiently
+large $n$, so $u_n\to0$ by comparison with a geometric sequence.
+Thus the Taylor remainders vanish and the displayed expansions follow.
+
+For $|x|<1$, the finite geometric identity
+\[
+ \frac1{1-x}=\sum_{k=0}^{N}x^k+\frac{x^{N+1}}{1-x}
+\]
+shows that the remainder tends to zero, proving the geometric
+expansion. The interval of convergence and the validity of an
+expansion must be established for each function; an infinite Taylor
+series need not represent the function everywhere.
+
+\begin{remark_box}
+\textbf{Remark.} Taylor's theorem is a finite approximation theorem.
+An infinite Taylor expansion
+\[
+ f(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k
+\]
+requires an additional argument: the Taylor remainder must tend to
+zero. Smoothness alone does not guarantee this. For example, a smooth
+function can have every derivative equal to zero at a point without
+being identically zero in any neighbourhood of that point.
+\end{remark_box}
+
+\subsection{L'H\^opital's Rules}
+
+Recall that $0/0$ and $\infty/\infty$ are indeterminate forms: the form alone does not determine the limit. The definition of the derivative is itself a $0/0$ limit, which suggests that derivatives may help to evaluate such limits in general. Here is the idea. Suppose $f(a)=g(a)=0$. Then
+\[
+    \frac{f(x)}{g(x)}=\frac{f(x)-f(a)}{g(x)-g(a)},
+\]
+which is a ratio of increments of $f$ and $g$ over $[a,x]$. By Cauchy's mean value theorem, this ratio equals $\dfrac{f'(c)}{g'(c)}$ for some $c$ between $a$ and $x$. As $x\to a$, the point $c$ is squeezed towards $a$, so the ratio of the functions should behave like the ratio of the derivatives.
+
+To state the results for infinite limits as well, we use the following conventions. For a function $h$ defined on $(a,b)$, we write $\lim_{x\to a^+}h(x)=+\infty$ if for every $M>0$ there is $\delta>0$ such that $h(x)>M$ for all $x\in(a,a+\delta)$, and $\lim_{x\to a^+}h(x)=-\infty$ if $\lim_{x\to a^+}(-h(x))=+\infty$. Limits as $x\to b^-$, and as $x\to\pm\infty$, are defined analogously. When we say that a limit equals $L\in[-\infty,\infty]$, we allow $L$ to be a real number or $\pm\infty$.
+
+\begin{problem_box}
+\textbf{Theorem (L'H\^opital's Rule for $0/0$):}
+Let $a\in\RR$, $b\in(a,\infty]$, and let $f,g:(a,b)\to\RR$ be differentiable with $g'(x)\ne0$ for all $x\in(a,b)$. Suppose
+\[
+    \lim_{x\to a^+}f(x)=\lim_{x\to a^+}g(x)=0
+    \qquad\text{and}\qquad
+    \lim_{x\to a^+}\frac{f'(x)}{g'(x)}=L\in[-\infty,\infty].
+\]
+Then $g(x)\ne0$ for every $x\in(a,b)$, and
+\[
+    \lim_{x\to a^+}\frac{f(x)}{g(x)}=L.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Extend $f$ and $g$ to $[a,b)$ by setting $f(a)=g(a)=0$. By the hypotheses on the limits, the extended functions are continuous at $a$, hence continuous on $[a,b)$. Fix $x\in(a,b)$. Then $f,g$ are continuous on $[a,x]$ and differentiable on $(a,x)$.
+
+First, $g(x)\ne0$: otherwise $g(a)=g(x)=0$ and Rolle's theorem would give $\xi\in(a,x)$ with $g'(\xi)=0$, contradicting the hypothesis on $g'$. Next, Cauchy's mean value theorem on $[a,x]$ gives $c_x\in(a,x)$ with $f(x)g'(c_x)=g(x)f'(c_x)$. Dividing by $g(x)g'(c_x)\ne0$,
+\[
+    \frac{f(x)}{g(x)}=\frac{f'(c_x)}{g'(c_x)},\qquad a<c_x<x.
+\]
+
+Suppose first that $L\in\RR$ and let $\varepsilon>0$. Choose $\delta>0$ with $a+\delta<b$ such that $\bigl|\frac{f'(t)}{g'(t)}-L\bigr|<\varepsilon$ for all $t\in(a,a+\delta)$. If $a<x<a+\delta$, then $c_x\in(a,a+\delta)$, and therefore
+\[
+    \left|\frac{f(x)}{g(x)}-L\right|=\left|\frac{f'(c_x)}{g'(c_x)}-L\right|<\varepsilon.
+\]
+Thus $f(x)/g(x)\to L$. If $L=+\infty$, let $M>0$ and choose $\delta>0$ such that $f'(t)/g'(t)>M$ for all $t\in(a,a+\delta)$; the same argument gives $f(x)/g(x)>M$ for $a<x<a+\delta$. The case $L=-\infty$ follows by applying the previous case to $-f$.
+\hfill$\square$
+\end{claim_box}
+
+The second rule handles $\infty/\infty$. The proof is less direct, because we can no longer extend $f$ and $g$ continuously to the endpoint. Interestingly, no hypothesis on $f$ is needed beyond the existence of the limit of $f'/g'$.
+
+\begin{problem_box}
+\textbf{Theorem (L'H\^opital's Rule for $\infty/\infty$):}
+Let $a\in\RR$, $b\in(a,\infty]$, and let $f,g:(a,b)\to\RR$ be differentiable with $g'(x)\ne0$ for all $x\in(a,b)$. Suppose
+\[
+    \lim_{x\to a^+}|g(x)|=+\infty
+    \qquad\text{and}\qquad
+    \lim_{x\to a^+}\frac{f'(x)}{g'(x)}=L\in[-\infty,\infty].
+\]
+Then
+\[
+    \lim_{x\to a^+}\frac{f(x)}{g(x)}=L.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Replacing $(f,g)$ by $(-f,-g)$ changes neither $f/g$ nor $f'/g'$, so we may assume $g(x)\to+\infty$ as $x\to a^+$. In particular $g(x)>0$ for all $x$ sufficiently close to $a$. Also, $g$ is one-to-one on $(a,b)$: if $g(x_1)=g(x_2)$ with $x_1<x_2$, Rolle's theorem would give a zero of $g'$ in $(x_1,x_2)$.
+
+Fix $y\in(a,b)$ and let $x\in(a,y)$. Since $g(x)\ne g(y)$, Cauchy's mean value theorem on $[x,y]$ gives $c\in(x,y)$ with
+\[
+    Q(x):=\frac{f(x)-f(y)}{g(x)-g(y)}=\frac{f'(c)}{g'(c)}.
+\]
+For $x$ so close to $a$ that $g(x)>0$, we have the identity
+\[
+    \frac{f(x)}{g(x)}=Q(x)\,\theta(x)+\frac{f(y)}{g(x)},
+    \qquad\theta(x):=\frac{g(x)-g(y)}{g(x)}=1-\frac{g(y)}{g(x)}.
+\]
+Since $y$ is fixed and $g(x)\to+\infty$, we have $\theta(x)\to1$ and $f(y)/g(x)\to0$ as $x\to a^+$.
+
+\emph{The case $L\in\RR$.} Let $0<\varepsilon<1$. Choose $y\in(a,b)$ such that $\bigl|\frac{f'(t)}{g'(t)}-L\bigr|<\varepsilon/2$ for all $t\in(a,y]$. Then for every $x\in(a,y)$ the point $c$ above lies in $(x,y)$, so $|Q(x)-L|<\varepsilon/2$. From the identity,
+\[
+    \frac{f(x)}{g(x)}-L=\bigl(Q(x)-L\bigr)\theta(x)+L\bigl(\theta(x)-1\bigr)+\frac{f(y)}{g(x)}.
+\]
+Because $\theta(x)\to1$ and $f(y)/g(x)\to0$ as $x\to a^+$, there is $\delta>0$ such that for all $x\in(a,a+\delta)\cap(a,y)$ we have $g(x)>0$ and
+\[
+    |\theta(x)-1|<\frac{\varepsilon}{8(|L|+1)}\;\Bigl(<\tfrac18\Bigr),\qquad
+    \frac{|f(y)|}{g(x)}<\frac\varepsilon8.
+\]
+For such $x$ we have $|\theta(x)|<\frac98$, and therefore
+\[
+    \left|\frac{f(x)}{g(x)}-L\right|<\frac\varepsilon2\cdot\frac98+|L|\cdot\frac{\varepsilon}{8(|L|+1)}+\frac\varepsilon8<\frac{9\varepsilon}{16}+\frac\varepsilon8+\frac\varepsilon8<\varepsilon.
+\]
+Hence $f(x)/g(x)\to L$.
+
+\emph{The case $L=+\infty$.} Let $M>0$ and put $K:=2(M+1)$. Choose $y\in(a,b)$ such that $f'(t)/g'(t)>K$ for all $t\in(a,y]$. Then $Q(x)>K$ for all $x\in(a,y)$. Since $\theta(x)\to1$ and $f(y)/g(x)\to0$, there is $\delta>0$ such that for all $x\in(a,a+\delta)\cap(a,y)$ we have $g(x)>0$, $\theta(x)>\frac12$ and $f(y)/g(x)>-1$. For such $x$,
+\[
+    \frac{f(x)}{g(x)}=Q(x)\theta(x)+\frac{f(y)}{g(x)}>\frac K2-1=M.
+\]
+Hence $f(x)/g(x)\to+\infty$.
+
+\emph{The case $L=-\infty$.} Apply the previous case to $-f$ and $g$: since $(-f)'/g'\to+\infty$, we get $-f/g\to+\infty$, that is, $f/g\to-\infty$.
+\hfill$\square$
+\end{claim_box}
+
+Both rules are stated for the right endpoint $a$ of a finite interval. The remaining situations reduce to this one.
+
+\begin{problem_box}
+\textbf{Theorem (Other Endpoints and Two-Sided Limits):}
+The conclusions of the two L'H\^opital rules remain valid, under the corresponding hypotheses, for each of the following ways of taking the limit:
+\begin{enumerate}[(i)]
+    \item $x\to b^-$ with $b\in\RR$, and $x\to-\infty$;
+    \item $x\to+\infty$;
+    \item $x\to a$ from both sides, where $f,g$ are differentiable on a punctured neighbourhood of $a$, $g'\ne0$ there, and $f,g\to0$ (respectively $|g|\to\infty$) as $x\to a$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+(ii) Let $f,g$ be defined on $(c,\infty)$, and without loss of generality $c>0$. Put $F(t):=f(1/t)$ and $G(t):=g(1/t)$ for $t\in(0,1/c)$. By the quotient rule, $t\mapsto1/t$ has derivative $-1/t^2$, so by the chain rule
+\[
+    F'(t)=-\frac1{t^2}f'\!\left(\tfrac1t\right),\qquad G'(t)=-\frac1{t^2}g'\!\left(\tfrac1t\right),
+\]
+so $G'(t)\ne0$ and $F'(t)/G'(t)=f'(1/t)/g'(1/t)$. Since $t\to0^+$ exactly when $1/t\to+\infty$ (for every $R>0$, $0<t<1/R$ if and only if $1/t>R$), the hypotheses on $f,g,f'/g'$ as $x\to+\infty$ translate verbatim into the hypotheses of the previous two theorems for $F,G$ as $t\to0^+$. Hence $F(t)/G(t)\to L$ as $t\to0^+$, which translates back into $f(x)/g(x)\to L$ as $x\to+\infty$.
+
+(i) Apply the right-endpoint theorems to $F(t):=f(-t)$ and $G(t):=g(-t)$, defined on $(-b,-a)$ (respectively on $(-b,\infty)$ for the limit at $-\infty$, using part (ii)). We have $F'(t)=-f'(-t)$ and $G'(t)=-g'(-t)$, so $F'/G'(t)=f'(-t)/g'(-t)$, and $t\to(-b)^+$ exactly when $-t\to b^-$.
+
+(iii) Apply the theorems on each side of $a$, using (i) for the left side. Both one-sided limits equal $L$. For finite $L$ this gives the two-sided limit by the theorem on the existence of two-sided limits; for $L=\pm\infty$ one takes the smaller of the two $\delta$'s in the definition.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Example 1:} Evaluate $\displaystyle\lim_{x\to1}\frac{x^3-1}{x^2-1}$.
+\end{example_box}
+\begin{example_claim_box}
+Both $f(x)=x^3-1$ and $g(x)=x^2-1$ tend to $0$ as $x\to1$, and $g'(x)=2x\ne0$ near $1$. Since
+\[
+    \frac{f'(x)}{g'(x)}=\frac{3x^2}{2x}=\frac{3x}2\longrightarrow\frac32,
+\]
+the rule for $0/0$ gives $\displaystyle\lim_{x\to1}\frac{x^3-1}{x^2-1}=\frac32$.
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 2: Repeated application.} Evaluate $\displaystyle\lim_{x\to0}\frac{\sqrt{1+x}-1-\frac x2}{x^2}$.
+\end{example_box}
+\begin{example_claim_box}
+Let $f(x)=\sqrt{1+x}-1-\frac x2$ and $g(x)=x^2$. By Example 4 and the chain rule, $f'(x)=\dfrac1{2\sqrt{1+x}}-\dfrac12$, and $g'(x)=2x\ne0$ for $x\ne0$. Both $f,g\to0$, but $f'(x)/g'(x)$ is again of the form $0/0$, since $f'(x)\to0$ and $g'(x)\to0$. We therefore apply the rule once more. By the quotient and chain rules, $f''(x)=-\frac14(1+x)^{-3/2}$ and $g''(x)=2\ne0$, with
+\[
+    \frac{f''(x)}{g''(x)}=-\frac18(1+x)^{-3/2}\longrightarrow-\frac18.
+\]
+Working backwards, $f'/g'\to-\frac18$, and then $f/g\to-\frac18$. Each application is legitimate because at that stage the hypotheses (a $0/0$ form with nonvanishing denominator derivative and a limit of the ratio of derivatives) have been verified. Thus the limit is $-\tfrac18$.
+\end{example_claim_box}
+
+\begin{example_box}
+\textbf{Example 3:} Evaluate $\displaystyle\lim_{x\to+\infty}\frac{3x^2+x}{x^2+5}$.
+\end{example_box}
+\begin{example_claim_box}
+Here $f(x)=3x^2+x\to+\infty$ and $g(x)=x^2+5\to+\infty$, with $g'(x)=2x\ne0$ for $x>0$. The ratio $\dfrac{f'(x)}{g'(x)}=\dfrac{6x+1}{2x}$ is again of the form $\infty/\infty$, and applying the rule a second time, $\dfrac{(6x+1)'}{(2x)'}=\dfrac62=3$. Hence $\dfrac{6x+1}{2x}\to3$, and consequently $\dfrac{3x^2+x}{x^2+5}\to3$.
+\end{example_claim_box}
+
+\begin{remark_box}
+\textbf{Remarks.}
+\begin{enumerate}[(i)]
+    \item \emph{The hypotheses cannot be dropped.} The rule applies only to a genuine $0/0$ or $\infty/\infty$ form. For $f(x)=x+1$ and $g(x)=x+2$ we have $f'/g'=1$ for all $x$, yet $\dfrac{f(x)}{g(x)}\to\dfrac12$ as $x\to0$. Here the form is $\tfrac12$, not $0/0$.
+    \item \emph{The converse is false.} The existence of $\lim f/g$ does not imply the existence of $\lim f'/g'$. For instance, with $f(x)=x^2\sin(1/x)$ and $g(x)=x$ one has $f/g\to0$ as $x\to0$ by the Sandwich Lemma, although $f'(x)/g'(x)=2x\sin(1/x)-\cos(1/x)$ has no limit. The rule is a sufficient condition, and when $\lim f'/g'$ fails to exist one must use other methods.
+    \item \emph{Other indeterminate forms.} The remaining forms are reduced to a quotient. A product $f\cdot g$ of the form $0\cdot\infty$ is rewritten as $f/(1/g)$ or $g/(1/f)$, and a difference of the form $\infty-\infty$ is first combined into a single fraction. The power forms $0^0,\ 1^\infty,\ \infty^0$ are treated by taking logarithms, once the exponential and logarithm functions are available.
+\end{enumerate}
+\end{remark_box}
 
 \end{document}
