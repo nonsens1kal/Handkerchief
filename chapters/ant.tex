@@ -33,7 +33,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{Analytic Number Theory}
+\lhead{Analytical Number Theory}
 \rhead{\thepage}
 \cfoot{} 
 
@@ -99,7 +99,8 @@
   arc=0mm,
   bottomtitle=0.5mm,
   boxrule=0mm,
-  colbacktitle=black!10!white,
+  colbacktitle=black!8!white,
+  colback=black!1!white,
   colframe=brandblue,
   coltitle=black,
   fonttitle=\bfseries,
@@ -114,7 +115,7 @@
   arc=0mm,
   bottomtitle=0.5mm,
   boxrule=0mm,
-  colbacktitle=black!10!white,
+  colbacktitle=black!6!white,
   colframe=black!30!white,
   coltitle=black,
   fonttitle=\bfseries,
@@ -217,7 +218,7 @@ after={\vspace{2mm}}
 %   TOP MATTERS
 %-----------------------------------------------------------------------------------
 
-\title{Analytic Number Theory}
+\title{Analytical Number Theory}
 \subtitle{Handkerchief}
 \author{Pratyay Sen}
 \date{\today}
@@ -371,7 +372,7 @@ $$\Rightarrow \sum_{n=A}^{B}f(n)
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 On each interval $[m,m+1]$, we have
 \[
     \psi(t)=t-m-\frac12
@@ -416,7 +417,7 @@ $O(f(B))$.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $|\psi(t)|\leq1/2$, the first-order formula gives
 \[
     \left|\int_A^B\psi(t)f'(t)\,dt\right|
@@ -468,7 +469,7 @@ where $\gamma$ is the Euler--Mascheroni constant. In particular,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Let $N$ be a positive integer and apply the first-order formula to
 $f(t)=1/t$ on $[1,N]$. Since $f'(t)=-1/t^2$, we obtain
 \[
@@ -668,7 +669,7 @@ For every positive integer $n$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Using
 \[
     \varphi*\mathbf{1}=\operatorname{id},
@@ -722,7 +723,7 @@ converges absolutely, and therefore converges.
 \end{remark_box}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $s=\sigma+it$, we have
 \[
     |n^{-s}|=|e^{-s\log n}|
@@ -764,7 +765,7 @@ $s$. Then
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Absolute convergence allows us to multiply and rearrange the two
 series:
 \begin{align*}
@@ -792,7 +793,7 @@ At every $s$ for which $D_g(s)$ and $\zeta(s)$ converge absolutely,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since the constant-one function satisfies $\mathbf{1}(n)=1$, we have
 \[
     f(n)=\sum_{d\mid n}g(d)\mathbf{1}\!\left(\frac nd\right)
@@ -875,7 +876,7 @@ $f:[1,\infty)\to\mathbb{C}$. Then, for every $x\geq1$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 By the definition of generalised convolution,
 \begin{align*}
     (\alpha\circ(\beta\circ f))(x)
@@ -917,7 +918,7 @@ $F,G:[1,\infty)\to\mathbb{C}$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $\alpha^{-1}$ is the Dirichlet inverse of $\alpha$,
 \[
     \alpha^{-1}*\alpha
@@ -966,7 +967,7 @@ Then
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Expanding the definition of $B$ gives
 \begin{align*}
     (\alpha\circ B)(x)
@@ -1019,7 +1020,7 @@ where the product is over all prime numbers.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 For each prime $p$ and $\operatorname{Re}(s)>1$, the geometric series
 gives
 \[
@@ -1068,7 +1069,7 @@ while for $\operatorname{Re}(s)>2$,
 \end{example_box}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Recall the convolution identities
 \[
     d=\mathbf{1}*\mathbf{1},
@@ -1162,7 +1163,7 @@ derivative of the Riemann zeta function.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 For every $n\geq1$, we have
 \[
     0\leq\Lambda(n)\leq\log n
@@ -1225,7 +1226,7 @@ For $\operatorname{Re}(s)>1$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $|\lambda(n)|=1$, the Dirichlet series of $\lambda$ converges
 absolutely when $\operatorname{Re}(s)>1$.
 
@@ -1292,7 +1293,7 @@ For $\operatorname{Re}(s)>1$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $0\leq q_k(n)\leq1$, the Dirichlet series converges absolutely
 for $\operatorname{Re}(s)>1$. The function $q_k$ is multiplicative,
 and for every prime $p$,
@@ -1352,7 +1353,7 @@ whenever the differentiated sum converges locally uniformly.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 The ordinary product rule gives
 \[
     (FG)'=F'G+FG'
@@ -1401,7 +1402,7 @@ In particular,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 For the convolution rule, use
 $\log n=\log d+\log(n/d)$ to obtain
 \begin{align*}
@@ -1443,7 +1444,7 @@ $n\mapsto\Lambda(n)\log n$.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 We now use the fundamental convolution identity
 \[
     \log=\Lambda*\mathbf{1}
@@ -1528,7 +1529,7 @@ $\gcd(n,k)$.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 The Möbius divisor-sum identity gives
 \[
     \sum_{d\mid m}\mu(d)
@@ -1591,7 +1592,7 @@ function.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Write
 \[
     n=\prod_{p\mid n}p^{a_p},
@@ -1674,14 +1675,16 @@ $$S(x):= \frac{1}{x}\sum_{n \le x}f(n)$$
 If as $x \rightarrow \infty$, $S(x)$ approaches a limit, then we say $f$ has a limiting average value. Otherwise, we try to approximate the size of $S(x)$ by seeing which real-valued function comes closest to it.
 \end{definition_box}
 
+\begin{problem_box}
 \textbf{Theorem:}
 Let $a(n)$ be an arithmetic function and set 
 $$A(x)=\sum_{n \le x} a(n)$$
 Let $0 \le y < x$ be real numbers and $f$ be a real valued function with continuous derivative on $[y,x]$. Then,
 $$\sum_{y < n \le x} a(n)f(n) = f(x)A(x)-f(y)A(y)-\int_{y}^{x}A(t)f'(t)\,dt$$
+\end{problem_box}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 For $y\leq t\leq x$, split the sum defining $A(t)$ at $y$:
 \[
     A(t)=A(y)+\sum_{y<n\leq t}a(n)
@@ -1715,7 +1718,7 @@ where $x,y$ are any real numbers.
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 By the above theorem, taking $a(n)=1$, it gives $A(x)=[x]$. Thus we have,
 $$\sum_{y < n \le x} f(n) = f(x)[x]-f(y)[y]-\int_{y}^{x}[t]f'(t)\,dt$$
 $$=xf(x)-yf(y)-\left\{x\right\}f(x)+\left\{y\right\}f(y)-\int_y^x tf'(t)\,dt+\int_y^x \left\{t\right\}f'(t)\,dt$$
@@ -1811,7 +1814,7 @@ The divisor-counting function $d(n)$ has average order $\log n$:
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Since $d(n)$ counts the factorizations $n=ab$ with $a,b\geq1$,
 \[
     \sum_{n\leq x}d(n)
@@ -1852,7 +1855,7 @@ More precisely,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 By Equation~\eqref{eq:totient-mobius},
 \[
     \varphi(n)=n\sum_{d\mid n}\frac{\mu(d)}d
@@ -1915,7 +1918,7 @@ More precisely,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Using the definition
 \[
     \sigma(n)=\sum_{d\mid n}d
@@ -1974,7 +1977,7 @@ If $u,v>0$ and $uv=x$, then
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 The sum $D(x)$ counts pairs of positive integers $(a,b)$ with $ab\leq x$.
 Every such pair satisfies $a\leq u$ or $b\leq v$, since otherwise
 $ab>uv=x$. The first strip contributes
@@ -1999,7 +2002,7 @@ As $x\to\infty$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Let $m=\floor{\sqrt{x}}$. Applying the symmetric formula and
 $\floor{z}=z+O(1)$ gives
 \[
@@ -2034,7 +2037,7 @@ $$\sum_{n \le x}(f*g)(n) = \sum_{b \le y}g(b)F(\frac{x}{b})+\sum_{a \le \frac{x}
 \end{mainbox}
  
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
  
 The curve given below is the hyperbola $ab=x$. The dots are the lattice points, plotted with $a$ on the horizontal axis and $b$ on the vertical axis. 
  
@@ -2112,7 +2115,7 @@ For every real number $x\geq2$,
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Let
 \[
     p_1=2
@@ -2156,14 +2159,14 @@ because $\log2<1$ and $\log\log2<0$. Since $n=\pi(x)$, this yields
 \hfill$\square$
 \end{claim_box}
 
-\subsection{Elementary Proof of the Prime Number Theorem}
+\subsection{Chebyshev's Estimate of the Prime Number Function}
 
-\begin{mainbox}{The Prime Number Theorem}
-Let $x$ be a real positive number. Then
-$$\pi(x) \sim \frac{x}{\ln x}$$
+\begin{mainbox}{Chebyshev's Estimate of the Prime Number Function}
+Let $x\ge 2$ be a real number. Then
+$$\pi(x) = \Theta\!\left(\frac{x}{\ln x}\right)$$
 \end{mainbox}
 
-Our goal in this subsection will be to present the elementary proof of this wonderful theorem in a simple and easy-to-understand manner. We start with the two beautiful functions Chebyshev has to his name. Counterintuitively, we start with the second-order function first.
+Our goal in this subsection will be to present the proof of this estimate in a simple and easy-to-understand manner. We start with the two beautiful functions Chebyshev has to his name. Counterintuitively, we start with the second-order function first.
 
 \subsubsection*{The Second-Order Chebyshev Function}
 
@@ -2172,19 +2175,21 @@ For a real number $x \ge 1$,
 $$\psi(x) = \sum_{p^m \le x}\ln p = \sum_{n \le x}\Lambda(n)$$
 \end{definition_box}
 
-\textbf{Theorem:}
-Let $x$ be a real positive number. Then
-$$\psi(x) \sim x$$
-In other words, there exist positive constants $c_1,c_2$ such that
-$$c_1x \le \psi(x) \le c_2(x)$$
+\begin{problem_box}
+\textbf{Theorem (Chebyshev):}
+There exist constants $0<c_1<c_2$ such that for all $x\ge 2$,
+\[c_1x \le \psi(x) \le c_2x,\]
+that is, $\psi(x)=\Theta(x)$. 
+\end{problem_box}
+
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 For $x \ge 4$, let
 $$S=\sum_{n \le x}\ln n - 2\sum_{n \le \frac{x}{2}} \ln n$$
 By Euler-Maclaurin, we have 
-$$\sum_{n \le x} = x\ln x - x + O(\ln x)$$
+$$\sum_{n \le x}\ln n = x\ln x - x + O(\ln x)$$
 $$\Rightarrow S = x\ln 2 + O(\ln x)$$
-As $\ln x$ lies between $\frac{1}{2}$ and $1$, there exists $x_0 \ge 4$, such that
+As $\ln 2$ lies between $\frac{1}{2}$ and $1$, there exists $x_0 \ge 4$, such that
 
 \setcounter{equation}{0}
 \begin{equation}\label{eq:sim}
@@ -2197,22 +2202,25 @@ Substituting this in the equation, we get
 $$S = \sum_{n \le x}\sum_{d|n}\Lambda(d)-2\sum_{n \le \frac{x}{2}}\sum_{d|n}\Lambda(d)$$
 $$=\sum_{d \le x}\Lambda(d)\sum_{n \le \frac{x}{d}}1 - 2\sum_{d \le \frac{x}{2}}\Lambda(d)\sum_{n \le \frac{x}{2d}}1$$
 $$=\sum_{d \le x}\Lambda(d)[\frac{x}{d}] - 2\sum_{d \le \frac{x}{2}}\Lambda(d)[\frac{x}{2d}]$$
-$$=\sum_{d \le \frac{x}{2}}\Lambda(d)\left\{[\frac{x}{d}]- 2[\frac{x}{2d}]\right\} + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)[\frac{x}{d}]$$
+$$=\sum_{d \le \frac{x}{2}}\Lambda(d)\left\{[\frac{x}{d}]- 2[\frac{x}{2d}]\right\} + \sum_{\frac{x}{2} < d \le x}\Lambda(d)[\frac{x}{d}]$$
 Let $\theta_d =  [\frac{x}{d}]- 2[\frac{x}{2d}]$. Then
-$$S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)[\frac{x}{d}]$$
-Now observe that for $\frac{x}{2} \le d \le x, [\frac{x}{d}]=1$
-$$\Rightarrow S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} \le d \le x}\Lambda(d)$$
+$$S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} < d \le x}\Lambda(d)[\frac{x}{d}]$$
+Now observe that for $\frac{x}{2} < d \le x, [\frac{x}{d}]=1$
+$$\Rightarrow S=\sum_{d \le \frac{x}{2}}\Lambda(d)\theta_d + \sum_{\frac{x}{2} < d \le x}\Lambda(d)$$
 Now observe that $\theta_d = 0 \text{ or } 1$, so we have
-$$S \le \sum_{d \le \frac{x}{2}}\Lambda(d) + \sum_{\frac{x}{2} \le d \le x}\Lambda(d) = \sum_{d \le x}\Lambda(x) = \psi(x)$$
+$$S \le \sum_{d \le \frac{x}{2}}\Lambda(d) + \sum_{\frac{x}{2} < d \le x}\Lambda(d) = \sum_{d \le x}\Lambda(d) = \psi(x)$$
 and 
-$$S \ge \sum_{\frac{x}{2} \le d \le x}\Lambda(d) = \psi(x) - \psi(\frac{x}{2})$$
+$$S \ge \sum_{\frac{x}{2} < d \le x}\Lambda(d) = \psi(x) - \psi(\frac{x}{2})$$
 By $(1)$, we get 
-$$\psi(x) \ge S \ge \frac{x}{2}$$
-and 
-$$\psi(x)-\psi(\frac{x}{2}) \le S \le x$$
-A bit of rearranging here and there, and you will ultimately get
-$$c_1x \le \psi(x) \le c_2x$$
-$$\Rightarrow \psi(x) \sim x$$
+\\For $x\ge x_0$, $\psi(x)\ge S\ge x/2$. 
+\\For $2\le x<x_0$,
+$\psi(x)\ge \ln 2\ge \dfrac{\ln 2}{x_0}\,x$ and $\psi(x)\le\psi(x_0)\le\dfrac{\psi(x_0)}{2}\,x$.
+\\and
+\\For $x\ge x_0$, $\psi(x)-\psi(x/2)\le S\le x$. Let $k$ be the least
+integer with $x/2^k<x_0$. Telescoping,
+\[\psi(x)=\sum_{j=0}^{k-1}\bigg(\psi\big(\dfrac{x}{2^j}\big)-\psi\big(\dfrac{x}{2^{j+1}}\big)\bigg)+\psi\bigg(\dfrac{x}{2^k}\bigg)
+\le \sum_{j\ge0}\dfrac{x}{2^j}+\psi(x_0)=2x+\psi(x_0)\le\bigg(2+\dfrac{\psi(x_0)}{x_0}\bigg)x.\]
+Thus we have the result.
 \hfill$\square$
 \end{claim_box}
  
@@ -2223,51 +2231,379 @@ For a real number $x \ge 1$,
 $$\theta(x) = \sum_{p \le x}\ln p$$
 \end{definition_box}
 
-\textbf{Theorem:}
-For $x \in \RR, x \ge 1$, we have
-$$\theta(x) = \psi(x) + O(\sqrt{x})$$
+
+\begin{problem_box}
+\textbf{Theorem:} For $x \in \RR, x \ge 1$, we have
+\[\theta(x) = \psi(x) + O(\sqrt{x}).\]
+\end{problem_box}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Consider the difference
-$$\psi(x)-\theta(x) = \sum_{\substack{p^m \le x \\ m \le 2}}\ln p$$
-$$=\sum_{p \le \sqrt(x)}\ln p + \sum_{p \le x^{\frac{1}{3}}}\ln p \sum_{3 \le m \le \frac{\ln x}{\ln p}}1$$
+$$\psi(x)-\theta(x) = \sum_{\substack{p^m \le x \\ m \ge 2}}\ln p$$
+$$=\sum_{p \le \sqrt{x}}\ln p + \sum_{p \le x^{\frac{1}{3}}}\ln p \sum_{3 \le m \le \frac{\ln x}{\ln p}}1$$
 $$\le \psi(\sqrt{x})+\sum_{p \le x^{\frac{1}{3}}}\ln p \frac{\ln x}{\ln p}$$
 $$=O(\sqrt{x}+x^{\frac{1}{3}}\ln x) = O(\sqrt{x})$$
 \hfill$\square$
 \end{claim_box}
 
-This implies $\theta(x) \sim x$ as $\psi(x) \sim x$. Also, if you think that I should have written $\psi(x)=\theta(x) + O(\sqrt{x})$ in the theorem, you should revisit section 1, and if you don't know what I'm talking about, read the proof again.
-\\Let us now see the elementary proof of the Prime Number Theorem.
+This implies $\theta(x)=\Theta(x)$. Also, if you think that I should have written $\psi(x)=\theta(x) + O(\sqrt{x})$ in the theorem, you should revisit section 1, and if you don't know what I'm talking about, read the proof again.
+\\Let us now see Chebyshev's estimate for $\pi(x)$.
 
-\begin{mainbox}{The Prime Number Theorem}
-Let $x$ be a real positive number. Then
-$$\pi(x) \sim \frac{x}{\ln x}$$
+\begin{mainbox}{Chebyshev's Estimate of the Prime Number Function}
+Let $x\ge 2$ be a real number. Then
+$$\pi(x)=\Theta\!\left(\frac{x}{\ln x}\right)$$
 \end{mainbox}
 
 \begin{claim_box}
-\textit{Proof:}
+\textbf{\textit{Proof:}}
 Recall
 $$\pi(x)=\sum_{p \le x}1$$
-Since we want $\frac{x}{\ln x}$, it suffices to show that $\pi(x)-\frac{1}{\ln x}\theta(x)$ is of some order less than $x$. So we consider
-$$\pi(x)-\frac{\theta(x)}{\ln x} = \sum_{p \le x}(1-\frac{\ln p}{\ln x}) = \sum_{p \le x}\ln p(\frac{1}{\ln p}-\frac{1}{\ln x})$$
+Since $\theta(x)=\Theta(x)$, it suffices to show that $\pi(x)-\dfrac{1}{\ln x}\theta(x)$ is nonnegative and of some order less than $\dfrac{x}{\ln x}$. So we consider
+\[\pi(x)-\frac{\theta(x)}{\ln x} = \sum_{p \leq x}\bigg(1-\frac{\ln p}{\ln x}\bigg) = \sum_{p \leq x}\ln{p}\bigg(\frac{1}{\ln p}-\frac{1}{\ln x}\bigg)\ \ge 0\]
 Consider the function
 \[
 a(n) = 
 \begin{cases}
-    \ln p & \text{if n is a prime} \\
+    \ln n & \text{if n is a prime} \\
      0    & \text{otherwise } 
 \end{cases}
 \]
-Then $A(x) = \sum_{n \le x}a(n) = \theta(x) \sim x$
-Using the Euler-Maclaurin formula on the expression of $\pi(x)-\frac{\theta(x)}{\ln x}$, we get
-$$\pi(x)-\frac{\theta(x)}{\ln x} = \theta(x)(\frac{1}{\ln x} - \frac{1}{\ln x}) - \int_2^x \theta(t)(\frac{1}{\ln t}-\frac{1}{\ln x})' \,dt$$
-$$=\int_2^x \frac{\theta(t)}{t \ln^2t} \,dt \sim \int_2^x \frac{\,dt}{\ln^2t}$$
-$$=\int_2^{\sqrt{x}}\frac{\,dt}{\ln^2t}+\int_{\sqrt{x}}^x \frac{\,dt}{\ln^2t} \sim \sqrt{x} + \int_{\sqrt{x}}^x \frac{\,dt}{\ln^2x} \sim \frac{x}{\ln^2 x}$$
-$$\Rightarrow \pi(x)-\frac{\theta(x)}{\ln x} \sim \frac{x}{\ln^2 x}$$
-$$\Rightarrow \pi(x) = \frac{\theta(x)}{\ln x} + O(\frac{x}{\ln^2 x})$$
-$$\Rightarrow \pi(x) \sim \frac{x}{\ln x}$$
+Then $A(x) = \sum_{n \le x}a(n) = \theta(x) = \Theta(x)$
+Using partial summation on the expression of $\pi(x)-\frac{\theta(x)}{\ln x}$, we get
+
+\begin{align*}
+\pi(x)-\frac{\theta(x)}{\ln x} 
+&= \theta(x)\bigg(\frac{1}{\ln x} - \frac{1}{\ln x}\bigg) - \int_2^x \theta(t)\bigg(\frac{1}{\ln t}-\frac{1}{\ln x}\bigg)' \,dt \\
+&=\int_2^x \frac{\theta(t)}{t \ln^2t} \,dt \\
+&= \Theta\bigg(\int_2^x \frac{\,dt}{\ln^2t}\bigg) \\
+&=\Theta\bigg(\int_2^{\sqrt{x}}\frac{\,dt}{\ln^2t}+\int_{\sqrt{x}}^x  \frac{\,dt}{\ln^2t}\bigg) \\
+&=\Theta\bigg(O(\sqrt{x}) + \int_{\sqrt{x}}^x \frac{\,dt}{\ln^2x}\bigg)  \\
+&=\Theta\bigg(\frac{x}{\ln^2 x}\bigg) \\
+&\Rightarrow \pi(x)-\frac{\theta(x)}{\ln x} = O\bigg(\frac{x}{\ln^2 x}\bigg)\\
+&\Rightarrow \pi(x) = \frac{\theta(x)}{\ln x} + O\bigg(\frac{x}{\ln^2 x}\bigg)\\
+&\Rightarrow \pi(x)=\Theta(\frac{x}{\ln x})
+\end{align*}
+
 \hfill$\square$
 \end{claim_box}
+
+The proof of the Prime Number Theorem is beyond the scope of this what we have done till now but it is fun to see that it is easy to estimate.
+
+\section{Binary Quadratic Forms}
+\subsection{Introduction}
+A binary quadratic form (bqf in short) is any function $q:\mathbb{Z}^2\rightarrow\mathbb{Z}$, $q(x,y)$ is of the form $ax^2+bxy+cy^2$. We sometimes write $q=(a,b,c)$ for short. Our main goal is the study this form and the values it can take, or in other words, the numbers that it can \emph{represent}. We say that $q$ \emph{represents} the integer $n$ if for some $(x,y) \neq 0$, $q(x,y)=n$. Now note that if $(a,b,c)$ represents an integer $n$, $\bigg(\frac{a}{g},\frac{b}{g},\frac{c}{g}\bigg)$ represents $\frac{n}{g}$, where $g=\gcd(a,b,c)$. Then we note that if $(a,b,c)$ represents $n$, then trivially $(ak,bk,ck)$ represents $nk$, and so any integer multiple of $n$ is going to be represented by some bqf. Thus we call a bqf \emph{primitive} if $\gcd(a,b,c)=1$. In a similar sense, we say $n$ is represented \emph{primitively} or \emph{properly} if $\gcd(x,y)=1$.
+\\ Taking $y=1$, we get our well known quadratic form $ax^2+bx+c$, the \emph{discriminant} of which is $D=b^2-4ac$. Unsurprisingly, it stays the same for any general $y$. We write $\operatorname{disc}(q)=b^2-4ac$ for a binary quadratic form $q=(a,b,c)$.  The motivation behind calling it the discriminant is the fact that 
+\[
+\begin{pmatrix}
+x &y
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+2a &b \\
+b &2c
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+= 2(ax^2+bxy+cy^2) = 2q(x,y)
+\]
+Because of this property, we say
+\[
+mat(q) =
+\begin{pmatrix}
+2a &b \\
+b &2c
+\end{pmatrix}
+\]
+Thus we also get that $\operatorname{disc}(q)=-\det(mat(q))$.
+
+\begin{problem_box}
+\textbf{Proposition:}
+\begin{enumerate}
+\item $q$ represents 0 $\iff \operatorname{disc}(q)$ is a perfect square.
+\item $\operatorname{disc}(q) \leq 0 \iff$ all non-zero values represented by $q$ are of the same sign. 
+\item $\operatorname{disc}(q) < 0 \Rightarrow$ there are finitely many representations of any given integer. 
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+Let $D = \operatorname{disc}(q)$.
+
+\begin{enumerate}
+\item 
+\textit{Proof:} ($\Rightarrow$)
+There exists $(x,y) \neq 0$ such that $q(x,y)=0$. 
+\[
+\Rightarrow (2ax+by)^2-Dy^2=0 \\
+\Rightarrow D = \frac{(2ax+by)^2}{y^2}
+\]
+for $y \neq 0$. If the solution to $q(x,y)=0$ is of the form $(x,0)$, then we have $ax^2=0 \Rightarrow x=0$, which is not possible as $(x,y) \neq (0,0)$. Thus D is a perfect square.
+\\ ($\Leftarrow$)
+D is a perfect square. 
+\[
+\Rightarrow 4aq(x,y) = (2ax+by)^2 - Dy^2 = (2ax+by+\sqrt{D}y)(2ax+by-\sqrt{D}y) 
+\]
+\[
+\Rightarrow q(x,y) = 0 \text{ for } (b+\sqrt{D})y = \pm 2ax
+\]
+Clearly such $(x,y) \neq (0,0)$ exist, thus $q$ represents $0$.
+\hfill$\square$
+
+\item 
+\textit{Proof:} ($\Rightarrow$)
+As $D \leq 0$,
+\[
+\Rightarrow 4aq(x,y) = (2ax+by)^2 - Dy^2 \ geq (2ax+by)^2 \geq 0
+\]
+Thus all non-zero values have same sign, and the sign is same as $a$.
+\\ ($\Leftarrow$)
+Consider the fact that
+\[
+4aq(b,-2a)=-4a^2D \text{ and } 4aq(1,0)=4a^2
+\]
+Since they have same sign, we need $D \leq 0$.
+\hfill$\square$
+
+\item 
+\textit{Proof:}
+Let $q(x,y)=n$. Then
+\[
+4an = (2ax+by)^2-Dy^2 \geq -Dy^2
+\]
+\[
+\Rightarrow |y| \leq \sqrt{\frac{4an}{-D}} 
+\]
+\[
+4an = (2ax+by)^2-Dy^2 > (2ax+by)^2
+\]
+\[
+\Rightarrow |2ax+by| < \sqrt{4an}
+\]
+From here, it is easy to see that there are only finitely many such $x,y$.
+\hfill$\square$
+\end{enumerate}
+\end{claim_box}
+
+\subsection{Group Actions on BQF}
+A few definitions first.
+\begin{definition_box}
+\begin{enumerate}
+\item $Q(\mathbb{Z}^2) := $ set of all binary quadratic forms taking integer inputs.
+\item  $M_2(\mathbb{Z}) := $ set of all 2x2 matrices with integer entries.
+\item $GL_2(\mathbb{Z}) := A \in M_2(\mathbb{Z})$ such that $A$ is invertible. Note that in this case, it suffices to have $\operatorname{det}(A) = \pm 1$. It is called the \emph{General Linear group of 2x2 matrices}.
+\item $SL_2(\mathbb{Z}) := A \in M_2(\mathbb{Z}), \operatorname{det}(A)= 1$. It is called the \emph{Special Linear group of 2x2 matrices}.
+\item Let $A = \begin{pmatrix}
+\alpha &\beta \\
+\gamma &\delta \\
+\end{pmatrix} \in M_2(\mathbb{Z})$, then $(q.A)(x,y) := q\bigg(A \begin{pmatrix}
+x \\ y
+\end{pmatrix}\bigg)=q(\alpha x+\beta y,\gamma x + \delta y) = q(\alpha,\gamma)x^2 + (\dots)xy + q(\beta,\delta)y^2$.
+\end{enumerate}
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Proposition:}
+\begin{enumerate}
+\item $q.I = q$
+\item $(q.A).B = q.(AB)$
+\item $\operatorname{mat}(q.A)=A^T\operatorname{mat}(q)A$
+\end{enumerate}
+\end{problem_box}
+These are pretty easy so the proof is left as an exercise to the reader. Now note that $GL_2(\mathbb{Z})$ is a group under matrix multiplication, and the above proposition shows that there is a map $(q,A) \mapsto q.A$ such that there is a right identity, and it is associate. We call such a map a \emph{right group action}.
+
+\begin{definition_box}
+Let $q_1,q_2 \in Q(\mathbb{Z}^2)$. Then we say $q_1 \sim q_2$ ($q_1$ and $q_2$ are equivalent) if $q_2=q_1.A$ for some $A \in GL_2(\mathbb{Z})$. If $A \in SL_2(\mathbb{Z})$, we say $q_1 \overset{+}{\sim} q_2$ ($q_1$ and $q_2$ are properly equivalent). It is easy to see that $\sim$ and $\overset{+}{\sim}$ are equivalence relations.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $q_1 \sim q_2$. Then we have:
+\begin{enumerate}
+\item $\operatorname{disc}(q_1)=\operatorname{disc}(q_2)$
+\item $q_1$ and $q_2$ represent the same set of integers same number of times.
+\item $q_1$ and $q_2$ are either both primitive or both imprimitive (i.e., not primitive).
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+
+\begin{enumerate}
+\item 
+\textit{Proof:}
+\begin{align*}
+q_2 &= q_1 \cdot A \\
+\operatorname{\operatorname{mat}}(q_2) &= A^{T}\operatorname{\operatorname{mat}}(q_1)A \\
+\Rightarrow \det(\operatorname{\operatorname{mat}}(q_2)) &= \det(A^{T}\operatorname{\operatorname{mat}}(q_1)A) \\
+&= \det(A^{T})\det(\operatorname{\operatorname{mat}}(q_1))\det(A) \\
+&= \det(A)^2\det(\operatorname{\operatorname{mat}}(q_1)) \\
+&= \det(\operatorname{\operatorname{mat}}(q_1)) \\
+\Rightarrow \operatorname{disc}(q_2) &= \operatorname{disc}(q_1)
+\end{align*}
+\hfill$\square$
+\item 
+\textit{Proof:}
+Note that since $q_2=q_1.A$, we can also write $q_1=q_2.A^{-1}$. Since there is a one-to-one invertible map between $q_1$ and $q_2$, each representation of an integer $n$ in $q_1$ will correspond to a representation of $n$ in $q_2$, and vice-versa. This is why $q_1$ and $q_2$ represent the same set of integers the same number of times.
+\hfill$\square$
+\item 
+\textit{Proof:}
+Let $q_1=(a,b,c)$ be primitive and let $q_2=(a',b',c')$ be imprimitive, let $d=\gcd(a',b',c')$ such that $d > 1$. By the previous proposition, we know that $d$ must divide all values that $q_1$ and $q_2$ represent. Thus,
+$$d|q_1(1,0)=a, q_1(0,1)=c, q_1(1,1)=a+b+c$$
+$$\Rightarrow d|a,c,a+b+c$$
+$$\Rightarrow d|a,b,c$$
+$$\Rightarrow d \le \gcd(a,b,c)=1$$
+Therefore, contradiction. Thus we get that both of them must be either primitive or imprimitive.
+\hfill$\square$
+\end{enumerate}
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+Let $q \in Q(\mathbb{Z}^2)$ and $n \in \mathbb{Z}$, then 
+\\ $q$ represents $n \iff q \overset{+}{\sim} (n,b,c)$ 
+\\ and if $n \neq 0$, then we may choose $b$ such that  $-|n| < b \leq |n|$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} ($\Rightarrow$)
+Suppose $q(\alpha,\gamma)=n$ for some $\gcd(\alpha,\gamma)=1$. By Bézout's Lemma, we know that we can find $\beta, \delta \in \mathbb{Z}$ such that $\alpha \delta - \beta \gamma = 1$. Let $A = \begin{pmatrix}
+\alpha &\beta \\
+\gamma &\delta
+\end{pmatrix}$, then we have that $\det(A)=1$, and $q.A(1,0)=n$, which implies that $q.A=(n,b,c)$ for some $b,c \in \mathbb{Z}$. Thus $q \overset{+}{\sim} (n,b,c)$.
+\\ ($\Leftarrow$)
+Suppose $q \overset{+}{\sim} (n,b,c)$. Then we have $q.A=(n,b,c)$ for some $A \in SL_2(\mathbb{Z)}$. 
+$$\Rightarrow q.A(x,y)=n \text{ for some } x,y \in \mathbb{Z}$$
+$$\Rightarrow q(x',y')=n \text{ for some } x',y' \in \mathbb{Z}$$
+Thus $q$ represents $n$. This is also a direct result of the previous theorem.
+\\ Let $n \neq 0$. We can write $b = 2nu + r$ with $-|n| < r \leq |n|$. Let $q'' = q'.B$ where $B = \begin{pmatrix}
+1 &-u \\
+0 &1
+\end{pmatrix}$ and $q'=(n,b,c)$. This leads to $q''(x,y) = (q'.B)(x,y) =
+nx^2 +rxy +c'y^2$, completing the proof.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Discriminants}
+\begin{definition_box}
+An integer $D$ is called a \emph{discriminant} if it is the discriminant of some bqf.
+\\ $D=b^2-4ac$ for some $a, b, c \in \mathbb{Z}$
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:}
+$D$ is a discriminant iff $D \equiv \left\{0,1\right\} \mod{4}$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} ($\Rightarrow$)
+\[
+D \equiv b^2\mod{4}
+\]
+\[
+\Rightarrow D \equiv \left\{0,1\right\}\mod{4}
+\]
+as $0,1$ are the only quadratic residues$\mod{4}$.
+\\ ($\Leftarrow$)
+If $D \equiv 0 \mod{4}$, it is the discriminant of $x^2-\bigg( \frac{D}{4} \bigg)y^2$.
+\\If $D \equiv 1 \mod{4}$, it is the discriminant of $x^2+xy+\bigg( \frac{1-D}{4} \bigg)y^2$.
+\\These are called the \emph{principal forms} of discriminant $D$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+\textbf{Lagrange's Theorem:} Let $D, n \in \mathbb{Z}$ with $D$ not a square and $n \neq 0$. Then $D$ is a square$\mod{4n}$ iff there is some bqf with discriminant $D$ that properly represents $n$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} ($\Rightarrow$)
+\\ Let $D \equiv b^2 \mod{4n}$
+$$\Rightarrow D = b^2-4nc \text{ for some } c\in \mathbb{Z}$$
+Thus the bqf $q=(n,b,c)$ has discriminant $D$ and properly represnts $n$ as $q(1,0)=n$ and $\gcd(1,0)=1$.
+\\ ($\Leftarrow$)
+Let $q$ be a bqf with discriminant $D$ that properly represents $n$. Then we have $q \overset{+}{\sim} (n,b,c)$. Thus,
+$$D=b^2-4nc$$
+$$\Rightarrow D \equiv b^2 \mod{4n}$$
+Thus $D$ is a square mod $4n$.
+\hfill $\square$
+\end{claim_box}
+
+\textbf{Corollary:} Let $D \equiv \left\{0,1\right\} \mod{4}$, and $p$ be a prime such that $\bigg(\frac{D}{p}\bigg)=1$. Then there exists a bqf of discriminant $D$ which properly represents $p$. The form is unique upto equivalence.
+
+\begin{claim_box}
+\textit{Proof:}
+$D$ is a square $\mod{p}$, and $D \equiv \left\{0,1\right\} \mod{4}$, so $D$ is a square $\mod{4}$ as well. Thus $D$ is a square $\mod{4p}$. By Lagrange's Theorem, we get that there is some bqf $q$ with discriminant $D$ that properly represents $p$. So we also get that $q \overset{+}{\sim} (p,b,c)$ for some $b,c \in \mathbb{Z}$ such that $-p < b \le p$. We have $(p,b,c) \sim (p,-b,c)$ by the matrix $\begin{pmatrix}
+1 &0 \\
+0 &-1
+\end{pmatrix}$. Thus we can choose $b$ such that $q \sim (p,b,c)$ where $0 \le b \le p$.
+\\ To prove uniqueness, let $q'$ be another form of discriminant $D$ which properly represents $p$. As above, we may take $q' \sim (p,b',c')$ with $0 \le b' \le p$. We shall prove that $b = b'$ and $c = c'$.
+
+Since $(p,b,c)$ and $(p,b',c')$ have the same discriminant, we have
+\[
+  b^2 - 4pc = b'^2 - 4pc',
+\]
+so $4p \mid (b-b')(b+b')$. In particular, both $b+b'$ and $b-b'$ are even, and $p$ must divide at least one of $b+b'$ and $b-b'$.
+
+However, if $p \mid b-b'$ then we are done: $b = b'$ (as $b-b'$ is even, it cannot be equal to $\pm p$) and hence $c = c'$. So assume $p \mid b+b'$. Since $0 \le b,b' \le p$, the only possibilities are $b+b' = 0$ and $b+b' = 2p$ (since both $b+b'$ and $b-b'$ are even). In the former case, $b = b' = 0$, and in the latter, $b = b' = p$. In both cases, the conclusion is that $b = b'$ and hence $c = c'$. This completes the proof.
+\hfill$\square$
+\end{claim_box} 
+
+\begin{definition_box}
+A discriminant $D$ is said to be \emph{fundamental} if for all bqf $q$ that have discriminant $D$, $q$ is primitive.
+\end{definition_box}
+
+\begin{problem_box}
+\textbf{Theorem:} 
+$D$ is a fundamental discriminant iff
+\begin{enumerate}
+\item $D$ is squarefree and $D \equiv 1 \mod{4}$.
+\item $D \equiv 0 \mod{4}$, $\frac{D}{4}$ is square-free and $\frac{D}{4} \equiv \left\{2,3\right\} \mod{4}$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} ($\Rightarrow$)
+\textit{Case 1: $D\equiv 1\pmod 4$.}
+\\ Suppose $D$ is not squarefree, so $p^2\mid D$ for some prime $p$. Write
+$D=p^2D'$. Since $D$ is odd, $p$ is odd, so $p^2\equiv 1\pmod 4$ and hence
+$D'\equiv p^2D'=D\equiv 1\pmod 4$. $D'$ is a
+discriminant, so $D=p^2D'$ is the discriminant of an
+imprimitive form. This contradicts fundamentality. Hence $D$ is squarefree, and
+1. holds.
+
+\smallskip
+\textit{Case 2: $D\equiv 0\pmod 4$.}
+Write $D=4m$.
+\\ We need $m\equiv 2$ or $3\pmod 4$. Suppose instead $m\equiv 0$ or
+$1\pmod 4$, which means $m$ is a discriminant, so $D$
+is the discriminant of an imprimitive
+form, a contradiction. \\ We need $m$ is squarefree. Suppose $p^2\mid m$ for a prime $p$, say
+$m=p^2m'$. Then $D=p^2(4m')$, and $4m'\equiv 0\pmod 4$ is a discriminant. This means $D$ is the discriminant of an
+imprimitive form, a contradiction. So $m$ is squarefree, and 2. holds.
+
+\medskip
+($\Leftarrow$)
+Let $q=(a,b,c)$ have discriminant $D$, and suppose for contradiction that
+$q$ is not primitive. Then some prime $p$ divides $a$, $b$ and $c$, so
+$p^2\mid b^2-4ac=D$.
+
+\smallskip
+\textit{Case 1:} $D$ is squarefree, so $p^2\mid D$ is impossible.
+
+\smallskip
+\noindent\textit{Case (ii).} $D=4m$ with $m$ squarefree and $m\equiv 2,3\pmod 4$. If $p$ is odd, then $p^2\mid 4m$ and $\gcd(p,4)=1$ give $p^2\mid m$,
+contradicting that $m$ is squarefree. If $p=2$, write $a=2a'$, $b=2b'$, $c=2c'$. Then
+        \[
+          4m=D=4b'^2-16a'c' \quad\Longrightarrow\quad m=b'^2-4a'c'\equiv b'^2\equiv 0\text{ or }1\pmod 4,
+        \]
+        contradicting $m\equiv 2,3\pmod 4$. \\ In every case we reach a contradiction, so every form of discriminant $D$ is
+primitive, i.e., $D$ is fundamental.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Class Number}
+
+
+
 
 \end{document}
