@@ -1,0 +1,1864 @@
+%-----------------------------------------------------------------------------------
+%   PACKAGES 
+%-----------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt,abstracton]{scrartcl}
+
+\usepackage[margin=.9in]{geometry}
+
+
+\usepackage{mlmodern}
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools,mathrsfs}
+\usepackage{centernot}
+\usepackage{wrapfig}
+
+\usepackage{tikz,tikz-cd,asymptote}
+\usetikzlibrary{positioning, fit, calc}
+
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref,wrapfig}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage[a]{esvect}
+\usepackage{tocloft}
+
+
+\usepackage{sectsty}
+\makeatletter
+\def\@seccntformat#1{\textcolor{Red}{\hspace*{0.2em}$\textbf{\S}$\hspace{-0.3em} \csname the#1\endcsname}\hspace{0.5em}}
+\makeatother
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Probability}
+\rhead{\thepage}
+\cfoot{} 
+
+\setlength{\parindent}{0cm}
+
+%-----------------------------------------------------------------------------------
+%   COMMANDS
+%-----------------------------------------------------------------------------------
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\newcommand{\nonadj}{\,\neg\textsf{adj}\,}
+\newcommand{\adj}{\,\textsf{adj}\,}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\sgn}{\text{sgn\hspace{0.5mm}}}
+\newcommand{\osc}{\text{osc\hspace{0.5mm}}}
+\newcommand{\foralls}{\hspace{2mm}\forall}
+\newcommand{\rimply}{\Rightarrow}
+\newcommand{\limply}{\Leftarrow}
+\newcommand{\underdash}{\rule{0.25cm}{0.1mm}\hspace{0.5mm}}
+\newcommand{\undersmalldash}{\rule{0.18cm}{0.1mm}\hspace{0.3mm}}
+\newcommand{\s}{\square}
+\newcommand{\xr}{\xrightarrow}
+
+\newcommand{\genstirlingI}[3]{%
+  \genfrac{[}{]}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genstirlingII}[3]{%
+  \genfrac{\{}{\}}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\genlah}[3]{%
+  \genfrac{\lfloor}{\rfloor}{0pt}{#1}{#2}{#3}%
+}
+\newcommand{\stirlingI}[2]{\genstirlingI{}{#1}{#2}}
+\newcommand{\stirlingII}[2]{\genstirlingII{}{#1}{#2}}
+\newcommand{\lah}[2]{\genlah{}{#1}{#2}}
+
+%-----------------------------------------------------------------------------------
+%   ENVIROMENTS
+%-----------------------------------------------------------------------------------
+
+\newtheoremstyle{dotlessP}{}{}{}{}{\color{RedViolet}\bfseries}{.}{ }{}
+\theoremstyle{dotlessP}
+\newtheorem{problem}{Problem}
+\newtheoremstyle{dotlessS}{}{}{}{}{\color{ForestGreen}\bfseries}{.}{ }{}
+\theoremstyle{dotlessS}
+\newtheorem*{solution}{Solution}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem*{theorem}{Theorem}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+
+\newtcolorbox{mainbox}[1]{
+  enhanced jigsaw,
+  breakable,
+  arc=0mm,
+  bottomtitle=0.5mm,
+  boxrule=0mm,
+  colbacktitle=black!8!white,
+  colback=black!1!white,
+  colframe=brandblue,
+  coltitle=black,
+  fonttitle=\bfseries,
+  left=2.5mm,
+  leftrule=1mm,
+  right=3.5mm,
+  title={#1},
+  toptitle=0.75mm
+}
+
+\newtcolorbox{subbox}[1]{
+  arc=0mm,
+  bottomtitle=0.5mm,
+  boxrule=0mm,
+  colbacktitle=black!6!white,
+  colframe=black!30!white,
+  coltitle=black,
+  fonttitle=\bfseries,
+  left=2.5mm,
+  leftrule=1mm,
+  right=3.5mm,
+  title={#1},
+  toptitle=0.75mm
+}
+
+\newtcolorbox{definition_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=RedViolet!45!black,
+colbacktitle=Gray!38!white,
+before={\vspace{4mm}},
+after={\vspace{2mm}},
+sharp corners
+}
+
+
+\newtcolorbox{problem_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white!5!white,
+colframe=gray!75!black,
+colbacktitle=white!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_1}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=SeaGreen!5!white,
+colframe=SeaGreen!75!black,
+colbacktitle=Black!28!white,
+sharp corners,
+before={\vspace{6mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{problem_box_title}[1]{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}},
+title={#1}, 
+fonttitle=\bfseries
+}
+
+\newtcolorbox{claim_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=white,
+colframe=white,
+borderline west={2pt}{0pt}{white},
+sharp corners,
+before={\vspace{1mm}},
+after={\vspace{0.8mm}}
+}
+
+\newtcolorbox{example_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=lightgray!12!white,
+colframe=lightgray!15!white,
+borderline west={2pt}{0pt}{black},
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+\newtcolorbox{remark_box}{
+enhanced jigsaw,
+breakable,
+pad at break*=1mm,
+colback=Apricot!5!white,
+colframe=Melon!75!black,
+sharp corners,
+before={\vspace{2mm}},
+after={\vspace{2mm}}
+}
+
+
+\begin{document}
+
+%-----------------------------------------------------------------------------------
+%   TOP MATTERS
+%-----------------------------------------------------------------------------------
+
+\title{Probability}
+\subtitle{Handkerchief}
+\author{Pratyay Sen}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\eject
+
+
+%-----------------------------------------------------------------------------------
+%   MAIN BODY
+%-----------------------------------------------------------------------------------
+
+\section{Classical Probability}
+
+Classical probability applies to experiments with finitely many outcomes that are all equally likely. It turns the probability of an event into a ratio of counts.
+
+\begin{definition_box}
+\textbf{Sample space and event.} The \emph{sample space} $\Omega$ is the set of all possible outcomes of an experiment. An \emph{event} is a subset $A\subseteq\Omega$; it occurs when the outcome of the experiment belongs to $A$.
+
+If $\Omega$ is finite and every outcome is equally likely, the classical probability of $A$ is
+\[
+  \mathbb{P}(A)=\frac{|A|}{|\Omega|},
+\]
+where $|A|$ denotes the number of outcomes in $A$. In words, this is the number of favorable outcomes divided by the total number of possible outcomes.
+\end{definition_box}
+
+\begin{example_box}
+Roll a fair six-sided die. The sample space is $\Omega=\{1,2,3,4,5,6\}$. For the event $E$ that the result is even, $E=\{2,4,6\}$, so
+\[
+  \mathbb{P}(E)=\frac{|E|}{|\Omega|}=\frac{3}{6}=\frac{1}{2}.
+\]
+For the event $G$ that the result is greater than $4$, $G=\{5,6\}$ and $\mathbb{P}(G)=2/6=1/3$.
+\end{example_box}
+
+The counting formula gives several useful rules. For any event $A\subseteq\Omega$,
+\[
+  \mathbb{P}(\varnothing)=0, \qquad \mathbb{P}(\Omega)=1,
+  \qquad 0\leq \mathbb{P}(A)\leq 1.
+\]
+The complement $A^c=\Omega\setminus A$ consists of outcomes where $A$ does not occur, and
+\[
+  \mathbb{P}(A^c)=1-\mathbb{P}(A).
+\]
+If two events $A$ and $B$ cannot occur together, so that $A\cap B=\varnothing$, then
+\[
+  \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
+\]
+More generally, inclusion-exclusion accounts for outcomes counted in both events:
+\[
+  \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+\]
+
+\begin{claim_box}
+\textit{Proof:} In a finite equally likely sample space, $\mathbb{P}(E)=|E|/|\Omega|$. Thus
+\[
+  \mathbb{P}(A^c)=\frac{|\Omega|-|A|}{|\Omega|}=1-\mathbb{P}(A),
+\]
+which also gives $\mathbb{P}(\varnothing)=0$ and $\mathbb{P}(\Omega)=1$, while $0\leq |A|/|\Omega|\leq1$. If $A$ and $B$ are disjoint, then $|A\cup B|=|A|+|B|$, so probabilities add. In general,
+\[
+  |A\cup B|=|A|+|B|-|A\cap B|,
+\]
+because the intersection is counted twice in $|A|+|B|$. Dividing by $|\Omega|$ gives the inclusion-exclusion formula for two events.
+\hfill$\square$
+\end{claim_box}
+
+The ratio $|A|/|\Omega|$ is not a general way to define probability: it applies only when the sample space is finite and its elementary outcomes are equally likely. The formula does not explain how to decide that outcomes are equally likely. That assumption must be justified independently, for example by the symmetry of a fair die or by a known physical model. If ``equally likely'' is itself taken to mean ``has the same probability,'' then the formula presupposes the very idea it is meant to define.
+
+A common mistake is to assume that categories are equally likely just because they are listed as separate possibilities. For example, toss a fair coin twice. The equally likely elementary outcomes are
+\[
+  \Omega=\{HH,HT,TH,TT\}.
+\]
+Grouping these outcomes by the number of heads gives three categories: zero heads ($\{TT\}$), one head ($\{HT,TH\}$), and two heads ($\{HH\}$). These categories are not equally likely: they contain different numbers of equally likely elementary outcomes. Thus the probability of at least one head is
+\[
+  \mathbb{P}(\text{at least one head})=\frac{3}{4},
+\]
+not $2/3$. Counting is valid only after choosing elementary outcomes for which equal likelihood is warranted; merely counting named possibilities can produce a false answer.
+
+The classical formula also does not directly cover infinite sample spaces, such as selecting a point uniformly from an interval, where the ratio of finite counts is unavailable. Such situations require a broader probability model.
+
+\section{Axiomatic Probability}
+
+\subsection{Axioms of Probability}
+
+\begin{definition_box}
+Let $\Omega$ be a set. A family of subsets $\mathcal{F}\subseteq\mathcal{P}(\Omega)$ is an \emph{algebra of sets} on $\Omega$ if
+\begin{enumerate}
+  \item $\emptyset\in\mathcal{F}$;
+  \item if $A\in\mathcal{F}$, then $A^c=\Omega\setminus A\in\mathcal{F}$;
+  \item if $A,B\in\mathcal{F}$, then $A\cup B\in\mathcal{F}$.
+\end{enumerate}
+Thus an algebra is closed under complements and finite unions.
+An algebra of sets is also called a \emph{field of sets}.
+\end{definition_box}
+
+\begin{example_box}
+If $\Omega=\{1,2,3,4\}$, the family
+\[
+  \mathcal{F}=\{\emptyset,\{1,2\},\{3,4\},\Omega\}
+\]
+is an algebra: its sets are unions of the two blocks $\{1,2\}$ and $\{3,4\}$. As an infinite example, the finite and cofinite subsets of $\mathbb{N}$ form an algebra (cofinite means that the set's complement is also finite). This latter algebra is not a $\sigma$-algebra: the union of the singleton sets $\{2\},\{4\},\{6\},\ldots$ is the set of positive even integers, which is neither finite nor cofinite.
+\end{example_box}
+
+\begin{definition_box}
+A collection $\mathcal{F}\subseteq\mathcal{P}(\Omega)$ is a \emph{$\sigma$-algebra} on $\Omega$ if $\Omega\in\mathcal{F}$, it is closed under complements, and for every sequence $A_1,A_2,\ldots$ of sets in $\mathcal{F}$,
+\[
+  \bigcup_{n=1}^{\infty}A_n\in\mathcal{F}.
+\]
+Every $\sigma$-algebra is an algebra, since finite unions are countable unions. Its elements are called measurable sets, or events; a probability measure is defined on this collection.
+\end{definition_box}
+
+\begin{example_box}
+For any set $\Omega$, its power set $\mathcal{P}(\Omega)$ is a $\sigma$-algebra. For instance, when $\Omega=\{1,2,3\}$, the family
+\[
+  \{\emptyset,\{1\},\{2,3\},\Omega\}
+\]
+is also a $\sigma$-algebra; it consists of all unions of the blocks $\{1\}$ and $\{2,3\}$.
+\end{example_box}
+
+\begin{claim_box}
+If $A_1,A_2,\ldots\in\mathcal{F}$ for a $\sigma$-algebra $\mathcal{F}$, then their countable intersection belongs to $\mathcal{F}$. Indeed, closure under complements gives $A_n^c\in\mathcal{F}$ for every $n$, and closure under countable unions gives $\bigcup_{n=1}^{\infty}A_n^c\in\mathcal{F}$. By De Morgan's law,
+\[
+  \bigcap_{n=1}^{\infty}A_n
+  =\left(\bigcup_{n=1}^{\infty}A_n^c\right)^c\in\mathcal{F}.
+\]
+\end{claim_box}
+
+\begin{definition_box}
+A pair $(\Omega,\mathcal{F})$, where $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$, is called a \emph{measurable space}. A \emph{measure} on $(\Omega,\mathcal{F})$ is a function $\mu:\mathcal{F}\to[0,\infty]$ such that $\mu(\emptyset)=0$ and, for every pairwise disjoint sequence $A_1,A_2,\ldots\in\mathcal{F}$,
+\[
+  \mu\!\left(\bigcup_{n=1}^{\infty}A_n\right)
+  =\sum_{n=1}^{\infty}\mu(A_n).
+\]
+The triple $(\Omega,\mathcal{F},\mu)$ is called a \emph{measure space}.
+A measure $\mathbb{P}$ on $(\Omega,\mathcal{F})$ satisfying $\mathbb{P}(\Omega)=1$ is called a \emph{probability measure}. The triple $(\Omega,\mathcal{F},\mathbb{P})$ is then called a \emph{probability space}.
+\end{definition_box}
+
+\begin{remark_box}
+The \emph{discrete $\sigma$-algebra} on $\Omega$ is the power set $\mathcal{P}(\Omega)$, so every subset is measurable. The \emph{trivial $\sigma$-algebra} is $\{\emptyset,\Omega\}$, so only the impossible and certain events are measurable. The trivial $\sigma$-algebra is contained in every $\sigma$-algebra on $\Omega$.
+\end{remark_box}
+
+\subsection{Continuity and Countable Subadditivity}
+
+\begin{problem_box}
+Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space.
+\begin{enumerate}
+  \item If $A_1\subseteq A_2\subseteq\cdots$ and $A=\bigcup_{n=1}^{\infty}A_n$, then
+  \[
+    \lim_{n\to\infty}\mathbb{P}(A_n)=\mathbb{P}(A).
+  \]
+  \item If $A_1\supseteq A_2\supseteq\cdots$ and $A=\bigcap_{n=1}^{\infty}A_n$, then
+  \[
+    \lim_{n\to\infty}\mathbb{P}(A_n)=\mathbb{P}(A).
+  \]
+  \item For any sequence of events $A_1,A_2,\ldots$,
+  \[
+    \mathbb{P}\!\left(\bigcup_{i=1}^{\infty}A_i\right)
+    \leq\sum_{i=1}^{\infty}\mathbb{P}(A_i).
+  \]
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} For the first assertion, set $B_1=A_1$ and $B_n=A_n\setminus A_{n-1}$ for $n\geq2$. These events are pairwise disjoint, and for each $n$,
+\[
+  A_n=\bigcup_{i=1}^{n}B_i,
+  \qquad
+  A=\bigcup_{i=1}^{\infty}B_i.
+\]
+Countable additivity therefore gives
+\[
+  \mathbb{P}(A_n)=\sum_{i=1}^{n}\mathbb{P}(B_i)
+  \longrightarrow \sum_{i=1}^{\infty}\mathbb{P}(B_i)=\mathbb{P}(A).
+\]
+
+For the second assertion, the complements $A_n^c$ increase and
+\[
+  \bigcup_{n=1}^{\infty}A_n^c=A^c.
+\]
+Applying the first assertion to these complements and using $\mathbb{P}(E^c)=1-\mathbb{P}(E)$ yields
+\[
+  1-\mathbb{P}(A_n)=\mathbb{P}(A_n^c)
+  \longrightarrow\mathbb{P}(A^c)=1-\mathbb{P}(A),
+\]
+so $\mathbb{P}(A_n)\to\mathbb{P}(A)$.
+
+For the final assertion, disjointify the events by setting
+\[
+  B_i=A_i\setminus\bigcup_{j=1}^{i-1}A_j,
+\]
+where the union is empty when $i=1$. The $B_i$ are pairwise disjoint, $B_i\subseteq A_i$, and $\bigcup_i B_i=\bigcup_i A_i$. Since $A_i=B_i\cup(A_i\setminus B_i)$ is a disjoint union, nonnegativity and additivity give $\mathbb{P}(B_i)\leq\mathbb{P}(A_i)$. Thus countable additivity yields
+\[
+  \mathbb{P}\!\left(\bigcup_{i=1}^{\infty}A_i\right)
+  =\sum_{i=1}^{\infty}\mathbb{P}(B_i)
+  \leq\sum_{i=1}^{\infty}\mathbb{P}(A_i).
+\]
+\hfill$\square$
+\end{claim_box}
+
+\subsection{The Borel--Cantelli Lemmas}
+
+For a sequence of events $A_1,A_2,\ldots$, the event that infinitely many of them occur is
+\[
+  \{A_n\text{ infinitely often}\}
+  =\limsup_{n\to\infty}A_n
+  =\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_k.
+\]
+
+\begin{problem_box}
+\textbf{First Borel--Cantelli lemma.} If
+\[
+  \sum_{n=1}^{\infty}\mathbb{P}(A_n)<\infty,
+\]
+then
+\[
+  \mathbb{P}(A_n\text{ infinitely often})=0.
+\]
+No independence assumption is required.
+
+\textbf{Second Borel--Cantelli lemma.} If the events $A_1,A_2,\ldots$ are mutually independent and
+\[
+  \sum_{n=1}^{\infty}\mathbb{P}(A_n)=\infty,
+\]
+then
+\[
+  \mathbb{P}(A_n\text{ infinitely often})=1.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} For the first lemma, the event that infinitely many $A_n$ occur is contained in every tail union. Countable subadditivity therefore gives, for every $N$,
+\[
+  \mathbb{P}(A_n\text{ infinitely often})
+  \leq \mathbb{P}\!\left(\bigcup_{k=N}^{\infty}A_k\right)
+  \leq \sum_{k=N}^{\infty}\mathbb{P}(A_k).
+\]
+The tail sums tend to zero because the full series converges, so the probability on the left is zero.
+
+For the second lemma, fix $N$. By mutual independence, for $m\geq N$,
+\[
+  \mathbb{P}\!\left(\bigcap_{k=N}^{m}A_k^c\right)
+  =\prod_{k=N}^{m}\bigl(1-\mathbb{P}(A_k)\bigr)
+  \leq \exp\!\left(-\sum_{k=N}^{m}\mathbb{P}(A_k)\right).
+\]
+The tail sum diverges as $m\to\infty$, so the right-hand side tends to zero. By continuity of probability for decreasing events,
+\[
+  \mathbb{P}\!\left(\bigcap_{k=N}^{\infty}A_k^c\right)=0.
+\]
+This is the probability that no $A_k$ occurs for any $k\geq N$. The event that only finitely many $A_k$ occur is the union of these events over $N$, and hence has probability zero by countable subadditivity. Therefore infinitely many $A_k$ occur with probability one.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Runs of consecutive heads.} Fix a positive integer $r$ and toss a fair coin independently forever. We show that a run of $r$ consecutive heads occurs infinitely often with probability $1$.
+
+For each $k\geq0$, let $A_k$ be the event that tosses $kr+1,\ldots,(k+1)r$ are all heads. These events involve disjoint blocks of tosses, so they are mutually independent, and $\mathbb{P}(A_k)=2^{-r}$. Therefore
+\[
+  \sum_{k=0}^{\infty}\mathbb{P}(A_k)
+  =\sum_{k=0}^{\infty}2^{-r}=\infty.
+\]
+The second Borel--Cantelli lemma implies that $A_k$ occurs for infinitely many $k$ with probability $1$. Each such event gives a run of $r$ consecutive heads, so such runs occur infinitely often almost surely.
+\end{example_box}
+
+\subsection{The Principle of Inclusion-Exclusion}
+
+\begin{problem_box}
+Let $A_1,\ldots,A_n$ be events in a finite, equally likely sample space $\Omega$. The \textbf{principle of inclusion-exclusion (PIE)} states that
+\[
+  \mathbb{P}\!\left(\bigcup_{i=1}^{n} A_i\right)
+  =\sum_{\varnothing\ne I\subseteq\{1,\ldots,n\}}
+    (-1)^{|I|+1}\mathbb{P}\!\left(\bigcap_{i\in I} A_i\right).
+\]
+For example, when $n=3$, this reads
+\[
+  \mathbb{P}(A_1\cup A_2\cup A_3)
+  =\mathbb{P}(A_1)+\mathbb{P}(A_2)+\mathbb{P}(A_3)
+  -\mathbb{P}(A_1\cap A_2)-\mathbb{P}(A_1\cap A_3)-\mathbb{P}(A_2\cap A_3)
+  +\mathbb{P}(A_1\cap A_2\cap A_3).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Fix an outcome $w\in\Omega$, and let $k$ be the number of events $A_i$ that contain $w$. On the left-hand side, $w$ contributes $1/|\Omega|$ if $k\geq 1$, and $0$ if $k=0$. On the right-hand side, if $k\geq 1$, it appears in the intersection for every nonempty selection of those $k$ events. Its total signed contribution is
+\[
+  \frac{1}{|\Omega|}\sum_{j=1}^{k}(-1)^{j+1}\binom{k}{j}
+  =\frac{1}{|\Omega|},
+\]
+by the binomial identity $(1-1)^k=0$. If $k=0$, it contributes $0$ on both sides. Thus each outcome contributes equally to both sides, and summing these contributions over $\Omega$ proves the identity.\hfill$\square$
+\end{claim_box}
+
+\subsection{Bonferroni's Inequalities}
+
+\begin{problem_box}
+For events $A_1,\ldots,A_n$ in a probability space, truncating PIE gives alternating upper and lower bounds, known as Bonferroni's inequalities. In particular,
+\[
+  \mathbb{P}\!\left(\bigcup_{i=1}^{n} A_i\right)
+  \leq \sum_{i=1}^{n}\mathbb{P}(A_i),
+\]
+\[
+  \mathbb{P}\!\left(\bigcup_{i=1}^{n} A_i\right)
+  \geq \sum_{i=1}^{n}\mathbb{P}(A_i)
+  -\sum_{1\leq i<j\leq n}\mathbb{P}(A_i\cap A_j),
+\]
+and
+\[
+  \mathbb{P}\!\left(\bigcup_{i=1}^{n} A_i\right)
+  \leq \sum_{i=1}^{n}\mathbb{P}(A_i)
+  -\sum_{1\leq i<j\leq n}\mathbb{P}(A_i\cap A_j)
+  +\sum_{1\leq i<j<k\leq n}\mathbb{P}(A_i\cap A_j\cap A_k).
+\]
+More generally, define the $r$th partial sum
+\[
+  S_r=\sum_{j=1}^{r}(-1)^{j+1}
+  \sum_{1\leq i_1<\cdots<i_j\leq n}
+  \mathbb{P}(A_{i_1}\cap\cdots\cap A_{i_j}),
+  \qquad 1\leq r\leq n.
+\]
+Then $S_r$ is an upper bound for the union probability when $r$ is odd, and a lower bound when $r$ is even:
+\[
+  r\text{ odd}:\quad \mathbb{P}\!\left(\bigcup_{i=1}^{n}A_i\right)\leq S_r,
+  \qquad
+  r\text{ even}:\quad \mathbb{P}\!\left(\bigcup_{i=1}^{n}A_i\right)\geq S_r.
+\]
+When $r=n$, the partial sum is the exact PIE formula.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Fix $w\in\Omega$, and suppose it belongs to exactly $k$ of the events. If $k=0$, its contribution to the union probability and every $S_r$ is zero. If $k\geq1$, its contribution to the union probability is $1/|\Omega|$. Its contribution to $S_r$ is
+\[
+  \frac{1}{|\Omega|}\sum_{j=1}^{r}(-1)^{j+1}\binom{k}{j}
+  =\frac{1}{|\Omega|}\left(1-(-1)^r\binom{k-1}{r}\right),
+\]
+where $\binom{k}{j}=0$ for $j>k$. This is at least $1/|\Omega|$ for odd $r$ and at most $1/|\Omega|$ for even $r$. Thus the contribution from each outcome gives the stated inequality; summing over $\Omega$ proves the bounds.\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+Let $A_1,\ldots,A_n$ be events in a probability space, and let $N$ be the number of these events that occur. For $0\leq m\leq n$, write $P_{[m]}=\mathbb{P}(N=m)$. Set $T_0=1$ and, for $1\leq j\leq n$, define
+\[
+  T_j=\sum_{1\leq i_1<\cdots<i_j\leq n}
+  \mathbb{P}(A_{i_1}\cap\cdots\cap A_{i_j}).
+\]
+Then the probability that exactly $m$ events occur is
+\[
+  P_{[m]}=\sum_{j=m}^{n}(-1)^{j-m}\binom{j}{m}T_j.
+\]
+For $1\leq m\leq n$, write $P_m=\mathbb{P}(N\geq m)$ for the probability that at least $m$ events occur. Then
+\[
+  P_m=\sum_{j=m}^{n}(-1)^{j-m}\binom{j-1}{m-1}T_j.
+\]
+
+For $1\leq r\leq n-m+1$, let $\sigma_r$ and $\widetilde{\sigma}_r$ be the first $r$ terms of these respective sums:
+\[
+  \sigma_r=\sum_{k=0}^{r-1}(-1)^k\binom{m+k}{m}T_{m+k},
+  \qquad
+  \widetilde{\sigma}_r=\sum_{k=0}^{r-1}(-1)^k\binom{m+k-1}{m-1}T_{m+k}.
+\]
+The truncations give alternating bounds:
+\[
+  \begin{array}{lll}
+    P_{[m]}\leq\sigma_r &\text{if $r$ is odd}, &
+    P_{[m]}\geq\sigma_r \quad\text{if $r$ is even},\\[1mm]
+    P_m\leq\widetilde{\sigma}_r &\text{if $r$ is odd}, &
+    P_m\geq\widetilde{\sigma}_r \quad\text{if $r$ is even}.
+  \end{array}
+\]
+The remainders satisfy
+\[
+  P_{[m]}-\sigma_r=(-1)^r C_r,
+  \qquad 0\leq C_r\leq\binom{m+r}{m}T_{m+r},
+\]
+and, for $m\geq1$,
+\[
+  P_m-\widetilde{\sigma}_r=(-1)^r\widetilde{C}_r,
+  \qquad 0\leq\widetilde{C}_r\leq\binom{m+r-1}{m-1}T_{m+r}.
+\]
+Here $T_j=0$ for $j>n$. In particular, taking $r=n-m+1$ gives the full, exact sums.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} For each $j$, the sum $T_j$ is the expectation of $\binom{N}{j}$: at an outcome where exactly $L$ events occur, there are $\binom{L}{j}$ intersections of $j$ events that contain that outcome. We use this pointwise observation to prove the identities and remainder estimates.
+
+For exactly $m$ events, the contribution at an outcome with $N=L$ is
+\[
+  \sum_{j=m}^{L}(-1)^{j-m}\binom{j}{m}\binom{L}{j}
+  =\binom{L}{m}\sum_{k=0}^{L-m}(-1)^k\binom{L-m}{k}
+  =\mathbf{1}_{\{L=m\}},
+\]
+where the sum is understood to be zero if $L<m$. Taking expectations proves the formula for $P_{[m]}$.
+
+Summing that formula over all exact counts $\ell\geq m$ and interchanging the finite sums gives the formula for $P_m$, because
+\[
+  \sum_{\ell=m}^{j}(-1)^{j-\ell}\binom{j}{\ell}
+  =(-1)^{j-m}\binom{j-1}{m-1}.
+\]
+This partial alternating-binomial identity follows from Pascal's identity (or by subtracting the terms with $\ell<m$ from $(1-1)^j$).
+
+For the first remainder, at an outcome with $L\geq m+r$, its value is
+\[
+  \sum_{k=r}^{L-m}(-1)^k\binom{m+k}{m}\binom{L}{m+k}
+  =(-1)^r\binom{L}{m}\binom{L-m-1}{r-1}.
+\]
+It is zero when $L<m+r$. Since
+\[
+  \binom{L-m-1}{r-1}\leq\binom{L-m}{r},\qquad
+  \binom{L}{m}\binom{L-m}{r}
+  =\binom{m+r}{m}\binom{L}{m+r},
+\]
+the remainder has sign $(-1)^r$ and magnitude at most
+\[\binom{m+r}{m}\binom{L}{m+r}.\]
+Taking expectations gives the asserted bound for $C_r$.
+
+For the tail probability remainder, fix $L\geq m+r$ and write $s=L-m$. Using
+\[
+  \binom{L}{m+k}\binom{m+k-1}{m-1}
+  =\binom{L}{m}\binom{s}{k}\frac{m}{m+k},
+\]
+its pointwise value is
+\[
+  m\binom{L}{m}\int_0^1 x^{m-1}
+  \sum_{k=r}^{s}(-1)^k\binom{s}{k}x^k\,dx.
+\]
+Taylor's theorem applied to $(1-x)^s$ shows that the inner sum has sign $(-1)^r$ on $[0,1]$ and absolute value at most $\binom{s}{r}x^r$. Therefore this remainder has sign $(-1)^r$ and magnitude at most
+\[
+  \frac{m}{m+r}\binom{L}{m}\binom{s}{r}
+  =\binom{m+r-1}{m-1}\binom{L}{m+r}.
+\]
+It is zero for $L<m+r$. Taking expectations proves the stated estimate for $\widetilde{C}_r$. Thus both sets of truncations have the claimed alternating bounds, and the full sums are exact when the truncation includes every possible term.
+\hfill$\square$
+\end{claim_box}
+
+\begin{remark_box}
+The individual alternating upper and lower bounds above hold, but the stronger monotonicity chain $\sigma_2\leq\sigma_4\leq\cdots$ need not hold. For example, take $m=0$, $n=6$, and $A_i=\Omega$ for every $i$. Then $T_j=\binom{6}{j}$, so $\sigma_2=1-6=-5$ while $\sigma_4=1-6+15-20=-10$; hence $\sigma_2\nleq\sigma_4$. The remainder-sign and remainder-size estimates are the valid general conclusions.
+\end{remark_box}
+
+\subsection{Distributions of Balls into Boxes}
+
+Suppose $n$ balls are placed into $k$ boxes, with every ball placed and no capacity restrictions. Unless stated otherwise, boxes may be empty. Whether balls and boxes are distinguishable gives four different counting problems.
+
+\subsubsection{Stirling Numbers of the First and Second Kind}
+
+The unsigned Stirling number of the first kind, denoted $\stirlingI{n}{j}$, counts permutations of $n$ distinguishable elements with exactly $j$ cycles in their disjoint-cycle decomposition. Unlike the second-kind numbers, which count set partitions, these count permutations. Set $\stirlingI{0}{0}=1$, $\stirlingI{n}{0}=0$ for $n>0$, and $\stirlingI{n}{j}=0$ when $j>n$.
+
+For $1\leq j\leq n$, they satisfy
+\[
+  \stirlingI{n}{j}=(n-1)\stirlingI{n-1}{j}+\stirlingI{n-1}{j-1}.
+\]
+\begin{claim_box}
+\textit{Proof:} In a permutation of $n$ elements, either $n$ is a cycle by itself, leaving a permutation of the other $n-1$ elements with $j-1$ cycles, or $n$ is inserted into an existing cycle. In the latter case, start with a permutation of the other elements with $j$ cycles and insert $n$ immediately after any one of the $n-1$ elements in cycle notation. These two cases give the recurrence.\hfill$\square$
+\end{claim_box}
+
+First-kind Stirling numbers are used to count permutations by their number of cycles and to expand rising factorials:
+
+\[
+  x(x+1)\cdots(x+n-1)=\sum_{j=0}^{n}\stirlingI{n}{j}x^j.
+\]
+\begin{claim_box}
+\textit{Proof:} The identity holds for $n=0$. If it holds for $n-1$, multiply both sides by $x+n-1$:
+\[
+  x(x+1)\cdots(x+n-1)
+  =\sum_{j=0}^{n}\left((n-1)\stirlingI{n-1}{j}+\stirlingI{n-1}{j-1}\right)x^j
+  =\sum_{j=0}^{n}\stirlingI{n}{j}x^j,
+\]
+where the last equality is the recurrence (with out-of-range terms zero). Induction proves the expansion.
+\hfill$\square$
+\end{claim_box}
+
+The Stirling number of the second kind, denoted $\stirlingII{n}{j}$, is the number of ways to partition a set of $n$ distinguishable elements into exactly $j$ nonempty, indistinguishable blocks. Set $\stirlingII{0}{0}=1$, $\stirlingII{n}{0}=0$ for $n>0$, and $\stirlingII{n}{j}=0$ when $j>n$.
+
+For $1\leq j\leq n$, these numbers satisfy the recurrence
+\[
+  \stirlingII{n}{j}=j\stirlingII{n-1}{j}+\stirlingII{n-1}{j-1}.
+\]
+\begin{claim_box}
+\textit{Proof:} Consider the block containing a fixed element, say $n$. If it is not a singleton, remove $n$ and partition the remaining $n-1$ elements into $j$ blocks; there are $\stirlingII{n-1}{j}$ choices for the partition and $j$ choices of block in which to place $n$. If $n$ is a singleton, partition the remaining elements into $j-1$ blocks, giving $\stirlingII{n-1}{j-1}$ choices. These disjoint cases give the recurrence.\hfill$\square$
+\end{claim_box}
+
+Starting from $\stirlingII{0}{0}=1$, the recurrence gives, for example, $\stirlingII{5}{1}=1$, $\stirlingII{5}{2}=15$, and $\stirlingII{5}{3}=25$.
+
+\subsubsection{Integer Partitions}
+
+An integer partition of a nonnegative integer $n$ is a representation of $n$ as a sum of positive integers, where the order of the summands is ignored. The summands are called the parts. Let $p(n)$ be the number of all partitions of $n$, and let $p_{\leq k}(n)$ count those with at most $k$ parts. This is the count that appears when indistinguishable balls are placed into indistinguishable boxes.
+
+For example, the partitions of $5$ with at most $3$ parts are $5$, $4+1$, $3+2$, $3+1+1$, and $2+2+1$, so $p_{\leq 3}(5)=5$.
+
+\begin{problem_box}
+The generating function for partitions with at most $k$ parts is
+\[
+  \sum_{n=0}^{\infty}p_{\leq k}(n)x^n
+  =\prod_{j=1}^{k}\frac{1}{1-x^j}.
+\]
+The product counts partitions whose parts have size at most $k$: each factor allows any number of parts equal to $j$. Reflecting the Ferrers diagram of a partition across its diagonal exchanges “at most $k$ parts” with “largest part at most $k$,” so the product also counts partitions with at most $k$ parts.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Expand each factor as a geometric series:
+\[
+  \prod_{j=1}^{k}\frac{1}{1-x^j}
+  =\prod_{j=1}^{k}\left(\sum_{m_j=0}^{\infty}x^{jm_j}\right).
+\]
+Choosing $m_j$ records the number of parts equal to $j$, so the coefficient of $x^n$ counts partitions with largest part at most $k$. Reflecting a Ferrers diagram across its diagonal is a bijection between these partitions and partitions with at most $k$ parts, proving the generating function.
+\hfill$\square$
+\end{claim_box}
+
+For $k\geq1$ and $n\geq0$, the numbers satisfy the recurrence
+\[
+  p_{\leq k}(n)=p_{\leq k-1}(n)+p_{\leq k}(n-k),
+\]
+where $p_{\leq k}(m)=0$ for $m<0$, $p_{\leq 0}(0)=1$, and $p_{\leq 0}(m)=0$ for $m>0$.
+\begin{claim_box}
+\textit{Proof:} Divide the partitions of $n$ into two disjoint classes. Those with fewer than $k$ parts are counted by $p_{\leq k-1}(n)$. In each partition with exactly $k$ parts, subtract $1$ from every part and discard any zeros; this gives a partition of $n-k$ into at most $k$ parts. Conversely, pad any partition of $n-k$ with zeros to $k$ entries and add $1$ to each entry. This bijection proves the recurrence.\hfill$\square$
+\end{claim_box}
+
+\subsubsection{The Four Balls-and-Boxes Cases}
+
+\begin{problem_box}
+\begin{enumerate}
+  \item \textbf{Distinguishable balls, distinguishable boxes.} Each of the $n$ balls independently chooses one of the $k$ labeled boxes, giving
+  \[
+    k^n.
+  \]
+  \item \textbf{Indistinguishable balls, distinguishable boxes.} A placement is a weak composition of $n$ into $k$ parts (the box occupancies), giving
+  \[
+    \binom{n+k-1}{k-1}.
+  \]
+  \item \textbf{Distinguishable balls, indistinguishable boxes.} A placement partitions the $n$ labeled balls into at most $k$ nonempty groups. The number is
+  \[
+    \sum_{j=0}^{\min(n,k)}\stirlingII{n}{j},
+  \]
+  where the Stirling numbers are defined in the preceding subsubsection.
+  \item \textbf{Indistinguishable balls, indistinguishable boxes.} A placement is an integer partition of $n$: a sum of positive integers equal to $n$, where order of the summands is ignored. Since there are at most $k$ nonempty boxes, only partitions with at most $k$ parts are allowed. Write this number as $p_{\leq k}(n)$, with $p_{\leq k}(0)=1$.
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+\begin{enumerate}
+  \item For each distinguishable ball there are $k$ choices, independent of the choices for the other balls. The multiplication principle gives $k^n$ assignments.
+  \item Record the occupancies of the $k$ distinguishable boxes as nonnegative integers $x_1+\cdots+x_k=n$. Represent the $n$ balls by stars and use $k-1$ separators to divide them into $k$ groups, allowing empty groups. Choosing the separator positions among the $n+k-1$ total positions gives $\binom{n+k-1}{k-1}$.
+  \item If exactly $j$ boxes are occupied, their contents form $j$ nonempty blocks of labeled balls. Because the boxes are indistinguishable, the blocks have no order, so there are $\stirlingII{n}{j}$ such placements. Summing over $0\leq j\leq\min(n,k)$ gives the formula.
+  \item Record the occupancies and discard the empty boxes. Since the boxes are indistinguishable, only the multiset of positive occupancies matters; arranging these occupancies in decreasing order gives an integer partition of $n$ with at most $k$ parts. Conversely, each such partition gives the occupancies of one placement, so this is a bijection.
+\end{enumerate}
+\hfill$\square$
+\end{claim_box}
+
+For example, with $n=5$ balls and $k=3$ boxes, the four counts are respectively
+\[
+  3^5=243,\qquad \binom{7}{2}=21,\qquad
+  \stirlingII{5}{1}+\stirlingII{5}{2}+\stirlingII{5}{3}=1+15+25=41,
+  \qquad p_{\leq 3}(5)=5.
+\]
+The five partitions counted by $p_{\leq 3}(5)$ are $5$, $4+1$, $3+2$, $3+1+1$, and $2+2+1$; the Stirling values follow from the recurrence in the proof.
+
+\subsubsection{A Different Distribution}
+
+For positive integers $r,n$, suppose $r$ distinguishable balls are placed independently and uniformly into $n$ distinguishable cells, so each of the $n^r$ assignments is equally likely. Let $A(r,n)$ denote the number of assignments that leave no cell empty; equivalently, $A(r,n)$ counts onto functions from the balls to the cells. Set $A(0,0)=1$, $A(r,0)=0$ for $r>0$, and $A(0,n)=0$ for $n>0$.
+
+\begin{problem_box}
+For $r\geq1$ and $n\geq0$, these numbers satisfy
+\[
+  A(r,n+1)=\sum_{k=1}^{r}\binom{r}{k}A(r-k,n).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Choose the $k\geq1$ balls that go into the last cell. Each of the remaining $r-k$ balls must be assigned so that all of the first $n$ cells are occupied, giving $A(r-k,n)$ choices. Summing over $k$ proves the recurrence.
+\hfill$\square$
+\end{claim_box}
+
+Inclusion-exclusion over the events that a cell is empty gives, for $r\geq1$,
+\[
+  A(r,n)=\sum_{\nu=0}^{n}(-1)^\nu\binom{n}{\nu}(n-\nu)^r.
+\]
+\begin{claim_box}
+\textit{Proof:} Let $E_i$ be the event that cell $i$ is empty. For any specified set of $\nu$ cells, the number of assignments avoiding all of them is $(n-\nu)^r$. Inclusion-exclusion over $E_1,\ldots,E_n$ therefore gives
+\[
+  A(r,n)=\sum_{\nu=0}^{n}(-1)^\nu\binom{n}{\nu}(n-\nu)^r.
+\]
+This counts assignments in which no cell is empty.
+\hfill$\square$
+\end{claim_box}
+In particular, the probability that no cell is empty is
+\[
+\mathbb{P}(\text{no empty})=A(r,n)/n^r
+\]
+
+The number of assignments leaving exactly $m$ cells empty is
+\[
+  \binom{n}{m}A(r,n-m),\qquad 0\leq m\leq n,
+\]
+since one first chooses the empty cells and then assigns the balls onto all remaining cells. Thus the probability of exactly $m$ empty cells is
+\[
+\mathbb{P}_{[m]}=\binom{n}{m}A(r,n-m)/n^r
+\]
+
+More generally, fix a specified set of $N$ cells, where $1\leq N\leq n$, and let $u(r,n,N)$ be the probability that every one of them is occupied. If exactly $k$ balls land in this set, they must cover all $N$ cells, while the other balls can go to any of the remaining $n-N$ cells. Hence, using the counting convention $0^0=1$ when $N=n$,
+\[
+  u(r,n,N)
+  =n^{-r}\sum_{k=0}^{r}\binom{r}{k}A(k,N)(n-N)^{r-k}.
+\]
+Alternatively, inclusion-exclusion over the specified cells yields
+\[
+  u(r,n,N)
+  =\sum_{\nu=0}^{N}(-1)^\nu\binom{N}{\nu}
+    \left(1-\frac{\nu}{n}\right)^r.
+\]
+For each choice of $\nu$ specified cells, the probability that all $\nu$ are empty is $(1-\nu/n)^r$, which gives the last formula.
+
+\section{Random Variables}
+
+\subsection{Definition and Distribution}
+
+The \emph{Borel $\sigma$-algebra} on $\mathbb{R}$, denoted $\mathcal{B}(\mathbb{R})$, is the smallest $\sigma$-algebra containing every open subset of $\mathbb{R}$. Its elements are called \emph{Borel sets}; examples include intervals and countable unions or intersections of intervals.
+
+On a probability space $(\Omega,\mathcal{F},\mathbb{P})$, a real-valued \emph{random variable} is a measurable function $X:\Omega\to\mathbb{R}$. Measurability means that
+\[
+  \{\omega\in\Omega:X(\omega)\in B\}\in\mathcal{F}
+\]
+for every Borel set $B\subseteq\mathbb{R}$. Thus statements about the values of $X$ define events whose probabilities can be computed. The \emph{distribution} of $X$ is the probability measure on $\mathbb{R}$ given by
+\[
+  \mathbb{P}_X(B)=\mathbb{P}(X\in B),
+  \qquad B\subseteq\mathbb{R}\text{ Borel}.
+\]
+\begin{problem_box}
+Equivalently, its cumulative distribution function is
+\[
+  F_X(x)=\mathbb{P}(X\leq x),\qquad x\in\mathbb{R}.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} If $B_1,B_2,\ldots$ are pairwise disjoint Borel sets, then their inverse images under $X$ are pairwise disjoint and
+\[
+  \{X\in\bigcup_i B_i\}=\bigcup_i\{X\in B_i\}.
+\]
+Measurability and countable additivity of $\mathbb{P}$ therefore give countable additivity of $\mathbb{P}_X$. Also $\mathbb{P}_X(\mathbb{R})=\mathbb{P}(\Omega)=1$, so $\mathbb{P}_X$ is a probability measure.
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+The cumulative distribution function has the following properties:
+\begin{enumerate}
+  \item $F_X$ is nondecreasing: if $a<b$, then $F_X(a)\leq F_X(b)$.
+  \item $\displaystyle\lim_{x\to\infty}F_X(x)=1$ and $\displaystyle\lim_{x\to-\infty}F_X(x)=0$.
+  \item $F_X$ is right-continuous: for every $b\in\mathbb{R}$ and every decreasing sequence $b_n\to b$,
+  \[
+    \lim_{n\to\infty}F_X(b_n)=F_X(b).
+  \]
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+\begin{enumerate}
+\item If $a<b$, then $\{X\leq a\}\subseteq\{X\leq b\}$, so monotonicity of probability gives $F_X(a)\leq F_X(b)$.
+\hfill$\square$
+\item The events $\{X\leq n\}$ increase to $\Omega$ as $n\to\infty$, while the events $\{X\leq -n\}$ decrease to $\varnothing$. Continuity of probability for increasing and decreasing sequences of events therefore gives the two limits at infinity.
+\hfill$\square$
+\item If $b_n\downarrow b$, then the events $\{X\leq b_n\}$ decrease to $\{X\leq b\}$. Continuity of probability for decreasing sequences of events gives
+\[
+  \lim_{n\to\infty}F_X(b_n)
+  =\mathbb{P}(X\leq b)
+  =F_X(b),
+\]
+which proves right-continuity.
+\hfill$\square$
+\end{enumerate}
+\end{claim_box}
+
+\begin{problem_box}
+If $X$ takes values in a finite or countable set, it is \emph{discrete}. Its probability mass function is $p_X(x)=\mathbb{P}(X=x)$, and
+\[
+  \mathbb{P}(X\in A)=\sum_{x\in A}p_X(x),
+  \qquad p_X(x)\geq0,\qquad \sum_x p_X(x)=1.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} The events $\{X=x\}$ are pairwise disjoint. For any set $A$ of possible values, $\{X\in A\}=\bigcup_{x\in A}\{X=x\}$, so countable additivity gives $\mathbb{P}(X\in A)=\sum_{x\in A}p_X(x)$. Nonnegativity follows from the definition, and summing over all possible values gives $\sum_xp_X(x)=\mathbb{P}(\Omega)=1$.
+\hfill$\square$
+\end{claim_box}
+Thus a PMF assigns a probability to each possible value of a discrete random variable, and summing the PMF over any collection of values gives the probability that $X$ takes one of them. Values outside the support have probability zero.
+
+For two discrete random variables $X$ and $Y$, their \emph{joint probability mass function} (joint PMF) is
+\[
+  p_{X,Y}(x,y)=\mathbb{P}(X=x,\,Y=y).
+\]
+It is nonnegative and sums to one over all pairs $(x,y)$. In particular, for any set $C$ of pairs,
+\[
+  \mathbb{P}\bigl((X,Y)\in C\bigr)
+  =\sum_{(x,y)\in C}p_{X,Y}(x,y).
+\]
+The PMFs of $X$ and $Y$, called the \emph{marginal PMFs}, are obtained by summing out the other variable:
+\[
+  p_X(x)=\sum_y p_{X,Y}(x,y),
+  \qquad
+  p_Y(y)=\sum_x p_{X,Y}(x,y).
+\]
+
+\begin{problem_box}
+The variables $X$ and $Y$ are independent exactly when their joint PMF factors as
+\[
+  p_{X,Y}(x,y)=p_X(x)p_Y(y)
+\]
+for every pair $(x,y)$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+If $X$ and $Y$ are independent, then the events $\{X=x\}$ and $\{Y=y\}$ are independent for every $x,y$, so
+\[
+  p_{X,Y}(x,y)=\mathbb{P}(X=x,\,Y=y)
+  =\mathbb{P}(X=x)\mathbb{P}(Y=y)=p_X(x)p_Y(y).
+\]
+Conversely, suppose this factorization holds for every pair. For any sets $A$ and $B$ of possible values of $X$ and $Y$, respectively, countable additivity gives
+\[
+\begin{aligned}
+  \mathbb{P}(X\in A,\,Y\in B)
+  &=\sum_{x\in A}\sum_{y\in B}p_{X,Y}(x,y)\\
+  &=\sum_{x\in A}\sum_{y\in B}p_X(x)p_Y(y)\\
+  &=\left(\sum_{x\in A}p_X(x)\right)
+    \left(\sum_{y\in B}p_Y(y)\right)\\
+  &=\mathbb{P}(X\in A)\mathbb{P}(Y\in B).
+\end{aligned}
+\]
+Thus the events determined by $X$ and $Y$ satisfy the definition of independence, so $X$ and $Y$ are independent.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+Roll a fair six-sided die and let $X$ equal $1$ if the result is even and $0$ otherwise. Then $X$ is a Bernoulli random variable with $p_X(0)=p_X(1)=1/2$. In particular,
+\[
+  \mathbb{P}(X=1)=\mathbb{P}(\text{the result is even})=\frac12.
+\]
+The random variable records a numerical feature of the outcome; it need not distinguish outcomes that give it the same value.
+\end{example_box}
+
+\begin{example_box}
+Roll a fair six-sided die. Let $X=1$ if the result is even and $X=0$ otherwise; let $Y=1$ if the result is greater than $3$ and $Y=0$ otherwise. Their joint PMF is
+\[
+\begin{array}{c|cc}
+  &Y=0&Y=1\\\hline
+X=0&2/6&1/6\\
+X=1&1/6&2/6
+\end{array}
+\]
+For example, $p_{X,Y}(1,1)=2/6$, since the outcomes $4$ and $6$ make both indicators equal to $1$. Summing rows and columns gives $p_X(1)=1/2$ and $p_Y(1)=1/2$. The variables are dependent, because $p_{X,Y}(1,1)=1/3$ differs from $p_X(1)p_Y(1)=1/4$.
+\end{example_box}
+
+\subsection{Expectation and Variance}
+
+For a discrete random variable $X$ with finite expected absolute value, its expectation is the probability-weighted average
+\[
+  \mathbb{E}[X]=\sum_x x\,p_X(x).
+\]
+More generally, for a function $g$ for which the expectation exists,
+\[
+  \mathbb{E}[g(X)]=\sum_x g(x)\,p_X(x).
+\]
+\begin{problem_box}
+\begin{enumerate}
+\item For a discrete pair $(X,Y)$ and a function $g$ with $\mathbb{E}[|g(X,Y)|]<\infty$, the joint PMF gives
+\[
+  \mathbb{E}[g(X,Y)]
+  =\sum_{x,y}g(x,y)p_{X,Y}(x,y).
+\]
+\item If $X$ and $Y$ are independent and $g(X)$ and $h(Y)$ are integrable, then
+\[
+  \mathbb{E}[g(X)h(Y)]
+  =\mathbb{E}[g(X)]\mathbb{E}[h(Y)].
+\]
+\end{enumerate}
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+\begin{enumerate}
+\item Take $Z = g(X, Y)$.\\
+Define $S_z := \{x \in X,\, y \in Y : Z = z\} = \{x \in X,\, y \in Y : g(x, y) = z\}$
+
+\[
+\mathbb{E}Z = \sum_{z} z\,\mathbb{P}(Z = z)
+= \sum_{x,\, y \in \bigcup_z S_z} g(x, y)\,\mathbb{P}(X = x,\, Y = y)
+\]
+
+\[
+\Rightarrow\ \mathbb{E}g(X, Y) = \sum_{x,\, y} g(x, y)\,p(x, y)
+\]
+\hfill$\square$
+\item If $X$ and $Y$ are independent, substitute $p_{X,Y}(x,y)=p_X(x)p_Y(y)$ into this formula with $g(x,y)=g(x)h(y)$. Absolute convergence follows from
+\[
+  \sum_{x,y}|g(x)h(y)|p_X(x)p_Y(y)
+  =\left(\sum_x|g(x)|p_X(x)\right)
+   \left(\sum_y|h(y)|p_Y(y)\right)<\infty.
+\]
+We may therefore separate the sums:
+\[
+  \mathbb{E}[g(X)h(Y)]
+  =\left(\sum_xg(x)p_X(x)\right)
+   \left(\sum_yh(y)p_Y(y)\right)
+  =\mathbb{E}[g(X)]\mathbb{E}[h(Y)].
+\]
+\hfill$\square$
+\end{enumerate}
+\end{claim_box}
+
+Expectation is linear: if $X$ and $Y$ have finite expectations and $a,b$ are constants, then
+\[
+  \mathbb{E}[aX+bY]=a\mathbb{E}[X]+b\mathbb{E}[Y].
+\]
+No independence assumption is needed for this identity.
+
+\begin{problem_box}
+Expectation is also monotone: if $X\leq Y$ almost surely and both random variables are integrable, then
+\[
+  \mathbb{E}[X]\leq\mathbb{E}[Y].
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Since $Y-X\geq0$ almost surely, its expectation is nonnegative. By linearity,
+\[
+  0\leq\mathbb{E}[Y-X]=\mathbb{E}[Y]-\mathbb{E}[X],
+\]
+which proves the inequality.
+\hfill$\square$
+\end{claim_box}
+
+When $\mathbb{E}[X^2]<\infty$, the variance measures the spread of $X$ around its expectation:
+\[
+  \operatorname{Var}(X)
+  =\mathbb{E}\bigl[(X-\mathbb{E}[X])^2\bigr]
+  =\mathbb{E}[X^2]-\bigl(\mathbb{E}[X]\bigr)^2.
+\]
+The standard deviation is $\sqrt{\operatorname{Var}(X)}$. For the Bernoulli variable in the example, $\mathbb{E}[X]=1/2$ and $\operatorname{Var}(X)=1/4$.
+\subsection{Covariance and Correlation}
+
+For random variables $X$ and $Y$ with finite second moments, their \emph{covariance} is
+\[
+  \operatorname{Cov}(X,Y)
+  =\mathbb{E}\bigl[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\bigr]
+  =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y].
+\]
+Covariance records how the variables vary together. It satisfies
+\[
+  \operatorname{Cov}(aX+b,cY+d)=ac\operatorname{Cov}(X,Y),
+  \qquad
+  \operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
+\]
+If $X$ and $Y$ are independent, then $\operatorname{Cov}(X,Y)=0$; the converse need not hold.
+
+When both standard deviations $\sigma_X=\sqrt{\operatorname{Var}(X)}$ and $\sigma_Y=\sqrt{\operatorname{Var}(Y)}$ are positive, their \emph{correlation coefficient} is
+\[
+  \rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\sigma_X\sigma_Y}.
+\]
+It is dimensionless and satisfies $-1\leq\rho_{X,Y}\leq1$. Correlation measures linear association: zero correlation does not in general imply independence.
+
+\begin{claim_box}
+\textit{Proof:} Expanding the covariance definition gives $\operatorname{Cov}(X,Y)=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]$. Constants vanish after centering, so covariance scales by $ac$ under $(X,Y)\mapsto(aX+b,cY+d)$. Expanding $\operatorname{Var}(X+Y)=\operatorname{Cov}(X+Y,X+Y)$ gives the stated variance sum. Independence makes the joint distribution factor, so $\mathbb{E}[XY]=\mathbb{E}[X]\mathbb{E}[Y]$ and the covariance is zero.
+Let $U=X-\mathbb{E}[X]$ and $V=Y-\mathbb{E}[Y]$. For every real $t$,
+\[
+  0\leq\mathbb{E}[(U-tV)^2]
+  =\operatorname{Var}(X)-2t\operatorname{Cov}(X,Y)+t^2\operatorname{Var}(Y).
+\]
+Since $\operatorname{Var}(Y)>0$, this quadratic is nonnegative for all $t$, so its discriminant is nonpositive. Hence $\operatorname{Cov}(X,Y)^2\leq\operatorname{Var}(X)\operatorname{Var}(Y)$, which gives $|\rho_{X,Y}|\leq1$.
+\hfill$\square$
+\end{claim_box}
+\begin{example_box}
+Let $X$ be uniform on $\{-1,0,1\}$ and set $Y=X^2$. Then $Y$ is determined by $X$, so the variables are dependent. Nevertheless, $\mathbb{E}[X]=0$ and $\mathbb{E}[XY]=\mathbb{E}[X^3]=0$, hence $\operatorname{Cov}(X,Y)=0$ and $\rho_{X,Y}=0$.
+\end{example_box}
+
+\subsection{Indicator Random Variables}
+
+For an event $A\in\mathcal{F}$, its indicator is the random variable
+\[
+  \mathbf{1}_A(\omega)=
+  \begin{cases}
+    1,&\omega\in A,\\
+    0,&\omega\notin A.
+  \end{cases}
+\]
+It is Bernoulli with success probability $\mathbb{P}(A)$, so
+\[
+  \mathbb{E}[\mathbf{1}_A]=\mathbb{P}(A),
+  \qquad
+  \operatorname{Var}(\mathbf{1}_A)
+  =\mathbb{P}(A)\bigl(1-\mathbb{P}(A)\bigr).
+\]
+\begin{claim_box}
+\textit{Proof:} Put $p=\mathbb{P}(A)$. The indicator is $1$ with probability $p$ and $0$ otherwise, so $\mathbb{E}[\mathbf{1}_A]=p$, $\mathbb{E}[\mathbf{1}_A^2]=p$, and $\operatorname{Var}(\mathbf{1}_A)=p-p^2=p(1-p)$.
+\hfill$\square$
+\end{claim_box}
+Indicators turn event counts into random variables. If $A_1,\ldots,A_n$ are events and $N$ counts how many occur, then
+\[
+  N=\sum_{i=1}^n\mathbf{1}_{A_i},
+  \qquad
+  \mathbb{E}[N]=\sum_{i=1}^n\mathbb{P}(A_i),
+\]
+by linearity of expectation, whether or not the events are independent.
+
+\section{Common Probability Distributions}
+
+The following are common probability distributions. For each discrete random variable, the PMF is zero outside the stated support.
+
+\subsection{Bernoulli Distribution}
+
+A Bernoulli random variable records the outcome of one trial with success probability $p$, where $0\leq p\leq1$. If $X\sim\operatorname{Bernoulli}(p)$, then
+\[
+  \mathbb{P}(X=k)=
+  \begin{cases}
+    1-p,&k=0,\\
+    p,&k=1,\\
+    0,&\text{otherwise}.
+  \end{cases}
+\]
+Its expectation and variance are
+\[
+  \mathbb{E}[X]=p,\qquad \operatorname{Var}(X)=p(1-p).
+\]
+
+\subsection{Binomial Distribution}
+
+The binomial distribution counts successes in $n$ independent Bernoulli trials, each with success probability $p$, where $n$ is a nonnegative integer and $0\leq p\leq1$. For $X\sim\operatorname{Binomial}(n,p)$,
+\[
+  \mathbb{P}(X=k)=\binom{n}{k}p^k(1-p)^{n-k},
+  \qquad k=0,1,\ldots,n.
+\]
+\begin{claim_box}
+\textit{Proof:} For any specified set of $k$ trial positions, the probability that exactly those positions are successes is $p^k(1-p)^{n-k}$ by independence. There are $\binom{n}{k}$ disjoint choices of the success positions, giving the stated PMF.
+\hfill$\square$
+\end{claim_box}
+Its expectation and variance are
+\[
+  \mathbb{E}[X]=np,\qquad \operatorname{Var}(X)=np(1-p).
+\]
+A Bernoulli$(p)$ random variable is the special case $n=1$.
+
+\subsection{Geometric Distribution}
+
+The geometric distribution models the number of independent Bernoulli trials, each with success probability $p$, up to and including the first success. For $X\sim\operatorname{Geometric}(p)$, where $0<p\leq1$,
+\[
+  \mathbb{P}(X=k)=(1-p)^{k-1}p,
+  \qquad k=1,2,\ldots.
+\]
+The first $k-1$ trials must fail and the $k$th must succeed; independence gives the displayed probability.
+With this convention, its expectation and variance are
+\[
+  \mathbb{E}[X]=\frac{1}{p},\qquad
+  \operatorname{Var}(X)=\frac{1-p}{p^2}.
+\]
+
+\subsection{Negative Binomial Distribution}
+
+The negative binomial distribution models the number of independent Bernoulli trials needed to obtain $r$ successes, where $r$ is a positive integer and each trial succeeds with probability $p$, with $0<p\leq1$. For $X$ equal to this number of trials,
+\[
+  \mathbb{P}(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r},
+  \qquad k=r,r+1,\ldots.
+\]
+The binomial coefficient chooses the locations of the first $r-1$ successes among the first $k-1$ trials; the $k$th trial must then be a success. Its expectation and variance are
+\[
+  \mathbb{E}[X]=\frac{r}{p},\qquad
+  \operatorname{Var}(X)=\frac{r(1-p)}{p^2}.
+\]
+The geometric distribution is the case $r=1$.
+
+\subsection{Hypergeometric Distribution}
+
+Suppose a population has $N\geq1$ objects, of which $K$ are designated successes, with $0\leq K\leq N$. Choose $n$ objects uniformly without replacement, where $0\leq n\leq N$, and let $X$ count the successes selected. Then
+\[
+  \mathbb{P}(X=k)
+  =\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}},
+  \qquad \max(0,n-(N-K))\leq k\leq\min(n,K),\quad k\in\mathbb{Z}.
+\]
+The numerator counts selections with exactly $k$ successes and $n-k$ non-successes; the denominator counts all selections of size $n$. Its expectation and variance are
+\[
+  \mathbb{E}[X]=n\frac{K}{N},\qquad
+  \operatorname{Var}(X)=n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1},
+\]
+for $N>1$.
+
+\subsection{Poisson Distribution}
+
+The Poisson distribution models a nonnegative integer count with rate parameter $\lambda>0$. For $X\sim\operatorname{Poisson}(\lambda)$,
+\[
+  \mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},
+  \qquad k=0,1,2,\ldots.
+\]
+Its expectation and variance are both $\lambda$:
+\[
+  \mathbb{E}[X]=\lambda,\qquad \operatorname{Var}(X)=\lambda.
+\]
+More precisely, if $X_n\sim\operatorname{Binomial}(n,\lambda/n)$, then $X_n$ converges in distribution to Poisson$(\lambda)$ as $n\to\infty$.
+\begin{claim_box}
+\textit{Proof:} For each fixed nonnegative integer $k$ and all sufficiently large $n$,
+\[
+  \mathbb{P}(X_n=k)
+  =\binom{n}{k}\left(\frac{\lambda}{n}\right)^k
+    \left(1-\frac{\lambda}{n}\right)^{n-k}
+  =\frac{\lambda^k}{k!}\prod_{j=0}^{k-1}\left(1-\frac{j}{n}\right)
+    \left(1-\frac{\lambda}{n}\right)^{n-k}
+  \longrightarrow e^{-\lambda}\frac{\lambda^k}{k!}.
+\]
+For $x<0$ both distribution functions vanish. For every noninteger $x\geq0$, $\mathbb{P}(X_n\leq x)$ is a finite sum of these probabilities, so it converges to the Poisson$(\lambda)$ distribution function at $x$. These are its continuity points, proving convergence in distribution.
+\hfill$\square$
+\end{claim_box}
+
+The binomial limit above gives the connection with Bernoulli trials explicitly. For every sufficiently large $n$ (so that $\lambda/n\leq1$), let $B_{n,1},\ldots,B_{n,n}$ be independent Bernoulli$(\lambda/n)$ random variables. Their sum $S_n=\sum_{i=1}^n B_{n,i}$ has distribution $\operatorname{Binomial}(n,\lambda/n)$. Hence $S_n$ converges in distribution to $\operatorname{Poisson}(\lambda)$. Thus a Poisson variable describes the limiting number of successes in many independent trials when each success is rare and the total mean remains fixed.
+
+\begin{problem_box}
+Let $X\sim\operatorname{Poisson}(\lambda)$ and $Y\sim\operatorname{Poisson}(\mu)$ be independent, where $\lambda,\mu>0$. For every integer $n\geq0$,
+\[
+  X\mid(X+Y=n)\sim
+  \operatorname{Binomial}\!\left(n,\frac{\lambda}{\lambda+\mu}\right).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Independence and the Poisson PMFs give
+\[
+  \mathbb{P}(X=j,Y=n-j)
+  =e^{-(\lambda+\mu)}
+    \frac{\lambda^j\mu^{n-j}}{j!(n-j)!},
+  \qquad 0\leq j\leq n.
+\]
+Summing over $j$ and applying the binomial theorem,
+\[
+  \mathbb{P}(X+Y=n)
+  =e^{-(\lambda+\mu)}\frac{(\lambda+\mu)^n}{n!}.
+\]
+Therefore, for $j=0,1,\ldots,n$,
+\[
+\begin{aligned}
+  \mathbb{P}(X=j\mid X+Y=n)
+  &=\frac{\mathbb{P}(X=j,Y=n-j)}{\mathbb{P}(X+Y=n)}\\
+  &=\binom{n}{j}
+    \left(\frac{\lambda}{\lambda+\mu}\right)^j
+    \left(\frac{\mu}{\lambda+\mu}\right)^{n-j},
+\end{aligned}
+\]
+which is the $\operatorname{Binomial}(n,\lambda/(\lambda+\mu))$ PMF.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Deriving the Expectations and Variances}
+
+The moment formulas above follow from indicator variables, geometric-series identities, and basic integral calculations.
+
+\begin{claim_box}
+\textbf{Bernoulli.} If $X\sim\operatorname{Bernoulli}(p)$, then $X^2=X$. Hence
+\[
+  \mathbb{E}[X]=p,\qquad
+  \operatorname{Var}(X)=\mathbb{E}[X^2]-\mathbb{E}[X]^2=p-p^2=p(1-p).
+\]
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Binomial.} Write $X=X_1+\cdots+X_n$, where the independent indicators $X_i$ record success on trial $i$. Each has expectation $p$ and variance $p(1-p)$. Linearity and independence give
+\[
+  \mathbb{E}[X]=\sum_{i=1}^n\mathbb{E}[X_i]=np,
+  \qquad
+  \operatorname{Var}(X)=\sum_{i=1}^n\operatorname{Var}(X_i)=np(1-p).
+\]
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Geometric.} Let $q=1-p$. Since $\mathbb{P}(X\geq k)=q^{k-1}$, the tail-sum identities for positive integer-valued variables yield
+\[
+  \mathbb{E}[X]=\sum_{k=1}^{\infty}\mathbb{P}(X\geq k)=\frac{1}{p},
+\]
+and, using $m^2=\sum_{k=1}^{m}(2k-1)$,
+\[
+  \mathbb{E}[X^2]=\sum_{k=1}^{\infty}(2k-1)q^{k-1}
+  =\frac{2}{p^2}-\frac{1}{p}=\frac{2-p}{p^2}.
+\]
+Here the sums use $\sum_{k\geq1}q^{k-1}=1/p$ and $\sum_{k\geq1}kq^{k-1}=1/p^2$. Therefore
+\[
+  \operatorname{Var}(X)=\mathbb{E}[X^2]-\mathbb{E}[X]^2
+  =\frac{1-p}{p^2}.
+\]
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Negative binomial.} Partition the trials into the successive waiting times $G_1,\ldots,G_r$ between successes, including each success trial. These are independent geometric$(p)$ random variables, and $X=G_1+\cdots+G_r$. Thus
+\[
+  \mathbb{E}[X]=\sum_{i=1}^r\mathbb{E}[G_i]=\frac{r}{p},
+  \qquad
+  \operatorname{Var}(X)=\sum_{i=1}^r\operatorname{Var}(G_i)
+  =\frac{r(1-p)}{p^2}.
+\]
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Hypergeometric.} Let $I_i$ indicate that draw $i$ is a success, so $X=\sum_{i=1}^n I_i$. Put $s=K/N$. Then $\mathbb{E}[I_i]=s$ and $\operatorname{Var}(I_i)=s(1-s)$. For distinct draws and $N>1$,
+\[
+  \operatorname{Cov}(I_i,I_j)
+  =\frac{K(K-1)}{N(N-1)}-s^2
+  =-\frac{s(1-s)}{N-1}.
+\]
+Consequently,
+\[
+  \mathbb{E}[X]=ns,\qquad
+  \operatorname{Var}(X)=ns(1-s)+n(n-1)\left(-\frac{s(1-s)}{N-1}\right)
+  =ns(1-s)\frac{N-n}{N-1},
+\]
+which are the stated formulas after substituting $s=K/N$.
+\end{claim_box}
+
+\begin{claim_box}
+\textbf{Poisson.} For $X\sim\operatorname{Poisson}(\lambda)$, shifting indices in the defining series gives
+\[
+  \mathbb{E}[X]=e^{-\lambda}\sum_{k=1}^{\infty}k\frac{\lambda^k}{k!}=\lambda,
+  \qquad
+  \mathbb{E}[X(X-1)]=e^{-\lambda}\sum_{k=2}^{\infty}k(k-1)\frac{\lambda^k}{k!}=\lambda^2.
+\]
+Since $X^2=X(X-1)+X$, it follows that $\mathbb{E}[X^2]=\lambda^2+\lambda$ and hence $\operatorname{Var}(X)=\lambda$.
+\end{claim_box}
+
+\subsection{Multinomial Distribution}
+
+The multinomial distribution counts the outcomes in each of $r$ categories across $n$ independent trials. Suppose each trial results in category $i$ with probability $p_i$, where $p_i\geq0$ and $\sum_{i=1}^{r}p_i=1$. Let $X_i$ be the number of trials in category $i$. The vector $(X_1,\ldots,X_r)$ has a multinomial distribution, and for nonnegative integers $x_1,\ldots,x_r$ with $x_1+\cdots+x_r=n$,
+\[
+  \mathbb{P}(X_1=x_1,\ldots,X_r=x_r)
+  =\frac{n!}{x_1!\cdots x_r!}p_1^{x_1}\cdots p_r^{x_r},
+\]
+with probability zero if the counts do not sum to $n$. We use the convention $0^0=1$. The coefficient counts the arrangements of the $n$ trial outcomes with the specified category counts.
+
+The means, variances, and covariances are
+\[
+  \mathbb{E}[X_i]=np_i,\qquad
+  \operatorname{Var}(X_i)=np_i(1-p_i),\qquad
+  \operatorname{Cov}(X_i,X_j)=-np_ip_j\quad(i\ne j).
+\]
+Each marginal $X_i$ has a $\operatorname{Binomial}(n,p_i)$ distribution. When $r=2$, the multinomial distribution reduces to the binomial distribution.
+
+\begin{claim_box}
+\textit{Proof:} For any fixed sequence of category outcomes with counts $x_1,\ldots,x_r$, independence gives probability $p_1^{x_1}\cdots p_r^{x_r}$. The number of sequences with those counts is the multinomial coefficient $n!/(x_1!\cdots x_r!)$, proving the joint PMF.
+
+For the moments, let $I_{t,i}$ indicate that trial $t$ results in category $i$. Then $X_i=\sum_{t=1}^n I_{t,i}$, where $\mathbb{E}[I_{t,i}]=p_i$ and $\operatorname{Var}(I_{t,i})=p_i(1-p_i)$. Indicators from different trials are independent, so summing gives the stated mean and variance. For $i\ne j$, the indicators $I_{t,i}$ and $I_{t,j}$ cannot both equal $1$, hence
+\[
+  \operatorname{Cov}(I_{t,i},I_{t,j})=0-p_ip_j=-p_ip_j.
+\]
+Pairs of indicators from different trials have covariance zero. Summing the covariances over trials therefore gives $\operatorname{Cov}(X_i,X_j)=-np_ip_j$. Finally, the indicators $I_{1,i},\ldots,I_{n,i}$ are independent Bernoulli$(p_i)$ variables, so their sum $X_i$ is binomial.
+\hfill$\square$
+\end{claim_box}
+
+\section{Conditional Probability}
+
+\subsection{Definition}
+
+If $A$ and $B$ are events with $\mathbb{P}(B)>0$, the \emph{conditional probability} of $A$ given $B$ is
+\[
+  \mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\]
+$\mathbb{P}(\cdot\mid B)$ is a probability measure on the events, with $\mathbb{P}(B\mid B)=1$.
+
+\begin{claim_box}
+\textit{Proof:} Define $Q(E)=\mathbb{P}(E\mid B)$. Then $Q(\Omega)=1$ and $Q(\emptyset)=0$. For pairwise disjoint events $E_1,E_2,\ldots$,
+\[
+  Q\!\left(\bigcup_{i=1}^{\infty}E_i\right)
+  =\frac{\mathbb{P}\bigl((\bigcup_i E_i)\cap B\bigr)}{\mathbb{P}(B)}
+  =\sum_{i=1}^{\infty}\frac{\mathbb{P}(E_i\cap B)}{\mathbb{P}(B)}
+  =\sum_{i=1}^{\infty}Q(E_i),
+\]
+so $Q$ is a probability measure; also $Q(B)=1$.
+\hfill$\square$
+\end{claim_box}
+
+\begin{example_box}
+Roll a fair six-sided die. Let $A$ be the event that the result is even, and let $B$ be the event that it is greater than $3$. Since $B=\{4,5,6\}$ and $A\cap B=\{4,6\}$,
+\[
+  \mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}
+  =\frac{2/6}{3/6}=\frac{2}{3}.
+\]
+\end{example_box}
+
+\subsection{Multiplication Rule and Independence}
+
+Rearranging the definition gives the \emph{multiplication rule}
+\[
+  \mathbb{P}(A\cap B)=\mathbb{P}(A\mid B)\mathbb{P}(B),
+\]
+when $\mathbb{P}(B)>0$. Repeated application gives the chain rule
+\[
+  \mathbb{P}\!\left(\bigcap_{i=1}^{n}A_i\right)
+  =\mathbb{P}(A_1)\prod_{j=2}^{n}
+    \mathbb{P}\!\left(A_j\,\middle|\,\bigcap_{i=1}^{j-1}A_i\right),
+\]
+provided the conditioning events in the product have positive probability.
+
+Events $A$ and $B$ are independent if $\mathbb{P}(A\cap B)=\mathbb{P}(A)\mathbb{P}(B)$. When $\mathbb{P}(B)>0$, this is equivalent to $\mathbb{P}(A\mid B)=\mathbb{P}(A)$: learning that $B$ occurred does not change the probability of $A$. In general, conditioning can change probabilities, and independence of two events does not imply their independence after conditioning on a third event.
+
+\begin{claim_box}
+\textit{Proof:} The multiplication rule is the definition of $\mathbb{P}(A\mid B)$ rearranged. Applying it successively to $A_1$, then $A_1\cap A_2$, and so on proves the chain rule. When $\mathbb{P}(B)>0$, dividing $\mathbb{P}(A\cap B)=\mathbb{P}(A)\mathbb{P}(B)$ by $\mathbb{P}(B)$ gives $\mathbb{P}(A\mid B)=\mathbb{P}(A)$, and multiplying this equality by $\mathbb{P}(B)$ proves the converse.
+\hfill$\square$
+\end{claim_box}
+\begin{example_box}
+Let $X$ and $Y$ be independent fair-coin indicators and let $C=\{X=Y\}$. Initially, the events $\{X=1\}$ and $\{Y=1\}$ are independent. But given $C$,
+\[
+  \mathbb{P}(X=1\mid C)=\mathbb{P}(Y=1\mid C)=\frac12,
+  \qquad \mathbb{P}(X=1,Y=1\mid C)=\frac12\ne\frac14.
+\]
+Thus they are not conditionally independent given $C$.
+\end{example_box}
+
+\subsection{Total Probability and Bayes' Rule}
+
+
+Suppose $B_1,\ldots,B_n$ are pairwise disjoint events whose union is $\Omega$, with $\mathbb{P}(B_i)>0$ for every $i$. They form a partition of the sample space. For any event $A$, the \emph{law of total probability} states that
+\[
+  \mathbb{P}(A)=\sum_{i=1}^{n}\mathbb{P}(A\mid B_i)\mathbb{P}(B_i).
+\]
+If $\mathbb{P}(A)>0$, then for each $j$, \emph{Bayes' rule} is
+\[
+  \mathbb{P}(B_j\mid A)
+  =\frac{\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}
+         {\displaystyle\sum_{i=1}^{n}\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}.
+\]
+
+\begin{claim_box}
+Because the $B_i$ partition $\Omega$, the events $A\cap B_i$ are disjoint and their union is $A$. Additivity and the multiplication rule therefore give
+\[
+  \mathbb{P}(A)=\sum_{i=1}^{n}\mathbb{P}(A\cap B_i)
+  =\sum_{i=1}^{n}\mathbb{P}(A\mid B_i)\mathbb{P}(B_i).
+\]
+Applying the definition of conditional probability to $\mathbb{P}(B_j\mid A)$ and substituting this expression for $\mathbb{P}(A)$ proves Bayes' rule.
+\end{claim_box}
+
+\subsection{Conditional Expectation and Variance}
+
+For an integrable random variable $X$ and an event $B$ with $\mathbb{P}(B)>0$, define the conditional expectation of $X$ given $B$ by
+\[
+  \mathbb{E}[X\mid B]=\frac{\mathbb{E}[X\mathbf{1}_B]}{\mathbb{P}(B)}.
+\]
+For discrete $X$, partitioning according to its values gives
+\[
+  \mathbb{E}[X\mid B]=\sum_x x\,\mathbb{P}(X=x\mid B)
+  =\frac{1}{\mathbb{P}(B)}\sum_x x\,\mathbb{P}(\{X=x\}\cap B).
+\]
+
+If $B_1,\ldots,B_n$ form a partition with positive probabilities, the conditional expectation given the partition is the random variable equal to $\mathbb{E}[X\mid B_i]$ on $B_i$. Averaging over the parts gives the law of total expectation:
+\[
+  \mathbb{E}[X]=\sum_{i=1}^{n}\mathbb{P}(B_i)\mathbb{E}[X\mid B_i].
+\]
+
+More generally, if $Y$ is discrete, define $\mathbb{E}[X\mid Y]$ to take the value $\mathbb{E}[X\mid Y=y]$ on each event $\{Y=y\}$ of positive probability; its value on zero-probability levels is immaterial. The law of total expectation, also called the \emph{tower property}, is
+\[
+  \mathbb{E}\bigl[\mathbb{E}[X\mid Y]\bigr]=\mathbb{E}[X].
+\]
+
+\begin{claim_box}
+\textit{Proof:} The events $\{Y=y\}$ over the values with positive probability form a countable partition of the sample space up to a null event. Thus
+\[
+\begin{aligned}
+  \mathbb{E}\bigl[\mathbb{E}[X\mid Y]\bigr]
+  &=\sum_y\mathbb{P}(Y=y)\mathbb{E}[X\mid Y=y]\\
+  &=\sum_y\mathbb{E}\bigl[X\mathbf{1}_{\{Y=y\}}\bigr]
+  =\mathbb{E}[X].
+\end{aligned}
+\]
+The sums are justified by integrability of $X$; in particular, the sum of the absolute values of the middle terms is at most $\mathbb{E}[|X|]$.
+\hfill$\square$
+\end{claim_box}
+
+For $X$ with finite second moment, the conditional variance given $B$ is
+\[
+  \operatorname{Var}(X\mid B)
+  =\mathbb{E}\!\left[(X-\mathbb{E}[X\mid B])^2\mid B\right]
+  =\mathbb{E}[X^2\mid B]-\mathbb{E}[X\mid B]^2.
+\]
+
+\begin{claim_box}
+\textit{Proof:} If $X$ is discrete, the events $\{X=x\}$ partition the sample space, so summing $x\mathbb{P}(\{X=x\}\cap B)/\mathbb{P}(B)$ gives the displayed conditional-expectation sum. Taking $X=\mathbf{1}_A$ gives $\mathbb{E}[\mathbf{1}_A\mid B]=\mathbb{P}(A\mid B)$.
+Because the $B_i$ partition $\Omega$, their indicators sum to $1$, and
+\[
+  \mathbb{E}[X]=\sum_i\mathbb{E}[X\mathbf{1}_{B_i}]
+  =\sum_i\mathbb{P}(B_i)\mathbb{E}[X\mid B_i],
+\]
+which proves the law of total expectation. Finally, writing $\mu=\mathbb{E}[X\mid B]$ and expanding,
+\[
+  \mathbb{E}[(X-\mu)^2\mid B]
+  =\mathbb{E}[X^2\mid B]-2\mu\mathbb{E}[X\mid B]+\mu^2
+  =\mathbb{E}[X^2\mid B]-\mathbb{E}[X\mid B]^2.
+\]
+\hfill$\square$
+\end{claim_box}
+
+\begin{problem_box}
+Given a partition, $\operatorname{Var}(X\mid\{B_i\})$ denotes the random variable equal to $\operatorname{Var}(X\mid B_i)$ on $B_i$. The law of total variance is
+\[
+  \operatorname{Var}(X)
+  =\mathbb{E}\bigl[\operatorname{Var}(X\mid\{B_i\})\bigr]
+   +\operatorname{Var}\bigl(\mathbb{E}[X\mid\{B_i\}]\bigr).
+\]
+It decomposes the total variation into average variation within the parts and variation between their conditional means.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Write $M=\mathbb{E}[X\mid\{B_i\}]$. On each part $B_i$, the conditional mean of $X-M$ is zero. Expanding
+\[
+  X-\mathbb{E}[X]=(X-M)+(M-\mathbb{E}[X])
+\]
+and squaring, the cross term has expectation zero: $M-\mathbb{E}[X]$ is constant on each $B_i$, while $X-M$ has conditional mean zero there. The two remaining squared terms have expectations $\mathbb{E}[\operatorname{Var}(X\mid\{B_i\})]$ and $\operatorname{Var}(M)$, respectively, proving the identity.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Conditional Covariance}
+
+Suppose $X$ and $Y$ have finite second moments and $Z$ is discrete. Their covariance is
+\[
+  \operatorname{Cov}(X,Y)=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y],
+\]
+and their conditional covariance given $Z$ is the random variable
+\[
+  \operatorname{Cov}(X,Y\mid Z)
+  =\mathbb{E}\!\left[(X-\mathbb{E}[X\mid Z])(Y-\mathbb{E}[Y\mid Z])\mid Z\right].
+\]
+\begin{problem_box}
+It satisfies
+\[
+  \operatorname{Cov}(X,Y\mid Z)
+  =\mathbb{E}[XY\mid Z]-\mathbb{E}[X\mid Z]\mathbb{E}[Y\mid Z],
+\]
+and the law of total covariance is
+\[
+  \operatorname{Cov}(X,Y)
+  =\mathbb{E}[\operatorname{Cov}(X,Y\mid Z)]
+   +\operatorname{Cov}(\mathbb{E}[X\mid Z],\mathbb{E}[Y\mid Z]).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:}
+Write $M=\mathbb{E}[X\mid Z]$ and $N=\mathbb{E}[Y\mid Z]$. Since $M$ and $N$ are constant on each event $\{Z=z\}$, expanding the product inside the conditional expectation gives
+\[
+\begin{aligned}
+  \operatorname{Cov}(X,Y\mid Z)
+  &=\mathbb{E}[XY\mid Z]-M\mathbb{E}[Y\mid Z]
+    -N\mathbb{E}[X\mid Z]+MN\\
+  &=\mathbb{E}[XY\mid Z]-MN,
+\end{aligned}
+\]
+which proves the first identity. Taking expectations and applying the tower property,
+\[
+  \mathbb{E}[\operatorname{Cov}(X,Y\mid Z)]
+  =\mathbb{E}[XY]-\mathbb{E}[MN].
+\]
+Also, again by the tower property,
+\[
+  \operatorname{Cov}(M,N)
+  =\mathbb{E}[MN]-\mathbb{E}[M]\mathbb{E}[N]
+  =\mathbb{E}[MN]-\mathbb{E}[X]\mathbb{E}[Y].
+\]
+Adding these equalities gives the law of total covariance.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Derangements}
+
+A \emph{derangement} is a permutation with no fixed points. For example, if $n$ objects are randomly assigned one each to $n$ labeled recipients, a derangement is an assignment in which nobody receives their own object.
+
+Let $D_n$ be the number of derangements of $n$ objects. For each object $i$, let $E_i$ be the event that it is assigned to its own recipient. The count and probability are
+\[
+  D_n=n!\sum_{j=0}^{n}\frac{(-1)^j}{j!},
+  \qquad
+  \mathbb{P}(\text{derangement})=\frac{D_n}{n!}
+  =\sum_{j=0}^{n}\frac{(-1)^j}{j!}.
+\]
+\begin{claim_box}
+\textit{Proof:} For any chosen set of $j$ objects, the number of permutations fixing every object in that set is $(n-j)!$. Inclusion-exclusion over the events $E_i$ therefore gives
+\[
+  D_n=\sum_{j=0}^{n}(-1)^j\binom{n}{j}(n-j)!
+  =n!\sum_{j=0}^{n}\frac{(-1)^j}{j!}.
+\]
+Dividing by the total number $n!$ of permutations gives the stated probability. The series $\sum_{j=0}^{\infty}(-1)^j/j!$ is the exponential series evaluated at $-1$, so the probabilities converge to $e^{-1}$. Since $1/j!$ decreases to zero, the alternating-series remainder also gives
+\[
+  \left|\mathbb{P}(\text{derangement})-e^{-1}\right|\leq\frac{1}{(n+1)!}.
+\]
+\hfill$\square$
+\end{claim_box}
+
+\section{Problems}
+
+\subsection{Matching Problem}
+
+Suppose $n$ people randomly choose from their $n$ hats, with each hat chosen exactly once, and let $X$ be the number of matches. Let $D_r$ denote the number of derangements of $r$ objects, with $D_0=1$.
+
+\begin{problem_box}
+For $m=0,1,\ldots,n$, the probability of exactly $m$ matches is
+\[
+  \mathbb{P}(X=m)
+  =\binom{n}{m}\frac{D_{n-m}}{n!}
+  =\frac{1}{m!}\sum_{j=0}^{n-m}\frac{(-1)^j}{j!}.
+\]
+Consequently,
+\[
+  \mathbb{P}(X\geq1)
+  =1-\sum_{j=0}^{n}\frac{(-1)^j}{j!}
+  =\sum_{j=1}^{n}(-1)^{j+1}\frac{1}{j!},
+  \qquad \mathbb{E}[X]=1.
+\]
+As $n\to\infty$, $\mathbb{P}(X\geq1)\to1-e^{-1}$.
+\end{problem_box}
+
+\begin{claim_box}
+To have exactly $m$ matches, first choose which $m$ people get their own hats. The remaining $n-m$ people must then be assigned the remaining hats with no matches, giving $\binom{n}{m}D_{n-m}$ assignments out of $n!$. Using $D_r=r!\sum_{j=0}^{r}(-1)^j/j!$ yields the formula for $\mathbb{P}(X=m)$.
+
+Taking the complement of $X=0$ gives the probability of at least one match, and the limit follows from the exponential series. For the expectation, write $X=\sum_{i=1}^{n}\mathbf{1}_{E_i}$, where $E_i$ is the event that person $i$ gets their own hat. Since $\mathbb{P}(E_i)=1/n$, linearity of expectation gives
+\[
+  \mathbb{E}[X]=\sum_{i=1}^{n}\mathbb{P}(E_i)=1.
+\]
+This does not require the match events to be independent.
+\end{claim_box}
+
+\begin{example_box}
+\textbf{Birthday problem.} Suppose $n$ people have birthdays chosen independently and uniformly from the $365$ days of a year, ignoring leap day. Here a match means that a pair of people share a birthday. For $n\leq365$, the probability of at least one matching pair is
+\[
+  \mathbb{P}(\text{at least one shared birthday})
+  =1-\frac{365\cdot364\cdots(365-n+1)}{365^n}
+  =1-\prod_{j=0}^{n-1}\left(1-\frac{j}{365}\right).
+\]
+The complement counts assignments in which all birthdays are different. For $n>365$, a shared birthday is certain. For example, with $n=23$, the probability is greater than $1/2$.
+\end{example_box}
+
+\subsection{Runs in a Binary String}
+
+Choose uniformly at random from the binary strings containing exactly $n$ ones and $m$ zeros, where $n+m\geq1$. A run is a maximal consecutive block of identical symbols. Let $R_1$ and $R_0$ denote the numbers of runs of ones and zeros, respectively.
+
+\begin{problem_box}
+The expected numbers of runs are
+\[
+  \mathbb{E}[R_1]=\frac{n(m+1)}{n+m},
+  \qquad
+  \mathbb{E}[R_0]=\frac{m(n+1)}{n+m}.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Proof:} Set $N=n+m$. For $N\geq2$, the number of 1-runs equals the indicator that the string starts with $1$, plus the number of adjacent occurrences of $01$. The first term has expectation $n/N$. At each of the $N-1$ adjacent positions, the probability of $01$ is
+\[
+  \frac{m}{N}\frac{n}{N-1}.
+\]
+By linearity of expectation,
+\[
+  \mathbb{E}[R_1]=\frac{n}{N}+(N-1)\frac{mn}{N(N-1)}
+  =\frac{n(m+1)}{N}.
+\]
+Similarly, the number of 0-runs is the indicator that the string starts with $0$, plus the number of adjacent occurrences of $10$. Thus
+\[
+  \mathbb{E}[R_0]=\frac{m}{N}+(N-1)\frac{nm}{N(N-1)}
+  =\frac{m(n+1)}{N}.
+\]
+So we get
+\[
+\mathbb{E}[R]=\mathbb{E}[R_1]+\mathbb{E}[R_0]=1+\frac{2mn}{m+n}
+\]
+For $N=1$, each formula follows by checking the single-symbol string directly.
+\hfill$\square$
+\end{claim_box}
+
+\subsection{Coupon Collector Problem}
+
+Suppose there are $k$ distinct coupon types, and each purchase yields one coupon chosen independently and uniformly from the $k$ types. Let $T$ be the number of purchases needed to collect every type.
+
+\begin{problem_box}
+The probability that all $k$ types have been collected after $n$ purchases is
+\[
+  \mathbb{P}(T\leq n)
+  =\sum_{j=0}^{k}(-1)^j\binom{k}{j}\left(\frac{k-j}{k}\right)^n.
+\]
+The expected number of purchases required is
+\[
+  \mathbb{E}[T]=kH_k
+  =k\left(1+\frac12+\cdots+\frac1k\right).
+\]
+\end{problem_box}
+
+\begin{claim_box}
+For the probability formula, let $E_i$ be the event that coupon type $i$ is missing after $n$ purchases. For any specified set of $j$ types, the probability that all of them are missing is $((k-j)/k)^n$. Inclusion-exclusion over the events $E_1,\ldots,E_k$ gives the probability that none is missing, which is the displayed sum.
+
+For the expectation, let $W_i$ be the number of additional purchases needed to obtain a new type when $i$ distinct types have already been collected, for $0\leq i<k$. Each purchase yields a new type with probability $(k-i)/k$, so $W_i$ is geometric with mean $k/(k-i)$. Since $T=\sum_{i=0}^{k-1}W_i$, linearity of expectation gives
+\[
+  \mathbb{E}[T]=\sum_{i=0}^{k-1}\frac{k}{k-i}=kH_k.
+\]
+\end{claim_box}
+
+For example, with $k=5$ types, the expected number of purchases is $5H_5=137/12\approx 11.42$. In general, $H_k\sim\log k+\gamma$, so the expected collection time grows on the order of $k\log k$.
+
+\begin{problem_box}
+Fix $\lambda>0$ and let $t_k=\floor{k\log(k/\lambda)}$, the integer number of purchases. If $T_k$ is the number of purchases needed to collect all $k$ types, then
+\[
+  \lim_{k\to\infty}\mathbb{P}(T_k\leq t_k)=e^{-\lambda}.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+Inclusion-exclusion gives
+\[
+  \mathbb{P}(T_k\leq t_k)
+  =\sum_{j=0}^{k}(-1)^j\binom{k}{j}\left(1-\frac{j}{k}\right)^{t_k}.
+\]
+For each fixed $j$, as $k\to\infty$,
+\[
+  \binom{k}{j}\left(1-\frac{j}{k}\right)^{t_k}
+  \sim \frac{k^j}{j!}e^{-j\log(k/\lambda)}
+  =\frac{\lambda^j}{j!}.
+\]
+To pass the limit through the sum, for all sufficiently large $k$ and $0\leq j\leq k$, use $1-j/k\leq e^{-j/k}$ and $t_k/k\geq\log(k/\lambda)-1/k$ to obtain
+\[
+  0\leq\binom{k}{j}\left(1-\frac{j}{k}\right)^{t_k}
+  \leq\frac{k^j}{j!}e^{-jt_k/k}
+  \leq e\frac{\lambda^j}{j!}.
+\]
+Extend the summands by zero for $j>k$. Since $e\lambda^j/j!$ is summable, dominated convergence gives the limit
+\[
+  \sum_{j=0}^{\infty}(-1)^j\frac{\lambda^j}{j!}=e^{-\lambda}.
+\]
+\end{claim_box}
+
+\subsection{Ballot Problem}
+
+Suppose candidate $A$ receives $a$ votes and candidate $B$ receives $b$ votes, where $a>b$, and all vote orderings with these totals are equally likely. The ballot problem asks for the probability that $A$ is strictly ahead of $B$ throughout the count—that is, after every initial segment of the votes.
+
+\begin{problem_box}
+The probability that $A$ is strictly ahead after every vote is
+\[
+  \mathbb{P}(A\text{ is always ahead})=\frac{a-b}{a+b}.
+\]
+Equivalently, of the $\binom{a+b}{b}$ possible vote orderings, exactly
+\[
+  \binom{a+b-1}{b}-\binom{a+b-1}{b-1}
+  =\frac{a-b}{a+b}\binom{a+b}{b}
+\]
+keep $A$ strictly ahead throughout.
+\end{problem_box}
+
+\begin{claim_box}
+Represent a vote for $A$ by a step up and a vote for $B$ by a step down. A valid ordering must begin with an $A$ vote. Among the orderings beginning with $A$, there are $\binom{a+b-1}{b}$ in total. Call one bad if the running lead returns to zero. For each bad ordering, interchange $A$ and $B$ in the votes up to and including the first time the lead returns to zero. This gives a bijection between bad orderings beginning with $A$ and all orderings beginning with $B$: every ordering beginning with $B$ must reach a tie at some point because $A$ wins overall, and the same interchange reverses the map.
+
+There are $\binom{a+b-1}{b-1}$ orderings beginning with $B$, so subtracting these bad orderings leaves
+\[
+  \binom{a+b-1}{b}-\binom{a+b-1}{b-1}
+  =\frac{a-b}{a+b}\binom{a+b}{b}
+\]
+valid orderings. Dividing by the total number $\binom{a+b}{b}$ proves the probability formula.
+\end{claim_box}
+
+For instance, if $A$ receives $5$ votes and $B$ receives $3$, then the probability that $A$ is ahead throughout the count is $(5-3)/(5+3)=1/4$.
+
+\subsection{Empty Urns}
+
+Fix $n\geq1$ urns and distribute $r$ balls independently and uniformly among them. Let $X_r$ be the number of empty urns after the $r$ balls have been placed, and define
+\[
+  p_r(m)=\mathbb{P}(X_r=m), \qquad 0\leq m\leq n.
+\]
+
+\begin{problem_box}
+Show that, for $r\geq0$,
+\[
+  p_{r+1}(m)
+  =p_r(m)\frac{n-m}{n}
+   +p_r(m+1)\frac{m+1}{n},
+\]
+where probabilities with indices outside $0,\ldots,n$ are taken to be zero. Solve this recurrence to obtain an explicit formula for $p_r(m)$. Then show that
+\[
+  \mathbb{E}[X_r]=n\left(1-\frac{1}{n}\right)^r.
+\]
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Solution:} After $r$ balls, the event that there are $m$ empty urns can lead to $m$ empty urns after the next ball if that ball lands in one of the $n-m$ occupied urns. Alternatively, there can be $m+1$ empty urns before the next ball, and the next ball lands in one of those $m+1$ empty urns. Conditioning on these disjoint possibilities proves
+\[
+  p_{r+1}(m)
+  =p_r(m)\frac{n-m}{n}+p_r(m+1)\frac{m+1}{n}.
+\]
+
+To solve the recurrence, choose the $m$ urns that remain empty, then assign the $r$ labeled balls onto the other $n-m$ urns. The number of onto assignments to those urns is $(n-m)!\stirlingII{r}{n-m}$, where $\stirlingII{r}{n-m}$ is a Stirling number of the second kind. Since there are $n^r$ equally likely assignments in total,
+\[
+  p_r(m)=\binom{n}{m}\frac{(n-m)!\stirlingII{r}{n-m}}{n^r},
+\]
+with the convention $\stirlingII{0}{0}=1$.
+
+To check directly that this solves the recurrence, let $Q_r(k)=p_r(n-k)$ be the probability that exactly $k$ urns are occupied. Then
+\[
+  Q_{r+1}(k)=\frac{k}{n}Q_r(k)+\frac{n-k+1}{n}Q_r(k-1),
+  \qquad Q_0(k)=\mathbf{1}_{\{k=0\}},
+\]
+with $Q_r(-1)=0$. The proposed formula becomes
+\[
+  Q_r(k)=\frac{n!}{(n-k)!}\frac{\stirlingII{r}{k}}{n^r}.
+\]
+Using the Stirling-number recurrence
+\[
+  \stirlingII{r+1}{k}=k\stirlingII{r}{k}+\stirlingII{r}{k-1}
+\]
+shows that this expression satisfies the recurrence and its initial condition. Since the recurrence determines each successive distribution uniquely, it is the desired solution.
+
+For the expectation, let $I_i$ be the indicator that urn $i$ is empty. Each of the $r$ balls avoids urn $i$ with probability $1-1/n$, independently, so $\mathbb{E}[I_i]=(1-1/n)^r$. Since $X_r=\sum_{i=1}^n I_i$, linearity of expectation gives
+\[
+  \mathbb{E}[X_r]=\sum_{i=1}^n\mathbb{E}[I_i]
+  =n\left(1-\frac{1}{n}\right)^r.
+\]
+\hfill$\square$
+\end{claim_box}
+
+\subsection{P\'olya's Urn Scheme}
+
+Start with $a\geq1$ red balls and $b\geq1$ blue balls. At each step, draw one ball uniformly at random, return it to the urn, and add one new ball of the same color. After $r$ draws, let $K_r$ be the number of red draws. For $j\geq1$, write
+\[
+  x^{\overline{j}}=x(x+1)\cdots(x+j-1),
+  \qquad x^{\overline{0}}=1.
+\]
+
+\begin{problem_box}
+Show that the draw sequence is exchangeable and that
+\[
+  \mathbb{P}(K_r=k)
+  =\binom{r}{k}
+    \frac{a^{\overline{k}}b^{\overline{r-k}}}
+         {(a+b)^{\overline{r}}},
+  \qquad k=0,1,\ldots,r.
+\]
+Deduce that $\mathbb{E}[K_r]=ra/(a+b)$.
+\end{problem_box}
+
+\begin{claim_box}
+\textit{Solution:} For any specified sequence of $r$ colors containing $k$ red draws and $r-k$ blue draws, the successive red-draw numerators multiply to $a^{\overline{k}}$, and the blue-draw numerators multiply to $b^{\overline{r-k}}$. At draw $j$, the total number of balls is $a+b+j-1$, so the denominators multiply to $(a+b)^{\overline{r}}$. Thus every such sequence has probability
+\[
+  \frac{a^{\overline{k}}b^{\overline{r-k}}}
+       {(a+b)^{\overline{r}}},
+\]
+which depends only on its number of red draws, not their order. Hence the sequence is exchangeable. There are $\binom{r}{k}$ sequences with exactly $k$ red draws, giving the stated distribution.
+
+By exchangeability, each draw has the same probability of being red as the first draw, namely $a/(a+b)$. Writing $K_r$ as the sum of the indicators of red draws and using linearity of expectation yields
+\[
+  \mathbb{E}[K_r]=r\frac{a}{a+b}.
+\]
+\hfill$\square$
+\end{claim_box}
+
+\end{document}
